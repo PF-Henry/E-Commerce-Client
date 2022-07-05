@@ -1,6 +1,8 @@
 //*** DEFINICIÓN DE CONSTANTES ***//
 export const GET_ALL_PRODUCTS = 'GET_ALL_PRODUCTS';
 
+//*** DEFINICIÓN DE LA RUTA DE CONEXION API ***//
+const API_URL = process.env.REACT_APP_API_URL;
 
 //*** DEFINICIÓN DE FUNCIONES ***//
 export const getAllProducts = () => {
