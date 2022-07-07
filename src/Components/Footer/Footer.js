@@ -1,5 +1,5 @@
 import React from "react";
-import Newsletter from "../Newsletter/Newsletter";
+import { Newsletter } from "../Newsletter/Newsletter";
 
 export const Footer = () => {
   return (

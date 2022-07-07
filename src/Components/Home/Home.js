@@ -4,7 +4,7 @@ import Filteredbar from "../Filteredbar/Filteredbar";
 import Offers from "../Offers/Offers";
 import Header from "../Header/Header";
 import Brands from "../Brands/Brands";
-import Footer from "../Footer/Footer";
+import { Footer } from "../Footer/Footer";
 
 const Home = () => {
   return (
