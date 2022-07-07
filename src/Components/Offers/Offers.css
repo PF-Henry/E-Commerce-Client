@@ -7,3 +7,7 @@
 .offersBtn:hover {
   background-color: white;
 }
+
+.sectionTitle {
+  font-size: 4rem;
+}
