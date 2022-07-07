@@ -1,0 +1,9 @@
+.offersBtn {
+  background-color: #3ad8c1;
+  color: #1c004a;
+  width: 203px;
+}
+
+.offersBtn:hover {
+  background-color: white;
+}
