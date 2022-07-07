@@ -1,13 +1,13 @@
 import React from "react";
 import Card from "../Card/Card";
 
-const Cards = () => {
+const Offers = () => {
   return (
     <div>
-      Cards
+      Offers
       <Card />
     </div>
   );
 };
 
-export default Cards;
+export default Offers;

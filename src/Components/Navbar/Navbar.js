@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Searchbar from "../Searchbar/Searchbar";
 
 const Navbar = () => {
   return (
-    <div>Navbar</div>
-  )
-}
+    <div>
+      Navbar
+      <Searchbar />
+    </div>
+  );
+};
 
-export default Navbar
+export default Navbar;

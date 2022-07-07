@@ -1,7 +1,13 @@
-import React from 'react';
+import React from "react";
+import { Sliderbrands } from "../Sliderbrands/Sliderbrands";
 
-export const Brands = () => {
+const Brands = () => {
   return (
-    <div>Brands</div>
-  )
-}
+    <div>
+      Brands
+      <Sliderbrands />
+    </div>
+  );
+};
+
+export default Brands;
