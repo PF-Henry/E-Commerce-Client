@@ -1,0 +1,16 @@
+.navbar_container {
+    width: 100%;
+    padding: 10px 0;
+    background-color: #1c004ae6;
+    position: fixed;
+    z-index: 2000;
+    color: #FFF;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.navbar_container-a-white {
+    color: #FFF;
+}
+
