@@ -5,7 +5,16 @@ const Cards = () => {
   return (
     <div>
       Cards
-      <Card />
+      <div className="d-flex justify-content-center gap-4 flex-wrap">
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </div>
     </div>
   );
 };
