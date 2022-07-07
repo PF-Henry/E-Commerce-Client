@@ -1,7 +1,11 @@
-import React from 'react';
+import React from "react";
+import Card from "../Card/Card";
 
 export const Oferts = () => {
   return (
-    <div>Oferts</div>
-  )
-}
+    <div>
+      Oferts
+      <Card />
+    </div>
+  );
+};

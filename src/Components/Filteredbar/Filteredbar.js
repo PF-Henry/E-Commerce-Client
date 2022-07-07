@@ -1,9 +1,13 @@
-import React from 'react'
+import React from "react";
+import Pagination from "../Pagination/Pagination";
 
 const Filteredbar = () => {
   return (
-    <div>Filteredbar</div>
-  )
-}
+    <div>
+      Filteredbar
+      <Pagination />
+    </div>
+  );
+};
 
-export default Filteredbar
+export default Filteredbar;
