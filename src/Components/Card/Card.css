@@ -28,3 +28,7 @@
 .bg-purple-dark {
   background-color: #1c004a;
 }
+
+.letter-spacing {
+  letter-spacing: 0.1rem;
+}

@@ -10,13 +10,13 @@ const Card = () => {
         alt="item"
       />
       <div className="card-body">
-        <h5 className="card-title text-blue mb-3">Card title</h5>
-        <p className="card-text">
+        <h5 className="card-title text-blue mb-3 letter-spacing">Card title</h5>
+        <p className="card-text letter-spacing fw-light">
           Some quick example text to build on the card title and make up the
           bulk of the card's content.
         </p>
-        <h1 className="text-blue mb-3">$500</h1>
-        <div className="btn text-white bg-purple-dark px-5 py-1 addToCartBtn border-0">
+        <h1 className="text-blue mb-3 letter-spacing">$500</h1>
+        <div className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing">
           Add to the cart
         </div>
       </div>
