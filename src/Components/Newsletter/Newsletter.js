@@ -10,7 +10,7 @@ export const Newsletter = () => {
         <p>Subscribe to our newsletter!</p>
         <form>
           <input
-          className='input'
+          className='subs-input'
           type='email'
           placeholder='Your mail...'
           />
