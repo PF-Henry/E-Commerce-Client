@@ -14,10 +14,10 @@ export const Slider = () => {
             <img className="d-block w-100" src="./images/SliderBG.png" alt="First slide" />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./images/SliderBG.png" alt="Second slide" />
+            <img className="d-block w-100" src="./images/SliderBG2.png" alt="Second slide" />
           </div>
           <div className="carousel-item">
-            <img className="d-block w-100" src="./images/SliderBG.png" alt="Third slide" />
+            <img className="d-block w-100" src="./images/SliderBG3.png" alt="Third slide" />
           </div>
         </div>
         <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
