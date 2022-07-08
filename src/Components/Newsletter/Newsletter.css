@@ -1,3 +1,33 @@
-p {
-    color: white;
+.subscription {
+    text-transform: uppercase;
+    text-align: justify;
+    padding: 5% 0 0 20%;
+}
+
+.subs-button {
+    background-color: #3AD8C1;
+    border: none;
+    border-radius: 5px;
+    margin-left: 10px;
+    font-size: 14px;
+    height: 25px;
+    width: 100px;
+    color: #1C004A;
+}
+
+.subs-button:hover {
+    opacity:0.8;
+}
+
+.subs-input {
+    border-radius: 5px;
+    border: none;
+    font-size: 15px;
+    background-color: #D9D9D9;
+    width: 285px;
+    height: 25px;
+}
+
+.subs-input::placeholder {
+    font-size: 14px;
 }
