@@ -1,16 +1,38 @@
 .navbar_container {
     width: 100%;
     padding: 10px 0;
-    background-color: #1c004ae6;
+    background-color: rgba(28, 0, 74, 0.9);
     position: fixed;
     z-index: 2000;
     color: #FFF;
+}
+
+
+.divColor {
+    width: 1200px;
+}
+
+.display_around {
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
 }
 
-.navbar_container-a-white {
+.logoDiv {
+    width: 400px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.logoDiv a {
+    margin: 0;
+    font-size: 25px;
     color: #FFF;
 }
 
+
+.navbar-nav {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
