@@ -1,5 +1,6 @@
 import React from "react";
 import Pagination from "../Pagination/Pagination";
+import { IoOptionsOutline } from "react-icons/io5";
 
 const Filteredbar = () => {
   return (
@@ -7,12 +8,13 @@ const Filteredbar = () => {
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
         <div className="d-flex gap-2">
           <div
-            className="btn px-3 bg-purple-dark text-white d-flex align-items-center"
+            className="btn px-3 bg-purple-dark text-white d-flex align-items-center gap-1"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasExample"
             aria-controls="offcanvasExample"
           >
+            <IoOptionsOutline fontSize={"1.5rem"} />
             Filter
           </div>
 
