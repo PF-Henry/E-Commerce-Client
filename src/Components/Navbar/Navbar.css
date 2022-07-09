@@ -1,38 +1,34 @@
 .navbar_container {
-    width: 100%;
-    padding: 10px 0;
-    background-color: rgba(28, 0, 74, 0.9);
-    position: fixed;
-    z-index: 2000;
-    color: #FFF;
+  width: 100%;
+  padding: 10px 0;
+  background-color: rgba(28, 0, 74, 0.9);
+  color: #fff;
 }
 
-
 .divColor {
-    width: 1200px;
+  width: 1200px;
 }
 
 .display_around {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .logoDiv {
-    width: 400px;
-    text-align: left;
-    display: flex;
-    align-items: center;
+  width: 400px;
+  text-align: left;
+  display: flex;
+  align-items: center;
 }
 
 .logoDiv a {
-    margin: 0;
-    font-size: 25px;
-    color: #FFF;
+  margin: 0;
+  font-size: 25px;
+  color: #fff;
 }
 
-
 .navbar-nav {
-    width: 250px;
-    display: flex;
-    justify-content: space-between;
+  width: 250px;
+  display: flex;
+  justify-content: space-between;
 }

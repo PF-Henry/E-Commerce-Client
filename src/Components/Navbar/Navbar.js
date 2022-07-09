@@ -5,7 +5,7 @@ import './Navbar.css';
 const Navbar = () => {
   return (
     <div >
-      <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center">
+      <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top">
         <div className="d-flex justify-content-center divColor">
           <div className="logoDiv">
             <a className="navbar-brand" href="#">NaMe</a>
@@ -32,12 +32,12 @@ const Navbar = () => {
                   <div className="dropdown-divider"></div>
                   <a className="dropdown-item" href="#">Something else here</a>
                 </div>
-              </li> 
+              </li>
               <li className="nav-item">
                 <a className="nav-link disabled" href="#">Disabled</a>
               </li>
             </ul> */}
-      
+
             <Searchbar />
 
             <ul className="navbar-nav">
