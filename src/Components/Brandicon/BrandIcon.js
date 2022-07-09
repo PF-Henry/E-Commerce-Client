@@ -16,7 +16,7 @@ import {
   SiDell,
 } from "react-icons/si";
 
-const brandIcon = (brandName) => {
+const BrandIcon = (brandName) => {
   switch (brandName) {
     case "Apple":
       return <SiApple />;
@@ -51,4 +51,4 @@ const brandIcon = (brandName) => {
   }
 };
 
-export default brandIcon;
+export default BrandIcon;
