@@ -1,9 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Pagination from "../Pagination/Pagination";
 import { IoOptions } from "react-icons/io5";
+import { useSelector, useDispatch } from "react-redux";
+import { getBrandsAsync, getCategoriesAsync } from "../../Redux/productSlice";
 import "./Filteredbar.css";
 
 const Filteredbar = () => {
+  let allBrands = useSelector((state) => state.products.brandsLoaded);
+  let allCategories = useSelector((state) => state.products.categoriesLoaded);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!allBrands.length) {
+      dispatch(getBrandsAsync());
+    }
+  }, [allBrands, dispatch]);
+
+  useEffect(() => {
+    if (!allCategories.length) {
+      dispatch(getCategoriesAsync());
+    }
+  }, [allCategories, dispatch]);
+
   return (
     <div>
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
@@ -57,7 +75,7 @@ const Filteredbar = () => {
 
       {/* Side menu */}
       <div
-        className="offcanvas offcanvas-start"
+        className="offcanvas offcanvas-start overflow-auto"
         tabIndex="-1"
         id="offcanvasExample"
         aria-labelledby="offcanvasExampleLabel"
@@ -82,53 +100,43 @@ const Filteredbar = () => {
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Categories
           </h5>
-          <div className="form-check text-start letter-spacing">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="category1"
-              id="category1"
-            />
-            <label className="form-check-label" htmlFor="category1">
-              Category 1
-            </label>
-          </div>
-          <div className="form-check text-start letter-spacing">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="category2"
-              id="category2 "
-            />
-            <label className="form-check-label" htmlFor="category2  ">
-              Category 2
-            </label>
-          </div>
+          {allCategories.map((category) => (
+            <div
+              className="form-check text-start letter-spacing"
+              key={category.id}
+            >
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value={category.name}
+                id={category.id}
+              />
+              <label className="form-check-label" htmlFor={category.id}>
+                {category.name}
+              </label>
+            </div>
+          ))}
+
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Brands
           </h5>
-          <div className="form-check text-start letter-spacing">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="brand1"
-              id="brand1"
-            />
-            <label className="form-check-label" htmlFor="brand1">
-              Brand 1
-            </label>
-          </div>
-          <div className="form-check text-start letter-spacing">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value="brand2"
-              id="brand2"
-            />
-            <label className="form-check-label" htmlFor="brand2">
-              Brand 2
-            </label>
-          </div>
+          {allBrands.map((brand) => (
+            <div
+              className="form-check text-start letter-spacing"
+              key={brand.id}
+            >
+              <input
+                className="form-check-input"
+                type="checkbox"
+                value={brand.name}
+                id={brand.id}
+              />
+              <label className="form-check-label" htmlFor={brand.id}>
+                {brand.name}
+              </label>
+            </div>
+          ))}
+
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Availability
           </h5>
