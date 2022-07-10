@@ -14,8 +14,12 @@ import {
 import "./Filteredbar.css";
 import { SORTING_ARRAY } from "../../Constants/sorting";
 
-
-const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
+const Filteredbar = ({
+  itemsPerPage,
+  setCurrentPage,
+  currentPage,
+  productsArray,
+}) => {
   const allBrands = useSelector((state) => state.products.brandsLoaded);
   const allCategories = useSelector((state) => state.products.categoriesLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
@@ -36,12 +40,9 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
   }, [allCategories, dispatch]);
 
   const itemsPerPageSelected = (e) => {
-    let numberItems =  parseInt( e.target.value );
-    dispatch(switchItemsPerPage(numberItems))
-  }
-
- 
-
+    let numberItems = parseInt(e.target.value);
+    dispatch(switchItemsPerPage(numberItems));
+  };
 
   return (
     <div className="filterBG ">
@@ -65,12 +66,11 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
               id="resultsPerPage"
               aria-label="Floating label select example"
               defaultValue={1}
-              onChange={e => itemsPerPageSelected(e)}
+              onChange={(e) => itemsPerPageSelected(e)}
             >
               <option value="8">8</option>
               <option value="12">12</option>
               <option value="16">16</option>
-
             </select>
             <label htmlFor="resultsPerPage" className="text-white">
               Results per page
@@ -97,7 +97,13 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
             </label>
           </div>
         </div>
-        <Pagination  itemsPerPageSelected={itemsPerPageSelected}  itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}  />
+        <Pagination
+          itemsPerPageSelected={itemsPerPageSelected}
+          itemsPerPage={itemsPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          productsArray={productsArray}
+        />
       </div>
 
       {/* Side Menu */}
