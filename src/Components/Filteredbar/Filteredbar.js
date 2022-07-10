@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import { IoOptions } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
@@ -6,6 +6,7 @@ import {
   getBrandsAsync,
   getCategoriesAsync,
   changeSorting,
+  changeFilter,
 } from "../../Redux/productSlice";
 import "./Filteredbar.css";
 import { SORTING_ARRAY } from "../../Constants/sorting";
@@ -14,6 +15,7 @@ const Filteredbar = () => {
   const allBrands = useSelector((state) => state.products.brandsLoaded);
   const allCategories = useSelector((state) => state.products.categoriesLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
+  const [filters, setFilters] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -120,6 +122,13 @@ const Filteredbar = () => {
                 type="checkbox"
                 value={category.name}
                 id={category.id}
+                onChange={(e) =>
+                  filters.includes(e.target.value)
+                    ? setFilters((filters) =>
+                        filters.filter((option) => option !== e.target.value)
+                      )
+                    : setFilters([...filters, e.target.value])
+                }
               />
               <label className="form-check-label" htmlFor={category.id}>
                 {category.name}
@@ -140,6 +149,13 @@ const Filteredbar = () => {
                 type="checkbox"
                 value={brand.name}
                 id={brand.id}
+                // onChange={(e) =>
+                //   filters.includes(e.target.value)
+                //     ? setFilters((filters) =>
+                //         filters.filter((option) => option !== e.target.value)
+                //       )
+                //     : setFilters([...filters, e.target.value])
+                // }
               />
               <label className="form-check-label" htmlFor={brand.id}>
                 {brand.name}
@@ -156,10 +172,38 @@ const Filteredbar = () => {
               type="checkbox"
               value="availability"
               id="availability"
+              // onChange={(e) =>
+              //   filters.includes(e.target.value)
+              //     ? setFilters((filters) =>
+              //         filters.filter((option) => option !== e.target.value)
+              //       )
+              //     : setFilters([...filters, e.target.value])
+              // }
             />
             <label className="form-check-label" htmlFor="availability">
               Include Out of Stock
             </label>
+          </div>
+        </div>
+        <div className="d-flex gap-2 justify-content-center my-3">
+          <div
+            className="btn bg-purple-dark text-white filterBtn border-0 py-1"
+            onClick={() => dispatch(changeFilter(filters))}
+          >
+            Apply filter
+          </div>
+          <div
+            className="btn bg-purple-dark text-white filterBtn border-0 py-1"
+            onClick={() => {
+              var checkboxes = document.getElementsByTagName("input");
+              for (var checkbox of checkboxes) {
+                checkbox.checked = false;
+              }
+              setFilters([]);
+              dispatch(changeFilter(filters));
+            }}
+          >
+            Remove filter
           </div>
         </div>
       </div>
