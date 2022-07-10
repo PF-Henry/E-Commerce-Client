@@ -2,12 +2,18 @@ import React, { useEffect } from "react";
 import Pagination from "../Pagination/Pagination";
 import { IoOptions } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { getBrandsAsync, getCategoriesAsync } from "../../Redux/productSlice";
+import {
+  getBrandsAsync,
+  getCategoriesAsync,
+  changeSorting,
+} from "../../Redux/productSlice";
 import "./Filteredbar.css";
+import { SORTING_ARRAY } from "../../Constants/sorting";
 
 const Filteredbar = () => {
-  let allBrands = useSelector((state) => state.products.brandsLoaded);
-  let allCategories = useSelector((state) => state.products.categoriesLoaded);
+  const allBrands = useSelector((state) => state.products.brandsLoaded);
+  const allCategories = useSelector((state) => state.products.categoriesLoaded);
+  const sortingMethod = useSelector((state) => state.products.sorting);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -37,6 +43,7 @@ const Filteredbar = () => {
             Filter
           </div>
 
+          {/* Results per Page */}
           <div className="form-floating" style={{ width: "150px" }}>
             <select
               className="form-select bg-purple-dark text-white"
@@ -53,17 +60,20 @@ const Filteredbar = () => {
             </label>
           </div>
 
+          {/* Sorting */}
           <div className="form-floating" style={{ width: "200px" }}>
             <select
               className="form-select bg-purple-dark text-white"
               id="sortBy"
               aria-label="Floating label select example"
-              defaultValue={1}
+              onChange={(e) => dispatch(changeSorting(e.target.value))}
+              value={sortingMethod}
             >
-              <option value="1">Newest Arrivals</option>
-              <option value="2">Price (Low to High)</option>
-              <option value="3">Price (High to Low)</option>
-              <option value="4">Avg. Customer Review</option>
+              {SORTING_ARRAY.map((element, index) => (
+                <option value={element} key={index}>
+                  {element}
+                </option>
+              ))}
             </select>
             <label htmlFor="sortBy" className="text-white">
               Sort by
@@ -73,7 +83,7 @@ const Filteredbar = () => {
         <Pagination />
       </div>
 
-      {/* Side menu */}
+      {/* Side Menu */}
       <div
         className="offcanvas offcanvas-start overflow-auto"
         tabIndex="-1"
