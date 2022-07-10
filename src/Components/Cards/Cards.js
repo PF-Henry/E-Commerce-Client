@@ -12,7 +12,7 @@ const Cards = () => {
       dispatch(getProductsAsync());
     }
   }, [allProducts, dispatch]);
-  console.log(allProducts);
+  // console.log(allProducts);
 
   return (
     <div className="d-flex justify-content-center gap-4 flex-wrap mt-5">
