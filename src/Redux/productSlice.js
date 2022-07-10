@@ -20,7 +20,7 @@ export const productSlice = createSlice({
       image: [],
     },
     brandsLoaded: [],
-    itemsPerPageState: 8
+    itemsPerPageState: 8,
     categoriesLoaded: [],
     sorting: NEWEST,
     filter: [],
@@ -32,6 +32,7 @@ export const productSlice = createSlice({
   reducers: {
     getProducts: (state, action) => {
       state.productsLoaded = action.payload;
+      state.filteredProducts = action.payload;
     },
     getDetail: (state, action) => {
       state.productDetail = action.payload;
@@ -42,7 +43,6 @@ export const productSlice = createSlice({
     getCategories: (state, action) => {
       state.categoriesLoaded = action.payload;
     },
-
     changeSorting: (state, action) => {
       state.sorting = action.payload;
     },
@@ -119,9 +119,10 @@ export const getImagesAsync = () => (dispatch) => {
 
 export const switchItemsPerPageAsync = (e) => () => {
   let itemsPerPage = e;
-  switchItemsPerPage(itemsPerPage)
-  console.log('items per page: ' + itemsPerPage);
-  
+  switchItemsPerPage(itemsPerPage);
+  console.log("items per page: " + itemsPerPage);
+};
+
 export const createProductAsync = (newProduct) => (dispatch) => {
   axios
     .post(`${apiUrl}products/`, newProduct)
