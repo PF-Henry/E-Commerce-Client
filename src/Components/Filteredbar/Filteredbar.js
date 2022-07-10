@@ -7,6 +7,7 @@ import {
   getCategoriesAsync,
   changeSorting,
   changeFilter,
+  changeBrandsFilter,
 } from "../../Redux/productSlice";
 import "./Filteredbar.css";
 import { SORTING_ARRAY } from "../../Constants/sorting";
@@ -16,6 +17,7 @@ const Filteredbar = () => {
   const allCategories = useSelector((state) => state.products.categoriesLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
   const [filters, setFilters] = useState([]);
+  const [brandsFilter, setBrandsFilter] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -149,13 +151,15 @@ const Filteredbar = () => {
                 type="checkbox"
                 value={brand.name}
                 id={brand.id}
-                // onChange={(e) =>
-                //   filters.includes(e.target.value)
-                //     ? setFilters((filters) =>
-                //         filters.filter((option) => option !== e.target.value)
-                //       )
-                //     : setFilters([...filters, e.target.value])
-                // }
+                onChange={(e) =>
+                  brandsFilter.includes(e.target.value)
+                    ? setBrandsFilter((brandsFilter) =>
+                        brandsFilter.filter(
+                          (option) => option !== e.target.value
+                        )
+                      )
+                    : setBrandsFilter([...brandsFilter, e.target.value])
+                }
               />
               <label className="form-check-label" htmlFor={brand.id}>
                 {brand.name}
@@ -188,7 +192,10 @@ const Filteredbar = () => {
         <div className="d-flex gap-2 justify-content-center my-3">
           <div
             className="btn bg-purple-dark text-white filterBtn border-0 py-1"
-            onClick={() => dispatch(changeFilter(filters))}
+            onClick={() => {
+              dispatch(changeFilter(filters));
+              dispatch(changeBrandsFilter(brandsFilter));
+            }}
           >
             Apply filter
           </div>
@@ -201,6 +208,8 @@ const Filteredbar = () => {
               }
               setFilters([]);
               dispatch(changeFilter(filters));
+              setBrandsFilter([]);
+              dispatch(changeBrandsFilter(brandsFilter));
             }}
           >
             Remove filter

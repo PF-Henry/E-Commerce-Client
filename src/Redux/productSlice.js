@@ -11,6 +11,7 @@ export const productSlice = createSlice({
     categoriesLoaded: [],
     sorting: NEWEST,
     filter: [],
+    brandsFilter: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -31,6 +32,9 @@ export const productSlice = createSlice({
     changeFilter: (state, action) => {
       state.filter = action.payload;
     },
+    changeBrandsFilter: (state, action) => {
+      state.brandsFilter = action.payload;
+    },
   },
 });
 
@@ -41,6 +45,7 @@ export const {
   getCategories,
   changeSorting,
   changeFilter,
+  changeBrandsFilter,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
