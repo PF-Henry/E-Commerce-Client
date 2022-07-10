@@ -82,64 +82,64 @@ const Filteredbar = () => {
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Categories
           </h5>
-          <div class="form-check text-start letter-spacing">
+          <div className="form-check text-start letter-spacing">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value="category1"
               id="category1"
             />
-            <label class="form-check-label" htmlFor="category1">
+            <label className="form-check-label" htmlFor="category1">
               Category 1
             </label>
           </div>
-          <div class="form-check text-start letter-spacing">
+          <div className="form-check text-start letter-spacing">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value="category2"
               id="category2 "
             />
-            <label class="form-check-label" htmlFor="category2  ">
+            <label className="form-check-label" htmlFor="category2  ">
               Category 2
             </label>
           </div>
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Brands
           </h5>
-          <div class="form-check text-start letter-spacing">
+          <div className="form-check text-start letter-spacing">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value="brand1"
               id="brand1"
             />
-            <label class="form-check-label" htmlFor="brand1">
+            <label className="form-check-label" htmlFor="brand1">
               Brand 1
             </label>
           </div>
-          <div class="form-check text-start letter-spacing">
+          <div className="form-check text-start letter-spacing">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value="brand2"
               id="brand2"
             />
-            <label class="form-check-label" htmlFor="brand2">
+            <label className="form-check-label" htmlFor="brand2">
               Brand 2
             </label>
           </div>
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Availability
           </h5>
-          <div class="form-check text-start letter-spacing">
+          <div className="form-check text-start letter-spacing">
             <input
-              class="form-check-input"
+              className="form-check-input"
               type="checkbox"
               value="availability"
               id="availability"
             />
-            <label class="form-check-label" htmlFor="availability">
+            <label className="form-check-label" htmlFor="availability">
               Include Out of Stock
             </label>
           </div>
