@@ -1,6 +1,7 @@
 import React from "react";
 import Searchbar from "../Searchbar/Searchbar";
 import { SiHexo } from "react-icons/si";
+import { Link } from "react-router-dom";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -58,7 +59,9 @@ const Navbar = () => {
 
             <ul className="navbar-nav">
               <li className="nav-item active">ABOUT US</li>
-              <li>MY ACCOUNT</li>
+              <li>
+                <Link to="/CreateProduct">MY ACCOUNT</Link>
+              </li>
             </ul>
           </div>
         </div>

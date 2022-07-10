@@ -1,16 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import { IoOptions } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { getBrandsAsync, getCategoriesAsync, switchItemsPerPage } from "../../Redux/productSlice";
+
+import {
+  getBrandsAsync,
+  getCategoriesAsync,
+  changeSorting,
+  changeFilter,
+  switchItemsPerPage,
+  changeBrandsFilter,
+} from "../../Redux/productSlice";
 import "./Filteredbar.css";
+import { SORTING_ARRAY } from "../../Constants/sorting";
+
 
 const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
-  let allBrands = useSelector((state) => state.products.brandsLoaded);
-  let allCategories = useSelector((state) => state.products.categoriesLoaded);
-  // let allProducts = useSelector((state) => state.products.productsLoaded);
-
-
+  const allBrands = useSelector((state) => state.products.brandsLoaded);
+  const allCategories = useSelector((state) => state.products.categoriesLoaded);
+  const sortingMethod = useSelector((state) => state.products.sorting);
+  const [filters, setFilters] = useState([]);
+  const [brandsFilter, setBrandsFilter] = useState([]);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,6 +58,7 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
             Filter
           </div>
 
+          {/* Results per Page */}
           <div className="form-floating" style={{ width: "150px" }}>
             <select
               className="form-select bg-purple-dark text-white"
@@ -66,17 +77,20 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
             </label>
           </div>
 
+          {/* Sorting */}
           <div className="form-floating" style={{ width: "200px" }}>
             <select
               className="form-select bg-purple-dark text-white"
               id="sortBy"
               aria-label="Floating label select example"
-              defaultValue={1}
+              onChange={(e) => dispatch(changeSorting(e.target.value))}
+              value={sortingMethod}
             >
-              <option value="1">Newest Arrivals</option>
-              <option value="2">Price (Low to High)</option>
-              <option value="3">Price (High to Low)</option>
-              <option value="4">Avg. Customer Review</option>
+              {SORTING_ARRAY.map((element, index) => (
+                <option value={element} key={index}>
+                  {element}
+                </option>
+              ))}
             </select>
             <label htmlFor="sortBy" className="text-white">
               Sort by
@@ -86,7 +100,7 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
         <Pagination  itemsPerPageSelected={itemsPerPageSelected}  itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}  />
       </div>
 
-      {/* Side menu */}
+      {/* Side Menu */}
       <div
         className="offcanvas offcanvas-start overflow-auto"
         tabIndex="-1"
@@ -123,6 +137,13 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
                 type="checkbox"
                 value={category.name}
                 id={category.id}
+                onChange={(e) =>
+                  filters.includes(e.target.value)
+                    ? setFilters((filters) =>
+                        filters.filter((option) => option !== e.target.value)
+                      )
+                    : setFilters([...filters, e.target.value])
+                }
               />
               <label className="form-check-label" htmlFor={category.id}>
                 {category.name}
@@ -143,6 +164,15 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
                 type="checkbox"
                 value={brand.name}
                 id={brand.id}
+                onChange={(e) =>
+                  brandsFilter.includes(e.target.value)
+                    ? setBrandsFilter((brandsFilter) =>
+                        brandsFilter.filter(
+                          (option) => option !== e.target.value
+                        )
+                      )
+                    : setBrandsFilter([...brandsFilter, e.target.value])
+                }
               />
               <label className="form-check-label" htmlFor={brand.id}>
                 {brand.name}
@@ -159,10 +189,43 @@ const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
               type="checkbox"
               value="availability"
               id="availability"
+              // onChange={(e) =>
+              //   filters.includes(e.target.value)
+              //     ? setFilters((filters) =>
+              //         filters.filter((option) => option !== e.target.value)
+              //       )
+              //     : setFilters([...filters, e.target.value])
+              // }
             />
             <label className="form-check-label" htmlFor="availability">
               Include Out of Stock
             </label>
+          </div>
+        </div>
+        <div className="d-flex gap-2 justify-content-center my-3">
+          <div
+            className="btn bg-purple-dark text-white filterBtn border-0 py-1"
+            onClick={() => {
+              dispatch(changeFilter(filters));
+              dispatch(changeBrandsFilter(brandsFilter));
+            }}
+          >
+            Apply filter
+          </div>
+          <div
+            className="btn bg-purple-dark text-white filterBtn border-0 py-1"
+            onClick={() => {
+              var checkboxes = document.getElementsByTagName("input");
+              for (var checkbox of checkboxes) {
+                checkbox.checked = false;
+              }
+              setFilters([]);
+              dispatch(changeFilter(filters));
+              setBrandsFilter([]);
+              dispatch(changeBrandsFilter(brandsFilter));
+            }}
+          >
+            Remove filter
           </div>
         </div>
       </div>
