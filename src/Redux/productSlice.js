@@ -10,6 +10,7 @@ export const productSlice = createSlice({
     brandsLoaded: [],
     categoriesLoaded: [],
     sorting: NEWEST,
+    filter: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -27,6 +28,9 @@ export const productSlice = createSlice({
     changeSorting: (state, action) => {
       state.sorting = action.payload;
     },
+    changeFilter: (state, action) => {
+      state.filter = action.payload;
+    },
   },
 });
 
@@ -36,6 +40,7 @@ export const {
   getBrands,
   getCategories,
   changeSorting,
+  changeFilter,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
