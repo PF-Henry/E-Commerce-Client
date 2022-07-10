@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiUrl from "../Constants/apiUrl";
+import { NEWEST } from "../Constants/sorting";
 
 export const productSlice = createSlice({
   name: "products",
@@ -8,6 +9,7 @@ export const productSlice = createSlice({
     productDetail: {},
     brandsLoaded: [],
     categoriesLoaded: [],
+    sorting: NEWEST,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -22,11 +24,19 @@ export const productSlice = createSlice({
     getCategories: (state, action) => {
       state.categoriesLoaded = action.payload;
     },
+    changeSorting: (state, action) => {
+      state.sorting = action.payload;
+    },
   },
 });
 
-export const { getProducts, getDetail, getBrands, getCategories } =
-  productSlice.actions;
+export const {
+  getProducts,
+  getDetail,
+  getBrands,
+  getCategories,
+  changeSorting,
+} = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
   fetch(`${apiUrl}products`)

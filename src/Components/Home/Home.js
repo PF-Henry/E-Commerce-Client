@@ -1,7 +1,7 @@
 import React from "react";
 import Cards from "../Cards/Cards";
 import Filteredbar from "../Filteredbar/Filteredbar";
-import Offers from "../Offers/Offers";
+// import Offers from "../Offers/Offers";
 import Header from "../Header/Header";
 import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
