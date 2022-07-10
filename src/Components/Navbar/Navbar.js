@@ -1,20 +1,36 @@
 import React from "react";
 import Searchbar from "../Searchbar/Searchbar";
-import './Navbar.css';
+import { SiHexo } from "react-icons/si";
+import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div >
+    <div>
       <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top">
         <div className="d-flex justify-content-center divColor">
           <div className="logoDiv">
-            <a className="navbar-brand" href="#">NaMe</a>
+            <div className="navbar-brand text-white d-flex align-items-center letter-spacing">
+              <SiHexo fontSize={"2.3rem"} />
+              <div className="ms-1 fs-4">exa</div>
+              <div className="fw-bold text-aqua fs-4">tech</div>
+            </div>
           </div>
-          <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse display_around" id="navbarSupportedContent">
+          <div
+            className="collapse navbar-collapse display_around"
+            id="navbarSupportedContent"
+          >
             {/* <ul className="navbar-nav mr-auto">
               <li className="nav-item active">
                 <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a>
@@ -44,9 +60,7 @@ const Navbar = () => {
               <li className="nav-item active">ABOUT US</li>
               <li>MY ACCOUNT</li>
             </ul>
-
           </div>
-
         </div>
       </nav>
     </div>
