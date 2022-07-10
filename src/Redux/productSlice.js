@@ -1,16 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
+import axios from "axios";
 
 export const productSlice = createSlice({
   name: "products",
   initialState: {
     productsLoaded: [],
-    productDetail: {},
+    productDetail: {
+      name: "",
+      stock: 0,
+      price: 0,
+      description: "",
+      technical_especification: "",
+      brand: "",
+      images: [],
+      category: [],
+      image: [],
+    },
     brandsLoaded: [],
     categoriesLoaded: [],
     sorting: NEWEST,
     filter: [],
+    brandsFilter: [],
+    imagesLoaded: [],
+    error: "",
+    msg: "",
   },
   reducers: {
     getProducts: (state, action) => {
@@ -31,6 +46,18 @@ export const productSlice = createSlice({
     changeFilter: (state, action) => {
       state.filter = action.payload;
     },
+    changeBrandsFilter: (state, action) => {
+      state.brandsFilter = action.payload;
+    },
+    getImages: (state, action) => {
+      state.imagesLoaded = action.payload;
+    },
+    createProductMsg: (state, action) => {
+      state.msg = action.payload;
+    },
+    createProductError: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
@@ -41,6 +68,10 @@ export const {
   getCategories,
   changeSorting,
   changeFilter,
+  changeBrandsFilter,
+  getImages,
+  createProductMsg,
+  createProductError,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -68,6 +99,29 @@ export const getCategoriesAsync = () => (dispatch) => {
       dispatch(getCategories(json));
     })
     .catch((error) => console.log(error));
+};
+
+export const getImagesAsync = () => (dispatch) => {
+  fetch(`${apiUrl}images`)
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(getImages(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const createProductAsync = (newProduct) => (dispatch) => {
+  axios
+    .post(`${apiUrl}products/`, newProduct)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
 };
 
 export default productSlice.reducer;
