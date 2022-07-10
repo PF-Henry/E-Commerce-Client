@@ -37,7 +37,7 @@ const Home = () => {
       <Filteredbar  itemsPerPage={itemsPerPageChanged} setCurrentPage={setCurrentPage} currentPage={currentPage}  />
       <Cards products={currentItems} />
       {/* <Offers /> */}
-      <Brands />
+      {/* <Brands /> */}
       <Footer />
     </div>
   );
