@@ -1,4 +1,15 @@
 .page-link:hover {
   color: #1c004a !important;
   background-color: #3ad8c1;
+  cursor: pointer;
+	user-select: none;
+
+}
+
+.active>.page-link, .page-link.active {
+  background-color: #3ad8c1;
+  color: #1c004a !important;
+  cursor: pointer;
+	user-select: none;
+
 }

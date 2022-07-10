@@ -7,6 +7,7 @@ export const productSlice = createSlice({
   name: "products",
   initialState: {
     productsLoaded: [],
+
     productDetail: {
       name: "",
       stock: 0,
@@ -19,6 +20,7 @@ export const productSlice = createSlice({
       image: [],
     },
     brandsLoaded: [],
+    itemsPerPageState: 8
     categoriesLoaded: [],
     sorting: NEWEST,
     filter: [],
@@ -40,6 +42,7 @@ export const productSlice = createSlice({
     getCategories: (state, action) => {
       state.categoriesLoaded = action.payload;
     },
+
     changeSorting: (state, action) => {
       state.sorting = action.payload;
     },
@@ -58,6 +61,9 @@ export const productSlice = createSlice({
     createProductError: (state, action) => {
       state.error = action.payload;
     },
+    switchItemsPerPage: (state, action) => {
+      state.itemsPerPageState = action.payload;
+    },
   },
 });
 
@@ -65,6 +71,7 @@ export const {
   getProducts,
   getDetail,
   getBrands,
+  switchItemsPerPage,
   getCategories,
   changeSorting,
   changeFilter,
@@ -110,6 +117,11 @@ export const getImagesAsync = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const switchItemsPerPageAsync = (e) => () => {
+  let itemsPerPage = e;
+  switchItemsPerPage(itemsPerPage)
+  console.log('items per page: ' + itemsPerPage);
+  
 export const createProductAsync = (newProduct) => (dispatch) => {
   axios
     .post(`${apiUrl}products/`, newProduct)
