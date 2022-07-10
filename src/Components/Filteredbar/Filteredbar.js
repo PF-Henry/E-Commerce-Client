@@ -2,12 +2,15 @@ import React, { useEffect } from "react";
 import Pagination from "../Pagination/Pagination";
 import { IoOptions } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
-import { getBrandsAsync, getCategoriesAsync } from "../../Redux/productSlice";
+import { getBrandsAsync, getCategoriesAsync, switchItemsPerPage } from "../../Redux/productSlice";
 import "./Filteredbar.css";
 
-const Filteredbar = () => {
+const Filteredbar = ( { itemsPerPage, setCurrentPage, currentPage } ) => {
   let allBrands = useSelector((state) => state.products.brandsLoaded);
   let allCategories = useSelector((state) => state.products.categoriesLoaded);
+  // let allProducts = useSelector((state) => state.products.productsLoaded);
+
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,8 +25,16 @@ const Filteredbar = () => {
     }
   }, [allCategories, dispatch]);
 
+  const itemsPerPageSelected = (e) => {
+    let numberItems =  parseInt( e.target.value );
+    dispatch(switchItemsPerPage(numberItems))
+  }
+
+ 
+
+
   return (
-    <div>
+    <div className="filterBG ">
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
         <div className="d-flex gap-2">
           <div
@@ -43,10 +54,12 @@ const Filteredbar = () => {
               id="resultsPerPage"
               aria-label="Floating label select example"
               defaultValue={1}
+              onChange={e => itemsPerPageSelected(e)}
             >
-              <option value="1">8</option>
-              <option value="2">12</option>
-              <option value="3">16</option>
+              <option value="8">8</option>
+              <option value="12">12</option>
+              <option value="16">16</option>
+
             </select>
             <label htmlFor="resultsPerPage" className="text-white">
               Results per page
@@ -70,7 +83,7 @@ const Filteredbar = () => {
             </label>
           </div>
         </div>
-        <Pagination />
+        <Pagination  itemsPerPageSelected={itemsPerPageSelected}  itemsPerPage={itemsPerPage} setCurrentPage={setCurrentPage} currentPage={currentPage}  />
       </div>
 
       {/* Side menu */}

@@ -5,9 +5,11 @@ export const productSlice = createSlice({
   name: "products",
   initialState: {
     productsLoaded: [],
+    productsBackup: [],
     productDetail: {},
     brandsLoaded: [],
     categoriesLoaded: [],
+    itemsPerPageState: 8
   },
   reducers: {
     getProducts: (state, action) => {
@@ -22,10 +24,13 @@ export const productSlice = createSlice({
     getCategories: (state, action) => {
       state.categoriesLoaded = action.payload;
     },
+    switchItemsPerPage: (state, action) => {
+      state.itemsPerPageState = action.payload;
+    }
   },
 });
 
-export const { getProducts, getDetail, getBrands, getCategories } =
+export const { getProducts, getDetail, getBrands, getCategories, switchItemsPerPage } =
   productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -53,6 +58,12 @@ export const getCategoriesAsync = () => (dispatch) => {
       dispatch(getCategories(json));
     })
     .catch((error) => console.log(error));
+};
+
+export const switchItemsPerPageAsync = (e) => () => {
+  let itemsPerPage = e;
+  switchItemsPerPage(itemsPerPage)
+  console.log('items per page: ' + itemsPerPage);
 };
 
 export default productSlice.reducer;
