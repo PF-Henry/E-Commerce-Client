@@ -186,7 +186,7 @@ const Filteredbar = ({
             </div>
           ))}
 
-          <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
+          {/* <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Availability
           </h5>
           <div className="form-check text-start letter-spacing">
@@ -206,7 +206,7 @@ const Filteredbar = ({
             <label className="form-check-label" htmlFor="availability">
               Include Out of Stock
             </label>
-          </div>
+          </div> */}
         </div>
         <div className="d-flex gap-2 justify-content-center my-3">
           <div

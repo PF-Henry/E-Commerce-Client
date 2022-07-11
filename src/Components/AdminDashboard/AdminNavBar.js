@@ -6,7 +6,7 @@ import "./AdminNavBar.css";
 
 const AdminNavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top">
+    <nav className="navbar navbar-dark navbar-expand-lg navbar_container d-flex justify-content-center fixed-top">
       <div className="d-flex justify-content-center divColor">
         <div className="logoDiv">
           <Link
