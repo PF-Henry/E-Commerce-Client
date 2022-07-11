@@ -64,6 +64,9 @@ export const productSlice = createSlice({
     switchItemsPerPage: (state, action) => {
       state.itemsPerPageState = action.payload;
     },
+    searchProduct: (state, action) => {
+      state.productsLoaded = action.payload
+    },
   },
 });
 
@@ -79,6 +82,8 @@ export const {
   getImages,
   createProductMsg,
   createProductError,
+  searchProduct,
+  searchProductError
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -136,5 +141,12 @@ export const createProductAsync = (newProduct) => (dispatch) => {
       dispatch(createProductError(error));
     });
 };
+
+export const searchProductAsync = (product) => (dispatch) => {
+  fetch(`${apiUrl}products?name=${product}`)
+    .then(data => data.json())
+    .then(json => { dispatch(searchProduct(json)) })
+    .catch((error) => console.log(error))
+}
 
 export default productSlice.reducer;

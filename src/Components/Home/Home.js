@@ -72,7 +72,7 @@ const Home = () => {
       />
       <Cards products={currentItems} />
       {/* <Offers /> */}
-      <Brands />
+      {/* <Brands /> */}
       <Footer />
     </div>
   );
