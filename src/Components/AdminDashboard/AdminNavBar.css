@@ -1,0 +1,13 @@
+.display_around {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.admin_ul {
+    width:12vw;
+}
+
+.adminNavLink {
+    text-decoration: none;
+    color: white;
+}
