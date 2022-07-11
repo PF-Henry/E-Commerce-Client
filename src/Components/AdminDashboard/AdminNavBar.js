@@ -31,15 +31,15 @@ const AdminNavBar = () => {
         </button>
 
         <div
-          className="collapse navbar-collapse display_around"
+          className="collapse navbar-collapse display_around2"
           id="navbarSupportedContent"
         >
           <ul className="navbar-nav admin_ul">
             <NavLink
               to="/"
-              className="adminNavLink d-flex align-items-center gap-1  aqua-hover"
+              className="adminNavLink d-flex align-items-center gap-1 aqua-hover"
             >
-              <li className="nav-item active letter-spacing">SIGN OUT</li>
+              <li className="nav-item letter-spacing">SIGN OUT</li>
               <MdExitToApp size={"1.8rem"} />
             </NavLink>
           </ul>
