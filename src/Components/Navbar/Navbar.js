@@ -10,11 +10,14 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top animate__animated animate__fadeInDown">
         <div className="d-flex justify-content-center divColor">
           <div className="logoDiv">
-            <div className="navbar-brand text-white d-flex align-items-center letter-spacing">
+            <Link
+              to="/"
+              className="navbar-brand text-white d-flex align-items-center letter-spacing"
+            >
               <SiHexo fontSize={"2.3rem"} />
               <div className="ms-1 fs-4">exa</div>
               <div className="fw-bold text-aqua fs-4">tech</div>
-            </div>
+            </Link>
           </div>
           <button
             className="navbar-toggler"
@@ -60,7 +63,12 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item active">ABOUT US</li>
               <li>
-                <Link to="/admin">MY ACCOUNT</Link>
+                <Link
+                  to="/admin"
+                  className="text-decoration-none text-white aqua-hover"
+                >
+                  SIGN IN
+                </Link>
               </li>
             </ul>
           </div>
