@@ -1,13 +1,17 @@
 .display_around {
-    display: flex;
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .admin_ul {
-    width:12vw;
+  width: 12vw;
 }
 
 .adminNavLink {
-    text-decoration: none;
-    color: white;
+  text-decoration: none;
+  color: white;
+}
+
+.aqua-hover:hover {
+  color: #3ad8c1;
 }
