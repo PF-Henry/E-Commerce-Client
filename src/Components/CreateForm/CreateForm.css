@@ -1,0 +1,51 @@
+.formH1 {
+    margin: 15vh 0 5vh 0;
+}
+
+.formContainer {
+    width: 50vw;
+    margin:auto;
+    text-align: left;
+}
+
+.formItem {
+    padding: 3vh 0 1vh 0;
+    margin-right: 1vw;
+}
+
+.formSelectImg {
+    width: 30vw;
+    margin-bottom: 5vh;
+}
+
+.formBtnAdd {
+    margin-bottom: 10vh;
+    margin-left: 50%;
+}
+
+.btnAddCreate {
+    background-color: #3AD8C1;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    height: 2em;
+    width: 8em;
+    color: #1C004A;
+}
+
+.btnAddCreate:hover {
+    color: #3AD8C1;
+    background-color: #1C004A;
+}
+
+.formBtnDelete{
+    background-color: #EB3324;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin-left: 0.5em;
+}
+
+.formBtnDelete:hover {
+    opacity: 0.7;
+}

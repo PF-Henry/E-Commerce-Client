@@ -6,6 +6,8 @@ import {
   createProductAsync,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
+import AdminNavBar from '../AdminDashboard/AdminNavBar'
+import './CreateForm.css'
 
 export function validate(input) {
   let errors = {};
@@ -232,9 +234,11 @@ export default function Create() {
 
   return (
     <div>
-      <h1>Create Product</h1>
+      <AdminNavBar />
 
-      <div>
+      <h1 className="formH1">Create Product</h1>
+
+      <div className="formContainer">
         <div>
           {msg && msg.length > 0 ? (
             <div className="alert alert-success">{msg} </div>
@@ -247,9 +251,9 @@ export default function Create() {
             <div></div>
           )}
         </div>
-        <form>
+        <form className="formCreate">
           <div className="form-group">
-            <label htmlFor="name">Name</label>
+            <label className="formItem" htmlFor="name">Name</label>
             <input
               type="text"
               onChange={handleInputChange}
@@ -260,7 +264,7 @@ export default function Create() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="name">Description</label>
+            <label className="formItem" htmlFor="name">Description</label>
             <input
               type="text"
               onChange={handleInputChange}
@@ -271,7 +275,7 @@ export default function Create() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="name">Technical Specification</label>
+            <label className="formItem" htmlFor="name">Technical Specification</label>
             <input
               type="text"
               onChange={handleInputChange}
@@ -282,7 +286,7 @@ export default function Create() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="name">Price</label>
+            <label className="formItem" htmlFor="name">Price</label>
             <input
               type="text"
               onChange={handleInputChange}
@@ -293,7 +297,7 @@ export default function Create() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="stock">Stock</label>
+            <label className="formItem" htmlFor="stock">Stock</label>
             <input
               type="text"
               onChange={handleInputChange}
@@ -304,7 +308,7 @@ export default function Create() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="brands">BRANDS:</label>
+            <label className="formItem" htmlFor="brands">BRANDS: </label>
 
             <select
               defaultValue={input.brand}
@@ -321,7 +325,7 @@ export default function Create() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="categories">CATEGORIES:</label>
+            <label className="formItem" htmlFor="categories">CATEGORIES: </label>
 
             <select
               defaultValue="0"
@@ -340,7 +344,7 @@ export default function Create() {
               {input.categories.map((item, index) => (
                 <div key={index}>
                   <span>{item.name}</span>
-                  <button value={item.name} onClick={onClickDeleteCategories}>
+                  <button className="formBtnDelete" value={item.name} onClick={onClickDeleteCategories}>
                     X
                   </button>
                 </div>
@@ -349,9 +353,9 @@ export default function Create() {
           </div>
 
           <div className="form-group">
-            <label htmlFor="images">IMAGES:</label>
+            <label className="formItem" htmlFor="images">IMAGES:</label>
 
-            <select defaultValue="0" onChange={onChangeImages} name="images">
+            <select className="formSelectImg" defaultValue="0" onChange={onChangeImages} name="images">
               <option value="0">Select Images</option>
               {images.map((item, index) => (
                 <option key={index} value={item.url_image}>
@@ -360,19 +364,20 @@ export default function Create() {
               ))}
             </select>
           </div>
+
           <div className="form-group">
             {input.images.map((item, index) => (
               <div key={index}>
                 <img src={item} alt="Cosita bella" width="100px" />
-                <button value={item} onClick={onClickDeleteImages}>
+                <button className="formBtnDelete" value={item} onClick={onClickDeleteImages}>
                   X
                 </button>
               </div>
             ))}
           </div>
 
-          <div>
-            <input type="button" value="Add Product" onClick={onClickCreate} />
+          <div className="formBtnAdd">
+            <input className="btnAddCreate" type="button" value="Add Product" onClick={onClickCreate} />
           </div>
         </form>
       </div>

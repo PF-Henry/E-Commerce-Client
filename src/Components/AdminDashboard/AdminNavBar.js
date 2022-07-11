@@ -34,9 +34,6 @@ const AdminNavBar = () => {
                     <NavLink to='/' className='adminNavLink'>
                         <li className="nav-item active">HOME</li>
                     </NavLink>
-                    <NavLink to='/CreateProduct' className='adminNavLink'>
-                        <li className="nav-item active">CREATE PRODUCT</li>
-                    </NavLink>
                     {/* <NavLink to='/about' className='adminLink'> */}
                         <li className="nav-item active">ABOUT US</li>
                     {/* </NavLink> */}
