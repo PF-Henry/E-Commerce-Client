@@ -1,13 +1,20 @@
-import React, { useState, useEffect } from "react";
+/* eslint-disable jsx-a11y/img-redundant-alt */
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import {
+  updateProductAsync,
   getBrandsAsync,
   getCategoriesAsync,
   getImagesAsync,
-  createProductAsync,
 } from "../../Redux/productSlice";
-import { useSelector, useDispatch } from "react-redux";
-import AdminNavBar from "../AdminDashboard/AdminNavBar";
-import "./CreateForm.css";
+
+import { useEffect } from "react";
+
+// const stringRegExp = /^[a-zA-Z]{1,20}$/;
+// const numberRegExp = /^([1-9][0-9]{0,2}|1000)$/;
+//const urlRegExp = /(http|https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
+// const urlRegExp = /(http|https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)/;
 
 export function validate(input) {
   let errors = {};
@@ -42,25 +49,34 @@ export function validate(input) {
   return errors;
 }
 
-export default function Create() {
-  const brands = useSelector((state) => state.products.brandsLoaded);
-  const categories = useSelector((state) => state.products.categoriesLoaded);
-  const images = useSelector((state) => state.products.imagesLoaded);
-
-  let error = useSelector((state) => state.products.error);
-  let msg = useSelector((state) => state.products.msg);
+const Form = ({
+  id,
+  name,
+  description,
+  technical_especification,
+  price,
+  stock,
+  brand,
+  categories,
+  images,
+}) => {
+  const selectBrands = useSelector((state) => state.products.brandsLoaded);
+  const selectCategories = useSelector(
+    (state) => state.products.categoriesLoaded
+  );
+  const selectImages = useSelector((state) => state.products.imagesLoaded);
 
   let dispatch = useDispatch();
 
   const inputStateInitial = {
-    name: "",
-    description: "",
-    technical_especification: "",
-    price: 0,
-    stock: 0,
-    brand: "",
-    categories: [],
-    images: [],
+    name: name,
+    description: description,
+    technical_especification: technical_especification,
+    price: price,
+    stock: stock,
+    brand: brand,
+    categories: categories,
+    images: images.map((image) => image.url_image),
   };
 
   const [input, setInput] = useState(inputStateInitial);
@@ -75,6 +91,12 @@ export default function Create() {
     categories: "",
     images: "",
   });
+
+  useEffect(() => {
+    dispatch(getCategoriesAsync());
+    dispatch(getBrandsAsync());
+    dispatch(getImagesAsync());
+  }, [dispatch]);
 
   function handleInputChange(e) {
     // if ((e.target.name === 'name')  && (e.target.value.length>1)){
@@ -145,6 +167,7 @@ export default function Create() {
   // delete Categories de la lista
   function onClickDeleteImages(e) {
     e.preventDefault();
+
     let newImages = input.images.filter((item) => item !== e.target.value);
     setInput({
       ...input,
@@ -182,7 +205,7 @@ export default function Create() {
   }
 
   function onChangeBrands(e) {
-    if (e.target.value === "0") return;
+    //if (e.target.value === "0") return;
 
     setInput({
       ...input,
@@ -197,11 +220,11 @@ export default function Create() {
     );
   }
 
-  function onClickCreate(e) {
+  function onClickUpdate(e) {
     e.preventDefault();
 
     if (Object.keys(errors).length === 0) {
-      dispatch(createProductAsync(input));
+      dispatch(updateProductAsync(id, input));
     } else {
       setErrors({
         ...errors,
@@ -209,51 +232,12 @@ export default function Create() {
     }
   }
 
-  useEffect(() => {
-    dispatch(getCategoriesAsync());
-    dispatch(getBrandsAsync());
-    dispatch(getImagesAsync());
-
-    // setInput(
-    //   { name: 'Lenovo I7',
-    //   description: 'Lenovo yoga 720',
-    //   technical_especification: 'I7 8GB RAM 128GB SSD',
-    //   price: 1000,
-    //   stock: 10,
-    //   brand: "Lenovo",
-    //   categories: [],
-    //   images: [],}
-    // );
-  }, [dispatch]);
-
-  // useEffect(() => {
-  //   errorCreate();
-  //   setTimeout(()=>{dispatch(resetCreatedPokemon())},3000);
-  //   // eslint-disable-next-line
-  // },[error_msg]);
-
   return (
     <div className="letter-spacing">
-      <AdminNavBar />
-
-      <h1 className="formH1">Create Product</h1>
-
       <div className="formContainer">
-        <div>
-          {msg && msg.length > 0 ? (
-            <div className="alert alert-success">{msg} </div>
-          ) : (
-            <div></div>
-          )}
-          {error && error.length > 0 ? (
-            <div className="alert alert-success">{error} </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
         <form className="formCreate">
           <div className="form-group">
-            <label className="formItem" htmlFor="name">
+            <label htmlFor="name" className="formItem">
               Name
             </label>
             <input
@@ -266,7 +250,7 @@ export default function Create() {
             />
           </div>
           <div className="form-group">
-            <label className="formItem" htmlFor="name">
+            <label htmlFor="name" className="formItem">
               Description
             </label>
             <input
@@ -323,13 +307,13 @@ export default function Create() {
             </label>
 
             <select
-              defaultValue={input.brand}
+              value={input.brand}
               onChange={onChangeBrands}
               name="brands"
               className="form-select"
             >
               <option value="0">Select Brand</option>
-              {brands.map((item, index) => (
+              {selectBrands.map((item, index) => (
                 <option key={index} value={item.name}>
                   {item.name}
                 </option>
@@ -349,7 +333,7 @@ export default function Create() {
               className="form-select"
             >
               <option value="0">Select Category</option>
-              {categories.map((item, index) => (
+              {selectCategories.map((item, index) => (
                 <option key={index} value={item.name}>
                   {item.name}
                 </option>
@@ -378,24 +362,23 @@ export default function Create() {
             </label>
 
             <select
-              className="form-select mb-5"
               defaultValue="0"
               onChange={onChangeImages}
               name="images"
+              className="form-select"
             >
               <option value="0">Select Images</option>
-              {images.map((item, index) => (
+              {selectImages.map((item, index) => (
                 <option key={index} value={item.url_image}>
                   {item.url_image}
                 </option>
               ))}
             </select>
           </div>
-
           <div className="d-flex justify-content-center mt-3 flex-wrap gap-3 align-items-center">
             {input.images.map((item, index) => (
               <div key={index}>
-                <img src={item} alt="product" width="100px" />
+                <img src={item} alt="Image" width="100px" />
                 <button
                   className="formBtnDelete ms-1"
                   value={item}
@@ -411,12 +394,14 @@ export default function Create() {
             <input
               className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
               type="button"
-              value="Add Product"
-              onClick={onClickCreate}
+              value="Update Product"
+              onClick={onClickUpdate}
             />
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
+
+export default Form;

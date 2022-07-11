@@ -10,6 +10,7 @@ import {
   changeFilter,
   switchItemsPerPage,
   changeBrandsFilter,
+  getProductsAsync,
 } from "../../Redux/productSlice";
 import "./Filteredbar.css";
 import { SORTING_ARRAY } from "../../Constants/sorting";
@@ -229,6 +230,7 @@ const Filteredbar = ({
               dispatch(changeFilter(filters));
               setBrandsFilter([]);
               dispatch(changeBrandsFilter(brandsFilter));
+              dispatch(getProductsAsync());
             }}
           >
             Remove filter

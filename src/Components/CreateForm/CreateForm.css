@@ -16,9 +16,6 @@
   background-color: #3ad8c1;
   border: none;
   border-radius: 5px;
-  font-size: 18px;
-  height: 2em;
-  width: 8em;
   color: #1c004a;
 }
 
@@ -32,7 +29,6 @@
   border: none;
   border-radius: 5px;
   color: white;
-  margin-left: 0.5em;
 }
 
 .formBtnDelete:hover {

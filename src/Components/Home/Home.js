@@ -3,7 +3,7 @@ import Cards from "../Cards/Cards";
 import Filteredbar from "../Filteredbar/Filteredbar";
 // import Offers from "../Offers/Offers";
 import Header from "../Header/Header";
-import Brands from "../Brands/Brands";
+// import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsAsync } from "../../Redux/productSlice";

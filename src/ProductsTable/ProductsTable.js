@@ -1,7 +1,8 @@
 import React from "react";
 import { MdDelete, MdModeEdit } from "react-icons/md";
+import { Link } from "react-router-dom";
 
-const ProductsTable = ({ products, name }) => {
+const ProductsTable = ({ products, name, ruta }) => {
   return (
     <div className="letter-spacing">
       <table className="table table-hover caption-top">
@@ -19,9 +20,12 @@ const ProductsTable = ({ products, name }) => {
               <th scope="row">{index + 1}</th>
               <td>{product.name}</td>
               <td className="d-flex justify-content-center gap-3">
-                <div className="btn btn-warning py-1 d-flex align-items-center">
+                <Link
+                  to={`${ruta}${product.id}`}
+                  className="btn btn-warning py-1 d-flex align-items-center"
+                >
                   Edit <MdModeEdit size={"1.5rem"} />
-                </div>
+                </Link>
                 <div className="btn btn-danger py-1 d-flex align-items-center">
                   Delete <MdDelete size={"1.5rem"} />
                 </div>

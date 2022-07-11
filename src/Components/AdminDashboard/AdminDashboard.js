@@ -41,16 +41,20 @@ const AdminDashboard = () => {
         >
           Create a Product
         </NavLink>
-        <NavLink
+        {/* <NavLink
           className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
           to="/"
         >
           Create a Category
-        </NavLink>
+        </NavLink> */}
       </div>
       <div className="d-flex justify-content-evenly flex-wrap">
-        <ProductsTable products={allDBProducts} name={"Products"} />
-        <ProductsTable products={allCategories} name={"Categories"} />
+        <ProductsTable
+          products={allDBProducts}
+          name={"Products"}
+          ruta={"/UpdateProduct/"}
+        />
+        {/* <ProductsTable products={allCategories} name={"Categories"} /> */}
       </div>
     </div>
   );
