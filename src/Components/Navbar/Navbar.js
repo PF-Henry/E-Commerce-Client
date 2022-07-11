@@ -7,7 +7,7 @@ import "./Navbar.css";
 const Navbar = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top">
+      <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top animate__animated animate__fadeInDown">
         <div className="d-flex justify-content-center divColor">
           <div className="logoDiv">
             <div className="navbar-brand text-white d-flex align-items-center letter-spacing">

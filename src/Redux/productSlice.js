@@ -19,6 +19,7 @@ export const productSlice = createSlice({
       category: [],
       image: [],
     },
+    detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
     categoriesLoaded: [],
@@ -65,7 +66,10 @@ export const productSlice = createSlice({
       state.itemsPerPageState = action.payload;
     },
     searchProduct: (state, action) => {
-      state.productsLoaded = action.payload
+      state.productsLoaded = action.payload;
+    },
+    getProductDetails: (state, action) => {
+      state.detailsOfProduct = action.payload;
     },
   },
 });
@@ -83,7 +87,8 @@ export const {
   createProductMsg,
   createProductError,
   searchProduct,
-  searchProductError
+  searchProductError,
+  getProductDetails
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -149,4 +154,12 @@ export const searchProductAsync = (product) => (dispatch) => {
     .catch((error) => console.log(error))
 }
 
+export const getDetailProductAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}products/${payload}`)
+    .then(data => data.json())
+    .then(json => { 
+      dispatch(getProductDetails(json)) 
+    })
+    .catch((error) => console.log(error))
+}
 export default productSlice.reducer;

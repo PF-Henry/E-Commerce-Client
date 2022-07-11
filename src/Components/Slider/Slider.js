@@ -2,7 +2,7 @@ import React from 'react';
 
 export const Slider = () => {
   return (
-    <div className='slider_container'>
+    <div className='slider_container animate__animated animate__fadeIn'>
       <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
         <ol className="carousel-indicators">
           <li data-target="#carouselExampleIndicators" data-slide-to="0" className="active"></li>
