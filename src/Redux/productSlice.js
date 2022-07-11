@@ -178,4 +178,18 @@ export const getDetailProductAsync = (payload) => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+
+export const updateProductAsync = (id, updateProduct) => (dispatch) => {
+  axios
+    .put(`${apiUrl}products/${id}`, updateProduct)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
 export default productSlice.reducer;
