@@ -1,17 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Cards from "../Cards/Cards";
 import Filteredbar from "../Filteredbar/Filteredbar";
 // import Offers from "../Offers/Offers";
 import Header from "../Header/Header";
 import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { getProductsAsync } from "../../Redux/productSlice";
+import sorting from "../../Functions/sorting";
 
 const Home = () => {
-  let allProducts = useSelector((state) => state.products.productsLoaded);
-  let itemsPerPageChanged = useSelector((state) => state.products.itemsPerPageState);
-//  console.log(itemsPerPageChanged);
-  
+  const allProducts = useSelector((state) => state.products.productsLoaded);
+  const sortingMethod = useSelector((state) => state.products.sorting);
+  const filtersCategories = useSelector((state) => state.products.filter);
+  const brandsFilter = useSelector((state) => state.products.brandsFilter);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!allProducts.length) {
+      dispatch(getProductsAsync());
+    }
+  }, [allProducts, dispatch]);
+
+  let sortedProducts = sorting([...allProducts], sortingMethod);
+
+  let filteredProducts = !filtersCategories.length
+    ? sortedProducts
+    : sortedProducts.filter((product) => {
+        let nameListCategories = product.categories.map((c) => c.name);
+        return nameListCategories.some((r) => filtersCategories.includes(r));
+      });
+
+  let filteredProductsByBrands = !brandsFilter.length
+    ? filteredProducts
+    : filteredProducts.filter((product) => {
+        return brandsFilter.includes(product.brand.name);
+      });
+
+  let itemsPerPageChanged = useSelector(
+    (state) => state.products.itemsPerPageState
+  );
+  //  console.log(itemsPerPageChanged);
+
   const [currentPage, setCurrentPage] = useState(1);
   // const [itemsPerPage, setItemsPerPage ] = useState(itemsPerPageChanged);
 
@@ -23,18 +54,22 @@ const Home = () => {
 
   // console.log(itemsPerPage)
 
-
-   const indexOfLastItem = currentPage * itemsPerPageChanged;
-   const indexOfFirstItem = indexOfLastItem - itemsPerPageChanged;
-   const currentItems = allProducts.slice(indexOfFirstItem, indexOfLastItem);
-
-
-
+  const indexOfLastItem = currentPage * itemsPerPageChanged;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPageChanged;
+  const currentItems = filteredProductsByBrands.slice(
+    indexOfFirstItem,
+    indexOfLastItem
+  );
 
   return (
     <div className="bg-light">
       <Header />
-      <Filteredbar  itemsPerPage={itemsPerPageChanged} setCurrentPage={setCurrentPage} currentPage={currentPage}  />
+      <Filteredbar
+        itemsPerPage={itemsPerPageChanged}
+        setCurrentPage={setCurrentPage}
+        currentPage={currentPage}
+        productsArray={filteredProductsByBrands}
+      />
       <Cards products={currentItems} />
       {/* <Offers /> */}
       {/* <Brands /> */}
