@@ -2,14 +2,15 @@ import React from "react";
 import Searchbar from "../Searchbar/Searchbar";
 import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
 import "./Navbar.css";
 
 const Navbar = () => {
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar_container d-flex justify-content-center fixed-top animate__animated animate__fadeInDown">
+      <nav className="navbar navbar-dark navbar-expand-lg navbar_container d-flex justify-content-center fixed-top animate__animated animate__fadeInDown">
         <div className="d-flex justify-content-center divColor">
-          <div className="logoDiv">
+          <div className="logoDiv navbar-brand">
             <Link
               to="/"
               className="navbar-brand text-white d-flex align-items-center letter-spacing"
@@ -61,15 +62,16 @@ const Navbar = () => {
             <Searchbar />
 
             <ul className="navbar-nav">
-              <li className="nav-item active">ABOUT US</li>
-              <li>
-                <Link
-                  to="/admin"
-                  className="text-decoration-none text-white aqua-hover"
-                >
-                  SIGN IN
-                </Link>
+              <li className="nav-item letter-spacing d-flex align-items-center">
+                ABOUT US
               </li>
+              <Link
+                to="/admin"
+                className="adminNavLink d-flex align-items-center gap-1 aqua-hover"
+              >
+                <li className="nav-item letter-spacing">SIGN IN</li>
+                <CgProfile size={"1.8rem"} />
+              </Link>
             </ul>
           </div>
         </div>
