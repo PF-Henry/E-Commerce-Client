@@ -143,7 +143,7 @@ const Filteredbar = ({
                 className="form-check-input"
                 type="checkbox"
                 value={category.name}
-                id={category.id}
+                id={category.name}
                 onChange={(e) =>
                   filters.includes(e.target.value)
                     ? setFilters((filters) =>
@@ -152,7 +152,7 @@ const Filteredbar = ({
                     : setFilters([...filters, e.target.value])
                 }
               />
-              <label className="form-check-label" htmlFor={category.id}>
+              <label className="form-check-label" htmlFor={category.name}>
                 {category.name}
               </label>
             </div>
@@ -170,7 +170,7 @@ const Filteredbar = ({
                 className="form-check-input"
                 type="checkbox"
                 value={brand.name}
-                id={brand.id}
+                id={brand.name}
                 onChange={(e) =>
                   brandsFilter.includes(e.target.value)
                     ? setBrandsFilter((brandsFilter) =>
@@ -181,7 +181,7 @@ const Filteredbar = ({
                     : setBrandsFilter([...brandsFilter, e.target.value])
                 }
               />
-              <label className="form-check-label" htmlFor={brand.id}>
+              <label className="form-check-label" htmlFor={brand.name}>
                 {brand.name}
               </label>
             </div>
