@@ -1,3 +1,27 @@
 .admin_H2 {
     margin-top: 15vh;
 }
+
+.adminCardContainer {
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10vh;
+    
+}
+
+.adminCard {
+    background: rgb(42,140,187);
+    background: linear-gradient(90deg, rgba(42, 141, 187, 0.7) 0%, rgba(58,216,193,0.7) 79%); 
+    padding: 2.5vw;
+    border-radius: 15px;
+}
+
+.adminLink {
+    text-decoration: none;
+    color: #1C004A;
+}
+
+.adminCardImg {
+    height: 20vh;
+    margin-bottom: 3vh;
+}
