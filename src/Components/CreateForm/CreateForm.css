@@ -1,0 +1,40 @@
+.formH1 {
+  margin: 15vh 0 5vh 0;
+}
+
+.formContainer {
+  width: 50vw;
+  margin: auto;
+  text-align: left;
+}
+
+.formItem {
+  padding: 3vh 0 1vh 0;
+}
+
+.btnAddCreate {
+  background-color: #3ad8c1;
+  border: none;
+  border-radius: 5px;
+  font-size: 18px;
+  height: 2em;
+  width: 8em;
+  color: #1c004a;
+}
+
+.btnAddCreate:hover {
+  color: #3ad8c1;
+  background-color: #1c004a;
+}
+
+.formBtnDelete {
+  background-color: #eb3324;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  margin-left: 0.5em;
+}
+
+.formBtnDelete:hover {
+  opacity: 0.7;
+}
