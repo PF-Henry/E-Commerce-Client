@@ -7,6 +7,12 @@
   width: 300px !important;
 }
 
+select:hover {
+  cursor: pointer;
+}
+
+
+
 /* .filterBG {
   background-color: #3ad8c1;
 } */
