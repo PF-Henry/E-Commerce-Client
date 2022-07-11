@@ -60,7 +60,7 @@ const Navbar = () => {
             <ul className="navbar-nav">
               <li className="nav-item active">ABOUT US</li>
               <li>
-                <Link to="/CreateProduct">MY ACCOUNT</Link>
+                <Link to="/admin">MY ACCOUNT</Link>
               </li>
             </ul>
           </div>
