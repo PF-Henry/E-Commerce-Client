@@ -29,6 +29,7 @@ export const productSlice = createSlice({
     imagesLoaded: [],
     error: "",
     msg: "",
+    allDBProducts: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -71,6 +72,9 @@ export const productSlice = createSlice({
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
     },
+    getAllDBProducts: (state, action) => {
+      state.allDBProducts = action.payload;
+    },
   },
 });
 
@@ -88,7 +92,8 @@ export const {
   createProductError,
   searchProduct,
   searchProductError,
-  getProductDetails
+  getProductDetails,
+  getAllDBProducts,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -96,6 +101,15 @@ export const getProductsAsync = () => (dispatch) => {
     .then((response) => response.json())
     .then((json) => {
       dispatch(getProducts(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const getAllDBProductsAsync = () => (dispatch) => {
+  fetch(`${apiUrl}products`)
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(getAllDBProducts(json));
     })
     .catch((error) => console.log(error));
 };
@@ -149,17 +163,19 @@ export const createProductAsync = (newProduct) => (dispatch) => {
 
 export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
-    .then(data => data.json())
-    .then(json => { dispatch(searchProduct(json)) })
-    .catch((error) => console.log(error))
-}
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(searchProduct(json));
+    })
+    .catch((error) => console.log(error));
+};
 
 export const getDetailProductAsync = (payload) => (dispatch) => {
   fetch(`${apiUrl}products/${payload}`)
-    .then(data => data.json())
-    .then(json => { 
-      dispatch(getProductDetails(json)) 
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getProductDetails(json));
     })
-    .catch((error) => console.log(error))
-}
+    .catch((error) => console.log(error));
+};
 export default productSlice.reducer;

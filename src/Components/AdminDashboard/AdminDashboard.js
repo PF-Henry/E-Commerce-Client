@@ -1,32 +1,59 @@
-import React from "react";
-import { NavLink } from 'react-router-dom';
-import AdminNavBar from './AdminNavBar'
-import './AdminDashboard.css'
+import React, { useEffect } from "react";
+import { NavLink } from "react-router-dom";
+import AdminNavBar from "./AdminNavBar";
+import { useSelector, useDispatch } from "react-redux";
+import "./AdminDashboard.css";
+import ProductsTable from "../../ProductsTable/ProductsTable";
+import { FaRegSmileBeam } from "react-icons/fa";
+import {
+  getAllDBProductsAsync,
+  getCategoriesAsync,
+} from "../../Redux/productSlice";
 
 const AdminDashboard = () => {
-    return (
-        <div>
-            <AdminNavBar />
+  const dispatch = useDispatch();
+  const allDBProducts = useSelector((state) => state.products.allDBProducts);
+  const allCategories = useSelector((state) => state.products.categoriesLoaded);
+  useEffect(() => {
+    if (!allDBProducts.length) {
+      dispatch(getAllDBProductsAsync());
+    }
+  }, [allDBProducts, dispatch]);
 
-            <h2 className="admin_H2">Hello, Admin</h2>
-
-            <div className="adminCardContainer">
-                <div className="adminCard">
-                    <NavLink className='adminLink' to='/CreateProduct'>
-                        <img className="adminCardImg" src="../../images/product-icon.png" />
-                        <h3>CREATE PRODUCT</h3>
-                    </NavLink>
-                </div> 
-
-                <div className="adminCard">
-                    <NavLink className='adminLink' to='/'>
-                        <img className="adminCardImg" src="../../images/category-icon.png" />
-                        <h3>CREATE CATEGORY</h3>
-                    </NavLink>
-                </div> 
-            </div>
-        </div>
-    )
-}
+  useEffect(() => {
+    if (!allCategories.length) {
+      dispatch(getCategoriesAsync());
+    }
+  }, [allCategories, dispatch]);
+  return (
+    <div>
+      <AdminNavBar />
+      <div className="d-flex justify-content-center mb-2">
+        <h2 className="admin_H2 letter-spacing d-flex align-items-center gap-2">
+          Hello, Admin
+          <FaRegSmileBeam size={"2.2rem"} />
+        </h2>
+      </div>
+      <div className="d-flex justify-content-center gap-3 mb-3">
+        <NavLink
+          className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
+          to="/CreateProduct"
+        >
+          Create a Product
+        </NavLink>
+        <NavLink
+          className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
+          to="/"
+        >
+          Create a Category
+        </NavLink>
+      </div>
+      <div className="d-flex justify-content-evenly flex-wrap">
+        <ProductsTable products={allDBProducts} name={"Products"} />
+        <ProductsTable products={allCategories} name={"Categories"} />
+      </div>
+    </div>
+  );
+};
 
 export default AdminDashboard;
