@@ -34,12 +34,12 @@ const AdminNavBar = () => {
                     <NavLink to='/' className='adminLink'>
                         <li className="nav-item active">HOME</li>
                     </NavLink>
-                    <NavLink to='/createProduct' className='adminLink'>
+                    <NavLink to='/CreateProduct' className='adminLink'>
                         <li className="nav-item active">CREATE PRODUCT</li>
                     </NavLink>
-                    <NavLink to='/' className='adminLink'>
-                    <li className="nav-item active">ABOUT US</li>
-                    </NavLink>
+                    {/* <NavLink to='/about' className='adminLink'> */}
+                        <li className="nav-item active">ABOUT US</li>
+                    {/* </NavLink> */}
                 </ul>
             </div>
             </div>
