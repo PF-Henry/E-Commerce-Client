@@ -1,0 +1,90 @@
+.div-container {
+    width: 1000px;
+    height: 1000px;
+    padding-top: 50px;
+    margin-bottom: 100px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.div-container-sectionOne {
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.div-container-sectionOne-One {
+    width: 120px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+}
+
+.div-container-sectionOne-One-Picture--One {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+
+.div-container-sectionOne-One-Picture--Two {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.div-container-sectionOne-One-Picture--Three {
+    width: 120px;
+    height: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+}
+
+.div-container-sectionOne-Two {
+    width: 480px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFF;
+
+    cursor: pointer;
+}
+
+.div-container-sectionOne-Two img {
+    transition: 1s ease all;
+}
+
+.div-container-sectionOne-Two img:hover {
+    transform: scale(1.2);
+}
+
+.div-container-sectionOne-Three {
+    width: 250px;
+    height: 400px;
+    background-color: #CACACA;
+}
+
+.div-container-sectionTwo {
+    width: 100%;
+    height: 400px;
+    background-color: #CACACA;
+}
