@@ -1,9 +1,13 @@
 import React from "react";
+import { NavLink } from 'react-router-dom';
 import "./Card.css";
 
 const Card = ({ object }) => {
+  
   return (
-    <div className="card productCard border-0">
+    <NavLink to={`/product_detail/${object.id}`}>
+
+    <div className="card productCard border-0 animate__animated animate__fadeIn">
       <img
         src={
           object.images.length
@@ -31,6 +35,7 @@ const Card = ({ object }) => {
         </div>
       </div>
     </div>
+    </NavLink>
   );
 };
 
