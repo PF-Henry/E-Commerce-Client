@@ -50,7 +50,7 @@ const Filteredbar = ({
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
         <div className="d-flex gap-2">
           <div
-            className="btn px-3 bg-purple-dark text-white d-flex align-items-center gap-1 filterBtn border-0"
+            className="btn px-3 bg-purple-dark text-white d-flex align-items-center gap-1 filterBtn border-0 letter-spacing"
             type="button"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasExample"
