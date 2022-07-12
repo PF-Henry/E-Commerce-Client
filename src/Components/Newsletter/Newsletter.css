@@ -1,33 +1,23 @@
-.subscription {
-    text-transform: uppercase;
-    text-align: justify;
-    padding: 5% 0 0 20%;
-}
-
 .subs-button {
-    background-color: #3AD8C1;
-    border: none;
-    border-radius: 5px;
-    margin-left: 10px;
-    font-size: 14px;
-    height: 25px;
-    width: 100px;
-    color: #1C004A;
+  background-color: #3ad8c1;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  height: 25px;
+  width: 100px;
+  color: #1c004a;
 }
 
 .subs-button:hover {
-    opacity:0.8;
+  opacity: 0.8;
 }
 
-.subs-input {
-    border-radius: 5px;
-    border: none;
-    font-size: 15px;
-    background-color: #D9D9D9;
-    width: 285px;
-    height: 25px;
+.btn-aqua {
+  background-color: #3ad8c1;
+  color: #1c004a;
 }
 
-.subs-input::placeholder {
-    font-size: 14px;
+.btn-aqua:hover {
+  background-color: #1c004a;
+  color: #3ad8c1;
 }

@@ -22,7 +22,7 @@ const ProductsTable = ({ products, name, ruta }) => {
               <td className="d-flex justify-content-center gap-3">
                 <Link
                   to={`${ruta}${product.id}`}
-                  className="btn btn-warning py-1 d-flex align-items-center"
+                  className="btn btn-aqua py-1 d-flex align-items-center"
                 >
                   Edit <MdModeEdit size={"1.5rem"} />
                 </Link>

@@ -3,11 +3,18 @@ import "./Newsletter.css";
 
 export const Newsletter = () => {
   return (
-    <div className="subscription">
-      <p>Subscribe to our newsletter!</p>
-      <form>
-        <input className="subs-input" type="email" placeholder="Your mail..." />
-        <button className="subs-button" type="submit">
+    <div className="text-start text-uppercase">
+      <label htmlFor="newsletterInput fs-5" className="form-label">
+        Subscribe to our newsletter!
+      </label>
+      <form className="input-group">
+        <input
+          className="form-control"
+          type="email"
+          placeholder="Your mail..."
+          id="newsletterInput"
+        />
+        <button className="btn btn-aqua nav-li-font" type="submit">
           SUBSCRIBE
         </button>
       </form>
