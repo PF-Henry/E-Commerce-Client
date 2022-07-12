@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import { getDetailProductAsync } from '../../Redux/productSlice';
 import { Footer } from '../Footer/Footer';
 import Navbar from '../Navbar/Navbar';
@@ -19,6 +19,7 @@ export const ProductDetail = () => {
         brandName: '',
         price: 0,
         stock: 0,
+        description: '',
         technical_especification: '',
         categories: '',
     }
@@ -37,8 +38,8 @@ export const ProductDetail = () => {
         productDetails.price = product.price;
         productDetails.stock = product.stock;
         productDetails.technical_especification = product.technical_especification;
+        productDetails.description = product.description;
         productDetails.categories = product.categories[0].name;
-        console.log(product)
     }
 
     const dispatch = useDispatch();
@@ -49,16 +50,18 @@ export const ProductDetail = () => {
         dispatch(getDetailProductAsync(id));
     }, [])
 
-    console.log(id)
   
   return (
     <div>
         <Navbar />
         <div className='div-container'>
-            <h1>{productDetails.name}</h1>
+            <div className='div-container-header'>
+                <NavLink to='/' className='div-container-header--btn animate__animated animate__fadeInLeft' >Back</NavLink>
+                <h1 className="titleDetail animate__animated animate__fadeInRight" >{productDetails.name}</h1>
+            </div>
             
             <div className='div-container-sectionOne'>
-                <div className='div-container-sectionOne-One'>
+                <div className='div-container-sectionOne-One animate__animated animate__fadeInLeft'>
                     <div className='div-container-sectionOne-One-Picture--One'>
                         <img src={productDetails.img1} alt={productDetails.name} className='img-fluid'/>
                     </div>
@@ -73,20 +76,68 @@ export const ProductDetail = () => {
         
                 </div>
 
-                <div className='div-container-sectionOne-Two'>
+                <div className='div-container-sectionOne-Two animate__animated animate__fadeIn'>
                     <img src={productDetails.img1} alt={productDetails.name} className='img-fluid'/>
                 </div>
 
-                <div className='div-container-sectionOne-Three'>
+                <div className='div-container-sectionOne-Three animate__animated animate__fadeInRight'>
+                    <div className='div-info-product' > 
+                        <h2 className='div-info-product-title' >Price:</h2>
+                        <h3 className='div-info-product-description--price' > $  {productDetails.price}</h3>
+                    </div>
 
+                    <div className='div-info-product' > 
+                        <div className='div-info-section'>
+                            <h2 className='div-info-product-title' >Branch:</h2>
+                            <h3 className='div-info-product-description' > {productDetails.brandName}</h3>
+                        </div>
+
+                        <div className='div-info-section'>
+                            <h2 className='div-info-product-title' >Stock:</h2>
+                            <h3 className='div-info-product-description' > {productDetails.stock}</h3>
+                        </div>
+
+                    </div>
+
+                    <div className='div-info-product' > 
+                        <h2 className='div-info-product-title' >Categories:</h2>
+                        <h3 className='div-info-product-description' > {productDetails.categories}</h3>
+                    </div>
+
+                    <div className='div-info-btn' >
+                        <select className='select-quantity'>
+                            <option >Select Quantity</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5</option>
+                            <option>6</option>
+                        </select>
+                        <button className='btnDetail-Add-Product' > Add to the cart</button>
+                    </div>
                 </div>
             </div>
 
-            <div className='div-container-sectionTwo'>
-            <h3> $  {productDetails.price}</h3>
-            <h3> {productDetails.stock}</h3>
-            <h3> {productDetails.technical_especification}</h3>
-            <h3> {productDetails.categories}</h3>
+            <div className='div-container-sectionTwo animate__animated animate__fadeInUp'>
+
+                <div className='div-info-technical-decription'>
+                    <h3 className='div-info-technical-decription--title'>Description</h3>
+                    <p className='div-info-technical-decription--p'> {productDetails.description}</p>
+                </div>
+
+                <div className='divSepareted'></div>
+
+                <div className='div-info-technical-decription'>
+                    <h3 className='div-info-technical-decription--title'>Technical Description</h3>
+                    <p className='div-info-technical-decription--p'> {productDetails.technical_especification}</p>
+                </div>
+
+                <div className='divSepareted'></div>
+
+                <div className='div-info-technical-decription'>
+                    <h3 className='div-info-technical-decription--title'>Reviews</h3>
+                </div>
             </div>
         </div>
 

@@ -7,7 +7,7 @@ import "./Navbar.css";
 
 const Navbar = () => {
   return (
-    <div>
+    <div> 
       <nav className="navbar navbar-dark navbar-expand-lg navbar_container d-flex justify-content-center fixed-top animate__animated animate__fadeInDown">
         <div className="d-flex justify-content-center divColor">
           <div className="logoDiv navbar-brand">
@@ -62,15 +62,15 @@ const Navbar = () => {
             <Searchbar />
 
             <ul className="navbar-nav">
-              <li className="nav-item letter-spacing d-flex align-items-center">
+              <li className="nav-item letter-spacing d-flex align-items-center nav-li-font aqua-hover">
                 ABOUT US
               </li>
               <Link
                 to="/admin"
                 className="adminNavLink d-flex align-items-center gap-1 aqua-hover"
               >
-                <li className="nav-item letter-spacing">SIGN IN</li>
-                <CgProfile size={"1.8rem"} />
+                <li className="nav-item letter-spacing nav-li-font ">SIGN IN</li>
+                <CgProfile size={"1.6rem"} />
               </Link>
             </ul>
           </div>
