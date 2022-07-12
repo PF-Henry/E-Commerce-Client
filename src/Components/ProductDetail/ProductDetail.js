@@ -40,7 +40,6 @@ export const ProductDetail = () => {
         productDetails.technical_especification = product.technical_especification;
         productDetails.description = product.description;
         productDetails.categories = product.categories[0].name;
-        console.log(product)
     }
 
     const dispatch = useDispatch();
@@ -51,7 +50,6 @@ export const ProductDetail = () => {
         dispatch(getDetailProductAsync(id));
     }, [])
 
-    console.log(id)
   
   return (
     <div>
@@ -108,7 +106,7 @@ export const ProductDetail = () => {
 
                     <div className='div-info-btn' >
                         <select className='select-quantity'>
-                            <option disable>Select Quantity</option>
+                            <option >Select Quantity</option>
                             <option>1</option>
                             <option>2</option>
                             <option>3</option>
