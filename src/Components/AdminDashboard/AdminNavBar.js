@@ -39,8 +39,8 @@ const AdminNavBar = () => {
               to="/"
               className="adminNavLink d-flex align-items-center gap-1 aqua-hover"
             >
-              <li className="nav-item letter-spacing">SIGN OUT</li>
-              <MdExitToApp size={"1.8rem"} />
+              <li className="nav-item letter-spacing nav-li-font">SIGN OUT</li>
+              <MdExitToApp size={"1.6rem"} />
             </NavLink>
           </ul>
         </div>
