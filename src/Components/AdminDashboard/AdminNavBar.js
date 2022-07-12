@@ -14,8 +14,8 @@ const AdminNavBar = () => {
             className="navbar-brand text-white d-flex align-items-center letter-spacing"
           >
             <SiHexo fontSize={"2.3rem"} />
-            <div className="ms-1 fs-4">exa</div>
-            <div className="fw-bold text-aqua fs-4">tech</div>
+            <div className="fs-4 pb-1">exa</div>
+            <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
           </Link>
         </div>
         <button
