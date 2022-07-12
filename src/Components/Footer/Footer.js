@@ -6,8 +6,8 @@ import "./Footer.css";
 
 export const Footer = () => {
   return (
-    <div className="footer-container d-flex align-items-center justify-content-around">
-      <div className="nav-li-font d-flex flex-column gap-3 text-start">
+    <div className="footer-container d-flex align-items-center justify-content-around flex-wrap">
+      <div className="nav-li-font d-flex flex-column gap-3 text-start width300 p-4 py-5">
         <NavLink
           className="text-decoration-none text-white aqua-hover letter-spacing"
           to="/"
@@ -44,7 +44,7 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div>
+      <div className="width300 p-4 py-5">
         <Newsletter />
       </div>
     </div>
