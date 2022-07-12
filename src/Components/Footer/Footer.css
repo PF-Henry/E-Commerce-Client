@@ -1,11 +1,8 @@
 .footer-container {
   background-color: #1c004a;
-  height: 35vh;
   color: white;
 }
 
-.footer-h3 {
-  font-size: 40px;
-  font-weight: bold;
-  letter-spacing: 0.3em;
+.width300 {
+  width: 350px;
 }
