@@ -29,9 +29,15 @@ export const ProductDetail = () => {
 
   if (Object.values(product).length) {
     productDetails.name = product.name;
-    productDetails.img1 = product.images[0].url_image;
-    productDetails.img2 = product.images[0].url_image;
-    productDetails.img3 = product.images[0].url_image;
+    productDetails.img1 = !product.images.length
+      ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
+      : product.images[0].url_image;
+    productDetails.img2 = !product.images.length
+      ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
+      : product.images[0].url_image;
+    productDetails.img3 = !product.images.length
+      ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
+      : product.images[0].url_image;
     productDetails.brandName = product.brand.name;
     productDetails.price = product.price;
     productDetails.stock = product.stock;
