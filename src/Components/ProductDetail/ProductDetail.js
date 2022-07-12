@@ -19,6 +19,7 @@ export const ProductDetail = () => {
         brandName: '',
         price: 0,
         stock: 0,
+        description: '',
         technical_especification: '',
         categories: '',
     }
@@ -37,6 +38,7 @@ export const ProductDetail = () => {
         productDetails.price = product.price;
         productDetails.stock = product.stock;
         productDetails.technical_especification = product.technical_especification;
+        productDetails.description = product.description;
         productDetails.categories = product.categories[0].name;
         console.log(product)
     }
@@ -120,6 +122,14 @@ export const ProductDetail = () => {
             </div>
 
             <div className='div-container-sectionTwo animate__animated animate__fadeInUp'>
+
+                <div className='div-info-technical-decription'>
+                    <h3 className='div-info-technical-decription--title'>Description</h3>
+                    <p className='div-info-technical-decription--p'> {productDetails.description}</p>
+                </div>
+
+                <div className='divSepareted'></div>
+
                 <div className='div-info-technical-decription'>
                     <h3 className='div-info-technical-decription--title'>Technical Description</h3>
                     <p className='div-info-technical-decription--p'> {productDetails.technical_especification}</p>

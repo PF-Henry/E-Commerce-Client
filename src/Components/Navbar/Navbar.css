@@ -28,7 +28,17 @@
 }
 
 .navbar-nav {
-  width: 250px;
+  width: 200px;
   display: flex;
   justify-content: space-between;
+}
+
+.nav-li-font {
+  font-size: 12px;
+
+  transition: 0.6s ease all;
+}
+
+.nav-li-font:hover {
+  cursor: pointer;
 }
