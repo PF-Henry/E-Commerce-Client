@@ -69,6 +69,13 @@ export const productSlice = createSlice({
     searchProduct: (state, action) => {
       state.productsLoaded = action.payload;
     },
+    searchProductError: (state, action) => {
+      state.error = action.payload;
+      // state.productsLoaded = [];
+    },
+    resetError: (state, action) =>{
+      state.error = '';
+    },
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
     },
@@ -94,6 +101,7 @@ export const {
   searchProductError,
   getProductDetails,
   getAllDBProducts,
+  resetError
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -165,7 +173,10 @@ export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
     .then((data) => data.json())
     .then((json) => {
-      dispatch(searchProduct(json));
+        if (json.error) {
+            return dispatch(searchProductError(json.error));
+        }        
+        dispatch(searchProduct(json));
     })
     .catch((error) => console.log(error));
 };
