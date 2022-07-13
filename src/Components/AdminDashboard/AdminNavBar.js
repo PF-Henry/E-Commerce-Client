@@ -6,7 +6,7 @@ import "./AdminNavBar.css";
 
 const AdminNavBar = () => {
   return (
-    <nav class="navbar navbar-dark navbar-expand-lg bg-purple-dark-90 fixed-top">
+    <nav className="navbar navbar-dark navbar-expand-lg bg-purple-dark-90 fixed-top">
       <div className="container-md">
         <div className="navbar-brand basis">
           <Link
@@ -19,7 +19,7 @@ const AdminNavBar = () => {
           </Link>
         </div>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
@@ -27,10 +27,10 @@ const AdminNavBar = () => {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span class="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
             {/* <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">
                 Home

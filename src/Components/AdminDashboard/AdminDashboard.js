@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import AdminNavBar from "./AdminNavBar";
 import { useSelector, useDispatch } from "react-redux";
 import "./AdminDashboard.css";
-import ProductsTable from "../../ProductsTable/ProductsTable";
+import ProductsTable from "../ProductsTable/ProductsTable";
 import { FaRegSmileBeam } from "react-icons/fa";
 import {
   getAllDBProductsAsync,
