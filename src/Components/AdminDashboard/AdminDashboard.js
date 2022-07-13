@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import AdminNavBar from "./AdminNavBar";
 import { useSelector, useDispatch } from "react-redux";
 import "./AdminDashboard.css";
-import ProductsTable from "../../ProductsTable/ProductsTable";
+import ProductsTable from "../ProductsTable/ProductsTable";
 import { FaRegSmileBeam } from "react-icons/fa";
 import {
   getAllDBProductsAsync,
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
     }
   }, [allCategories, dispatch]);
   return (
-    <div>
+    <div className="animate__animated animate__fadeIn">
       <AdminNavBar />
       <div className="d-flex justify-content-center mb-2">
         <h2 className="admin_H2 letter-spacing d-flex align-items-center gap-2">

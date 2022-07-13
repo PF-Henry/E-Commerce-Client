@@ -6,46 +6,49 @@ import "./Footer.css";
 
 export const Footer = () => {
   return (
-    <div className="footer-container d-flex align-items-center justify-content-evenly flex-wrap">
-      <div className="nav-li-font d-flex flex-column gap-3 text-start width300 p-4 py-5">
-        <NavLink
-          className="text-decoration-none text-white aqua-hover letter-spacing"
-          to="/"
-        >
-          HOME
-        </NavLink>
-        <NavLink
-          className="text-decoration-none text-white aqua-hover letter-spacing"
-          to="/about"
-        >
-          ABOUT US
-        </NavLink>
-        <NavLink
-          className="text-decoration-none text-white aqua-hover letter-spacing"
-          to="/cart"
-        >
-          SHOPPING CART
-        </NavLink>
-        <NavLink
-          className="text-decoration-none text-white aqua-hover letter-spacing"
-          to="/newsletter"
-        >
-          NEWSLETTER
-        </NavLink>
-      </div>
+    <div className="footer-container">
+      <div className="container-md py-5">
+        <div className="row">
+          <div className="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center mb-4 mb-lg-0">
+            <div className="text-white d-flex align-items-center letter-spacing">
+              <SiHexo fontSize={"4rem"} />
+              <div className="d-flex pb-1">
+                <div className="fs-1">exa</div>
+                <div className="fw-bold text-aqua fs-1">tech</div>
+              </div>
+            </div>
+          </div>
+          <div className="nav-li-font d-flex flex-column text-center col-md-6 gap-2 col-lg-4 mb-4 mb-lg-0">
+            <NavLink
+              className="text-decoration-none text-white aqua-hover letter-spacing"
+              to="/"
+            >
+              HOME
+            </NavLink>
+            <NavLink
+              className="text-decoration-none text-white aqua-hover letter-spacing"
+              to="/about"
+            >
+              ABOUT US
+            </NavLink>
+            <NavLink
+              className="text-decoration-none text-white aqua-hover letter-spacing"
+              to="/cart"
+            >
+              SHOPPING CART
+            </NavLink>
+            <NavLink
+              className="text-decoration-none text-white aqua-hover letter-spacing"
+              to="/newsletter"
+            >
+              NEWSLETTER
+            </NavLink>
+          </div>
 
-      <div>
-        <div className="navbar-brand text-white d-flex align-items-center letter-spacing">
-          <SiHexo fontSize={"4rem"} />
-          <div className="d-flex pb-1">
-            <div className="fs-1">exa</div>
-            <div className="fw-bold text-aqua fs-1">tech</div>
+          <div className="col-md-12 col-lg-4 d-flex justify-content-center">
+            <Newsletter />
           </div>
         </div>
-      </div>
-
-      <div className="width300 p-4 py-5">
-        <Newsletter />
       </div>
     </div>
   );
