@@ -15,3 +15,11 @@
 .aqua-hover:hover {
   color: #3ad8c1;
 }
+
+.basis {
+  flex: 1 1 0px;
+}
+
+.bg-purple-dark-90 {
+  background-color: rgba(28, 0, 74, 0.9);
+}

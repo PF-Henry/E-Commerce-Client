@@ -6,9 +6,9 @@ import "./AdminNavBar.css";
 
 const AdminNavBar = () => {
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg navbar_container d-flex justify-content-center fixed-top">
-      <div className="d-flex justify-content-center divColor">
-        <div className="logoDiv">
+    <nav class="navbar navbar-dark navbar-expand-lg bg-purple-dark-90 fixed-top">
+      <div className="container-md">
+        <div className="navbar-brand basis">
           <Link
             to="/"
             className="navbar-brand text-white d-flex align-items-center letter-spacing"
@@ -19,30 +19,75 @@ const AdminNavBar = () => {
           </Link>
         </div>
         <button
-          className="navbar-toggler"
+          class="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon"></span>
         </button>
-
-        <div
-          className="collapse navbar-collapse display_around2"
-          id="navbarSupportedContent"
-        >
-          <ul className="navbar-nav admin_ul">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+            {/* <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">
+                Home
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                Link
+              </a>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Dropdown
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Action
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Another action
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">
+                    Something else here
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li> */}
+          </ul>
+          <div className="d-flex justify-content-center justify-content-md-end mb-2 mb-lg-0 basis">
             <NavLink
               to="/"
               className="adminNavLink d-flex align-items-center gap-1 aqua-hover"
             >
-              <li className="nav-item letter-spacing nav-li-font">SIGN OUT</li>
+              <div className="nav-item letter-spacing nav-li-font">
+                SIGN OUT
+              </div>
               <MdExitToApp size={"1.6rem"} />
             </NavLink>
-          </ul>
+          </div>
         </div>
       </div>
     </nav>
