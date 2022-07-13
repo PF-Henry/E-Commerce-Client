@@ -4,6 +4,7 @@ import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { HiShoppingCart } from "react-icons/hi";
+import { MdOutlineShoppingCart } from "react-icons/md";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -48,9 +49,9 @@ const Navbar = () => {
                 SIGN IN <CgProfile size={"1.6rem"} />
               </div>
             </Link>
-            <li className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center">
-              <HiShoppingCart size={"1.6rem"} />
-            </li>
+            <div className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1">
+              CART <MdOutlineShoppingCart size={"1.6rem"} />
+            </div>
           </ul>
         </div>
       </div>
