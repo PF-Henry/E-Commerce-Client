@@ -3,7 +3,7 @@ import "./Newsletter.css";
 
 export const Newsletter = () => {
   return (
-    <div className="text-start text-uppercase">
+    <div className="text-lg-start text-sm-center text-uppercase">
       <label htmlFor="newsletterInput fs-5" className="form-label">
         Subscribe to our newsletter!
       </label>
