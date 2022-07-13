@@ -11,7 +11,7 @@ export const Newsletter = () => {
         <input
           className="form-control"
           type="email"
-          placeholder="Your mail..."
+          placeholder="name@example.com"
           id="newsletterInput"
         />
         <button className="btn btn-aqua nav-li-font" type="submit">

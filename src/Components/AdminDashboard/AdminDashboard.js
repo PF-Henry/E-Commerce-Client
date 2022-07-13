@@ -26,7 +26,7 @@ const AdminDashboard = () => {
     }
   }, [allCategories, dispatch]);
   return (
-    <div>
+    <div className="animate__animated animate__fadeIn">
       <AdminNavBar />
       <div className="d-flex justify-content-center mb-2">
         <h2 className="admin_H2 letter-spacing d-flex align-items-center gap-2">

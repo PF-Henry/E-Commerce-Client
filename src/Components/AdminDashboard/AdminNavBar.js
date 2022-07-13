@@ -6,7 +6,7 @@ import "./AdminNavBar.css";
 
 const AdminNavBar = () => {
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg bg-purple-dark-90 fixed-top">
+    <nav className="navbar navbar-dark navbar-expand-lg bg-purple-dark-90 fixed-top animate__animated animate__fadeInDown">
       <div className="container-md">
         <div className="navbar-brand basis">
           <Link
@@ -80,12 +80,11 @@ const AdminNavBar = () => {
           <div className="d-flex justify-content-center justify-content-md-end mb-2 mb-lg-0 basis">
             <NavLink
               to="/"
-              className="adminNavLink d-flex align-items-center gap-1 aqua-hover"
+              className="adminNavLink d-flex align-items-center aqua-hover"
             >
-              <div className="nav-item letter-spacing nav-li-font">
-                SIGN OUT
+              <div className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1">
+                SIGN OUT <MdExitToApp size={"1.6rem"} />
               </div>
-              <MdExitToApp size={"1.6rem"} />
             </NavLink>
           </div>
         </div>
