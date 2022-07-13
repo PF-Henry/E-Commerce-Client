@@ -3,7 +3,6 @@ import Searchbar from "../Searchbar/Searchbar";
 import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { HiShoppingCart } from "react-icons/hi";
 import { MdOutlineShoppingCart } from "react-icons/md";
 import "./Navbar.css";
 
