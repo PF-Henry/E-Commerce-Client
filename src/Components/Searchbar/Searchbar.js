@@ -19,7 +19,7 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="input-group input-group-sm div--Serchbar">
+    <div className="input-group input-group-sm div--Serchbar mt-3 mt-lg-0">
       <input
         value={search}
         className="form-control input--SearchBar"
