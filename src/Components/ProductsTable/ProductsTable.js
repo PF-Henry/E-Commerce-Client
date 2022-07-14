@@ -1,5 +1,5 @@
 import React from "react";
-import { MdDelete, MdModeEdit } from "react-icons/md";
+import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 
 const ProductsTable = ({ products, name, ruta }) => {
