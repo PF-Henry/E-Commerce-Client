@@ -282,8 +282,8 @@ export default function Create() {
             <label className="formItem" htmlFor="name">
               Technical Specification
             </label>
-            <input
-              type="text"
+            <textarea
+              rows={3}
               onChange={handleInputChange}
               className="form-control"
               name="technical_especification"
@@ -291,52 +291,53 @@ export default function Create() {
               placeholder="Technical Specification"
             />
           </div>
-          <div className="form-group">
-            <label className="formItem" htmlFor="name">
-              Price
-            </label>
-            <input
-              type="text"
-              onChange={handleInputChange}
-              className="form-control"
-              name="price"
-              value={input.price}
-              placeholder="Price"
-            />
-          </div>
-          <div className="form-group">
-            <label className="formItem" htmlFor="stock">
-              Stock
-            </label>
-            <input
-              type="text"
-              onChange={handleInputChange}
-              className="form-control"
-              name="stock"
-              value={input.stock}
-              placeholder="Stock"
-            />
-          </div>
-          <div className="form-group">
-            <label className="formItem" htmlFor="brands">
-              Brands
-            </label>
+          <div className="row">
+            <div className="form-group col-lg-3 col-md-6">
+              <label className="formItem" htmlFor="name">
+                Price
+              </label>
+              <input
+                type="text"
+                onChange={handleInputChange}
+                className="form-control"
+                name="price"
+                value={input.price}
+                placeholder="Price"
+              />
+            </div>
+            <div className="form-group col-lg-3 col-md-6">
+              <label className="formItem" htmlFor="stock">
+                Stock
+              </label>
+              <input
+                type="text"
+                onChange={handleInputChange}
+                className="form-control"
+                name="stock"
+                value={input.stock}
+                placeholder="Stock"
+              />
+            </div>
+            <div className="form-group col-lg-6">
+              <label className="formItem" htmlFor="brands">
+                Brand
+              </label>
 
-            <select
-              defaultValue={input.brand}
-              onChange={onChangeBrands}
-              name="brands"
-              className="form-select"
-            >
-              <option value="0">Select Brand</option>
-              {brands.map((item, index) => (
-                <option key={index} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
-            </select>
+              <select
+                defaultValue={input.brand}
+                onChange={onChangeBrands}
+                name="brands"
+                className="form-select"
+              >
+                <option value="0">Select Brand</option>
+                {brands.map((item, index) => (
+                  <option key={index} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            </div>
           </div>
-
           <div className="form-group">
             <label className="formItem" htmlFor="categories">
               Categories
