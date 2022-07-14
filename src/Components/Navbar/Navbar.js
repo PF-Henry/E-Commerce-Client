@@ -37,9 +37,12 @@ const Navbar = () => {
             <Searchbar />
           </div>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
-            <li className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center">
+            <Link
+              to="/about"
+              className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center"
+            >
               ABOUT US
-            </li>
+            </Link>
             <Link
               to="/admin"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
@@ -48,9 +51,18 @@ const Navbar = () => {
                 SIGN IN <CgProfile size={"1.6rem"} />
               </div>
             </Link>
-            <div className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1">
-              CART <MdOutlineShoppingCart size={"1.6rem"} />
-            </div>
+            <Link
+              to="/cart"
+              className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
+            >
+              CART{" "}
+              <div className="position-relative">
+                <MdOutlineShoppingCart size={"1.6rem"} />
+                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  3
+                </span>
+              </div>
+            </Link>
           </ul>
         </div>
       </div>
