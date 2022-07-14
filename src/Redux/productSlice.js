@@ -30,11 +30,11 @@ export const productSlice = createSlice({
     error: "",
     msg: "",
     allDBProducts: [],
+    cartItems: [],
   },
   reducers: {
     getProducts: (state, action) => {
       state.productsLoaded = action.payload;
-      state.filteredProducts = action.payload;
     },
     getDetail: (state, action) => {
       state.productDetail = action.payload;
@@ -75,6 +75,9 @@ export const productSlice = createSlice({
     getAllDBProducts: (state, action) => {
       state.allDBProducts = action.payload;
     },
+    setCartItems: (state, action) => {
+      state.cartItems = action.payload;
+    },
   },
 });
 
@@ -94,6 +97,7 @@ export const {
   searchProductError,
   getProductDetails,
   getAllDBProducts,
+  setCartItems,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
