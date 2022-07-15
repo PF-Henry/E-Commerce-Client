@@ -8,6 +8,9 @@ import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsAsync } from "../../Redux/productSlice";
 import sorting from "../../Functions/sorting";
+import { Login } from "../Login/Login";
+
+
 
 const Home = () => {
   const allProducts = useSelector((state) => state.products.productsLoaded);
@@ -71,9 +74,11 @@ const Home = () => {
         productsArray={filteredProductsByBrands}
       />
       <Cards products={currentItems} />
+      <Login/>
       {/* <Offers /> */}
       {/* <Brands /> */}
       <Footer />
+
     </div>
   );
 };

@@ -1,0 +1,108 @@
+.div-sotial-buttons {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.right {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.right-input {
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #507cc0;
+}
+  
+.center{
+height: 100%;
+display: flex;
+align-items: center;
+justify-content: center;
+position: relative;
+}
+  
+.or{
+  margin: 5px 0;
+  color: gray;
+  background-color: white;
+  font-weight: bold;
+}
+
+.line{
+  width: 0.5px;
+  height: 70%;
+  background-color: lightgray;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: -1;
+}
+
+.btnLogin {
+  width: 300px;
+  padding: 5px 0;
+  border-radius: 5px;
+  background-color: #1c004a;
+  color: #FFF;
+  border: none;
+}
+
+.btnLogin:hover {
+  color: #1c004a !important;
+  background-color: #3ad8c1;
+}
+
+
+.loginButton{
+    width: 150px;
+    height: 35px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+.google{
+    background-color: #df4930;
+  }
+  .facebook{
+    background-color: #507cc0;
+  }
+  .github{
+    background-color: black;
+  }
+  
+  .icon{
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+  }
+
+  .modal-footer {
+    background-color: #1c004a;
+  }
+
+  .btn-x {
+    padding: 10px 25px;
+    background-color: #3ad8c1;
+  }
+
+  .btn-x:hover {
+    background-color: #FFF;
+  }

@@ -4,6 +4,8 @@ import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { Login } from "../Login/Login";
+
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -43,14 +45,14 @@ const Navbar = () => {
             >
               ABOUT US
             </Link>
-            <Link
+            {/* <Link
               to="/admin"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
-            >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
+            > */}
+              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover" data-toggle="modal" data-target="#exampleModalCenter">
                 SIGN IN <CgProfile size={"1.6rem"} />
               </div>
-            </Link>
+            {/* </Link> */}
             <Link
               to="/cart"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
@@ -63,6 +65,10 @@ const Navbar = () => {
                 </span>
               </div>
             </Link>
+
+            {/* <div>
+              <button className="" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
+            </div> */}
           </ul>
         </div>
       </div>
