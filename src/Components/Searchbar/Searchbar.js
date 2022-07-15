@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchProductAsync } from "../../Redux/productSlice";
+
+import { resetError, searchProductAsync } from "../../Redux/productSlice";
 import { FiSearch } from "react-icons/fi";
 import "./Searchbar.css";
 
@@ -14,6 +15,7 @@ const Searchbar = () => {
   };
 
   const handleSubmit = (e) => {
+    dispatch(resetError())
     dispatch(searchProductAsync(search));
     setSearch("");
   };
