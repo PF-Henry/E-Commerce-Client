@@ -4,9 +4,12 @@ import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingCart } from "react-icons/md";
+import { useSelector } from "react-redux/es/exports";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (
     <nav className="navbar navbar-dark navbar-expand-lg fixed-top animate__animated animate__fadeInDown bg-purple-dark-90 text-white">
       <div className="container-md">
@@ -58,9 +61,11 @@ const Navbar = () => {
               CART{" "}
               <div className="position-relative">
                 <MdOutlineShoppingCart size={"1.6rem"} />
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  3
-                </span>
+                {quantities !== 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {quantities}
+                  </span>
+                )}
               </div>
             </Link>
           </ul>

@@ -169,7 +169,10 @@ export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
     .then((data) => data.json())
     .then((json) => {
-      dispatch(searchProduct(json));
+        if (json.error) {
+            return dispatch(searchProductError(json.error));
+        }
+        dispatch(searchProduct(json));
     })
     .catch((error) => console.log(error));
 };
