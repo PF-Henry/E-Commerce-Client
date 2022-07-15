@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+
 import { resetError, searchProductAsync } from "../../Redux/productSlice";
+import { FiSearch } from "react-icons/fi";
 import "./Searchbar.css";
 
 const Searchbar = () => {
@@ -19,15 +21,18 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="div--Serchbar">
+    <div className="input-group input-group-sm div--Serchbar mt-3 mt-lg-0">
       <input
         value={search}
-        className="input--SearchBar"
+        className="form-control input--SearchBar"
         placeholder="Search Product"
         onChange={(e) => handleInputChange(e)}
       />
-      <button className="btn--Searchbar" onClick={(e) => handleSubmit(e)}>
-        SEARCH
+      <button
+        className="btn--Searchbar d-flex align-items-center px-3"
+        onClick={(e) => handleSubmit(e)}
+      >
+        <FiSearch size={"1.1rem"} />
       </button>
     </div>
   );

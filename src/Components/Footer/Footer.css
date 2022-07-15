@@ -1,32 +1,4 @@
 .footer-container {
-    background-color: #1C004A;
-    display: flex;
-    justify-content: space-around;
-    position: relative;
-    height: 35vh;
-    color: white;
-}
-
-.footer-menu {
-    font-size: 13px;   
-    text-align: justify;
-    padding-top: 3%;
-}
-
-.footer-link {
-    text-decoration: none;
-    color: white;
-}
-
-.store-name {
-    position: absolute;
-    top: 50%;
-    transform: translate(0, -50%);
-    max-width:150px;
-}
-
-.footer-h3 {
-    font-size: 40px;
-    font-weight: bold;
-    letter-spacing: 0.3em;
+  background-color: #1c004a;
+  color: white;
 }

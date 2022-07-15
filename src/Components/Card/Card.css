@@ -5,7 +5,7 @@
   z-index: 0;
 
   cursor: pointer;
-  transition: 0.6s ease all;
+  transition: 0.3s ease all;
 }
 
 .productCard:hover {
