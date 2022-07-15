@@ -179,7 +179,7 @@ export const searchProductAsync = (product) => (dispatch) => {
     .then((json) => {
         if (json.error) {
             return dispatch(searchProductError(json.error));
-        }        
+        }
         dispatch(searchProduct(json));
     })
     .catch((error) => console.log(error));
