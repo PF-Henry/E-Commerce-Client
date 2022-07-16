@@ -27,7 +27,7 @@ const Cart = () => {
             {cartItems.map((product) => (
               <div
                 key={product.id}
-                className="d-flex justify-content-between border border-secondary p-3 flex-column align-items-center flex-sm-row"
+                className="d-flex justify-content-between border-bottom border-secondary p-3 flex-column align-items-center flex-sm-row"
               >
                 <div className="basis text-start">{product.name}</div>
                 <div className="basis">Quantity: {product.quantity}</div>
