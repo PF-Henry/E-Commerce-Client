@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 export const productSlice = createSlice({
@@ -88,8 +89,17 @@ export const productSlice = createSlice({
       );
       if (productIndex === -1) {
         state.cartItems.push({ ...action.payload, quantity: 1 });
+        toast.success(
+          `${state.cartItems[productIndex].name} was added to the cart`,
+          {
+            position: "bottom-right",
+          }
+        );
       } else {
         state.cartItems[productIndex].quantity += 1;
+        toast.info("1 more unit was added to the cart.", {
+          position: "bottom-right",
+        });
       }
     },
   },
