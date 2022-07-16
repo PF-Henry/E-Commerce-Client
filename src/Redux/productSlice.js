@@ -31,7 +31,9 @@ export const productSlice = createSlice({
     error: "",
     msg: "",
     allDBProducts: [],
-    cartItems: [],
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -101,6 +103,8 @@ export const productSlice = createSlice({
           position: "bottom-right",
         });
       }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
