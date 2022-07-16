@@ -4,6 +4,7 @@ import Google from './images/google.png';
 import Facebook from "./images/facebook.png";
 import Github from "./images/github.png";
 import { NavLink } from 'react-router-dom';
+import { SiHexo } from "react-icons/si";
 
 
 
@@ -14,7 +15,7 @@ export const Login = () => {
       };
 
       const github = () => {
-        window.open("http://localhost:5000/auth/github", "_self");
+        window.open("http://localhost:3001/auth/github", "_self");
       };
     
       const facebook = () => {
@@ -22,13 +23,13 @@ export const Login = () => {
       };
 
   return (
-    <div>
+    <div className='padding-container'>
         <div className="login-container">
             <div className='section-title'>
                 <h5 className="section-title--title" >Choose a Login Method</h5>
                 <div className='section-title-text'> 
-                    <p>Don't have account yet?</p>
-                    <NavLink to='/' > Sign In </NavLink>
+                    <p className='m-0'>Don't have account yet?</p>
+                    <NavLink to='/SignIn' > Sign In </NavLink>
                 </div>
 
             </div>
@@ -57,6 +58,20 @@ export const Login = () => {
                     </div>
                     <button className="btnLogin">Login</button>
                 </div>
+            </div>
+
+            <div className='logo-footer-container'>
+
+                <NavLink
+                    to="/"
+                    className="navbar-brand text-white d-flex align-items-center letter-spacing"
+                >
+                    <SiHexo fontSize={"2.3rem"} />
+                    <div className="fs-4 pb-1">exa</div>
+                    <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
+                </NavLink>
+        
+
             </div>
             
         </div>  

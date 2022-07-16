@@ -8,6 +8,7 @@ import { UpdateProduct } from "./Components/UpdateProduct/UpdateProduct";
 import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import { Login } from "./Components/Login/Login";
+import { SignIn } from "./Components/SignIn/SignIn";
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/SignIn" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />

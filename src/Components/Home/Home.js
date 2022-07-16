@@ -8,7 +8,6 @@ import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsAsync } from "../../Redux/productSlice";
 import sorting from "../../Functions/sorting";
-import { Login } from "../Login/Login";
 
 
 
@@ -74,7 +73,6 @@ const Home = () => {
         productsArray={filteredProductsByBrands}
       />
       <Cards products={currentItems} />
-      <Login/>
       {/* <Offers /> */}
       {/* <Brands /> */}
       <Footer />
