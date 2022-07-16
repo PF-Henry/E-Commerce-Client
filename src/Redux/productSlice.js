@@ -73,8 +73,8 @@ export const productSlice = createSlice({
       state.error = action.payload;
       // state.productsLoaded = [];
     },
-    resetError: (state, action) =>{
-      state.error = '';
+    resetError: (state, action) => {
+      state.error = "";
     },
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
@@ -82,8 +82,15 @@ export const productSlice = createSlice({
     getAllDBProducts: (state, action) => {
       state.allDBProducts = action.payload;
     },
-    setCartItems: (state, action) => {
-      state.cartItems = action.payload;
+    addToCart: (state, action) => {
+      let productIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      if (productIndex === -1) {
+        state.cartItems.push({ ...action.payload, quantity: 1 });
+      } else {
+        state.cartItems[productIndex].quantity += 1;
+      }
     },
   },
 });
@@ -105,7 +112,7 @@ export const {
   getProductDetails,
   getAllDBProducts,
   resetError,
-  setCartItems,
+  addToCart,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -177,10 +184,10 @@ export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
     .then((data) => data.json())
     .then((json) => {
-        if (json.error) {
-            return dispatch(searchProductError(json.error));
-        }
-        dispatch(searchProduct(json));
+      if (json.error) {
+        return dispatch(searchProductError(json.error));
+      }
+      dispatch(searchProduct(json));
     })
     .catch((error) => console.log(error));
 };
