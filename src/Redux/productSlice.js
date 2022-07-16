@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 export const productSlice = createSlice({
@@ -30,7 +31,9 @@ export const productSlice = createSlice({
     error: "",
     msg: "",
     allDBProducts: [],
-    cartItems: [],
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -88,9 +91,27 @@ export const productSlice = createSlice({
       );
       if (productIndex === -1) {
         state.cartItems.push({ ...action.payload, quantity: 1 });
+        toast.success(`${action.payload.name} was added to the cart`, {
+          position: "bottom-right",
+        });
       } else {
         state.cartItems[productIndex].quantity += 1;
+        toast.info("1 more unit was added to the cart.", {
+          position: "bottom-right",
+        });
       }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+      toast.error(`${action.payload.name} was removed from the cart`, {
+        position: "bottom-right",
+      });
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
@@ -113,6 +134,7 @@ export const {
   getAllDBProducts,
   resetError,
   addToCart,
+  removeFromCart,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {

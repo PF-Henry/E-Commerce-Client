@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Pagination from "../Pagination/Pagination";
 import { IoOptions } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
+import brandNames from "../../Functions/brandNames";
 
 import {
   getBrandsAsync,
@@ -182,7 +183,7 @@ const Filteredbar = ({
                 }
               />
               <label className="form-check-label" htmlFor={brand.name}>
-                {brand.name}
+                {brandNames(brand.name)}
               </label>
             </div>
           ))}

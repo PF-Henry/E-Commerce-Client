@@ -1,28 +1,13 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/productSlice";
 import "./Card.css";
 
 const Card = ({ object }) => {
-  // const cartItems = useSelector((state) => state.products.cartItems);
   const dispatch = useDispatch();
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
-    // let productExist = cartItems.find((product) => product.id === item.id);
-    // if (productExist) {
-    //   dispatch(
-    //     addToCart(
-    //       cartItems.map((product) =>
-    //         product.id === item.id
-    //           ? { ...productExist, quantity: productExist.quantity + 1 }
-    //           : product
-    //       )
-    //     )
-    //   );
-    // } else {
-    //   dispatch(addToCart([...cartItems, { ...item, quantity: 1 }]));
-    // }
   };
 
   return (
