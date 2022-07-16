@@ -7,6 +7,8 @@ import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
 import { UpdateProduct } from "./Components/UpdateProduct/UpdateProduct";
 import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";
+import { Login } from "./Components/Login/Login";
+
 
 function App() {
   return (
@@ -14,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />

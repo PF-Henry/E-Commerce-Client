@@ -1,8 +1,29 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setCartItems } from "../../Redux/productSlice";
 import "./Card.css";
 
 const Card = ({ object }) => {
+  const cartItems = useSelector((state) => state.products.cartItems);
+  const dispatch = useDispatch();
+  const addToCart = (item) => {
+    let productExist = cartItems.find((product) => product.id === item.id);
+    if (productExist) {
+      dispatch(
+        setCartItems(
+          cartItems.map((product) =>
+            product.id === item.id
+              ? { ...productExist, quantity: productExist.quantity + 1 }
+              : product
+          )
+        )
+      );
+    } else {
+      dispatch(setCartItems([...cartItems, { ...item, quantity: 1 }]));
+    }
+  };
+
   return (
     <NavLink
       to={`/product_detail/${object.id}`}
@@ -29,7 +50,12 @@ const Card = ({ object }) => {
         </div>
         <div className="mt-auto">
           <h1 className="text-blue mb-3 letter-spacing">${object.price}</h1>
-          <div className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing">
+          <div
+            className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
+            onClick={() => {
+              addToCart(object);
+            }}
+          >
             Add to the cart
           </div>
         </div>

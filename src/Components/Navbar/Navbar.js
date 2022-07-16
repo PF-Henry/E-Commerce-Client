@@ -4,11 +4,14 @@ import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingCart } from "react-icons/md";
-import { Login } from "../Login/Login";
+// import { Login } from "../Login/Login";
 
+import { useSelector } from "react-redux/es/exports";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (
     <nav className="navbar navbar-dark navbar-expand-lg fixed-top animate__animated animate__fadeInDown bg-purple-dark-90 text-white">
       <div className="container-md">
@@ -45,14 +48,15 @@ const Navbar = () => {
             >
               ABOUT US
             </Link>
-            {/* <Link
-              to="/admin"
+            <Link
+              to="/login"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
-            > */}
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover" data-toggle="modal" data-target="#exampleModalCenter">
-                SIGN IN <CgProfile size={"1.6rem"} />
+            >
+              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover" >
+              {/* data-toggle="modal" data-target="#exampleModalCenter" */}
+                LOGIN <CgProfile size={"1.6rem"} />
               </div>
-            {/* </Link> */}
+            </Link>
             <Link
               to="/cart"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
@@ -60,9 +64,11 @@ const Navbar = () => {
               CART{" "}
               <div className="position-relative">
                 <MdOutlineShoppingCart size={"1.6rem"} />
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                  3
-                </span>
+                {quantities !== 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {quantities}
+                  </span>
+                )}
               </div>
             </Link>
 
