@@ -11,10 +11,7 @@ const Card = ({ object }) => {
   };
 
   return (
-    <NavLink
-      to={`/product_detail/${object.id}`}
-      className="text-decoration-none text-reset card productCard border-0 animate__animated animate__fadeIn"
-    >
+    <div className="card productCard border-0 animate__animated animate__fadeIn">
       <img
         src={
           object.images.length
@@ -26,9 +23,14 @@ const Card = ({ object }) => {
       />
       <div className="card-body d-flex flex-column">
         <div className="mb-3">
-          <h5 className="card-title text-blue mb-3 letter-spacing">
-            {object.name}
-          </h5>
+          <NavLink
+            to={`/product_detail/${object.id}`}
+            className="text-decoration-none"
+          >
+            <h5 className="card-title text-blue mb-3 letter-spacing aqua-hover text-decoration-underline-hover">
+              {object.name}
+            </h5>
+          </NavLink>
           <p className="card-text letter-spacing fw-light">
             {object.description.slice(0, 100)}
             {object.description.length > 100 && "..."}
@@ -46,7 +48,7 @@ const Card = ({ object }) => {
           </div>
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 };
 
