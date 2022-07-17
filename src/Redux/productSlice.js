@@ -113,6 +113,26 @@ export const productSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    decreaseCart: (state, action) => {
+      let productIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      if (state.cartItems[productIndex].quantity > 1) {
+        state.cartItems[productIndex].quantity -= 1;
+        toast.info("One unit subtracted from the cart.", {
+          position: "bottom-right",
+        });
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.id
+        );
+        toast.error("Product removed from the cart.", {
+          position: "bottom-right",
+        });
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
@@ -135,6 +155,7 @@ export const {
   resetError,
   addToCart,
   removeFromCart,
+  decreaseCart,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { getDetailProductAsync } from "../../Redux/productSlice";
+import { addToCart, getDetailProductAsync } from "../../Redux/productSlice";
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
@@ -48,6 +48,9 @@ export const ProductDetail = () => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -150,7 +153,12 @@ export const ProductDetail = () => {
                 <option>5</option>
                 <option>6</option>
               </select>
-              <button className="btnDetail-Add-Product">
+              <button
+                className="btnDetail-Add-Product"
+                onClick={() => {
+                  handleAddToCart(product);
+                }}
+              >
                 {" "}
                 Add to the cart
               </button>
