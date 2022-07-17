@@ -34,7 +34,7 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center">
-            <Searchbar />
+            <Searchbar content={'Product'}/>
           </div>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
             <Link

@@ -3,9 +3,10 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import OrdersTable from "../Tables/OrdersTable";
 import './AdminDashboard.css'
+import Searchbar from "../Searchbar/Searchbar";
 
 
-const AdminOrders = ({ caso }) => {
+const AdminOrders = () => {
     const allPendingOrders = [
         {name: '123Yoha', products: ['TV', 'PC'], total: 152},
         {name: '123Richy', products: ['TV', 'PC'], total: 152},
@@ -17,6 +18,10 @@ const AdminOrders = ({ caso }) => {
 
     return ( 
         <div className="adminDashboard adminOrders">
+
+          <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
+            <Searchbar content={'ID'}/>
+          </div>
             
             <div className="d-flex justify-content-evenly flex-wrap">
                 <OrdersTable

@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Products_CategoriesTable from "../Tables/ProductsTable";
+import Searchbar from "../Searchbar/Searchbar";
 import {
     getAllDBProductsAsync,
     getCategoriesAsync,
@@ -29,6 +30,7 @@ const AdminProducts = ({ caso }) => {
     return ( 
         <div className="adminDashboard adminProducts">
             <div className="d-flex justify-content-center gap-3 mb-3">
+                <Searchbar content={caso === 'Products' ? 'Product' : 'Category'}/>
                 <NavLink
                     className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                     to="/CreateProduct"
