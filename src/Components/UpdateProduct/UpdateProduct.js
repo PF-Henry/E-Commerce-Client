@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailProductAsync } from "../../Redux/productSlice";
 
 import Form from "./UpdateFormProduct.js";
-import AdminNavBar from "../AdminDashboard/AdminNavBar";
+import AdminNavBar from "../Admin/AdminNavBar";
 
 import { useEffect } from "react";
 

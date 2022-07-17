@@ -71,6 +71,13 @@ export const productSlice = createSlice({
     },
     searchProduct: (state, action) => {
       state.productsLoaded = action.payload;
+      state.allDBProducts = action.payload;
+    },
+    searchProductError: (state, action) => {
+      state.error = action.payload;
+    },
+    resetError: (state, action) =>{
+      state.error = '';
     },
     searchProductError: (state, action) => {
       state.error = action.payload;
