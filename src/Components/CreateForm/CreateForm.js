@@ -6,7 +6,7 @@ import {
   createProductAsync,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
-import AdminNavBar from "../AdminDashboard/AdminNavBar";
+import AdminNavBar from "../Admin/AdminNavBar";
 import "./CreateForm.css";
 
 export function validate(input) {

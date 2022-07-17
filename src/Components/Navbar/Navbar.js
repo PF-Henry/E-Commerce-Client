@@ -52,6 +52,14 @@ const Navbar = () => {
               </div>
             </Link>
             <Link
+              to="/user"
+              className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+            >
+              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
+                USER <CgProfile size={"1.6rem"} />
+              </div>
+            </Link>
+            <Link
               to="/cart"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
             >
