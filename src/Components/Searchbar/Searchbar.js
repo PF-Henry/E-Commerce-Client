@@ -11,6 +11,7 @@ const Searchbar = () => {
   const handleInputChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
+    dispatch(searchProductAsync(e.target.value));
   };
 
   const handleSubmit = (e) => {
