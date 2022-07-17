@@ -5,7 +5,7 @@ import { FiAlertTriangle } from "react-icons/fi";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoTrashOutline } from "react-icons/io5";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import "./Cart.css";
 import {
   addToCart,
@@ -76,7 +76,14 @@ const Cart = () => {
                   />
                 </div>
                 <div className="col-lg-4 d-flex flex-column align-items-start">
-                  <div className="fw-bold">{product.name}</div>
+                  <NavLink
+                    to={`/product_detail/${product.id}`}
+                    className="text-decoration-none text-reset"
+                  >
+                    <div className="fw-bold aqua-hover text-decoration-underline-hover">
+                      {product.name}
+                    </div>
+                  </NavLink>
                   <div className="d-flex justify-content-start">
                     <div
                       className="text-secondary deleteProduct  d-inline-flex align-items-center"
