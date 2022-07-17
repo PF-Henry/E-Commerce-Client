@@ -13,3 +13,15 @@
     min-height: calc(100vh - 6rem - 17.875rem);
   }
 }
+
+.deleteProduct {
+  cursor: pointer;
+}
+
+.deleteProduct:hover {
+  text-decoration: underline;
+}
+
+.text-decoration-underline-hover:hover {
+  text-decoration: underline;
+}

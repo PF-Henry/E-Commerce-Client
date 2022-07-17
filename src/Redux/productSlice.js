@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 export const productSlice = createSlice({
@@ -30,7 +31,9 @@ export const productSlice = createSlice({
     error: "",
     msg: "",
     allDBProducts: [],
-    cartItems: [],
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -76,14 +79,66 @@ export const productSlice = createSlice({
     resetError: (state, action) =>{
       state.error = '';
     },
+    searchProductError: (state, action) => {
+      state.error = action.payload;
+      // state.productsLoaded = [];
+    },
+    resetError: (state, action) => {
+      state.error = "";
+    },
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
     },
     getAllDBProducts: (state, action) => {
       state.allDBProducts = action.payload;
     },
-    setCartItems: (state, action) => {
-      state.cartItems = action.payload;
+    addToCart: (state, action) => {
+      let productIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      if (productIndex === -1) {
+        state.cartItems.push({ ...action.payload, quantity: 1 });
+        toast.success("Product added to the cart.", {
+          position: "bottom-right",
+        });
+      } else {
+        state.cartItems[productIndex].quantity += 1;
+        toast.info("One more unit added to the cart.", {
+          position: "bottom-right",
+        });
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+      toast.error("Product removed from the cart.", {
+        position: "bottom-right",
+      });
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    decreaseCart: (state, action) => {
+      let productIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      if (state.cartItems[productIndex].quantity > 1) {
+        state.cartItems[productIndex].quantity -= 1;
+        toast.info("One unit subtracted from the cart.", {
+          position: "bottom-right",
+        });
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.id
+        );
+        toast.error("Product removed from the cart.", {
+          position: "bottom-right",
+        });
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
 });
@@ -105,7 +160,9 @@ export const {
   getProductDetails,
   getAllDBProducts,
   resetError,
-  setCartItems,
+  addToCart,
+  removeFromCart,
+  decreaseCart,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -177,10 +234,10 @@ export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
     .then((data) => data.json())
     .then((json) => {
-        if (json.error) {
-            return dispatch(searchProductError(json.error));
-        }        
-        dispatch(searchProduct(json));
+      if (json.error) {
+        return dispatch(searchProductError(json.error));
+      }
+      dispatch(searchProduct(json));
     })
     .catch((error) => console.log(error));
 };
