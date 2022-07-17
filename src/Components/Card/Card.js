@@ -27,7 +27,7 @@ const Card = ({ object }) => {
             to={`/product_detail/${object.id}`}
             className="text-decoration-none"
           >
-            <h5 className="card-title text-blue mb-3 letter-spacing aqua-hover">
+            <h5 className="card-title text-blue mb-3 letter-spacing aqua-hover text-decoration-underline-hover">
               {object.name}
             </h5>
           </NavLink>
