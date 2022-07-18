@@ -266,8 +266,8 @@ const Form = ({
             <label className="formItem" htmlFor="name">
               Technical Specification
             </label>
-            <input
-              type="text"
+            <textarea
+              rows={3}
               onChange={handleInputChange}
               className="form-control"
               name="technical_especification"
@@ -293,8 +293,8 @@ const Form = ({
               <label className="formItem" htmlFor="stock">
                 Stock
               </label>
-              <textarea
-                rows={3}
+              <input
+                type="text"
                 onChange={handleInputChange}
                 className="form-control"
                 name="stock"

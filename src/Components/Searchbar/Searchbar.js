@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { searchProductAsync } from "../../Redux/productSlice";
+import { resetError, searchProductAsync } from "../../Redux/productSlice";
 import { FiSearch } from "react-icons/fi";
 import "./Searchbar.css";
 
-const Searchbar = () => {
+const Searchbar = ({content}) => {
   const dispatch = useDispatch();
   const [search, setSearch] = useState("");
 
   const handleInputChange = (e) => {
     e.preventDefault();
     setSearch(e.target.value);
+    dispatch(searchProductAsync(e.target.value));
   };
 
   const handleSubmit = (e) => {
+    dispatch(resetError())
     dispatch(searchProductAsync(search));
     setSearch("");
   };
@@ -23,7 +25,7 @@ const Searchbar = () => {
       <input
         value={search}
         className="form-control input--SearchBar"
-        placeholder="Search Product"
+        placeholder={"Search " + content}
         onChange={(e) => handleInputChange(e)}
       />
       <button

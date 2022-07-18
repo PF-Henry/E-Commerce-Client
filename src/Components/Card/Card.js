@@ -1,34 +1,17 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { setCartItems } from "../../Redux/productSlice";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../Redux/productSlice";
 import "./Card.css";
 
 const Card = ({ object }) => {
-  const cartItems = useSelector((state) => state.products.cartItems);
   const dispatch = useDispatch();
-  const addToCart = (item) => {
-    let productExist = cartItems.find((product) => product.id === item.id);
-    if (productExist) {
-      dispatch(
-        setCartItems(
-          cartItems.map((product) =>
-            product.id === item.id
-              ? { ...productExist, quantity: productExist.quantity + 1 }
-              : product
-          )
-        )
-      );
-    } else {
-      dispatch(setCartItems([...cartItems, { ...item, quantity: 1 }]));
-    }
+  const handleAddToCart = (item) => {
+    dispatch(addToCart(item));
   };
 
   return (
-    <NavLink
-      to={`/product_detail/${object.id}`}
-      className="text-decoration-none text-reset card productCard border-0 animate__animated animate__fadeIn"
-    >
+    <div className="card productCard border-0 animate__animated animate__fadeIn">
       <img
         src={
           object.images.length
@@ -40,9 +23,14 @@ const Card = ({ object }) => {
       />
       <div className="card-body d-flex flex-column">
         <div className="mb-3">
-          <h5 className="card-title text-blue mb-3 letter-spacing">
-            {object.name}
-          </h5>
+          <NavLink
+            to={`/product_detail/${object.id}`}
+            className="text-decoration-none"
+          >
+            <h5 className="card-title text-blue mb-3 letter-spacing aqua-hover text-decoration-underline-hover">
+              {object.name}
+            </h5>
+          </NavLink>
           <p className="card-text letter-spacing fw-light">
             {object.description.slice(0, 100)}
             {object.description.length > 100 && "..."}
@@ -53,14 +41,14 @@ const Card = ({ object }) => {
           <div
             className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
             onClick={() => {
-              addToCart(object);
+              handleAddToCart(object);
             }}
           >
             Add to the cart
           </div>
         </div>
       </div>
-    </NavLink>
+    </div>
   );
 };
 

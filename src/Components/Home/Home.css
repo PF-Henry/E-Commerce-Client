@@ -1,0 +1,17 @@
+.product_not_found {
+    width: 80vw;
+    margin: 10vh auto 0 auto;
+}
+
+.product_not_fount_btn {
+    margin: 1vh 0 5vh 0;
+    background-color: #3AD8C1;
+    color: #1C004A;
+    border: none;
+}
+
+.product_not_fount_btn:hover {
+    background-color: #FFF;
+    color: #1C004A;
+    border: 2px solid #3AD8C1;
+}

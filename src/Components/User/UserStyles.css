@@ -1,0 +1,59 @@
+.userContainer{
+    display: flex;
+}
+
+.sideUser {
+    margin-top: 6vw;
+}
+
+.userMenu {
+    padding-left: 2.5vw;
+    margin-top: 2.5vw;  
+}
+
+.menuUsername {
+    color: #1c004a;
+}
+
+.userMenuLink {
+    color: #1c004a;
+    text-decoration: none;
+    text-align: justify;
+    cursor: pointer;
+}
+
+.userMenuIcon {
+    float:left;
+    margin-right: 0.8em;
+}
+
+.userDashboard {
+    width: 85vw;
+}
+
+.userPruchasesContainer {
+    margin-top: 8vw;
+}
+
+.userCartIcon {
+    margin-right: 0.9vw;
+}
+
+.userMyCart {
+    text-align: justify;
+    margin-left: 2vw;
+}
+
+.userCards {
+    display: flex;
+}
+
+.userCart {
+    margin-bottom: 1.5vw;
+}
+
+.userMyFav {
+    text-align: justify;
+    margin-left: 2vw;
+    margin-top: 2.5vw;
+}
