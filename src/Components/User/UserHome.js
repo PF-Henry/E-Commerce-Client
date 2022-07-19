@@ -1,7 +1,5 @@
 import React from "react";
 import { FaRegSmileBeam } from "react-icons/fa";
-import { FcPaid, FcSalesPerformance, FcTodoList } from "react-icons/fc";
-
 
 const UserHome = () => {
     return (
@@ -20,26 +18,23 @@ const UserHome = () => {
                 <div className="col-md-3">
                     <div className="card adminCard">
                         <div className="card-body cardBody">
-                            <div className="cardIconSales">
-                                <FcSalesPerformance size={"3rem"} />
-                            </div>
                             <div className="cardContent">
-                                <h5 className="card-title cardTitleH5">156K</h5>
-                                <p className="card-text">Total Revenue</p>
+                                <h5 className="card-title cardTitleH5">Total Pending Orders</h5>
+                                <p className="card-text"> 2 items <br/>$13050</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="col-md-3">
+                {/* <div className="col-md-3">
                     <div className="card adminCard">
                         <div className="card-body cardBody">
                             <div className="cardIconRevenue">
                                 <FcPaid size={"3rem"} />
                             </div>
                             <div className="cardContent">
-                                <h5 className="card-title cardTitleH5">54</h5>
-                                <p className="card-text">Total Orders</p>
+                                <h5 className="card-title cardTitleH5">Last Orders</h5>
+                                <p className="card-text"></p>
                             </div>
                         </div>
                     </div>
@@ -57,7 +52,7 @@ const UserHome = () => {
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     )
