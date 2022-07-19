@@ -9,6 +9,9 @@ import { UpdateProduct } from "./Components/UpdateProduct/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";
+import { Login } from "./Components/Login/Login";
+import { SignIn } from "./Components/SignIn/SignIn";
+
 import UserDashboard from './Components/User/UserDashboard'
 
 function App() {
@@ -18,6 +21,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/admin" element={<AdminDashboard />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/SignIn" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />

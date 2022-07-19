@@ -10,6 +10,8 @@ import { getProductsAsync, resetError } from "../../Redux/productSlice";
 import sorting from "../../Functions/sorting";
 import './Home.css'
 
+
+
 const Home = () => {
   const allProducts = useSelector((state) => state.products.productsLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
@@ -90,6 +92,7 @@ const Home = () => {
       {/* <Offers /> */}
       {/* <Brands /> */}
       <Footer />
+
     </div>
   );
 };

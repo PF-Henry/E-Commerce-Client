@@ -4,6 +4,8 @@ import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingCart } from "react-icons/md";
+// import { Login } from "../Login/Login";
+
 import { useSelector } from "react-redux/es/exports";
 import "./Navbar.css";
 
@@ -47,11 +49,12 @@ const Navbar = () => {
               ABOUT US
             </Link>
             <Link
-              to="/admin"
+              to="/login"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
             >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
-                SIGN IN <CgProfile size={"1.6rem"} />
+              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover" >
+              {/* data-toggle="modal" data-target="#exampleModalCenter" */}
+                LOGIN <CgProfile size={"1.6rem"} />
               </div>
             </Link>
             <Link
@@ -76,6 +79,10 @@ const Navbar = () => {
                 )}
               </div>
             </Link>
+
+            {/* <div>
+              <button className="" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
+            </div> */}
           </ul>
         </div>
       </div>
