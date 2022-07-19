@@ -22,20 +22,20 @@ const Card = ({ object }) => {
         alt="item"
       />
       <div className="card-body d-flex flex-column">
-        <div className="mb-3">
-          <NavLink
-            to={`/product_detail/${object.id}`}
-            className="text-decoration-none"
-          >
-            <h5 className="card-title text-blue mb-3 letter-spacing aqua-hover text-decoration-underline-hover">
+        <NavLink
+          to={`/product_detail/${object.id}`}
+          className="text-decoration-none text-reset"
+        >
+          <div className="mb-3 text-decoration-underline-hover">
+            <h5 className="card-title text-blue mb-3 letter-spacing">
               {object.name}
             </h5>
-          </NavLink>
-          <p className="card-text letter-spacing fw-light">
-            {object.description.slice(0, 100)}
-            {object.description.length > 100 && "..."}
-          </p>
-        </div>
+            <p className="card-text letter-spacing fw-light">
+              {object.description.slice(0, 100)}
+              {object.description.length > 100 && "..."}
+            </p>
+          </div>
+        </NavLink>
         <div className="mt-auto">
           <h1 className="text-blue mb-3 letter-spacing">${object.price}</h1>
           <div

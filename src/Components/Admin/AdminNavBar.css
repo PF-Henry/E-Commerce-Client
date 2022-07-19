@@ -13,7 +13,7 @@
 }
 
 .aqua-hover:hover {
-  color: #3ad8c1;
+  color: #3ad8c1 !important;
 }
 
 .basis {

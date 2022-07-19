@@ -144,7 +144,7 @@ export const ProductDetail = () => {
             </div>
 
             <div className="div-info-btn">
-              <select className="form-select select-quantity">
+              {/* <select className="form-select select-quantity">
                 <option>Select Quantity</option>
                 <option>1</option>
                 <option>2</option>
@@ -152,7 +152,7 @@ export const ProductDetail = () => {
                 <option>4</option>
                 <option>5</option>
                 <option>6</option>
-              </select>
+              </select> */}
               <button
                 className="btnDetail-Add-Product"
                 onClick={() => {
