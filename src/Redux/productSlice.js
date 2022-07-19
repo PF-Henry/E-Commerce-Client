@@ -76,8 +76,8 @@ export const productSlice = createSlice({
     searchProductError: (state, action) => {
       state.error = action.payload;
     },
-    resetError: (state, action) =>{
-      state.error = '';
+    resetError: (state, action) => {
+      state.error = "";
     },
     searchProductError: (state, action) => {
       state.error = action.payload;
@@ -102,10 +102,19 @@ export const productSlice = createSlice({
           position: "bottom-right",
         });
       } else {
-        state.cartItems[productIndex].quantity += 1;
-        toast.info("One more unit added to the cart.", {
-          position: "bottom-right",
-        });
+        if (
+          state.cartItems[productIndex].quantity <
+          state.cartItems[productIndex].stock
+        ) {
+          state.cartItems[productIndex].quantity += 1;
+          toast.info("One more unit added to the cart.", {
+            position: "bottom-right",
+          });
+        } else {
+          toast.error("This product does not have more items in stock.", {
+            position: "bottom-right",
+          });
+        }
       }
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
