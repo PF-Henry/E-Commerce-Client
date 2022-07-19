@@ -3,7 +3,7 @@ import AdminNavBar from "../Admin/AdminNavBar";
 import UserHome from "./UserHome";
 import { FaHome, FaCog, FaShoppingCart, FaHeart } from "react-icons/fa";
 import './UserStyles.css'
-import UserPurchases from "./UserPurchases";
+import UserCart from "./UserCart";
 import UserFavs from "./UserFavs";
 
 const UserDashboard = () => {
@@ -17,8 +17,8 @@ const UserDashboard = () => {
     switch (link) {
       case 'Home':
         return <UserHome />
-      case 'My Purchases':
-        return <UserPurchases />
+      case 'My Cart':
+        return <UserCart />
       case 'My Favorites':
         return <UserFavs />
     //   case 'Settings':
@@ -46,7 +46,7 @@ const UserDashboard = () => {
             </p>
             <p className='userMenuLink' onClick={e => handleClick(e)}>
             <p className="userMenuIcon"><FaShoppingCart/></p>
-            My Purchases
+            My Cart
             </p>
             <p className='userMenuLink' onClick={e => handleClick(e)}>
             <p className="userMenuIcon"><FaHeart/></p>
