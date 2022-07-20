@@ -1,7 +1,7 @@
 import React from 'react';
-import './SignIn.css';
 import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
+import './SignIn.css';
 
 export const SignIn = () => {
   return (
