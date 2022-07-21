@@ -8,16 +8,14 @@ import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsAsync, resetError } from "../../Redux/productSlice";
 import sorting from "../../Functions/sorting";
-import './Home.css'
-
-
+import "./Home.css";
 
 const Home = () => {
   const allProducts = useSelector((state) => state.products.productsLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
   const filtersCategories = useSelector((state) => state.products.filter);
   const brandsFilter = useSelector((state) => state.products.brandsFilter);
-  const error = useSelector((state) => state.products.error)
+  const error = useSelector((state) => state.products.error);
 
   const dispatch = useDispatch();
 
@@ -66,7 +64,7 @@ const Home = () => {
   );
 
   const handleSubmit = (e) => {
-    dispatch(resetError())
+    dispatch(resetError());
     dispatch(getProductsAsync());
   };
 
@@ -80,19 +78,17 @@ const Home = () => {
         productsArray={filteredProductsByBrands}
       />
       {error && error.length > 0 ? (
-        <div>
-          <div className="alert alert-warning product_not_found">{error} 
+        <div className="pb-5">
+          <div className="alert alert-warning product_not_found mb-5">
+            {error}
           </div>
-          <br/>
-          <button className="btn btn-warning product_not_fount_btn" onClick={handleSubmit}>Back</button>
         </div>
-        ) : (
-          <Cards products={currentItems} />)
-      }
+      ) : (
+        <Cards products={currentItems} />
+      )}
       {/* <Offers /> */}
       {/* <Brands /> */}
       <Footer />
-
     </div>
   );
 };

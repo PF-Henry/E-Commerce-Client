@@ -240,6 +240,7 @@ export const searchProductAsync = (product) => (dispatch) => {
         return dispatch(searchProductError(json.error));
       }
       dispatch(searchProduct(json));
+      dispatch(searchProductError(""));
     })
     .catch((error) => console.log(error));
 };
