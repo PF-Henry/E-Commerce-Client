@@ -53,6 +53,15 @@ const Cart = () => {
           </div>
         ) : (
           <div>
+            <Link
+              to="/"
+              className="d-flex align-items-center text-secondary justify-content-start mt-4 mb-3 text-decoration-none"
+            >
+              <IoIosArrowRoundBack size={"1.8rem"} />
+              <div className="fs-5 text-decoration-underline-hover">
+                Continue Shopping
+              </div>
+            </Link>
             <div className="d-flex p-3 border-bottom border-secondary text-secondary letter-spacing">
               <div className="col-lg-7 text-start">Product</div>
               <div className="col-lg-1 text-start">Price</div>
@@ -64,7 +73,7 @@ const Cart = () => {
                 key={product.id}
                 className="d-flex border-bottom border-secondary p-3 flex-column align-items-center flex-sm-row"
               >
-                <div className="col-lg-3 d-flex justify-content-start">
+                <div className="col-lg-2 d-flex justify-content-start">
                   <img
                     src={
                       product.images.length
@@ -75,7 +84,7 @@ const Cart = () => {
                     height={"80px"}
                   />
                 </div>
-                <div className="col-lg-4 d-flex flex-column align-items-start">
+                <div className="col-lg-5 d-flex flex-column align-items-start">
                   <NavLink
                     to={`/product_detail/${product.id}`}
                     className="text-decoration-none text-reset"
