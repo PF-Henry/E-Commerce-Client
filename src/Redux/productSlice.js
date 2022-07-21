@@ -79,13 +79,6 @@ export const productSlice = createSlice({
     resetError: (state, action) => {
       state.error = "";
     },
-    searchProductError: (state, action) => {
-      state.error = action.payload;
-      // state.productsLoaded = [];
-    },
-    resetError: (state, action) => {
-      state.error = "";
-    },
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
     },
