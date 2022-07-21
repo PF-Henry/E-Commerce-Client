@@ -72,7 +72,7 @@ const Cart = () => {
                         : "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
                     }
                     alt="product img"
-                    height={"120px"}
+                    height={"80px"}
                   />
                 </div>
                 <div className="col-lg-4 d-flex flex-column align-items-start">
