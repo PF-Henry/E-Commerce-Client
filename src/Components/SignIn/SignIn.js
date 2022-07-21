@@ -63,7 +63,7 @@ export const SignIn = () => {
                 <h5 className="section-title--title" >Register</h5>
                 <div className='section-title-text'> 
                     <p className='m-0'>Already have account?</p>
-                    <NavLink to='/Login' > Login </NavLink>
+                    <NavLink to='/login' > Login </NavLink>
                 </div>
 
             </div>
