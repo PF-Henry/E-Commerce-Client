@@ -7,6 +7,7 @@ import Github from "../Login/images/github.png";
 import './SignIn.css';
 import { useDispatch } from 'react-redux';
 import { postUserAsync } from "../../Redux/productSlice";
+import apiUrl from '../../Constants/apiUrl';
 
 export const SignIn = () => {
 
@@ -21,7 +22,7 @@ export const SignIn = () => {
 
 
     const google = () => {
-        window.open("http://localhost:5000/auth/google", "_self");
+        window.open(`${apiUrl}auth/google/callback`, "_self");
       };
 
       const github = () => {
