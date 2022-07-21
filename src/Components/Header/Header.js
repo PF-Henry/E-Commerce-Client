@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import { Slider } from "../Slider/Slider";
 import { SliderEmpty } from "../Slider/SliderEmpty";
-import { useDispatch } from "react-redux";
 import './Header.css';
 
 
 
 const Header = () => {
-  const dispatch = useDispatch();
   let [showSlider, setShowSlider] = useState(true);
   let [txtBtnSlider, setTxtBtnSlider] = useState('Disable Slider');
 
