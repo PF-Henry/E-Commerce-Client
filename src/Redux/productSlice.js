@@ -34,6 +34,8 @@ export const productSlice = createSlice({
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
+    user: [],
+    userLogged: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -149,6 +151,18 @@ export const productSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    postUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload
+      }
+    },
+    loginUser: (state, action) => {
+      return {
+        ...state,
+        userLogged: action.payload
+      }
+    }
   },
 });
 
@@ -172,6 +186,8 @@ export const {
   addToCart,
   removeFromCart,
   decreaseCart,
+  postUser,
+  loginUser,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -273,4 +289,27 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
       dispatch(createProductError(error));
     });
 };
+
+export const postUserAsync = (payload) => (dispatch) => {
+  console.log(payload)
+      // axios.post(`${apiUrl}/users/register`, payload)
+      // .then( (response) => {
+      //     dispatch(postUser(response.data));
+      // })
+
+      /*FALTA PROBAR Y LOS ERRORES*/ 
+};
+
+
+export const loginUserAsync = (payload) => (dispatch) => {
+  console.log(payload)
+      // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
+      // .then( (response) => {
+      //     dispatch(loginUser(response.data));
+      // })
+
+      /*FALTA PROBAR Y LOS ERRORES*/ 
+};
+
+
 export default productSlice.reducer;
