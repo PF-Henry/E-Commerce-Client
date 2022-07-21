@@ -53,7 +53,7 @@ export const Login = () => {
                
                 <div className="right">
                     <div className='right-inputs'>
-                        <input type="text" placeholder="Username" className='right-input'/>
+                        <input type="text" placeholder="Email" className='right-input'/>
                         <input type="text" placeholder="Password" className='right-input'/>
                     </div>
                     <button className="btnLogin">Login</button>
