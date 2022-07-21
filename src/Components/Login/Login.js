@@ -7,7 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
 import { useDispatch } from 'react-redux';
 import { loginUserAsync } from '../../Redux/productSlice';
-
+import apiUrl from '../../Constants/apiUrl';
 
 export const Login = () => {
 
@@ -19,7 +19,7 @@ export const Login = () => {
     })
 
     const google = () => {
-        window.open("http://localhost:5000/auth/google", "_self");
+        window.open(`${apiUrl}auth/google/signin`, "_self");
       };
 
       const github = () => {
