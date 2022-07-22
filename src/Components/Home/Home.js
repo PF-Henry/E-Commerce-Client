@@ -7,6 +7,7 @@ import Header from "../Header/Header";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsAsync } from "../../Redux/productSlice";
+import { FaArrowUp } from "react-icons/fa";
 import sorting from "../../Functions/sorting";
 import "./Home.css";
 
@@ -89,6 +90,16 @@ const Home = () => {
       {/* <Offers /> */}
       {/* <Brands /> */}
       <Footer />
+      <div className="d-flex justify-content-end">
+        <div
+          className="btn border-0 sticky-bottom position-fixed d-flex align-items-center text-white btn-aqua rounded-circle me-3 mb-3 p-2"
+          onClick={() => {
+            window.scrollTo(0, 0);
+          }}
+        >
+          <FaArrowUp />
+        </div>
+      </div>
     </div>
   );
 };

@@ -13,11 +13,11 @@ export const Footer = () => {
           <div className="col-sm-12 col-md-6 col-lg-4 d-flex justify-content-center mb-4 mb-lg-0">
             <div
               className="text-white d-flex align-items-center letter-spacing"
-              onClick={() =>
+              onClick={() => {
                 toast.warning("Bebito fiu fiu!", {
                   theme: "dark",
-                })
-              }
+                });
+              }}
             >
               <SiHexo fontSize={"4rem"} />
               <div className="d-flex pb-1">
