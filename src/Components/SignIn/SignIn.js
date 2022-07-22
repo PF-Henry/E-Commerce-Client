@@ -66,11 +66,10 @@ export const SignIn = () => {
                     <p className='m-0'>Already have account?</p>
                     <NavLink to='/login' > Login </NavLink>
                 </div>
-
             </div>
 
             <div className='section-options'>
-                <div className='div-sotial-buttons'>
+                <div className='div-social-buttons'>
                     <div className="loginButton google" onClick={google}>
                         <img src={Google} alt="" className="icon" />
                         Google
