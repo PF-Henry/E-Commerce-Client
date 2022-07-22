@@ -45,12 +45,6 @@ export const Footer = () => {
             >
               SHOPPING CART
             </NavLink>
-            <NavLink
-              className="text-decoration-none text-white aqua-hover letter-spacing"
-              to="/newsletter"
-            >
-              NEWSLETTER
-            </NavLink>
           </div>
 
           <div className="col-md-12 col-lg-4 d-flex justify-content-center">

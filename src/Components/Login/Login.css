@@ -71,7 +71,7 @@
   border-radius: 5px;
   border: 1px solid #507cc0;
 }
-  
+
 .center{
   width: 15%;
   height: 160px;
@@ -117,15 +117,11 @@
   .github{
     background-color: black;
   }
-  
+
   .icon{
     width: 20px;
     height: 20px;
     margin-right: 10px;
-  }
-
-  .modal-footer {
-    background-color: #1c004a;
   }
 
   .btn-x {

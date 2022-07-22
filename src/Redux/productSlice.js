@@ -81,13 +81,6 @@ export const productSlice = createSlice({
     resetError: (state, action) => {
       state.error = "";
     },
-    searchProductError: (state, action) => {
-      state.error = action.payload;
-      // state.productsLoaded = [];
-    },
-    resetError: (state, action) => {
-      state.error = "";
-    },
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
     },
@@ -151,6 +144,10 @@ export const productSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    cleanCart: (state) => {
+      state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
     postUser: (state, action) => {
       return {
         ...state,
@@ -162,7 +159,7 @@ export const productSlice = createSlice({
         ...state,
         userLogged: action.payload
       }
-    }
+    },
   },
 });
 
@@ -186,6 +183,7 @@ export const {
   addToCart,
   removeFromCart,
   decreaseCart,
+  cleanCart,
   postUser,
   loginUser,
 } = productSlice.actions;
@@ -263,6 +261,7 @@ export const searchProductAsync = (product) => (dispatch) => {
         return dispatch(searchProductError(json.error));
       }
       dispatch(searchProduct(json));
+      dispatch(searchProductError(""));
     })
     .catch((error) => console.log(error));
 };

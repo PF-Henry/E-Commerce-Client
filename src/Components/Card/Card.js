@@ -26,7 +26,7 @@ const Card = ({ object }) => {
           to={`/product_detail/${object.id}`}
           className="text-decoration-none text-reset"
         >
-          <div className="mb-3 text-decoration-underline-hover">
+          <div className="mb-3">
             <h5 className="card-title text-blue mb-3 letter-spacing">
               {object.name}
             </h5>
