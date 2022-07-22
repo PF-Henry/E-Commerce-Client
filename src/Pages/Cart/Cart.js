@@ -56,29 +56,38 @@ const Cart = () => {
           </div>
         ) : (
           <div>
-            <div className="d-flex justify-content-start">
+            <div className="d-flex justify-content-end justify-content-md-start">
               <Link
                 to="/"
-                className="align-items-center text-secondary justify-content-start mt-4 mb-3 text-decoration-none d-inline-flex"
+                className="align-items-center text-secondary justify-content-start mt-md-4 mt-0 mb-1 text-decoration-none d-inline-flex"
               >
                 <IoIosArrowRoundBack size={"1.8rem"} />
-                <div className="fs-5 text-decoration-underline-hover">
+                <div className="fs-6 text-decoration-underline-hover">
                   Continue Shopping
                 </div>
               </Link>
             </div>
-            <div className="d-flex p-3 border-bottom border-secondary text-secondary letter-spacing">
-              <div className="col-lg-7 text-start">Product</div>
-              <div className="col-lg-1 text-start">Price</div>
-              <div className="col-lg-3">Qty</div>
-              <div className="col-lg-1 text-end">Subtotal</div>
+            <div className="d-md-flex p-3 border-bottom border-secondary text-secondary letter-spacing d-none">
+              <div className="col-md-7 text-start">Product</div>
+              <div className="col-md-1 text-start">Price</div>
+              <div className="col-md-3">Qty</div>
+              <div className="col-md-1 text-end">Subtotal</div>
             </div>
-            {cartItems.map((product) => (
+            <div className="d-flex d-md-none justify-content-end border-bottom border-secondary">
+              <div
+                className="btn btn-danger px-5 py-1 letter-spacing gap-1 d-inline-flex d-md-none align-items-center mb-3"
+                data-bs-toggle="modal"
+                data-bs-target="#cleanCartModal"
+              >
+                <MdOutlineRemoveShoppingCart size={"1.3rem"} /> Remove All
+              </div>
+            </div>
+            {cartItems.map((product, index) => (
               <div
                 key={product.id}
-                className="d-flex border-bottom border-secondary p-3 flex-column align-items-center flex-sm-row"
+                className="d-flex border-bottom border-secondary p-3 align-items-center flex-row flex-wrap"
               >
-                <div className="col-lg-2 d-flex justify-content-center pe-3">
+                <div className="col-5 col-md-3 col-lg-2 d-flex justify-content-center pe-3 mb-2 mb-md-0">
                   <img
                     src={
                       product.images.length
@@ -86,15 +95,15 @@ const Cart = () => {
                         : "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
                     }
                     alt="product img"
-                    height={"80px"}
+                    className="img-fluid maxH"
                   />
                 </div>
-                <div className="col-lg-5 d-flex flex-column align-items-start">
+                <div className="col-7 col-lg-5 col-md-4 d-flex flex-column align-items-start pe-3 mb-2 mb-md-0">
                   <NavLink
                     to={`/product_detail/${product.id}`}
                     className="text-decoration-none text-reset"
                   >
-                    <div className="fw-bold aqua-hover text-decoration-underline-hover">
+                    <div className="fw-bold aqua-hover text-decoration-underline-hover text-start">
                       {product.name}
                     </div>
                   </NavLink>
@@ -102,45 +111,58 @@ const Cart = () => {
                     <div
                       className="text-secondary deleteProduct d-inline-flex align-items-center"
                       data-bs-toggle="modal"
-                      data-bs-target="#deleteModal"
+                      data-bs-target={`#deleteModal${index}`}
                     >
                       <IoTrashOutline /> Delete
                     </div>
                   </div>
                 </div>
-                <div className="fw-bold col-lg-1 text-start">
+                <div className="fw-bold col-4 col-md-1 text-center text-start-md">
+                  <div className="fw-normal text-secondary d-md-none">
+                    Price
+                  </div>
                   ${product.price}
                 </div>
-                <div className="col-lg-3 d-flex align-items-center justify-content-center">
-                  <div
-                    className="btn border aqua-hover d-flex align-items-center"
-                    onClick={() => {
-                      product.quantity > 1 && handleDecreaseCart(product);
-                    }}
-                    data-bs-toggle={product.quantity === 1 && "modal"}
-                    data-bs-target={product.quantity === 1 && "#deleteModal"}
-                  >
-                    <FiMinus />
+                <div className="col-4 col-md-3 d-flex align-items-center justify-content-center flex-column">
+                  <div className="fw-normal text-secondary d-md-none pb-1">
+                    Qty
                   </div>
-                  <div className="px-3 d-flex justify-content-center">
-                    {product.quantity}
-                  </div>
-                  <div
-                    className="btn border aqua-hover d-flex align-items-center"
-                    onClick={() => {
-                      handleAddToCart(product);
-                    }}
-                  >
-                    <FiPlus />
+                  <div className="d-flex flex-row">
+                    <div
+                      className="btn border aqua-hover d-flex align-items-center"
+                      onClick={() => {
+                        product.quantity > 1 && handleDecreaseCart(product);
+                      }}
+                      data-bs-toggle={product.quantity === 1 && "modal"}
+                      data-bs-target={
+                        product.quantity === 1 && `#deleteModal${index}`
+                      }
+                    >
+                      <FiMinus />
+                    </div>
+                    <div className="px-2 px-lg-3 d-flex justify-content-center">
+                      {product.quantity}
+                    </div>
+                    <div
+                      className="btn border aqua-hover d-flex align-items-center"
+                      onClick={() => {
+                        handleAddToCart(product);
+                      }}
+                    >
+                      <FiPlus />
+                    </div>
                   </div>
                 </div>
-                <div className="fw-bold col-lg-1 text-end">
+                <div className="fw-bold col-4 col-md-1 text-center text-md-end">
+                  <div className="fw-normal text-secondary d-md-none">
+                    Subtotal
+                  </div>
                   ${product.quantity * product.price}
                 </div>
                 {/* <!-- Modal --> */}
                 <div
                   className="modal fade"
-                  id="deleteModal"
+                  id={`deleteModal${index}`}
                   tabIndex="-1"
                   aria-labelledby="deleteModalLabel"
                   aria-hidden="true"
@@ -163,7 +185,7 @@ const Cart = () => {
                         ></button>
                       </div>
                       <div className="modal-body fw-bold py-4">
-                        Are you sure you want to delete this item?
+                        Are you sure you want to delete {product.name}?
                       </div>
                       <div className="modal-footer">
                         <button
@@ -187,9 +209,9 @@ const Cart = () => {
                 </div>
               </div>
             ))}
-            <div className="d-flex justify-content-between align-items-center pb-5">
+            <div className="d-flex justify-content-md-between justify-content-end align-items-center pb-5">
               <div
-                className="btn btn-danger px-5 letter-spacing gap-1 d-flex align-items-center"
+                className="btn btn-danger px-5 letter-spacing gap-1 d-none d-md-flex align-items-center"
                 data-bs-toggle="modal"
                 data-bs-target="#cleanCartModal"
               >
@@ -256,7 +278,7 @@ const Cart = () => {
                   Taxes and shipping calculated at checkout
                 </div>
                 <div className="d-flex justify-content-end pe-3">
-                  <div className="btn btn-aqua px-5 mt-1 letter-spacing d-flex align-items-center gap-1">
+                  <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
                     <MdOutlinePayment size={"1.3rem"} />
                     Proceed to checkout
                   </div>

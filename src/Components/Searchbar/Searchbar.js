@@ -1,17 +1,23 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { resetError, searchProductAsync } from "../../Redux/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  resetError,
+  searchProductAsync,
+  setSearch,
+} from "../../Redux/productSlice";
 import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import "./Searchbar.css";
 
 const Searchbar = ({ content }) => {
   const dispatch = useDispatch();
-  const [search, setSearch] = useState("");
+  const search = useSelector((state) => state.products.search);
+  // const [search, setSearch] = useState("");
 
   const handleInputChange = (e) => {
     e.preventDefault();
-    setSearch(e.target.value);
+    dispatch(setSearch(e.target.value));
+    // setSearch(e.target.value);
     dispatch(searchProductAsync(e.target.value));
   };
 
