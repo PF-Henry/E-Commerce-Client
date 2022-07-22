@@ -142,6 +142,10 @@ export const productSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    cleanCart: (state) => {
+      state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
   },
 });
 
@@ -165,6 +169,7 @@ export const {
   addToCart,
   removeFromCart,
   decreaseCart,
+  cleanCart,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {

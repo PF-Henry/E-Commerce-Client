@@ -5,6 +5,7 @@ import { FiAlertTriangle, FiMinus, FiPlus } from "react-icons/fi";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoTrashOutline } from "react-icons/io5";
 import { SiHexo } from "react-icons/si";
+import { MdOutlineRemoveShoppingCart, MdOutlinePayment } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./Cart.css";
@@ -12,6 +13,7 @@ import {
   addToCart,
   decreaseCart,
   removeFromCart,
+  cleanCart,
 } from "../../Redux/productSlice";
 
 const Cart = () => {
@@ -185,16 +187,80 @@ const Cart = () => {
                 </div>
               </div>
             ))}
-            <div className="p-3 text-end pb-0">
-              Subtotal ({quantities} {quantities > 1 ? "items" : "item"}):{" "}
-              <b className="ms-2">${subtotal}</b>
-            </div>
-            <div className="text-end pe-3 text-secondary">
-              Taxes and shipping calculated at checkout
-            </div>
-            <div className="d-flex justify-content-end pe-3 pb-5">
-              <div className="btn btn-aqua px-5 mt-1 letter-spacing">
-                Proceed to checkout
+            <div className="d-flex justify-content-between align-items-center pb-5">
+              <div
+                className="btn btn-danger px-5 letter-spacing gap-1 d-flex align-items-center"
+                data-bs-toggle="modal"
+                data-bs-target="#cleanCartModal"
+              >
+                <MdOutlineRemoveShoppingCart size={"1.3rem"} /> Remove All
+              </div>
+              {/* <!-- Modal --> */}
+              <div
+                className="modal fade"
+                id="cleanCartModal"
+                tabIndex="-1"
+                aria-labelledby="cleanCartModalLabel"
+                aria-hidden="true"
+              >
+                <div className="modal-dialog modal-dialog-centered modal-sm">
+                  <div className="modal-content border-0">
+                    <div className="modal-header bg-purple-dark text-white">
+                      <div className="text-white d-flex align-items-center letter-spacing">
+                        <SiHexo fontSize={"2.3rem"} />
+                        <div className="d-flex pb-1">
+                          <div className="fs-4">exa</div>
+                          <div className="fw-bold text-aqua fs-4">tech</div>
+                        </div>
+                      </div>
+                      <button
+                        type="button"
+                        className="btn-close btn-close-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                      ></button>
+                    </div>
+                    <div className="modal-body fw-bold py-4">
+                      Are you sure you want to remove all items from your cart?
+                    </div>
+                    <div className="modal-footer">
+                      <button
+                        type="button"
+                        className="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-danger d-flex align-items-center"
+                        onClick={() => {
+                          dispatch(cleanCart());
+                        }}
+                        data-bs-dismiss="modal"
+                      >
+                        <MdOutlineRemoveShoppingCart size={"1.3rem"} /> Remove
+                        All
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="d-flex flex-column">
+                <div className="p-3 text-end pb-0">
+                  Subtotal ({quantities} {quantities > 1 ? "items" : "item"}):{" "}
+                  <b className="ms-2">${subtotal}</b>
+                </div>
+                <div className="text-end pe-3 text-secondary">
+                  Taxes and shipping calculated at checkout
+                </div>
+                <div className="d-flex justify-content-end pe-3">
+                  <div className="btn btn-aqua px-5 mt-1 letter-spacing d-flex align-items-center gap-1">
+                    <MdOutlinePayment size={"1.3rem"} />
+                    Proceed to checkout
+                  </div>
+                </div>
               </div>
             </div>
           </div>
