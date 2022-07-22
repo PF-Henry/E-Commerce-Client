@@ -73,7 +73,7 @@ const Cart = () => {
               <div className="col-lg-3">Qty</div>
               <div className="col-lg-1 text-end">Subtotal</div>
             </div>
-            {cartItems.map((product) => (
+            {cartItems.map((product, index) => (
               <div
                 key={product.id}
                 className="d-flex border-bottom border-secondary p-3 flex-column align-items-center flex-sm-row"
@@ -102,7 +102,7 @@ const Cart = () => {
                     <div
                       className="text-secondary deleteProduct d-inline-flex align-items-center"
                       data-bs-toggle="modal"
-                      data-bs-target="#deleteModal"
+                      data-bs-target={`#deleteModal${index}`}
                     >
                       <IoTrashOutline /> Delete
                     </div>
@@ -118,7 +118,9 @@ const Cart = () => {
                       product.quantity > 1 && handleDecreaseCart(product);
                     }}
                     data-bs-toggle={product.quantity === 1 && "modal"}
-                    data-bs-target={product.quantity === 1 && "#deleteModal"}
+                    data-bs-target={
+                      product.quantity === 1 && `#deleteModal${index}`
+                    }
                   >
                     <FiMinus />
                   </div>
@@ -140,7 +142,7 @@ const Cart = () => {
                 {/* <!-- Modal --> */}
                 <div
                   className="modal fade"
-                  id="deleteModal"
+                  id={`deleteModal${index}`}
                   tabIndex="-1"
                   aria-labelledby="deleteModalLabel"
                   aria-hidden="true"
@@ -163,7 +165,7 @@ const Cart = () => {
                         ></button>
                       </div>
                       <div className="modal-body fw-bold py-4">
-                        Are you sure you want to delete this item?
+                        Are you sure you want to delete {product.name}?
                       </div>
                       <div className="modal-footer">
                         <button
