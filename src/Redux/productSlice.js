@@ -249,9 +249,26 @@ export const switchItemsPerPageAsync = (e) => () => {
   console.log("items per page: " + itemsPerPage);
 };
 
+// ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (newProduct) => (dispatch) => {
+  // --- POST request to create a new product ---
+
+  const formData = new FormData();
+  
+  formData.append("name", newProduct.name);
+  formData.append("stock", newProduct.stock);
+  formData.append("price", newProduct.price);
+  formData.append("description", newProduct.description);
+  formData.append("technical_especification", newProduct.technical_especification);
+  
+  formData.append("categories", JSON.stringify(newProduct.categories));
+  formData.append("brand", newProduct.brand);
+       
+  newProduct.images.forEach((image) => {
+    formData.append("fileName", image.src); });
+
   axios
-    .post(`${apiUrl}products/`, newProduct)
+    .post(`${apiUrl}products/`, formData)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -262,6 +279,8 @@ export const createProductAsync = (newProduct) => (dispatch) => {
       dispatch(createProductError(error));
     });
 };
+// ------------------------ CREATE PRODUCT ------------------------------
+
 
 export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
