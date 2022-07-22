@@ -54,6 +54,16 @@
     align-items: center;
   
 }
+
+.div-social-buttons {
+    width: 48%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    border-right: 2px dotted #cacaca;
+}
   
 .register-inputs {
     height: 100%;
@@ -112,4 +122,47 @@
     align-items: center;
 
     background-color: #1c004a;
+}
+
+
+
+@media (min-width: 280px) and (max-width:767px){
+   
+    .login-container {
+        width: 80%;
+        height: 550px;
+    }
+
+    .section-title {
+        padding: 20px 0;
+    }
+   
+    .section-title--title {
+        font-size: 25px;
+    }
+
+    .section-options {
+        height: 400px;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .right {
+        width: 70%;
+        height: 135px;
+        padding-bottom: 30px;
+        border-bottom: 1px dotted #929292;
+    }
+
+    .div-social-buttons {
+        width: 100%;
+        height: 115px;
+        border-right: none;
+    }
+
+    .loginButton{
+        width: 200px;
+    }
 }
