@@ -37,6 +37,7 @@ export const productSlice = createSlice({
     user: [],
     userLogged: [],
     showSlider: true,
+    search: "",
   },
   reducers: {
     getProducts: (state, action) => {
@@ -164,6 +165,9 @@ export const productSlice = createSlice({
     setShowSlider: (state, action) => {
       state.showSlider = action.payload;
     },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
 });
 
@@ -191,6 +195,7 @@ export const {
   postUser,
   loginUser,
   setShowSlider,
+  setSearch,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {

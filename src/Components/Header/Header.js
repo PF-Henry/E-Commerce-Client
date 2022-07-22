@@ -9,6 +9,7 @@ import "./Header.css";
 const Header = () => {
   const dispatch = useDispatch();
   const showSlider = useSelector((state) => state.products.showSlider);
+  const search = useSelector((state) => state.products.search);
 
   let switchSlider = () => {
     dispatch(setShowSlider(!showSlider));
@@ -19,13 +20,15 @@ const Header = () => {
   return (
     <div className="header">
       <Navbar />
-      {showSlider ? <Slider /> : <SliderEmpty />}
-      <button
-        className="btnDisableSlider animate__animated animate__rotateInDownRight"
-        onClick={() => switchSlider()}
-      >
-        {showSlider ? "Disable Slider" : "Enable Slider"}
-      </button>
+      {showSlider && search === "" ? <Slider /> : <SliderEmpty />}
+      {search === "" && (
+        <button
+          className="btnDisableSlider animate__animated animate__rotateInDownRight"
+          onClick={() => switchSlider()}
+        >
+          {showSlider ? "Disable Slider" : "Enable Slider"}
+        </button>
+      )}
     </div>
   );
 };
