@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 // import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductsAsync, resetError } from "../../Redux/productSlice";
+import { getProductsAsync } from "../../Redux/productSlice";
 import sorting from "../../Functions/sorting";
 import "./Home.css";
 
@@ -63,10 +63,10 @@ const Home = () => {
     indexOfLastItem
   );
 
-  const handleSubmit = (e) => {
-    dispatch(resetError());
-    dispatch(getProductsAsync());
-  };
+  // const handleSubmit = (e) => {
+  //   dispatch(resetError());
+  //   dispatch(getProductsAsync());
+  // };
 
   return (
     <div className="bg-light">

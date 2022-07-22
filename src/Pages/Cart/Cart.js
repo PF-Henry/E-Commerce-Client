@@ -4,6 +4,7 @@ import { Footer } from "../../Components/Footer/Footer";
 import { FiAlertTriangle } from "react-icons/fi";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoTrashOutline } from "react-icons/io5";
+import { SiHexo } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import "./Cart.css";
@@ -53,15 +54,17 @@ const Cart = () => {
           </div>
         ) : (
           <div>
-            <Link
-              to="/"
-              className="d-flex align-items-center text-secondary justify-content-start mt-4 mb-3 text-decoration-none"
-            >
-              <IoIosArrowRoundBack size={"1.8rem"} />
-              <div className="fs-5 text-decoration-underline-hover">
-                Continue Shopping
-              </div>
-            </Link>
+            <div className="d-flex justify-content-start">
+              <Link
+                to="/"
+                className="align-items-center text-secondary justify-content-start mt-4 mb-3 text-decoration-none d-inline-flex"
+              >
+                <IoIosArrowRoundBack size={"1.8rem"} />
+                <div className="fs-5 text-decoration-underline-hover">
+                  Continue Shopping
+                </div>
+              </Link>
+            </div>
             <div className="d-flex p-3 border-bottom border-secondary text-secondary letter-spacing">
               <div className="col-lg-7 text-start">Product</div>
               <div className="col-lg-1 text-start">Price</div>
@@ -73,7 +76,7 @@ const Cart = () => {
                 key={product.id}
                 className="d-flex border-bottom border-secondary p-3 flex-column align-items-center flex-sm-row"
               >
-                <div className="col-lg-2 d-flex justify-content-start">
+                <div className="col-lg-2 d-flex justify-content-center pe-3">
                   <img
                     src={
                       product.images.length
@@ -95,8 +98,9 @@ const Cart = () => {
                   </NavLink>
                   <div className="d-flex justify-content-start">
                     <div
-                      className="text-secondary deleteProduct  d-inline-flex align-items-center"
-                      onClick={() => handleRemoveFromCart(product)}
+                      className="text-secondary deleteProduct d-inline-flex align-items-center"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteModal"
                     >
                       <IoTrashOutline /> Delete
                     </div>
@@ -109,8 +113,10 @@ const Cart = () => {
                   <div
                     className="btn border aqua-hover"
                     onClick={() => {
-                      handleDecreaseCart(product);
+                      product.quantity > 1 && handleDecreaseCart(product);
                     }}
+                    data-bs-toggle={product.quantity === 1 && "modal"}
+                    data-bs-target={product.quantity === 1 && "#deleteModal"}
                   >
                     -
                   </div>
@@ -128,6 +134,54 @@ const Cart = () => {
                 </div>
                 <div className="fw-bold col-lg-1 text-end">
                   ${product.quantity * product.price}
+                </div>
+                {/* <!-- Modal --> */}
+                <div
+                  className="modal fade"
+                  id="deleteModal"
+                  tabIndex="-1"
+                  aria-labelledby="deleteModalLabel"
+                  aria-hidden="true"
+                >
+                  <div className="modal-dialog modal-dialog-centered modal-sm">
+                    <div className="modal-content border-0">
+                      <div className="modal-header bg-purple-dark text-white">
+                        <div className="text-white d-flex align-items-center letter-spacing">
+                          <SiHexo fontSize={"2.3rem"} />
+                          <div className="d-flex pb-1">
+                            <div className="fs-4">exa</div>
+                            <div className="fw-bold text-aqua fs-4">tech</div>
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className="btn-close btn-close-white"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div className="modal-body fw-bold py-4">
+                        Are you sure you want to delete this item?
+                      </div>
+                      <div className="modal-footer">
+                        <button
+                          type="button"
+                          className="btn btn-secondary"
+                          data-bs-dismiss="modal"
+                        >
+                          Cancel
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-danger d-flex align-items-center"
+                          onClick={() => handleRemoveFromCart(product)}
+                          data-bs-dismiss="modal"
+                        >
+                          <IoTrashOutline /> Delete
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             ))}
