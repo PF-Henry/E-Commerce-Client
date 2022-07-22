@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Login.css';
 import Google from './images/google.png';
 import Facebook from "./images/facebook.png";
 import Github from "./images/github.png";
 import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
-
-
+import { useDispatch } from 'react-redux';
+import { loginUserAsync } from '../../Redux/productSlice';
+import apiUrl from '../../Constants/apiUrl';
 
 export const Login = () => {
 
+    const dispatch = useDispatch();
+
+    const [user, setUser] = useState({
+        email: '',
+        password: '',
+    })
+
     const google = () => {
-        window.open("http://localhost:5000/auth/google", "_self");
+        window.open(`${apiUrl}auth/google/signin`, "_self");
       };
 
       const github = () => {
@@ -22,6 +30,22 @@ export const Login = () => {
         window.open("http://localhost:5000/auth/facebook", "_self");
       };
 
+      const handleChange = (e) => {
+        setUser({
+            ...user,
+            [e.target.name]: e.target.value
+        })
+      }
+
+      const handleSubmit = (e) => {
+        e.preventDefault(e);
+        dispatch(loginUserAsync(user))
+        setUser({
+            email: '',
+            password: '',
+        })
+      }
+
   return (
     <div className='padding-container'>
         <div className="login-container">
@@ -29,7 +53,7 @@ export const Login = () => {
                 <h5 className="section-title--title" >Choose a Login Method</h5>
                 <div className='section-title-text'> 
                     <p className='m-0'>Don't have account yet?</p>
-                    <NavLink to='/SignIn' > Sign In </NavLink>
+                    <NavLink to='/register' > Sign In </NavLink>
                 </div>
 
             </div>
@@ -52,11 +76,27 @@ export const Login = () => {
 
                
                 <div className="right">
-                    <div className='right-inputs'>
-                        <input type="text" placeholder="Username" className='right-input'/>
-                        <input type="text" placeholder="Password" className='right-input'/>
-                    </div>
-                    <button className="btnLogin">Login</button>
+                    <form className='right-inputs' onSubmit={ e => handleSubmit(e)}>
+                        <div>
+                            <input 
+                                type="text" 
+                                placeholder="Email" 
+                                className='right-input'
+                                name='email' 
+                                value={user.email} 
+                                onChange={e => handleChange(e)} 
+                            />
+                            <input 
+                                type="password" 
+                                placeholder="Password" 
+                                className='right-input mt-2'
+                                name='password' 
+                                value={user.password} 
+                                onChange={e => handleChange(e)} 
+                            />
+                        </div>
+                        <button className="btnLogin" type='submit'>Login</button>
+                    </form>
                 </div>
             </div>
 

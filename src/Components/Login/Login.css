@@ -56,18 +56,14 @@
 .right {
   width: 50%;
   height: 160px;
+}
+
+.right-inputs {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
-}
-
-.right-inputs {
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .right-input {
