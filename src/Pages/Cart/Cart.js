@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../Components/Navbar/Navbar";
 import { Footer } from "../../Components/Footer/Footer";
-import { FiAlertTriangle } from "react-icons/fi";
+import { FiAlertTriangle, FiMinus, FiPlus } from "react-icons/fi";
 import { IoIosArrowRoundBack } from "react-icons/io";
 import { IoTrashOutline } from "react-icons/io5";
 import { SiHexo } from "react-icons/si";
@@ -111,25 +111,25 @@ const Cart = () => {
                 </div>
                 <div className="col-lg-3 d-flex align-items-center justify-content-center">
                   <div
-                    className="btn border aqua-hover"
+                    className="btn border aqua-hover d-flex align-items-center"
                     onClick={() => {
                       product.quantity > 1 && handleDecreaseCart(product);
                     }}
                     data-bs-toggle={product.quantity === 1 && "modal"}
                     data-bs-target={product.quantity === 1 && "#deleteModal"}
                   >
-                    -
+                    <FiMinus />
                   </div>
-                  <div className="px-2 d-flex justify-content-center">
+                  <div className="px-3 d-flex justify-content-center">
                     {product.quantity}
                   </div>
                   <div
-                    className="btn border aqua-hover"
+                    className="btn border aqua-hover d-flex align-items-center"
                     onClick={() => {
                       handleAddToCart(product);
                     }}
                   >
-                    +
+                    <FiPlus />
                   </div>
                 </div>
                 <div className="fw-bold col-lg-1 text-end">
