@@ -36,6 +36,7 @@ export const productSlice = createSlice({
       : [],
     user: [],
     userLogged: [],
+    showSlider: true,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -151,14 +152,17 @@ export const productSlice = createSlice({
     postUser: (state, action) => {
       return {
         ...state,
-        user: action.payload
-      }
+        user: action.payload,
+      };
     },
     loginUser: (state, action) => {
       return {
         ...state,
-        userLogged: action.payload
-      }
+        userLogged: action.payload,
+      };
+    },
+    setShowSlider: (state, action) => {
+      state.showSlider = action.payload;
     },
   },
 });
@@ -186,6 +190,7 @@ export const {
   cleanCart,
   postUser,
   loginUser,
+  setShowSlider,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -290,25 +295,23 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
 };
 
 export const postUserAsync = (payload) => (dispatch) => {
-  console.log(payload)
-      // axios.post(`${apiUrl}/users/register`, payload)
-      // .then( (response) => {
-      //     dispatch(postUser(response.data));
-      // })
+  console.log(payload);
+  // axios.post(`${apiUrl}/users/register`, payload)
+  // .then( (response) => {
+  //     dispatch(postUser(response.data));
+  // })
 
-      /*FALTA PROBAR Y LOS ERRORES*/ 
+  /*FALTA PROBAR Y LOS ERRORES*/
 };
-
 
 export const loginUserAsync = (payload) => (dispatch) => {
-  console.log(payload)
-      // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
-      // .then( (response) => {
-      //     dispatch(loginUser(response.data));
-      // })
+  console.log(payload);
+  // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
+  // .then( (response) => {
+  //     dispatch(loginUser(response.data));
+  // })
 
-      /*FALTA PROBAR Y LOS ERRORES*/ 
+  /*FALTA PROBAR Y LOS ERRORES*/
 };
-
 
 export default productSlice.reducer;
