@@ -6,6 +6,7 @@ import AdminSideBar from "./AdminSideBar";
 const AdminSettings = () => {
     return (
         <div className="userContainer">
+            
             <div className="sideBar animate__animated animate__fadeInLeft">
                 <AdminSideBar />
             </div>
