@@ -8,14 +8,14 @@ const ItemsPaging = ({ itemsPerPage, allItems, paging }) => {
         pageNums.push(i)
     }
 
-    return (
+    return ( 
         <nav>
             <ul>
                 {
                     pageNums && pageNums.map(num => {
                         return (
                             <li key={num}>
-                                <a onClick={() => paging(num)}>{num}</a>
+                                <p onClick={() => paging(num)}>{num}</p>
                             </li>  
                         )  
                     })

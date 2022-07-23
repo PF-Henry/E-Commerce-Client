@@ -25,7 +25,7 @@ export const productSlice = createSlice({
     itemsPerPageState: 8,
     categoriesLoaded: [],
     sorting: NEWEST,
-    filter: [],
+    filter: [], 
     brandsFilter: [],
     imagesLoaded: [],
     error: "",
@@ -34,6 +34,7 @@ export const productSlice = createSlice({
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
+    usersLoaded: [],
     user: [],
     userLogged: [],
     showSlider: true,
@@ -169,6 +170,9 @@ export const productSlice = createSlice({
       state.search = action.payload;
     },
   },
+  getUsers: (state, action) => {
+    state.usersLoaded = action.payload;
+  }
 });
 
 export const {
@@ -191,6 +195,7 @@ export const {
   addToCart,
   removeFromCart,
   decreaseCart,
+  getUsers,
   cleanCart,
   postUser,
   loginUser,
@@ -317,6 +322,14 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
       dispatch(createProductError(error));
     });
 };
+
+export const getUsersAsync = () => (dispatch) => {
+  fetch(`${apiUrl}users`)
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(getUsers(json));
+    })
+    .catch((error) => console.log(error));
 
 export const postUserAsync = (payload) => (dispatch) => {
   console.log(payload);
