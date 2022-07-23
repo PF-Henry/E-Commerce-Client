@@ -25,7 +25,7 @@ export const productSlice = createSlice({
     itemsPerPageState: 8,
     categoriesLoaded: [],
     sorting: NEWEST,
-    filter: [], 
+    filter: [],
     brandsFilter: [],
     imagesLoaded: [],
     error: "",
@@ -172,7 +172,7 @@ export const productSlice = createSlice({
   },
   getUsers: (state, action) => {
     state.usersLoaded = action.payload;
-  }
+  },
 });
 
 export const {
@@ -259,18 +259,22 @@ export const createProductAsync = (newProduct) => (dispatch) => {
   // --- POST request to create a new product ---
 
   const formData = new FormData();
-  
+
   formData.append("name", newProduct.name);
   formData.append("stock", newProduct.stock);
   formData.append("price", newProduct.price);
   formData.append("description", newProduct.description);
-  formData.append("technical_especification", newProduct.technical_especification);
-  
+  formData.append(
+    "technical_especification",
+    newProduct.technical_especification
+  );
+
   formData.append("categories", JSON.stringify(newProduct.categories));
   formData.append("brand", newProduct.brand);
-       
+
   newProduct.images.forEach((image) => {
-    formData.append("fileName", image.src); });
+    formData.append("fileName", image.src);
+  });
 
   axios
     .post(`${apiUrl}products/`, formData)
@@ -285,7 +289,6 @@ export const createProductAsync = (newProduct) => (dispatch) => {
     });
 };
 // ------------------------ CREATE PRODUCT ------------------------------
-
 
 export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
@@ -330,7 +333,7 @@ export const getUsersAsync = () => (dispatch) => {
       dispatch(getUsers(json));
     })
     .catch((error) => console.log(error));
-}
+};
 
 export const postUserAsync = (payload) => (dispatch) => {
   console.log(payload);
