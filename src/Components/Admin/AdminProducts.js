@@ -28,8 +28,7 @@ const AdminProducts = () => {
                     <Searchbar content='Product'/>
                     <NavLink
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
-                        to="/CreateProduct"
-                    >
+                        to="/CreateProduct">
                         New Product
                     </NavLink>
                 </div>

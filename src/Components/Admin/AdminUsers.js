@@ -26,7 +26,6 @@ const AdminUsers = () => {
                 <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
                     <Searchbar content={'ID or Username'}/>
                 </div>
-                
                 <div className="d-flex justify-content-evenly flex-wrap">
                     <UsersTable
                         users={allUsers}
