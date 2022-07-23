@@ -1,2 +1,2 @@
-/api/* https://random.name.herokuapp.com/api/:splat 200
-/*     /index.html                                  200
+/api/* https://hexatech-api.herokuapp.com/api/:splat 200
+/*     /index.html                                   200
