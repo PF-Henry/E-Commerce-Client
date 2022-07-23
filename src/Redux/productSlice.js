@@ -25,7 +25,7 @@ export const productSlice = createSlice({
     itemsPerPageState: 8,
     categoriesLoaded: [],
     sorting: NEWEST,
-    filter: [],
+    filter: [], 
     brandsFilter: [],
     imagesLoaded: [],
     error: "",
