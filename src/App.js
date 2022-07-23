@@ -12,7 +12,8 @@ import AboutUs from "./Pages/AboutUs/AboutUs";
 import { Login } from "./Components/Login/Login";
 import { SignIn } from "./Components/SignIn/SignIn";
 
-import UserDashboard from './Components/User/UserDashboard'
+import UserDashboard from "./Components/User/UserDashboard";
+import Layout from "./Components/SideBar/Layout";
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/CreateProduct" element={<CreateForm />} />
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
         <Route path="/user" element={<UserDashboard />} />
+        <Route path="/sidebarTest" element={<Layout />} />
       </Routes>
     </div>
   );
