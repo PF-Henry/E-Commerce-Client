@@ -1,4 +1,5 @@
 import React from "react";
+import './ItemsPaging.css';
 
 
 const ItemsPaging = ({ itemsPerPage, allItems, paging }) => {
@@ -10,11 +11,11 @@ const ItemsPaging = ({ itemsPerPage, allItems, paging }) => {
 
     return (
         <nav>
-            <ul>
+            <ul className="pagination-container">
                 {
                     pageNums && pageNums.map(num => {
                         return (
-                            <li key={num}>
+                            <li className="pagination-container-item" key={num}>
                                 <a onClick={() => paging(num)}>{num}</a>
                             </li>  
                         )  

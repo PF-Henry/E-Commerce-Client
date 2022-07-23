@@ -17,6 +17,11 @@
     width: 150px;
     height: 35px;
     border: none;
+    background-color: aqua;
+    color: #1c004a;
+}
+
+.error-container-btn:hover {
     background-color: #1c004a;
     color: #FFF;
 }
