@@ -10,7 +10,7 @@ const UserSideBar = () => {
                 <p className="userMenuIcon"><FaHome/></p>
                     Home
                 </p>
-            </NavLink>
+            </NavLink> 
             <NavLink to='/cart'>
                 <p className='userMenuLink'>
                 <p className="userMenuIcon"><FaShoppingCart/></p>

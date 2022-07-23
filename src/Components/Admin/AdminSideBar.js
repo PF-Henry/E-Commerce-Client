@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FaCog, FaListUl, FaThLarge, FaBox, FaHome, FaUser } from "react-icons/fa";
 
 
-const AdminSideBar = () => {
+const AdminSideBar = () => { 
     return (
         <div >
             <div className="sideBar animate__animated animate__fadeInLeft">

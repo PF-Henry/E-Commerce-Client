@@ -22,6 +22,7 @@ const AdminCategories = () => {
     return ( 
         <div className="adminContainer">
             <AdminNavBar />
+           
             <AdminSideBar />
             <div className="adminDashboard adminProducts">
                 <div className="d-flex justify-content-center gap-3 mb-3">
