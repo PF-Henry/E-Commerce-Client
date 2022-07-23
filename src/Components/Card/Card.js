@@ -12,6 +12,7 @@ const Card = ({ object }) => {
 
   return (
     <div className="card productCard border-0 animate__animated animate__fadeIn">
+      <button>X</button>
       <img
         src={
           object.images.length

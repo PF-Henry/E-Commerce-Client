@@ -1,0 +1,27 @@
+.error-container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.error-container-img {
+    width: 500px;
+    height: 500px;
+    background-image: url(./13315300_5203299.jpg);
+    background-size: cover;
+}
+
+.error-container-btn {
+    width: 150px;
+    height: 35px;
+    border: none;
+    background-color: aqua;
+    color: #1c004a;
+}
+
+.error-container-btn:hover {
+    background-color: #1c004a;
+    color: #FFF;
+}
