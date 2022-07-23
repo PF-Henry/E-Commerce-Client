@@ -1,7 +1,15 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { FaRegSmileBeam } from "react-icons/fa";
 
 const UserHome = () => {
+    const cartItems = useSelector((state) => state.products.cartItems);
+    let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
+    let subtotal = cartItems.reduce(
+        (total, obj) => obj.quantity * obj.price + total,
+        0
+    );
+
     return (
         <div>
             <div className="adminDashboard">
@@ -19,40 +27,16 @@ const UserHome = () => {
                     <div className="card adminCard">
                         <div className="card-body cardBody">
                             <div className="cardContent">
-                                <h5 className="card-title cardTitleH5">Total Pending Orders</h5>
-                                <p className="card-text"> 2 items <br/>$13050</p>
+                                <h5 className="card-title cardTitleH5">In My Cart</h5>
+                                <p className="card-text"> {quantities} {quantities > 1 ? "items" : "item"} 
+                                    <br/>$ {subtotal}
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                {/* <div className="col-md-3">
-                    <div className="card adminCard">
-                        <div className="card-body cardBody">
-                            <div className="cardIconRevenue">
-                                <FcPaid size={"3rem"} />
-                            </div>
-                            <div className="cardContent">
-                                <h5 className="card-title cardTitleH5">Last Orders</h5>
-                                <p className="card-text"></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="col-md-3">
-                    <div className="card adminCard">
-                        <div className="card-body cardBody">
-                            <div className="cardIconOrders">
-                                <FcTodoList size={"3rem"} />
-                            </div>
-                            <div className="cardContent">
-                                <h5 className="card-title cardTitleH5">28</h5>
-                                <p className="card-text">Pending Orders</p>
-                            </div>
-                        </div>
-                    </div>
-                </div> */}
+                
             </div>
         </div>
     )

@@ -6,7 +6,7 @@
 .sideBar {
   width: 16vw;
   background-color: #dbfdf8;
-  padding-bottom: 23vw;
+  height: 100vh;
   position: sticky;
 }
 

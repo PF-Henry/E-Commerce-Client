@@ -8,7 +8,7 @@
 
 .userMenu {
     padding-left: 2.5vw;
-    margin-top: 2.5vw;  
+    margin-top: 2.5vw; 
 }
 
 .menuUsername {
@@ -56,4 +56,59 @@
     text-align: justify;
     margin-left: 2vw;
     margin-top: 2.5vw;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #3ad8c1;
+}
+
+.profile-button {
+    background: #1c004a;
+    box-shadow: none;
+    border: none
+}
+
+.profile-button:hover {
+    background: #3ad8c1;
+    color: #1c004a;
+}
+
+.profile-button:focus {
+    background: #3ad8c1;
+    box-shadow: none
+}
+
+.profile-button:active {
+    background: #1c004a;
+    box-shadow: none
+}
+
+.back:hover {
+    color: #3ad8c1;
+    cursor: pointer
+}
+
+.labels {
+    font-size: 14px;
+    color: #1c004a;
+}
+
+.add-experience:hover {
+    background: #3ad8c1;
+    color: #fff;
+    cursor: pointer;
+    border: solid 1px #3ad8c1
+}
+
+.userSettingsContainer {
+    padding-left: 17%;
+}
+
+.passwordSetting {
+    margin-bottom: 2rem;
+}
+
+.deliveryInfo {
+    margin-top: 1.5rem;
 }

@@ -9,7 +9,7 @@ const ItemsPaging = ({ itemsPerPage, allItems, paging }) => {
         pageNums.push(i)
     }
 
-    return (
+    return ( 
         <nav>
             <ul className="pagination-container">
                 {
@@ -21,7 +21,7 @@ const ItemsPaging = ({ itemsPerPage, allItems, paging }) => {
                         )  
                     })
                 }
-            </ul>
+            </ul> 
         </nav>
     )
 }

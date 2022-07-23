@@ -15,6 +15,13 @@ import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 
 
 import UserDashboard from './Components/User/UserDashboard'
+import UserSettings from "./Components/User/UserSettings";
+import UserFavs from "./Components/User/UserFavs";
+import AdminProducts from "./Components/Admin/AdminProducts";
+import AdminCategories from "./Components/Admin/AdminCategories";
+import AdminOrders from "./Components/Admin/AdminOrders";
+import AdminUsers from "./Components/Admin/AdminUsers";
+import AdminSettings from "./Components/Admin/AdminSettings";
 
 function App() {
   return (
