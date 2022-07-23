@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import UsersTable from "../Tables/UsersTable";
 import Searchbar from "../Searchbar/Searchbar";
+import AdminNavBar from "./AdminNavBar";
+import AdminSideBar from "./AdminSideBar";
 import './AdminDashboard.css'
 
 
@@ -17,16 +19,18 @@ const AdminUsers = () => {
     ]
 
     return ( 
-        <div className="adminDashboard adminOrders">
-
-            <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
-                <Searchbar content={'ID or Username'}/>
-            </div>
-            
-            <div className="d-flex justify-content-evenly flex-wrap">
-                <UsersTable
-                    users={allUsers}
-                />
+        <div className="adminContainer">
+            <AdminNavBar />
+            <AdminSideBar />
+            <div className="adminDashboard adminOrders">
+                <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
+                    <Searchbar content={'ID or Username'}/>
+                </div>
+                <div className="d-flex justify-content-evenly flex-wrap">
+                    <UsersTable
+                        users={allUsers}
+                    />
+                </div>
             </div>
         </div>
     )

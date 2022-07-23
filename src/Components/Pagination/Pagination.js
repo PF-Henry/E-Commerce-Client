@@ -7,8 +7,8 @@ const Pagination = ({
   currentPage,
   productsArray,
 }) => {
-  const [pageNumberLimit] = useState(3);
-  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(3);
+  const [pageNumberLimit] = useState(5);
+  const [maxPageNumberLimit, setMaxPageNumberLimit] = useState(5);
   const [minPageNumberLimit, setMinPageNumberLimit] = useState(0);
 
   const pages = [];
@@ -90,7 +90,7 @@ const Pagination = ({
       <ul className="pagination justify-content-center gap-2">
         <li className="page-item">
           <button
-            className="page-link border-0 letter-spacing text-white bg-purple-dark py-1 rounded-0 px-5"
+            className="page-link border-0 letter-spacing text-white bg-purple-dark py-1 rounded-0 px-3"
             disabled={currentPage === pages[0] ? true : false}
             onClick={handlePrevbtn}
           >
@@ -104,7 +104,7 @@ const Pagination = ({
 
         <li className="page-item">
           <button
-            className="page-link border-0 letter-spacing text-white bg-purple-dark py-1 rounded-0 px-5"
+            className="page-link border-0 letter-spacing text-white bg-purple-dark py-1 rounded-0 px-3"
             onClick={handleNextbtn}
             disabled={currentPage === pages[pages.length - 1] ? true : false}
           >

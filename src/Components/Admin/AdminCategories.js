@@ -3,41 +3,43 @@ import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Products_CategoriesTable from "../Tables/ProductsTable";
 import Searchbar from "../Searchbar/Searchbar";
-import { getAllDBProductsAsync } from "../../Redux/productSlice";
+import { getCategoriesAsync } from "../../Redux/productSlice";
 import './AdminDashboard.css'
 import AdminNavBar from "./AdminNavBar";
 import AdminSideBar from "./AdminSideBar";
 
 
-const AdminProducts = () => {
+const AdminCategories = () => {
     const dispatch = useDispatch();
-    const allDBProducts = useSelector((state) => state.products.allDBProducts);
-    
+    const allCategories = useSelector((state) => state.products.categoriesLoaded);
+
     useEffect(() => {
-        if (!allDBProducts.length) {
-        dispatch(getAllDBProductsAsync());
+        if (!allCategories.length) {
+        dispatch(getCategoriesAsync());
         }
-    }, [allDBProducts, dispatch]);
+    }, [allCategories, dispatch]);
 
     return ( 
         <div className="adminContainer">
             <AdminNavBar />
+           
             <AdminSideBar />
             <div className="adminDashboard adminProducts">
                 <div className="d-flex justify-content-center gap-3 mb-3">
-                    <Searchbar content='Product'/>
+                    <Searchbar content='Category'/>
                     <NavLink
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
-                        to="/CreateProduct">
-                        New Product
+                        to="/CreateCategory"
+                    >
+                        New Category
                     </NavLink>
                 </div>
                 
                 <div className="d-flex justify-content-evenly flex-wrap">
                     <Products_CategoriesTable
-                        products={allDBProducts}
-                        name={'Products'}
-                        ruta={"/UpdateProduct/"}
+                        products={allCategories}
+                        name={'Categories'}
+                        ruta={"/UpdateCategory/"}
                     />
                 </div>
             </div>
@@ -46,4 +48,4 @@ const AdminProducts = () => {
     )
 }
 
-export default AdminProducts;
+export default AdminCategories;

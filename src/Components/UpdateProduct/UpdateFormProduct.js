@@ -11,10 +11,8 @@ import {
 
 import { useEffect } from "react";
 
-// const stringRegExp = /^[a-zA-Z]{1,20}$/;
-// const numberRegExp = /^([1-9][0-9]{0,2}|1000)$/;
-//const urlRegExp = /(http|https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/;
-// const urlRegExp = /(http|https?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&//=]*)/;
+const stringRegExp = /^[a-zA-Z]{1,20}$/;
+const numberRegExp = /^([1-9][0-9]{0,2}|1000)$/;
 
 export function validate(input) {
   let errors = {};

@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
-import { NavLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import React from "react";
+// import { NavLink } from "react-router-dom";
+// import { useSelector, useDispatch } from "react-redux";
 import OrdersTable from "../Tables/OrdersTable";
 import './AdminDashboard.css'
 import Searchbar from "../Searchbar/Searchbar";
+import AdminNavBar from "./AdminNavBar";
+import AdminSideBar from "./AdminSideBar";
 
 
 const AdminOrders = () => {
@@ -16,19 +18,23 @@ const AdminOrders = () => {
         {name: '132Gustavo', products: ['TV', 'PC'], total: 152}
     ]
 
-    return ( 
-        <div className="adminDashboard adminOrders">
+    return (
+        <div className="adminContainer">
+            <AdminNavBar />
+            <AdminSideBar />
 
-          <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
-            <Searchbar content={'ID'}/>
-          </div>
-            
-            <div className="d-flex justify-content-evenly flex-wrap">
-                <OrdersTable
-                    orders={allPendingOrders}
-                />
+            <div className="adminDashboard adminOrders">
+                <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
+                    <Searchbar content={'ID'}/>
+                </div>
+                <div className="d-flex justify-content-evenly flex-wrap">
+                    <OrdersTable
+                        orders={allPendingOrders}
+                    />
+                </div>
             </div>
-        </div>
+        </div> 
+        
     )
 }
 

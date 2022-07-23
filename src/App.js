@@ -14,6 +14,13 @@ import { SignIn } from "./Components/SignIn/SignIn";
 
 import UserDashboard from "./Components/User/UserDashboard";
 import Layout from "./Components/SideBar/Layout";
+import UserSettings from "./Components/User/UserSettings";
+import UserFavs from "./Components/User/UserFavs";
+import AdminProducts from "./Components/Admin/AdminProducts";
+import AdminCategories from "./Components/Admin/AdminCategories";
+import AdminOrders from "./Components/Admin/AdminOrders";
+import AdminUsers from "./Components/Admin/AdminUsers";
+import AdminSettings from "./Components/Admin/AdminSettings";
 
 function App() {
   return (
@@ -31,6 +38,13 @@ function App() {
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
         <Route path="/user" element={<UserDashboard />} />
         <Route path="/sidebarTest" element={<Layout />} />
+        <Route path="/user/settings" element={<UserSettings />} />
+        <Route path="/user/favorites" element={<UserFavs />} />
+        <Route path='/admin/products' element={<AdminProducts />} />
+        <Route path='/admin/categories' element={<AdminCategories />} />
+        <Route path='/admin/orders' element={<AdminOrders />} />
+        <Route path='/admin/users' element={<AdminUsers />} />
+        <Route path='/admin/settings' element={<AdminSettings />} />
       </Routes>
     </div>
   );
