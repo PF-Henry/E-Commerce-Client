@@ -11,7 +11,9 @@ import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import { Login } from "./Components/Login/Login";
 import { SignIn } from "./Components/SignIn/SignIn";
-import UserDashboard from './Components/User/UserDashboard'
+
+import UserDashboard from "./Components/User/UserDashboard";
+import Layout from "./Components/SideBar/Layout";
 import UserSettings from "./Components/User/UserSettings";
 import UserFavs from "./Components/User/UserFavs";
 import AdminProducts from "./Components/Admin/AdminProducts";
@@ -35,6 +37,7 @@ function App() {
         <Route path="/CreateProduct" element={<CreateForm />} />
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
         <Route path="/user" element={<UserDashboard />} />
+        <Route path="/sidebarTest" element={<Layout />} />
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/user/favorites" element={<UserFavs />} />
         <Route path='/admin/products' element={<AdminProducts />} />
