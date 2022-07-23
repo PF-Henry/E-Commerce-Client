@@ -3,14 +3,13 @@ import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ItemsPaging from "./ItemsPaging";
 
-const Products_CategoriesTable = ({ products, categories, name, ruta }) => {
+const Products_CategoriesTable = ({ products, name, ruta }) => {
 
   const [currentPg, setCurrentPg] = useState(1);
   const [itemsPerPage] = useState(5);
   const indexLastItem = currentPg * itemsPerPage; 
   const indexFirstItem = indexLastItem - itemsPerPage; 
   const currentProducts = products.slice(indexFirstItem, indexLastItem);
-  const currentCategories = categories.slice(indexFirstItem, indexLastItem);
 
   const paging = (pageNum) => {
     setCurrentPg(pageNum)
@@ -19,51 +18,27 @@ const Products_CategoriesTable = ({ products, categories, name, ruta }) => {
   let numItems;
 
   function returnedInformation () {
-    if (name === 'Products') {
-      numItems = products.length;
-      return (
-        currentProducts?.map((product, index) => (
-          <tr key={product.id} className="align-middle">
-            <th scope="row">{index + 1}</th>
-            <td>{product.name}</td>
-            <td className="d-flex justify-content-center gap-3">
-              <Link
-                to={`${ruta}${product.id}`}
-                className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
-                title="Edit"
-              >
-                <MdModeEdit size={"1.5rem"} />
-              </Link>
-              {/* <div className="btn btn-danger py-1 d-flex align-items-center rounded-circle">
-                <MdDelete size={"1.5rem"} />
-              </div> */}
-            </td>
-          </tr>
-        ))
-      )
-    } else if (name === 'Categories') {
-      numItems = categories.length;
-      return (
-        currentCategories?.map((category, index) => (
-          <tr key={category.id} className="align-middle">
-            <th scope="row">{index + 1}</th>
-            <td>{category.name}</td>
-            <td className="d-flex justify-content-center gap-3">
-              <Link
-                to={`${ruta}${category.id}`}
-                className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
-                title="Edit"
-              >
-                <MdModeEdit size={"1.5rem"} />
-              </Link>
-              {/* <div className="btn btn-danger py-1 d-flex align-items-center rounded-circle">
-                <MdDelete size={"1.5rem"} />
-              </div> */}
-            </td>
-          </tr>
-        ))
-      )
-    }
+    numItems = products.length;
+    return (
+      currentProducts?.map((product, index) => (
+        <tr key={product.id} className="align-middle">
+          <th scope="row">{index + 1}</th>
+          <td>{product.name}</td>
+          <td className="d-flex justify-content-center gap-3">
+            <Link
+              to={`${ruta}${product.id}`}
+              className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
+              title="Edit"
+            >
+              <MdModeEdit size={"1.5rem"} />
+            </Link>
+            {/* <div className="btn btn-danger py-1 d-flex align-items-center rounded-circle">
+              <MdDelete size={"1.5rem"} />
+            </div> */}
+          </td>
+        </tr>
+      ))
+    )
   }
 
   return (

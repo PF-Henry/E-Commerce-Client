@@ -34,6 +34,7 @@ export const productSlice = createSlice({
     cartItems: localStorage.getItem("cartItems")
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
+    usersLoaded: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -150,6 +151,9 @@ export const productSlice = createSlice({
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
   },
+  getUsers: (state, action) => {
+    state.usersLoaded = action.payload;
+  }
 });
 
 export const {
@@ -172,6 +176,7 @@ export const {
   addToCart,
   removeFromCart,
   decreaseCart,
+  getUsers,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -273,4 +278,14 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
       dispatch(createProductError(error));
     });
 };
+
+export const getUsersAsync = () => (dispatch) => {
+  fetch(`${apiUrl}users`)
+    .then((response) => response.json())
+    .then((json) => {
+      dispatch(getUsers(json));
+    })
+    .catch((error) => console.log(error));
+};
+
 export default productSlice.reducer;

@@ -1,12 +1,20 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
+import AdminNavBar from "../Admin/AdminNavBar";
+import UserSideBar from "./UserSideBar";
 import './UserStyles.css';
 
 
 const UserFavs = () => {
     return (
-        <div className="userDashboard">
-            <div className="row d-flex justify-content-center mb-2 userPruchasesContainer">
+        <div className="userContainer">
+            <div className="sideBar animate__animated animate__fadeInLeft">
+                <UserSideBar />
+            </div>
+            <AdminNavBar />
+
+            <div className="userDashboard">
+                <div className="row d-flex justify-content-center mb-2 userPruchasesContainer">
 
                 <div className="container row d-flex justify-content-center mb-2 userContainer">
                     <div className="userCart">
@@ -47,6 +55,8 @@ const UserFavs = () => {
                     </div>
                 </div>
             </div>
+            </div>
+
         </div>
     )
 }
