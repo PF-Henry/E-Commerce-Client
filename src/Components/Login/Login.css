@@ -1,8 +1,8 @@
-.padding-container {
+.padding-container--login {
   padding-top: 100px;
 }
 
-.login-container {
+.login-container--login {
   border-radius: 10px;
   margin: 0 auto;
   width: 600px;
@@ -14,7 +14,7 @@
   box-shadow: 2px 3px 14px 1px rgba(0,0,0,0.75);
 }
 
-.section-title {
+.section-title--login {
   width: 100%;
   height: 120px;
   display: flex;
@@ -22,12 +22,12 @@
   justify-content: space-around;
 }
 
-.section-title--title {
+.section-title--title--login {
   font-size: 45px;
   color: #1c004a;
 }
 
-.section-title-text {
+.section-title-text--login {
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -35,7 +35,7 @@
   align-items: center;
 }
 
-.section-options {
+.section-options--login {
   width: 100%;
   height: 170px;
   display: flex;
@@ -43,7 +43,7 @@
   justify-content: space-around;
 }
 
-.div-sotial-buttons {
+.div-social-buttons--login {
     width: 48%;
     height: 160px;
     display: flex;
@@ -53,30 +53,26 @@
     border-right: 2px dotted #cacaca;
 }
 
-.right {
+.right--login {
   width: 50%;
   height: 160px;
+}
+
+.right-inputs--login {
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-
 }
 
-.right-inputs {
-  height: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.right-input {
+.right-input--login {
   width: 200px;
   border-radius: 5px;
   border: 1px solid #507cc0;
 }
   
-.center{
+.center--login {
   width: 15%;
   height: 160px;
   display: flex;
@@ -84,7 +80,7 @@
   justify-content: center;
 }
 
-.btnLogin {
+.btnLogin--login {
   width: 200px;
   padding: 5px 0;
   border-radius: 5px;
@@ -93,13 +89,13 @@
   border: none;
 }
 
-.btnLogin:hover {
+.btnLogin--login:hover {
   color: #1c004a !important;
   background-color: #3ad8c1;
 }
 
 
-.loginButton{
+.loginButton--login {
     width: 160px;
     height: 35px;
     padding: 5px 10px;
@@ -121,27 +117,15 @@
   .github{
     background-color: black;
   }
-  
+
   .icon{
     width: 20px;
     height: 20px;
     margin-right: 10px;
   }
 
-  .modal-footer {
-    background-color: #1c004a;
-  }
 
-  .btn-x {
-    padding: 10px 25px;
-    background-color: #3ad8c1;
-  }
-
-  .btn-x:hover {
-    background-color: #FFF;
-  }
-
-  .logo-footer-container {
+  .logo-footer-container--login {
     width: 100%;
     height: 80px;
     display: flex;
@@ -150,3 +134,84 @@
 
     background-color: #1c004a;
   }
+
+  .message-container--login {
+    margin: 50px auto;
+    width: 600px;
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+  }
+
+  .message-container--login p {
+    margin: 0;
+    padding: 0;
+  }
+
+  .success {
+    background-color: #9effd2;
+    color: #416655;
+  }
+
+  .error {
+    background-color: #ff8e8e;
+    color: #942d2d;
+  }
+
+
+
+
+
+
+  @media (min-width: 280px) and (max-width:767px){
+   
+    .login-container--login {
+        width: 80%;
+        height: 500px;
+    }
+
+    .section-title--login {
+        padding: 20px 0;
+    }
+   
+    .section-title--title--login {
+        font-size: 25px;
+    }
+
+    .section-options--login {
+        height: 400px;
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .right--login {
+      width: 70%;
+      height: 135px;
+      padding-bottom: 30px;
+      border-bottom: 1px dotted #929292;
+    }
+
+    .div-social-buttons--login {
+        width: 100%;
+        height: 115px;
+        border-right: none;
+    }
+
+    .loginButton--login {
+        width: 200px;
+    }
+
+    .message-container--login {
+      width: 80%;
+      height: 80px;
+    }
+
+    .message-container--login p {
+      font-size: 13px;
+    }
+}

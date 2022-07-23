@@ -22,11 +22,6 @@ export const ProductDetail = () => {
     categories: "",
   };
 
-  // let name = '';
-  // let img = '';
-  // let img2 = '';
-  // let img3= '';
-
   if (Object.values(product).length) {
     productDetails.name = product.name;
     productDetails.img1 = !product.images.length

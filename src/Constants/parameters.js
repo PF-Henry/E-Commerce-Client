@@ -1,0 +1,1 @@
+export const MAX_IMAGES_PRODUCT = 3;

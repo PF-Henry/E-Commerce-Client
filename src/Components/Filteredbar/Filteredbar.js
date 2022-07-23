@@ -47,7 +47,7 @@ const Filteredbar = ({
   };
 
   return (
-    <div className="filterBG ">
+    <div className="filterBG">
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
         <div className="d-flex gap-2">
           <div

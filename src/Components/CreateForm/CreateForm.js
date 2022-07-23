@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import DropBox from '../DropBox/DropBox';
+import ImageDropBox from '../DropBox/ImageDropBox';
+import { MAX_IMAGES_PRODUCT  } from "../../Constants/parameters";
+
 import {
   getBrandsAsync,
   getCategoriesAsync,
-  getImagesAsync,
+  // getImagesAsync,
   createProductAsync,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
 import AdminNavBar from "../Admin/AdminNavBar";
 import "./CreateForm.css";
+
+
+
+
+const stringRegExp = /^[a-zA-Z]{1,20}$/;
+const numberRegExp = /^([1-9][0-9]{0,2}|1000)$/;
 
 export function validate(input) {
   let errors = {};
@@ -45,8 +55,7 @@ export function validate(input) {
 export default function Create() {
   const brands = useSelector((state) => state.products.brandsLoaded);
   const categories = useSelector((state) => state.products.categoriesLoaded);
-  const images = useSelector((state) => state.products.imagesLoaded);
-
+  
   let error = useSelector((state) => state.products.error);
   let msg = useSelector((state) => state.products.msg);
 
@@ -64,6 +73,7 @@ export default function Create() {
   };
 
   const [input, setInput] = useState(inputStateInitial);
+  const [imagesDropBox, setImagesDropBox] = useState([]);
 
   const [errors, setErrors] = useState({
     name: "",
@@ -142,44 +152,65 @@ export default function Create() {
     );
   }
 
-  // delete Categories de la lista
-  function onClickDeleteImages(e) {
-    e.preventDefault();
-    let newImages = input.images.filter((item) => item !== e.target.value);
-    setInput({
-      ...input,
-      images: newImages,
-    });
 
-    setErrors(
-      validate({
-        ...input,
-        images: newImages,
-      })
-    );
-  }
 
-  function onChangeImages(e) {
-    if (e.target.value === "0") return;
+// -------------------------- DropBox methods ---------------------------------
+let idImage = 0;
+const onDrop = useCallback((acceptedFiles) => {
+  acceptedFiles.map((file, index) => {
 
-    if (input.images.filter((item) => item === e.target.value).length !== 0) {
-      return;
-    }
+    //console.log("file ======", file);
 
-    setInput({
-      ...input,
-      images: [...input.images, e.target.value],
-    });
+    const reader = new FileReader();
 
-    setErrors(
-      validate({
-        ...input,
-        images: [...input.images, e.target.value],
-      })
-    );
+    reader.onload = function (e) {
+      
+      if (input.images.length < MAX_IMAGES_PRODUCT) {        
+      
+        setInput((prevState) => {
+          if (prevState.images.length < MAX_IMAGES_PRODUCT) {
+                return {
+                      ...prevState,
+                      images: [ ...prevState.images , {id: idImage++,  src: e.target.result }],
+                    };
+          } else {
+            return prevState;
+          };
+          });
+          
+      }
+    };
+  
+    reader.readAsDataURL(file);
+    return file;
+  });
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
-    e.target.value = "0";
-  }
+
+//console.log("imagenes:", images);
+
+function onClickDelete(e) {
+  e.preventDefault();
+  const id = e.target.id;
+
+  setInput((prevState) => {
+    return {
+      ...prevState,
+      images : prevState.images.filter((image) => parseInt(image.id) !== parseInt(id)),
+    }});
+}
+// -------------------------- DropBox methods ---------------------------------
+
+
+
+
+
+  
+
+  
+
+
 
   function onChangeBrands(e) {
     if (e.target.value === "0") return;
@@ -200,6 +231,8 @@ export default function Create() {
   function onClickCreate(e) {
     e.preventDefault();
 
+    console.log("Input:", input);
+    
     if (Object.keys(errors).length === 0) {
       dispatch(createProductAsync(input));
     } else {
@@ -212,18 +245,7 @@ export default function Create() {
   useEffect(() => {
     dispatch(getCategoriesAsync());
     dispatch(getBrandsAsync());
-    dispatch(getImagesAsync());
 
-    // setInput(
-    //   { name: 'Lenovo I7',
-    //   description: 'Lenovo yoga 720',
-    //   technical_especification: 'I7 8GB RAM 128GB SSD',
-    //   price: 1000,
-    //   stock: 10,
-    //   brand: "Lenovo",
-    //   categories: [],
-    //   images: [],}
-    // );
   }, [dispatch]);
 
   // useEffect(() => {
@@ -378,35 +400,22 @@ export default function Create() {
               Images
             </label>
 
-            <select
-              className="form-select mb-5"
-              defaultValue="0"
-              onChange={onChangeImages}
-              name="images"
-            >
-              <option value="0">Select Images</option>
-              {images.map((item, index) => (
-                <option key={index} value={item.url_image}>
-                  {item.url_image}
-                </option>
-              ))}
-            </select>
+            <DropBox onDrop={onDrop} />
+
+            
+            { input.images && (input.images.length > 0) &&
+              (<div className="containerDropBoxImage"> 
+                 {input.images.map((image, index) => {
+                  return <div key={index} className="containerDropBoxImageAndButton">
+                  <ImageDropBox image={image} />
+                  <button className="btnDropBox" onClick={onClickDelete} id={image.id} >Delete</button>
+                </div>
+                })} 
+              </div>)
+            }
           </div>
 
-          <div className="d-flex justify-content-center mt-3 flex-wrap gap-3 align-items-center">
-            {input.images.map((item, index) => (
-              <div key={index}>
-                <img src={item} alt="product" width="100px" />
-                <button
-                  className="formBtnDelete ms-1"
-                  value={item}
-                  onClick={onClickDeleteImages}
-                >
-                  X
-                </button>
-              </div>
-            ))}
-          </div>
+
 
           <div className="mb-5 d-flex justify-content-center mt-4">
             <input

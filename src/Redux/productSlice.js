@@ -35,6 +35,10 @@ export const productSlice = createSlice({
       ? JSON.parse(localStorage.getItem("cartItems"))
       : [],
     usersLoaded: [],
+    user: [],
+    userLogged: [],
+    showSlider: true,
+    search: "",
   },
   reducers: {
     getProducts: (state, action) => {
@@ -76,13 +80,6 @@ export const productSlice = createSlice({
     },
     searchProductError: (state, action) => {
       state.error = action.payload;
-    },
-    resetError: (state, action) => {
-      state.error = "";
-    },
-    searchProductError: (state, action) => {
-      state.error = action.payload;
-      // state.productsLoaded = [];
     },
     resetError: (state, action) => {
       state.error = "";
@@ -150,6 +147,28 @@ export const productSlice = createSlice({
 
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    cleanCart: (state) => {
+      state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    postUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    },
+    loginUser: (state, action) => {
+      return {
+        ...state,
+        userLogged: action.payload,
+      };
+    },
+    setShowSlider: (state, action) => {
+      state.showSlider = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
   },
   getUsers: (state, action) => {
     state.usersLoaded = action.payload;
@@ -177,6 +196,11 @@ export const {
   removeFromCart,
   decreaseCart,
   getUsers,
+  cleanCart,
+  postUser,
+  loginUser,
+  setShowSlider,
+  setSearch,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -230,9 +254,26 @@ export const switchItemsPerPageAsync = (e) => () => {
   console.log("items per page: " + itemsPerPage);
 };
 
+// ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (newProduct) => (dispatch) => {
+  // --- POST request to create a new product ---
+
+  const formData = new FormData();
+  
+  formData.append("name", newProduct.name);
+  formData.append("stock", newProduct.stock);
+  formData.append("price", newProduct.price);
+  formData.append("description", newProduct.description);
+  formData.append("technical_especification", newProduct.technical_especification);
+  
+  formData.append("categories", JSON.stringify(newProduct.categories));
+  formData.append("brand", newProduct.brand);
+       
+  newProduct.images.forEach((image) => {
+    formData.append("fileName", image.src); });
+
   axios
-    .post(`${apiUrl}products/`, newProduct)
+    .post(`${apiUrl}products/`, formData)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -243,6 +284,8 @@ export const createProductAsync = (newProduct) => (dispatch) => {
       dispatch(createProductError(error));
     });
 };
+// ------------------------ CREATE PRODUCT ------------------------------
+
 
 export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
@@ -252,6 +295,7 @@ export const searchProductAsync = (product) => (dispatch) => {
         return dispatch(searchProductError(json.error));
       }
       dispatch(searchProduct(json));
+      dispatch(searchProductError(""));
     })
     .catch((error) => console.log(error));
 };
@@ -286,6 +330,25 @@ export const getUsersAsync = () => (dispatch) => {
       dispatch(getUsers(json));
     })
     .catch((error) => console.log(error));
+
+export const postUserAsync = (payload) => (dispatch) => {
+  console.log(payload);
+  // axios.post(`${apiUrl}/users/register`, payload)
+  // .then( (response) => {
+  //     dispatch(postUser(response.data));
+  // })
+
+  /*FALTA PROBAR Y LOS ERRORES*/
+};
+
+export const loginUserAsync = (payload) => (dispatch) => {
+  console.log(payload);
+  // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
+  // .then( (response) => {
+  //     dispatch(loginUser(response.data));
+  // })
+
+  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export default productSlice.reducer;

@@ -1,16 +1,16 @@
 .min-vh {
-  min-height: calc(100vh - 12rem - 6rem);
+  min-height: calc(100vh - 10.375rem - 6rem);
 }
 
 @media (max-width: 767.98px) {
   .min-vh {
-    min-height: calc(100vh - 6rem - 23.375rem);
+    min-height: calc(100vh - 6rem - 21.375rem);
   }
 }
 
 @media (min-width: 768px) and (max-width: 991.98px) {
   .min-vh {
-    min-height: calc(100vh - 6rem - 17.875rem);
+    min-height: calc(100vh - 6rem - 16.25rem);
   }
 }
 
@@ -24,4 +24,8 @@
 
 .text-decoration-underline-hover:hover {
   text-decoration: underline;
+}
+
+.maxH {
+  max-height: 100px;
 }

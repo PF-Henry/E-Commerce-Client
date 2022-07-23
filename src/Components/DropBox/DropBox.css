@@ -1,0 +1,79 @@
+.dropbox {
+	text-align: center;
+	/* padding: 20px; */
+	/* width: 90%; */
+	margin: auto;
+	/* margin-top: 50px; */
+}
+
+.containerDropBox {
+	display: flex;
+	flex-wrap: wrap;
+	/* width: 80%; */
+	margin: 20px auto; 
+	/* padding: 20px; */
+}
+
+.containerDropBoxImage{
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 20px;
+	border-radius: 5px;
+	padding: 10px;
+	border: #1c004a 1px solid;
+	justify-content: space-around;
+}
+
+.containerDropBoxImageAndButton{
+	display: flex;
+	height: 200px;
+	flex-direction: column;
+	/* flex-wrap: nowrap; */
+	
+	/* margin-top: 20px; */
+	/* border-radius: 5px; */
+	/* padding: 10px; */
+	/* justify-content: center; */
+}
+
+
+/* .containerDropBox img {
+	height: 150px;
+	width: 170px;
+	margin-right: 15px;
+} */
+
+
+.imageDropBox {
+	height: 150px;
+	width: 160px;
+    object-fit: contain;
+	padding: 10px;
+	border: 5px solid #1c004a;
+	border-radius: 5px;
+}
+
+.btnDropBox {
+	padding: 5px;
+	background-color: #3ad8c1;
+    color: #1c004a;
+	font-size: 14px;
+	font-weight: bold;
+	border-radius: 10px;
+	border: none;
+	cursor: pointer;
+	transition: 0.5s ease all;
+	border-radius: 5px;
+}
+
+.btnDropBox:hover{
+	background-color: #ffffff;
+}
+
+
+.msgDropBox{
+	color: #1c004a;	
+	font-size: 14px;
+	font-weight: bold;
+	margin-top: 10px;
+}
