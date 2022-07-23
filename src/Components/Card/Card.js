@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../Redux/productSlice";
+import { MdOutlineFavoriteBorder,MdOutlineFavorite } from 'react-icons/md';
 import "./Card.css";
+
 
 const Card = ({ object }) => {
   const dispatch = useDispatch();
@@ -10,9 +12,26 @@ const Card = ({ object }) => {
     dispatch(addToCart(item));
   };
 
+  let [heartSelected, setHeartSelected] = useState(false)
+
+  const onFavoriteClick = (id, name) => {
+    console.log("favorite " + id + ' ' + name);
+    if (heartSelected) {
+      setHeartSelected(heartSelected = false);
+    } else {
+      setHeartSelected(heartSelected = true);
+    }
+  }
+
   return (
     <div className="card productCard border-0 animate__animated animate__fadeIn">
-      <button>X</button>
+      {
+        heartSelected? 
+        <button className="card-btn-favorite favorite" onClick={ () => onFavoriteClick(object.id , object.name )}> <MdOutlineFavorite/> </button>
+        :
+        <button className="card-btn-favorite nonFavorite" onClick={ () => onFavoriteClick(object.id , object.name )}> <MdOutlineFavoriteBorder/> </button>
+
+      }
       <img
         src={
           object.images.length
