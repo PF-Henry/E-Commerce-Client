@@ -32,9 +32,6 @@ const Products_CategoriesTable = ({ products, name, ruta }) => {
             >
               <MdModeEdit size={"1.5rem"} />
             </Link>
-            {/* <div className="btn btn-danger py-1 d-flex align-items-center rounded-circle">
-              <MdDelete size={"1.5rem"} />
-            </div> */}
           </td>
         </tr>
       ))
