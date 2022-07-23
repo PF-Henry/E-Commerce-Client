@@ -11,7 +11,6 @@ const AdminDashboard = () => {
   return (
     <div className="animate__animated animate__fadeIn">
       <AdminNavBar />
-
       <div className="adminContainer">
         <div className="animate__animated animate__fadeInLeft sideBar">
           <AdminSideBar />
