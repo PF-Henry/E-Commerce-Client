@@ -383,4 +383,11 @@ export const createCategoryAsync = (payload) => () => {
     })
 };
 
+export const createBrandAsync = (payload) => () => {
+  axios.post(`${apiUrl}brands`, payload)
+  .catch(error => {
+    console.log(error)
+  })
+}
+
 export default productSlice.reducer;

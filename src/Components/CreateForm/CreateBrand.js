@@ -1,28 +1,28 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCategoryAsync } from "../../Redux/productSlice";
+import { createBrandAsync } from "../../Redux/productSlice";
 
 
-const CreateCategoryForm = () => {
-    const [category, setCategory] = useState({name : ''})
+const CreateBrandForm = () => {
+    const [brand, setBrand] = useState({name : ''})
     let dispatch = useDispatch();
 
     function handleInputChange(e) {
-        setCategory({
+        setBrand({
             name: e.target.value
         });
     }
 
     function onClickCreate(e) {
         e.preventDefault();
-        dispatch(createCategoryAsync(category));
-        alert('Category created')
+        dispatch(createBrandAsync(brand));
+        alert('Brand created')
     }
 
     return (
-        <div className="letter-spacing">
-            <div className="formContainer">
-                <form className="formCreate">
+        <div class="collapse" id="collapseExample">
+            <div className="letter-spacing">
+                <form >
                     <div className="form-group">
                         <label htmlFor="name" className="formItem">
                         Name
@@ -32,7 +32,7 @@ const CreateCategoryForm = () => {
                         onChange={handleInputChange}
                         className="form-control"
                         name="name"
-                        value={category.name}
+                        value={brand.name}
                         placeholder="Name"
                         />
                     </div>
@@ -40,7 +40,7 @@ const CreateCategoryForm = () => {
                         <input
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         type="button"
-                        value="Create Category"
+                        value="Create Brand"
                         onClick={onClickCreate}
                         />
                     </div>
@@ -50,4 +50,4 @@ const CreateCategoryForm = () => {
     )
 }
 
-export default CreateCategoryForm;
+export default CreateBrandForm;

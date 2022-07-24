@@ -23,7 +23,6 @@ import AdminUsers from "./Components/Admin/AdminUsers";
 import AdminSettings from "./Components/Admin/AdminSettings";
 import AdminBrands from "./Components/Admin/AdminBrands";
 import UpdateCategory from "./Components/Updates/UpdateCategory/UpdateCategory";
-import CreateCategoryForm from "./Components/CreateForm/CreateCategory";
 
 function App() {
   return (
@@ -52,7 +51,6 @@ function App() {
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/user/favorites" element={<UserFavs />} />
         <Route path='UpdateCategory/:id' element={<UpdateCategory />} />
-        <Route path="/CreateCategory" element={<CreateCategoryForm />} />
       </Routes>
     </div>
   );
