@@ -38,14 +38,16 @@ function App() {
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
         <Route path="/user" element={<UserDashboard />} />
         <Route path="/error" element={<ErrorPage />} />
-        <Route path="/sidebarTest" element={<Layout />} />
+        <Route path="/sidebarTest/" element={<Layout />}>
+          <Route path="products" element={<AdminProducts />} />
+        </Route>
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/user/favorites" element={<UserFavs />} />
-        <Route path='/admin/products' element={<AdminProducts />} />
-        <Route path='/admin/categories' element={<AdminCategories />} />
-        <Route path='/admin/orders' element={<AdminOrders />} />
-        <Route path='/admin/users' element={<AdminUsers />} />
-        <Route path='/admin/settings' element={<AdminSettings />} />
+        <Route path="/admin/products" element={<AdminProducts />} />
+        <Route path="/admin/categories" element={<AdminCategories />} />
+        <Route path="/admin/orders" element={<AdminOrders />} />
+        <Route path="/admin/users" element={<AdminUsers />} />
+        <Route path="/admin/settings" element={<AdminSettings />} />
       </Routes>
     </div>
   );

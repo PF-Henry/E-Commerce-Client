@@ -3,19 +3,18 @@ import {
   ProSidebar,
   Menu,
   MenuItem,
-  SubMenu,
   SidebarHeader,
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-import {
-  FaTachometerAlt,
-  FaGem,
-  FaList,
-  FaGithub,
-  FaRegLaughWink,
-  FaHeart,
-} from "react-icons/fa";
+import { NavLink, Link } from "react-router-dom";
+import { MdExitToApp, MdCategory } from "react-icons/md";
+import { FaClipboardList } from "react-icons/fa";
+import { SiHexo } from "react-icons/si";
+import { IoPerson } from "react-icons/io5";
+import { RiSettings3Fill, RiShoppingBagFill } from "react-icons/ri";
+import { BsPersonCircle } from "react-icons/bs";
+import "./SideBar.css";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
   return (
@@ -29,89 +28,54 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
       <SidebarHeader>
         <div
           style={{
-            padding: "24px",
-            textTransform: "uppercase",
-            fontWeight: "bold",
-            fontSize: 14,
-            letterSpacing: "1px",
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
           }}
+          className="bg-purple-dark d-flex align-items-center letter-spacing text-white ps-4 py-3"
         >
-          sidebarTitle
+          <Link
+            to="/"
+            className="navbar-brand text-white d-flex align-items-center letter-spacing"
+          >
+            <SiHexo fontSize={"2.3rem"} />
+            <div className="fs-4 pb-1">exa</div>
+            <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
+          </Link>
         </div>
       </SidebarHeader>
 
-      <SidebarContent>
+      <SidebarContent className="bg-purple-dark text-white letter-spacing">
+        <div className="d-flex justify-content-center mt-4">
+          <div className="d-flex flex-column align-items-center gap-1">
+            <BsPersonCircle size={"4rem"} />
+            Admin
+          </div>
+        </div>
         <Menu iconShape="circle">
-          <MenuItem
-            icon={<FaTachometerAlt />}
-            suffix={<span className="badge red">new</span>}
-          >
-            {"dashboard"}
+          <MenuItem icon={<RiShoppingBagFill size={"1.2rem"} />}>
+            Products
+            <Link to="/sidebarTest/products" />
           </MenuItem>
-          <MenuItem icon={<FaGem />}> components</MenuItem>
-        </Menu>
-        <Menu iconShape="circle">
-          <SubMenu
-            suffix={<span className="badge yellow">3</span>}
-            title="withSuffix"
-            icon={<FaRegLaughWink />}
-          >
-            <MenuItem>{"submenu"} 1</MenuItem>
-            <MenuItem>{"submenu"} 2</MenuItem>
-            <MenuItem>{"submenu"} 3</MenuItem>
-          </SubMenu>
-          <SubMenu
-            prefix={<span className="badge gray">3</span>}
-            title={"withPrefix"}
-            icon={<FaHeart />}
-          >
-            <MenuItem>{"submenu"} 1</MenuItem>
-            <MenuItem>{"submenu"} 2</MenuItem>
-            <MenuItem>{"submenu"} 3</MenuItem>
-          </SubMenu>
-          <SubMenu title={"multiLevel"} icon={<FaList />}>
-            <MenuItem>{"submenu"} 1 </MenuItem>
-            <MenuItem>{"submenu"} 2 </MenuItem>
-            <SubMenu title={`${"submenu"} 3`}>
-              <MenuItem>{"submenu"} 3.1 </MenuItem>
-              <MenuItem>{"submenu"} 3.2 </MenuItem>
-              <SubMenu title={`${"submenu"} 3.3`}>
-                <MenuItem>{"submenu"} 3.3.1 </MenuItem>
-                <MenuItem>{"submenu"} 3.3.2 </MenuItem>
-                <MenuItem>{"submenu"} 3.3.3 </MenuItem>
-              </SubMenu>
-            </SubMenu>
-          </SubMenu>
+          <MenuItem icon={<MdCategory size={"1.2rem"} />}>Categories</MenuItem>
+          <MenuItem icon={<FaClipboardList size={"1.2rem"} />}>Orders</MenuItem>
+          <MenuItem icon={<IoPerson size={"1.2rem"} />}>Users</MenuItem>
+          <MenuItem icon={<RiSettings3Fill size={"1.2rem"} />}>
+            Settings
+          </MenuItem>
         </Menu>
       </SidebarContent>
 
-      <SidebarFooter style={{ textAlign: "center" }}>
-        <div
-          className="sidebar-btn-wrapper"
-          style={{
-            padding: "20px 24px",
-          }}
-        >
-          <a
-            href="https://github.com/azouaoui-med/react-pro-sidebar"
-            target="_blank"
-            className="sidebar-btn"
-            rel="noopener noreferrer"
+      <SidebarFooter className="bg-purple-dark">
+        <div className="sidebar-btn-wrapper py-3">
+          <NavLink
+            to="/"
+            className="adminNavLink d-flex align-items-center aqua-hover sidebar-btn text-white"
           >
-            <FaGithub />
-            <span
-              style={{
-                whiteSpace: "nowrap",
-                textOverflow: "ellipsis",
-                overflow: "hidden",
-              }}
-            >
-              {"viewSource"}
-            </span>
-          </a>
+            <div className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1">
+              SIGN OUT <MdExitToApp size={"1.6rem"} />
+            </div>
+          </NavLink>
         </div>
       </SidebarFooter>
     </ProSidebar>

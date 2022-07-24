@@ -1,51 +1,18 @@
 import React from "react";
-import { FaHeart, FaBars } from "react-icons/fa";
+import { FaBars } from "react-icons/fa";
+import { Outlet } from "react-router-dom";
+import "./Main.css";
 
 const Main = ({ handleToggleSidebar }) => {
   return (
     <main>
-      <div className="btn-toggle" onClick={() => handleToggleSidebar(true)}>
-        <FaBars />
+      <div
+        className="btn-toggle position-fixed"
+        onClick={() => handleToggleSidebar(true)}
+      >
+        <FaBars size={"1.2rem"} />
       </div>
-      <header>
-        <div className="social-bagdes">
-          <a
-            href="https://github.com/azouaoui-med/react-pro-sidebar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              alt="GitHub stars"
-              src="https://img.shields.io/github/stars/azouaoui-med/react-pro-sidebar?style=social"
-            />
-          </a>
-          <a
-            href="https://github.com/azouaoui-med/react-pro-sidebar"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <img
-              alt="GitHub forks"
-              src="https://img.shields.io/github/forks/azouaoui-med/react-pro-sidebar?style=social"
-            />
-          </a>
-        </div>
-      </header>
-
-      <footer>
-        <small>
-          © {new Date().getFullYear()} made with{" "}
-          <FaHeart style={{ color: "red" }} /> by -{" "}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://azouaoui.netlify.com"
-          >
-            Mohamed Azouaoui
-          </a>
-        </small>
-        <br />
-      </footer>
+      <Outlet />
     </main>
   );
 };
