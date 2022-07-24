@@ -10,6 +10,9 @@ import {
   getCategoriesAsync,
   getProductsAsync,
   createProductAsync,
+  createProductError,
+  resetError,
+  resetMsg,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
 import "./CreateForm.css";
@@ -21,7 +24,7 @@ const numberRegExp = /^[0-9]+$/;
 
 export function validate(input) {
   let errors = {};
-  if (!input.name) errors.name = 'Name is required';
+  if ((!input.name) || !(input.name.length>0)) errors.name = 'Name is required';
   if (!input.price) errors.price = 'Price is required';
   if (!input.stock) errors.stock = 'Stock is required';
   if ((input.brand === "") || (input.brand === "0"))  errors.brand = 'Brand is required';
@@ -169,8 +172,6 @@ export default function Create() {
 
 
 
-
-
 // -------------------------- DropBox methods ---------------------------------
 let idImage = 0;
 const onDrop = useCallback((acceptedFiles) => {
@@ -219,12 +220,17 @@ const onDrop = useCallback((acceptedFiles) => {
   function onClickCreate(e) {
     e.preventDefault();
 
+    setErrors(validate({...input}));
+
     if (Object.keys(errors).length === 0) {
       dispatch(createProductAsync(input));
     } else {
-      setErrors({
-        ...errors,
-      });
+      const newError = "Form incomplete. Please check the errors.";
+      dispatch(createProductError(newError));
+      
+      // setErrors({
+      //   ...errors,
+      // });
     }
   }
 
@@ -239,11 +245,19 @@ const onDrop = useCallback((acceptedFiles) => {
   }, []);
 
 
-  // useEffect(() => {
-  //   errorCreate();
-  //   setTimeout(()=>{dispatch(resetCreatedPokemon())},3000);
-  //   // eslint-disable-next-line
-  // },[error_msg]);
+  useEffect(() => {
+    setTimeout(()=>{dispatch(resetError())},4000);
+    // eslint-disable-next-line
+  },[error]);
+
+
+  useEffect(() => {
+    setTimeout(()=>{
+          dispatch(resetMsg());
+          setInput(inputStateInitial);
+    },4000);   
+    // eslint-disable-next-line
+  },[msg]);
 
   return (
     <div className="letter-spacing">
@@ -252,16 +266,18 @@ const onDrop = useCallback((acceptedFiles) => {
       <div className="formContainer">
         <div>
           {msg && msg.length > 0 ? (
-            <div className="alert alert-sucess">{msg} 
-              <script>window.scrollTo(0,0)</script>
+            <div className="alert alert-success" role="alert">
+              {msg} 
+              {window.scrollTo(0,0)}
+              {console.log("mensaje:",msg)}
             </div>
                       
           ) : (
             <div></div>
           )}
           {error && error.length > 0 ? (
-            <div className="alert alert-danger">{error} 
-                <script>window.scrollTo(0,0)</script>
+            <div className="alert alert-danger" role="alert">{error} 
+                {window.scrollTo(0,0)}
             </div>
           ) : (
             <div></div>
