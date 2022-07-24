@@ -369,15 +369,15 @@ export const getCategoryByIDAsync = (payload) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateCategoryAsync = (id, updateCategory) => () => {
-  axios.put(`${apiUrl}categories/${id}`, updateCategory)
+export const updateCategoryAsync = (id, payload) => () => {
+  axios.put(`${apiUrl}categories/${id}`, payload)
     .catch(error => {
       console.log(error)
     })
 };
 
-export const createCategoryAsync = (categoryName) => () => {
-  axios.post(`${apiUrl}categories`, categoryName)
+export const createCategoryAsync = (payload) => () => {
+  axios.post(`${apiUrl}categories`, payload)
     .catch(error => {
       console.log(error)
     })

@@ -4,16 +4,19 @@ import { createCategoryAsync } from "../../Redux/productSlice";
 
 
 const CreateCategoryForm = () => {
-    const [name, setName] = useState('')
+    const [category, setCategory] = useState({name : ''})
     let dispatch = useDispatch();
 
     function handleInputChange(e) {
-        setName(e.target.value,);
+        setCategory({
+            name: e.target.value
+        });
+        console.log(category)
     }
 
-    function onClickUpdate(e) {
+    function onClickCreate(e) {
         e.preventDefault();
-        dispatch(createCategoryAsync(name));
+        dispatch(createCategoryAsync(category));
         alert('Category created')
     }
 
@@ -30,7 +33,7 @@ const CreateCategoryForm = () => {
                         onChange={handleInputChange}
                         className="form-control"
                         name="name"
-                        value={name}
+                        value={category.name}
                         placeholder="Name"
                         />
                     </div>
@@ -39,7 +42,7 @@ const CreateCategoryForm = () => {
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         type="button"
                         value="Create Category"
-                        onClick={onClickUpdate}
+                        onClick={onClickCreate}
                         />
                     </div>
                 </form>
