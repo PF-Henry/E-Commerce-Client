@@ -13,7 +13,7 @@ import { Login } from "./Components/Login/Login";
 import { SignIn } from "./Components/SignIn/SignIn";
 import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 import UserDashboard from "./Components/User/UserDashboard";
-import Layout from "./Components/SideBar/Layout";
+import Layout from "./Components/Admin/Dashboard/Layout";
 import UserSettings from "./Components/User/UserSettings";
 import UserFavs from "./Components/User/UserFavs";
 import AdminProducts from "./Components/Admin/AdminProducts";
@@ -38,16 +38,21 @@ function App() {
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
         <Route path="/user" element={<UserDashboard />} />
         <Route path="/error" element={<ErrorPage />} />
-        <Route path="/sidebarTest/" element={<Layout />}>
+        <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
+          <Route path="categories" element={<AdminCategories />} />
+          <Route path="brands" element={"Pendiente"} />
+          <Route path="orders" element={<AdminOrders />} />
+          <Route path="users" element={<AdminUsers />} />
+          <Route path="settings" element={<AdminSettings />} />
         </Route>
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/user/favorites" element={<UserFavs />} />
-        <Route path="/admin/products" element={<AdminProducts />} />
+        {/* <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/categories" element={<AdminCategories />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
         <Route path="/admin/users" element={<AdminUsers />} />
-        <Route path="/admin/settings" element={<AdminSettings />} />
+        <Route path="/admin/settings" element={<AdminSettings />} /> */}
       </Routes>
     </div>
   );
