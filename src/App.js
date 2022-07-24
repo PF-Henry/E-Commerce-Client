@@ -21,6 +21,7 @@ import AdminCategories from "./Components/Admin/AdminCategories";
 import AdminOrders from "./Components/Admin/AdminOrders";
 import AdminUsers from "./Components/Admin/AdminUsers";
 import AdminSettings from "./Components/Admin/AdminSettings";
+import AdminBrands from "./Components/Admin/AdminBrands";
 
 function App() {
   return (
@@ -41,7 +42,7 @@ function App() {
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
           <Route path="categories" element={<AdminCategories />} />
-          <Route path="brands" element={"Pendiente"} />
+          <Route path="brands" element={<AdminBrands />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
