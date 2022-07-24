@@ -374,18 +374,30 @@ export const getCategoryByIDAsync = (payload) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateCategoryAsync = (id, payload) => () => {
+export const updateCategoryAsync = (id, payload) => (dispatch) => {
   axios.put(`${apiUrl}categories/${id}`, payload)
-    .catch(error => {
-      console.log(error)
-    })
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
 };
 
-export const createCategoryAsync = (payload) => () => {
+export const createCategoryAsync = (payload) => (dispatch) => {
   axios.post(`${apiUrl}categories`, payload)
-    .catch(error => {
-      console.log(error)
-    })
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
 };
 
 export const getBrandByIDAsync = (payload) => (dispatch) => {
@@ -397,18 +409,30 @@ export const getBrandByIDAsync = (payload) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateBrandAsync = (id, payload) => () => {
+export const updateBrandAsync = (id, payload) => (dispatch) => {
   axios.put(`${apiUrl}brands/${id}`, payload)
-    .catch(error => {
-      console.log(error)
-    })
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
 };
 
-export const createBrandAsync = (payload) => () => {
+export const createBrandAsync = (payload) => (dispatch) => {
   axios.post(`${apiUrl}brands`, payload)
-  .catch(error => {
-    console.log(error)
-  })
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
 }
 
 export default productSlice.reducer;

@@ -32,12 +32,12 @@ export const UpdateProduct = () => {
       <div>
         <div>
           {msg && msg.length > 0 ? (
-            <div className="alert alert-success">{msg} </div>
+            <div className="alert alert-warning">{msg} </div>
           ) : (
             <div></div>
           )}
           {error && error.length > 0 ? (
-            <div className="alert alert-success">{error} </div>
+            <div className="alert alert-warning">{error} </div>
           ) : (
             <div></div>
           )}

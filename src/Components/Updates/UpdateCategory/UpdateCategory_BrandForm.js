@@ -8,6 +8,7 @@ const UpdateCategoryForm = ({ name, id, data }) => {
         name: name
       };
     const [newName, setNewName] = useState(initialState)
+
     let dispatch = useDispatch();
 
     function handleInputChange(e) {
@@ -18,13 +19,11 @@ const UpdateCategoryForm = ({ name, id, data }) => {
     }
 
     function onClickUpdate(e) {
-        e.preventDefault();
         if (data === 'Brand') {
             dispatch(updateBrandAsync(id, newName));
             console.log(newName)
         }
         dispatch(updateCategoryAsync(id, newName));
-        alert('succesfull')
     }
 
     return (
