@@ -84,6 +84,9 @@ export const productSlice = createSlice({
     resetError: (state, action) => {
       state.error = "";
     },
+    resetMsg: (state, action) => {
+      state.msg = "";
+    },
     getProductDetails: (state, action) => {
       state.detailsOfProduct = action.payload;
     },
@@ -192,6 +195,7 @@ export const {
   getProductDetails,
   getAllDBProducts,
   resetError,
+  resetMsg,
   addToCart,
   removeFromCart,
   decreaseCart,
@@ -259,18 +263,17 @@ export const createProductAsync = (newProduct) => (dispatch) => {
   // --- POST request to create a new product ---
 
   const formData = new FormData();
+  console.log(newProduct);
 
   formData.append("name", newProduct.name);
   formData.append("stock", newProduct.stock);
   formData.append("price", newProduct.price);
   formData.append("description", newProduct.description);
-  formData.append(
-    "technical_especification",
-    newProduct.technical_especification
-  );
+  formData.append("technical_especification", newProduct.technical_especification);
 
   formData.append("categories", JSON.stringify(newProduct.categories));
   formData.append("brand", newProduct.brand);
+  formData.append("state", newProduct.state);
 
   newProduct.images.forEach((image) => {
     formData.append("fileName", image.src);
