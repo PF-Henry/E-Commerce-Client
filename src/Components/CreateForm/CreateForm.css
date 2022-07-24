@@ -3,14 +3,36 @@
 }
 
 .formContainer {
-  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 80vw;
   margin: auto;
   text-align: left;
+  
+}
+
+/* .formContainer__ */
+
+.form_error{
+  font-size: x-small;
 }
 
 .formItem {
   padding: 3vh 0 1vh 0;
 }
+
+
+.form-check-input:checked {
+  background-color: #3ad8c1;
+  border-color: #1c004a;
+}
+
+.form-check-input {
+  background-color: #fbf0f0;
+  border-color: #1c004a;
+}
+
 
 .btnAddCreate {
   background-color: #3ad8c1;
@@ -33,4 +55,8 @@
 
 .formBtnDelete:hover {
   opacity: 0.7;
+}
+
+.form_indications{
+  font-size: .6rem;
 }
