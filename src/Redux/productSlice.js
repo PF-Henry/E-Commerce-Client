@@ -39,6 +39,7 @@ export const productSlice = createSlice({
     userLogged: [],
     showSlider: true,
     search: "",
+    categoryID: {},
   },
   reducers: {
     getProducts: (state, action) => {
@@ -169,9 +170,12 @@ export const productSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
-  },
-  getUsers: (state, action) => {
-    state.usersLoaded = action.payload;
+    getUsers: (state, action) => {
+      state.usersLoaded = action.payload;
+    },
+    getCategoryID: (state, action) => {
+      state.categoryID = action.payload;
+    },
   },
 });
 
@@ -201,6 +205,7 @@ export const {
   loginUser,
   setShowSlider,
   setSearch,
+  getCategoryID,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -353,6 +358,22 @@ export const loginUserAsync = (payload) => (dispatch) => {
   // })
 
   /*FALTA PROBAR Y LOS ERRORES*/
+};
+
+export const getCategoryByIDAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}categories/${payload}`)
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getCategoryID(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const updateCategoryAsync = (id, updateCategory) => (dispatch) => {
+  axios.put(`${apiUrl}categories/${id}`, updateCategory)
+    .catch(error => {
+      console.log(error)
+    })
 };
 
 export default productSlice.reducer;
