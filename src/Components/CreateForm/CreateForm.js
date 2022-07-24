@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
+
 import DropBox from '../DropBox/DropBox';
 import ImageDropBox from '../DropBox/ImageDropBox';
 import { MAX_IMAGES_PRODUCT, MAX_CATEGORIES_PRODUCT  } from "../../Constants/parameters";
+
 
 import {
   getBrandsAsync,
@@ -10,10 +12,7 @@ import {
   createProductAsync,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
-import AdminNavBar from "../Admin/AdminNavBar";
 import "./CreateForm.css";
-
-
 
 
 const stringRegExp = /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
@@ -38,7 +37,7 @@ export function validate(input) {
 export default function Create() {
   const brands = useSelector((state) => state.products.brandsLoaded);
   const categories = useSelector((state) => state.products.categoriesLoaded);
-  
+
   let error = useSelector((state) => state.products.error);
   let msg = useSelector((state) => state.products.msg);
 
@@ -142,7 +141,6 @@ export default function Create() {
     );
   }
 
-
   function onChangeBrands(e) {
     //if (e.target.value === "0") return;
 
@@ -211,20 +209,34 @@ function onClickDelete(e) {
 // -------------------------- DropBox methods ---------------------------------
 
 
+      reader.readAsDataURL(file);
+      return file;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
+  //console.log("imagenes:", images);
 
+  function onClickDelete(e) {
+    e.preventDefault();
+    const id = e.target.id;
 
-  
-
-  
-
-
+    setInput((prevState) => {
+      return {
+        ...prevState,
+        images: prevState.images.filter(
+          (image) => parseInt(image.id) !== parseInt(id)
+        ),
+      };
+    });
+  }
+  // -------------------------- DropBox methods ---------------------------------
 
   
 
   function onClickCreate(e) {
     e.preventDefault();
-    
+
     if (Object.keys(errors).length === 0) {
       dispatch(createProductAsync(input));
     } else {
@@ -237,12 +249,12 @@ function onClickDelete(e) {
   useEffect(() => {
     dispatch(getCategoriesAsync());
     dispatch(getBrandsAsync());
+
     return () => {
       dispatch(getProductsAsync());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
 
 
   // useEffect(() => {
@@ -253,8 +265,6 @@ function onClickDelete(e) {
 
   return (
     <div className="letter-spacing">
-      <AdminNavBar />
-
       <h1 className="formH1">Create Product</h1>
 
       <div className="formContainer">
@@ -458,14 +468,13 @@ function onClickDelete(e) {
                 })} 
               </div>)
             }
+
           </div>
         </div>
     </div>
 
 
           
-
-
 
           <div className="mb-5 d-flex justify-content-center mt-4">
             <input

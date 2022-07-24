@@ -49,3 +49,29 @@
 .letter-spacing {
   letter-spacing: 0.1rem;
 }
+
+.card-btn-favorite {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  z-index: auto;
+  top: 2px;
+  right: 20px;
+  border: none;
+  background-color: transparent;
+  font-size: 24px;
+}
+
+.nonFavorite {
+  color: #1c004a;
+
+  transition: 0.5s ease all;
+}
+
+.nonFavorite:hover {
+  color: #3ad8c1;
+}
+
+.favorite {
+  color: #3ad8c1;
+}
