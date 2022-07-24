@@ -47,7 +47,7 @@ const AdminCategories = () => {
           </button>
         </div>
 
-        <div class="collapse" id="collapseExample">
+        <div className="collapse" id="collapseExample">
           <div className="letter-spacing">
             <form>
               <div className="form-group">
@@ -79,7 +79,7 @@ const AdminCategories = () => {
           <Products_CategoriesTable
             products={allCategories}
             name={"Categories"}
-            ruta={"/UpdateCategory/"}
+            ruta={"/admin/UpdateCategory/"}
           />
         </div>
       </div>

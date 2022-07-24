@@ -40,6 +40,7 @@ export const productSlice = createSlice({
     showSlider: true,
     search: "",
     categoryID: {},
+    brandID: {},
   },
   reducers: {
     getProducts: (state, action) => {
@@ -176,6 +177,9 @@ export const productSlice = createSlice({
     getCategoryID: (state, action) => {
       state.categoryID = action.payload;
     },
+    getBrandID: (state, action) => {
+      state.brandID = action.payload;
+    },
   },
 });
 
@@ -206,6 +210,7 @@ export const {
   setShowSlider,
   setSearch,
   getCategoryID,
+  getBrandID,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -378,6 +383,22 @@ export const updateCategoryAsync = (id, payload) => () => {
 
 export const createCategoryAsync = (payload) => () => {
   axios.post(`${apiUrl}categories`, payload)
+    .catch(error => {
+      console.log(error)
+    })
+};
+
+export const getBrandByIDAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}brands/${payload}`)
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getBrandID(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const updateBrandAsync = (id, payload) => () => {
+  axios.put(`${apiUrl}brands/${id}`, payload)
     .catch(error => {
       console.log(error)
     })

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { getCategoryByIDAsync } from '../../../Redux/productSlice'
-import UpdateCategoryForm from "./UpdateCategoryForm";
+import UpdateCategoryForm from "./UpdateCategory_BrandForm";
 
 const UpdateCategory = () => {
     const category = useSelector(state => state.products.categoryID);
@@ -19,7 +19,7 @@ const UpdateCategory = () => {
             <h1 className="formH1">Update Category</h1>
 
             {category.name && category.name.length &&
-                <UpdateCategoryForm name={category.name} id={category.id}/>
+                <UpdateCategoryForm name={category.name} id={category.id} data='Category'/>
             }
         </div>
     )

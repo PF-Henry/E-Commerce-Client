@@ -1,28 +1,36 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createBrandAsync } from "../../Redux/productSlice";
+import { updateCategoryAsync, updateBrandAsync } from "../../../Redux/productSlice";
 
 
-const CreateBrandForm = () => {
-    const [brand, setBrand] = useState({name : ''})
+const UpdateCategoryForm = ({ name, id, data }) => {
+    const initialState = {
+        name: name
+      };
+    const [newName, setNewName] = useState(initialState)
     let dispatch = useDispatch();
 
     function handleInputChange(e) {
-        setBrand({
-            name: e.target.value
+        setNewName({
+            name: e.target.value,
         });
+        console.log(newName.name)
     }
 
-    function onClickCreate(e) {
+    function onClickUpdate(e) {
         e.preventDefault();
-        dispatch(createBrandAsync(brand));
-        alert('Brand created')
+        if (data === 'Brand') {
+            dispatch(updateBrandAsync(id, newName));
+            console.log(newName)
+        }
+        dispatch(updateCategoryAsync(id, newName));
+        alert('succesfull')
     }
 
     return (
-        <div class="collapse" id="collapseExample">
-            <div className="letter-spacing">
-                <form >
+        <div className="letter-spacing">
+            <div className="formContainer">
+                <form className="formCreate">
                     <div className="form-group">
                         <label htmlFor="name" className="formItem">
                         Name
@@ -32,7 +40,7 @@ const CreateBrandForm = () => {
                         onChange={handleInputChange}
                         className="form-control"
                         name="name"
-                        value={brand.name}
+                        value={newName.name}
                         placeholder="Name"
                         />
                     </div>
@@ -40,8 +48,8 @@ const CreateBrandForm = () => {
                         <input
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         type="button"
-                        value="Create Brand"
-                        onClick={onClickCreate}
+                        value={`Update ${data}`}
+                        onClick={onClickUpdate}
                         />
                     </div>
                 </form>
@@ -50,4 +58,4 @@ const CreateBrandForm = () => {
     )
 }
 
-export default CreateBrandForm;
+export default UpdateCategoryForm;

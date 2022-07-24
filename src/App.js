@@ -23,6 +23,7 @@ import AdminUsers from "./Components/Admin/AdminUsers";
 import AdminSettings from "./Components/Admin/AdminSettings";
 import AdminBrands from "./Components/Admin/AdminBrands";
 import UpdateCategory from "./Components/Updates/UpdateCategory/UpdateCategory";
+import UpdateBrand from "./Components/Updates/UpdateBrand/UpdateBrand";
 
 function App() {
   return (
@@ -50,7 +51,8 @@ function App() {
         </Route>
         <Route path="/user/settings" element={<UserSettings />} />
         <Route path="/user/favorites" element={<UserFavs />} />
-        <Route path='UpdateCategory/:id' element={<UpdateCategory />} />
+        <Route path='admin/UpdateCategory/:id' element={<UpdateCategory />} />
+        <Route path='admin/UpdateBrand/:id' element={<UpdateBrand />} />
       </Routes>
     </div>
   );

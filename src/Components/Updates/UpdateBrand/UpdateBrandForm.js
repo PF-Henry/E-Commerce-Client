@@ -1,22 +1,26 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { createCategoryAsync } from "../../Redux/productSlice";
+import { updateCategoryAsync } from "../../../Redux/productSlice";
 
 
-const CreateCategoryForm = () => {
-    const [category, setCategory] = useState({name : ''})
+const UpdateBrandForm = ({ name, id }) => {
+    const initialState = {
+        name: name
+      };
+    const [newName, setNewName] = useState(initialState)
     let dispatch = useDispatch();
 
     function handleInputChange(e) {
-        setCategory({
-            name: e.target.value
+        setNewName({
+            name: e.target.value,
         });
+        console.log(newName.name)
     }
 
-    function onClickCreate(e) {
+    function onClickUpdate(e) {
         e.preventDefault();
-        dispatch(createCategoryAsync(category));
-        alert('Category created')
+        dispatch(updateCategoryAsync(id, newName));
+        alert('succesfull')
     }
 
     return (
@@ -32,7 +36,7 @@ const CreateCategoryForm = () => {
                         onChange={handleInputChange}
                         className="form-control"
                         name="name"
-                        value={category.name}
+                        value={newName.name}
                         placeholder="Name"
                         />
                     </div>
@@ -40,8 +44,8 @@ const CreateCategoryForm = () => {
                         <input
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         type="button"
-                        value="Create Category"
-                        onClick={onClickCreate}
+                        value="Update Product"
+                        onClick={onClickUpdate}
                         />
                     </div>
                 </form>
@@ -50,4 +54,4 @@ const CreateCategoryForm = () => {
     )
 }
 
-export default CreateCategoryForm;
+export default UpdateBrandForm;
