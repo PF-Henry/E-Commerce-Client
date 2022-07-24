@@ -197,25 +197,7 @@ const onDrop = useCallback((acceptedFiles) => {
 }, []);
 
 
-function onClickDelete(e) {
-  e.preventDefault();
-  const id = e.target.id;
-  setInput((prevState) => {
-    return {
-      ...prevState,
-      images : prevState.images.filter((image) => parseInt(image.id) !== parseInt(id)),
-    }});
-}
-// -------------------------- DropBox methods ---------------------------------
 
-
-      reader.readAsDataURL(file);
-      return file;
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  //console.log("imagenes:", images);
 
   function onClickDelete(e) {
     e.preventDefault();
