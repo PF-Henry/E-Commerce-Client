@@ -6,3 +6,13 @@
 .nav-li-font:hover {
   cursor: pointer;
 }
+
+.bgNavResponsive {
+  background-color: rgba(28, 0, 74, 0.7);
+}
+
+@media (min-width: 280px) and (max-width:767px){ 
+  .bgNavResponsive {
+    background-color: #1c004a;
+  }
+}

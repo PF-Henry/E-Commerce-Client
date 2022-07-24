@@ -13,8 +13,8 @@ const Navbar = () => {
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg fixed-top animate__animated animate__fadeInDown bg-purple-dark-90 text-white">
-      <div className="container-md">
+    <nav className="navbar navbar-dark navbar-expand-lg fixed-top animate__animated animate__fadeInDown  text-white bgNavResponsive">
+      <div className="container-md ">
         <div className="navbar-brand basis">
           <Link
             to="/"
