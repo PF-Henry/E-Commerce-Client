@@ -5,7 +5,7 @@ import Home from "./Components/Home/Home";
 import CreateForm from "./Components/CreateForm/CreateForm";
 import AdminDashboard from "./Components/Admin/AdminDashboard";
 import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
-import { UpdateProduct } from "./Components/UpdateProduct/UpdateProduct";
+import { UpdateProduct } from "./Components/Updates/UpdateProduct/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";

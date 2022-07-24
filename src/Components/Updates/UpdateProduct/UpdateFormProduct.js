@@ -7,7 +7,7 @@ import {
   getBrandsAsync,
   getCategoriesAsync,
   getImagesAsync,
-} from "../../Redux/productSlice";
+} from "../../../Redux/productSlice";
 
 import { useEffect } from "react";
 
