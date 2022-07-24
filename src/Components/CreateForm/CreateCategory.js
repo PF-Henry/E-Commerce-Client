@@ -1,26 +1,20 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateCategoryAsync } from "../../../Redux/productSlice";
+import { createCategoryAsync } from "../../Redux/productSlice";
 
 
-const UpdateCategoryForm = ({ name, id }) => {
-    const initialState = {
-        name: name
-      };
-    const [newName, setNewName] = useState(initialState)
+const CreateCategoryForm = () => {
+    const [name, setName] = useState('')
     let dispatch = useDispatch();
 
     function handleInputChange(e) {
-        setNewName({
-            name: e.target.value,
-        });
-        console.log(newName.name)
+        setName(e.target.value,);
     }
 
     function onClickUpdate(e) {
         e.preventDefault();
-        dispatch(updateCategoryAsync(id, newName));
-        alert('succesfull')
+        dispatch(createCategoryAsync(name));
+        alert('Category created')
     }
 
     return (
@@ -36,7 +30,7 @@ const UpdateCategoryForm = ({ name, id }) => {
                         onChange={handleInputChange}
                         className="form-control"
                         name="name"
-                        value={newName.name}
+                        value={name}
                         placeholder="Name"
                         />
                     </div>
@@ -44,7 +38,7 @@ const UpdateCategoryForm = ({ name, id }) => {
                         <input
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         type="button"
-                        value="Update Product"
+                        value="Create Category"
                         onClick={onClickUpdate}
                         />
                     </div>
@@ -54,4 +48,4 @@ const UpdateCategoryForm = ({ name, id }) => {
     )
 }
 
-export default UpdateCategoryForm;
+export default CreateCategoryForm;
