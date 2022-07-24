@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
-import DropBox from '../DropBox/DropBox';
-import ImageDropBox from '../DropBox/ImageDropBox';
-import { MAX_IMAGES_PRODUCT  } from "../../Constants/parameters";
+import DropBox from "../DropBox/DropBox";
+import ImageDropBox from "../DropBox/ImageDropBox";
+import { MAX_IMAGES_PRODUCT } from "../../Constants/parameters";
 
 import {
   getBrandsAsync,
@@ -10,11 +10,7 @@ import {
   createProductAsync,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
-import AdminNavBar from "../Admin/AdminNavBar";
 import "./CreateForm.css";
-
-
-
 
 const stringRegExp = /^[a-zA-Z]{1,20}$/;
 const numberRegExp = /^([1-9][0-9]{0,2}|1000)$/;
@@ -55,7 +51,7 @@ export function validate(input) {
 export default function Create() {
   const brands = useSelector((state) => state.products.brandsLoaded);
   const categories = useSelector((state) => state.products.categoriesLoaded);
-  
+
   let error = useSelector((state) => state.products.error);
   let msg = useSelector((state) => state.products.msg);
 
@@ -152,65 +148,54 @@ export default function Create() {
     );
   }
 
+  // -------------------------- DropBox methods ---------------------------------
+  let idImage = 0;
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.map((file, index) => {
+      //console.log("file ======", file);
 
+      const reader = new FileReader();
 
-// -------------------------- DropBox methods ---------------------------------
-let idImage = 0;
-const onDrop = useCallback((acceptedFiles) => {
-  acceptedFiles.map((file, index) => {
-
-    //console.log("file ======", file);
-
-    const reader = new FileReader();
-
-    reader.onload = function (e) {
-      
-      if (input.images.length < MAX_IMAGES_PRODUCT) {        
-      
-        setInput((prevState) => {
-          if (prevState.images.length < MAX_IMAGES_PRODUCT) {
-                return {
-                      ...prevState,
-                      images: [ ...prevState.images , {id: idImage++,  src: e.target.result }],
-                    };
-          } else {
-            return prevState;
-          };
+      reader.onload = function (e) {
+        if (input.images.length < MAX_IMAGES_PRODUCT) {
+          setInput((prevState) => {
+            if (prevState.images.length < MAX_IMAGES_PRODUCT) {
+              return {
+                ...prevState,
+                images: [
+                  ...prevState.images,
+                  { id: idImage++, src: e.target.result },
+                ],
+              };
+            } else {
+              return prevState;
+            }
           });
-          
-      }
-    };
-  
-    reader.readAsDataURL(file);
-    return file;
-  });
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+        }
+      };
 
+      reader.readAsDataURL(file);
+      return file;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-//console.log("imagenes:", images);
+  //console.log("imagenes:", images);
 
-function onClickDelete(e) {
-  e.preventDefault();
-  const id = e.target.id;
+  function onClickDelete(e) {
+    e.preventDefault();
+    const id = e.target.id;
 
-  setInput((prevState) => {
-    return {
-      ...prevState,
-      images : prevState.images.filter((image) => parseInt(image.id) !== parseInt(id)),
-    }});
-}
-// -------------------------- DropBox methods ---------------------------------
-
-
-
-
-
-  
-
-  
-
-
+    setInput((prevState) => {
+      return {
+        ...prevState,
+        images: prevState.images.filter(
+          (image) => parseInt(image.id) !== parseInt(id)
+        ),
+      };
+    });
+  }
+  // -------------------------- DropBox methods ---------------------------------
 
   function onChangeBrands(e) {
     if (e.target.value === "0") return;
@@ -232,7 +217,7 @@ function onClickDelete(e) {
     e.preventDefault();
 
     console.log("Input:", input);
-    
+
     if (Object.keys(errors).length === 0) {
       dispatch(createProductAsync(input));
     } else {
@@ -245,7 +230,6 @@ function onClickDelete(e) {
   useEffect(() => {
     dispatch(getCategoriesAsync());
     dispatch(getBrandsAsync());
-
   }, [dispatch]);
 
   // useEffect(() => {
@@ -256,8 +240,6 @@ function onClickDelete(e) {
 
   return (
     <div className="letter-spacing">
-      <AdminNavBar />
-
       <h1 className="formH1">Create Product</h1>
 
       <div className="formContainer">
@@ -402,20 +384,25 @@ function onClickDelete(e) {
 
             <DropBox onDrop={onDrop} />
 
-            
-            { input.images && (input.images.length > 0) &&
-              (<div className="containerDropBoxImage"> 
-                 {input.images.map((image, index) => {
-                  return <div key={index} className="containerDropBoxImageAndButton">
-                  <ImageDropBox image={image} />
-                  <button className="btnDropBox" onClick={onClickDelete} id={image.id} >Delete</button>
-                </div>
-                })} 
-              </div>)
-            }
+            {input.images && input.images.length > 0 && (
+              <div className="containerDropBoxImage">
+                {input.images.map((image, index) => {
+                  return (
+                    <div key={index} className="containerDropBoxImageAndButton">
+                      <ImageDropBox image={image} />
+                      <button
+                        className="btnDropBox"
+                        onClick={onClickDelete}
+                        id={image.id}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
-
-
 
           <div className="mb-5 d-flex justify-content-center mt-4">
             <input

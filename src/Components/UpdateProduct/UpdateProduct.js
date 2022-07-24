@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDetailProductAsync } from "../../Redux/productSlice";
 
 import Form from "./UpdateFormProduct";
-import AdminNavBar from "../Admin/AdminNavBar";
 
 import { useEffect } from "react";
 
@@ -28,7 +27,6 @@ export const UpdateProduct = () => {
 
   return (
     <div className="letter-spacing">
-      <AdminNavBar />
       <h1 className="formH1">Update Product</h1>
 
       <div>

@@ -39,7 +39,7 @@ const Navbar = () => {
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center">
-            <Searchbar content={'Product'}/>
+            <Searchbar content={"Product"} />
           </div>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
             <Link
@@ -52,8 +52,8 @@ const Navbar = () => {
               to="/login"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
             >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover" >
-              {/* data-toggle="modal" data-target="#exampleModalCenter" */}
+              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover">
+                {/* data-toggle="modal" data-target="#exampleModalCenter" */}
                 LOGIN <CgProfile size={"1.6rem"} />
               </div>
             </Link>
