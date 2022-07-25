@@ -37,7 +37,11 @@ export function validate(input) {
 
 
 
-export default function Create() {
+export default function Create(props) {
+
+  
+  const titleTypeOperation = props.id ? "Update Product" : "Create Product";
+
   const brands = useSelector((state) => state.products.brandsLoaded);
   const categories = useSelector((state) => state.products.categoriesLoaded);
 
@@ -58,7 +62,38 @@ export default function Create() {
     state: true,
   };
 
-  const [input, setInput] = useState(inputStateInitial);
+  if (props.id) {
+    inputStateInitial.name = props.name;
+    inputStateInitial.description = props.description;
+    inputStateInitial.technical_especification = props.technical_especification;
+    inputStateInitial.price = props.price;
+    inputStateInitial.stock = props.stock;
+    inputStateInitial.brand = props.brand;
+    inputStateInitial.categories = props.categories;
+    inputStateInitial.images = props.images;
+    inputStateInitial.state = props.state;
+    //console.log(":", inputStateInitial.name);
+  }
+
+
+  const [input, setInput] = useState(inputStateInitial ); 
+
+  // const [input, setInput] = useState((!props.id) ? inputStateInitial : 
+  //     {
+  //       name: props.name,
+  //       description: props.description,
+  //       technical_especification: props.technical_especification,
+  //       price: props.price,
+  //       stock: props.stock,
+  //       brand: props.brand,
+  //       categories: props.categories,
+  //       images: props.images,
+  //       state: props.state, // true = activo, false = inactivo
+  //     }
+  // );
+
+    
+  
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -71,7 +106,7 @@ export default function Create() {
   });
 
 
-
+  
 
   function handleInputChange(e) {
     
@@ -172,30 +207,31 @@ export default function Create() {
 
 
 
-// -------------------------- DropBox methods ---------------------------------
-let idImage = 0;
-const onDrop = useCallback((acceptedFiles) => {
-  acceptedFiles.map((file, index) => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      if (input.images.length < MAX_IMAGES_PRODUCT) {        
-        setInput((prevState) => {
-          if (prevState.images.length < MAX_IMAGES_PRODUCT) {
-                return {
-                      ...prevState,
-                      images: [ ...prevState.images , {id: idImage++,  src: e.target.result }],
-                    };
-          } else {
-            return prevState;
-          };
-          });          
-      }
-    };
-    reader.readAsDataURL(file);
-    return file;
-  });
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  // -------------------------- DropBox methods ---------------------------------
+  let idImage = 0;
+  const onDrop = useCallback((acceptedFiles) => {
+
+    acceptedFiles.map((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (input.images.length < MAX_IMAGES_PRODUCT) {        
+          setInput((prevState) => {
+            if (prevState.images.length < MAX_IMAGES_PRODUCT) {
+                  return {
+                        ...prevState,
+                        images: [ ...prevState.images , {id: idImage++,  src: e.target.result }],
+                      };
+            } else {
+              return prevState;
+            };
+            });          
+        }
+      };
+      reader.readAsDataURL(file);
+      return file;
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
 
@@ -227,20 +263,28 @@ const onDrop = useCallback((acceptedFiles) => {
     } else {
       const newError = "Form incomplete. Please check the errors.";
       dispatch(createProductError(newError));
-      
-      // setErrors({
-      //   ...errors,
-      // });
     }
   }
 
   useEffect(() => {
+    
     dispatch(resetError());
     dispatch(resetMsg());
     dispatch(getCategoriesAsync());
     dispatch(getBrandsAsync());
     
+    // console.log("soy el ultimo ============:" , props.id);  
+       
+    if (props.id) {
+        console.log("soy el ultimo ============:" , props.id);  
+        
+        setInput(prevState => ({...prevState, name: props.name, description: props.description, technical_especification: props.technical_especification, price: props.price, stock: props.stock, brand: props.brand, categories: props.categories, images: props.images, state: props.state}));
+        
+        console.log("soy el ultimo ============:" , input.name);
+        console.log("soy props.name :" , props.name);
 
+    }
+    
     return () => {
       dispatch(getProductsAsync());
     }
@@ -262,9 +306,11 @@ const onDrop = useCallback((acceptedFiles) => {
     // eslint-disable-next-line
   },[msg]);
 
+  
+    
   return (
     <div className="letter-spacing">
-      <h1 className="formH1">Create Product</h1>
+      <h1 className="formH1">{titleTypeOperation}</h1>
 
       <div className="formContainer">
         <div>

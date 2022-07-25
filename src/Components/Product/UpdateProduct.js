@@ -1,50 +1,31 @@
 import React from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getDetailProductAsync } from "../../Redux/productSlice";
-
-import Form from "./UpdateFormProduct";
-
+import FormProduct from "./FormProduct";
 import { useEffect } from "react";
+
+
+
 
 export const UpdateProduct = () => {
   const { id } = useParams();
-  const productDetails = useSelector(
-    (state) => state.products.detailsOfProduct
-  );
-
-  let error = useSelector((state) => state.products.error);
-  let msg = useSelector((state) => state.products.msg);
+  const productDetails = useSelector((state) => state.products.detailsOfProduct);
+  
   let dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getDetailProductAsync(id));
-    return () => {
-      //dispatch(resetProductDetails());
-    };
-  }, [dispatch, id]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
+  
   return (
     <div className="letter-spacing">
-      <h1 className="formH1">Update Product</h1>
-
       <div>
-        <div>
-          {msg && msg.length > 0 ? (
-            <div className="alert alert-success">{msg} </div>
-          ) : (
-            <div></div>
-          )}
-          {error && error.length > 0 ? (
-            <div className="alert alert-success">{error} </div>
-          ) : (
-            <div></div>
-          )}
-        </div>
 
         {productDetails.name && productDetails.name.length > 0 && (
-          <Form
+          <FormProduct
             id={id}
             name={productDetails.name}
             description={productDetails.description}
@@ -54,6 +35,7 @@ export const UpdateProduct = () => {
             brand={productDetails.brand.name}
             categories={productDetails.categories}
             images={productDetails.images}
+            state={productDetails.state}
           />
         )}
       </div>
