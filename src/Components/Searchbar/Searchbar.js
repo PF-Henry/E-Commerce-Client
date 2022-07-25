@@ -39,7 +39,7 @@ const Searchbar = ({ content }) => {
         onChange={(e) => handleInputChange(e)}
       />
       <div
-        className={`text-secondary clear-search-btn position-absolute ${
+        className={`text-secondary clear-search-btn d-flex align-items-center pe-1 ${
           search === "" && "d-none"
         }`}
         onClick={() => handleClearSearch()}

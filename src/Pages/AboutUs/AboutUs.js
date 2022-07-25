@@ -50,6 +50,7 @@ const AboutUs = () => {
                 <a
                   href={member.github}
                   target="_blank"
+                  rel="noreferrer"
                   className="bg-aqua rounded-circle text-purple btn-redes d-flex align-items-center justify-content-center"
                 >
                   <VscGithubInverted size={"2rem"} />
@@ -57,6 +58,7 @@ const AboutUs = () => {
                 <a
                   href={member.linkedin}
                   target="_blank"
+                  rel="noreferrer"
                   className="bg-aqua rounded-circle text-purple btn-redes d-flex justify-content-center align-items-center"
                 >
                   <FaLinkedinIn size={"1.4rem"} />
