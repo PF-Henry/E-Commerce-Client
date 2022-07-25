@@ -13,7 +13,6 @@ import { Login } from "./Components/Login/Login";
 import { SignIn } from "./Components/SignIn/SignIn";
 import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 import LayoutUser from "./Components/User/Dashboard/LayoutUser";
-import UserDashboard from "./Components/User/UserDashboard";
 import Layout from "./Components/Admin/Dashboard/Layout";
 import UserSettings from "./Components/User/UserSettings";
 import UserFavs from "./Components/User/UserFavs";
@@ -46,6 +45,7 @@ function App() {
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
+          <Route path="products/create" element={<CreateForm />} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="brands" element={"Pendiente"} />
           <Route path="orders" element={<AdminOrders />} />
