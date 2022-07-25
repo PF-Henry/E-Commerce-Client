@@ -5,7 +5,7 @@ import "./Main.css";
 
 const Main = ({ handleToggleSidebar }) => {
   return (
-    <main>
+    <main className="bg-secondary bg-opacity-10">
       <div
         className="btn-toggle position-fixed"
         onClick={() => handleToggleSidebar(true)}
