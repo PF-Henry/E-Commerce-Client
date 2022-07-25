@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ItemsPaging from "./ItemsPaging";
@@ -9,6 +9,10 @@ const ProductsCategoriesTable = ({ products, name, ruta }) => {
   const indexLastItem = currentPg * itemsPerPage;
   const indexFirstItem = indexLastItem - itemsPerPage;
   const currentProducts = products.slice(indexFirstItem, indexLastItem);
+
+  useEffect(() => {
+    setCurrentPg(1);
+  }, [products.length]);
 
   const paging = (pageNum) => {
     setCurrentPg(pageNum);
