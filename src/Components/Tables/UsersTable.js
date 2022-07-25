@@ -19,17 +19,21 @@ const UsersTable = ({ users }) => {
         <caption>Users</caption>
         <thead className="bg-purple-dark text-white">
           <tr>
-            <th scope="col" className="px-3">User ID</th>
-            <th scope="col">Username</th>
-            <th scope="col" className="px-3">User Type</th>
+            <th scope="col" className="px-3">email</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col" className="px-3">Role</th>
+            <th scope="col" className="px-3">Status</th>
           </tr>
         </thead>
         <tbody className="table-group-divider bg-light">
           { currentUsers?.map((user) => (
             <tr key={user.id} className="align-middle">
-              <th scope="row">{user.id}</th>
-              <td>{user.username}</td>
-              <td>{user.type}</td>
+              <td>{user.email}</td>
+              <td>{user.first_name}</td>
+              <td>{user.last_name}</td>
+              <td>{user.role.name}</td>
+              <td>{user.state ? 'Active' : 'Inactive'}</td>
             </tr>
           ))}
         </tbody>

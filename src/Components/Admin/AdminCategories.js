@@ -21,7 +21,6 @@ const AdminCategories = () => {
 
   function onClickCreate(e) {
       dispatch(createCategoryAsync(category));
-      alert('Category created')
   }
 
 
