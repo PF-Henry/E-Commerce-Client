@@ -12,6 +12,7 @@ import AboutUs from "./Pages/AboutUs/AboutUs";
 import { Login } from "./Components/Login/Login";
 import { SignIn } from "./Components/SignIn/SignIn";
 import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
+import LayoutUser from "./Components/User/Dashboard/LayoutUser";
 import UserDashboard from "./Components/User/UserDashboard";
 import Layout from "./Components/Admin/Dashboard/Layout";
 import UserSettings from "./Components/User/UserSettings";
@@ -36,7 +37,12 @@ function App() {
         <Route path="/product_detail/:id" element={<ProductDetail />} />
         <Route path="/CreateProduct" element={<CreateForm />} />
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
-        <Route path="/user" element={<UserDashboard />} />
+        <Route path="/user" element={<LayoutUser />}>
+          <Route path="favorites" element={<UserFavs />} />
+          <Route path="orders" element={"Pendiente"} />
+          <Route path="reviews" element={"Pendiente"} />
+          <Route path="settings" element={<UserSettings />} />
+        </Route>
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
@@ -46,8 +52,8 @@ function App() {
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
-        <Route path="/user/settings" element={<UserSettings />} />
-        <Route path="/user/favorites" element={<UserFavs />} />
+        {/* <Route path="/user/settings" element={<UserSettings />} /> */}
+        {/* <Route path="/user/favorites" element={<UserFavs />} /> */}
         {/* <Route path="/admin/products" element={<AdminProducts />} />
         <Route path="/admin/categories" element={<AdminCategories />} />
         <Route path="/admin/orders" element={<AdminOrders />} />
