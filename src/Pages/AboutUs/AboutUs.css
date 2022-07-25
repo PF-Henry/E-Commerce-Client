@@ -1,0 +1,36 @@
+.btn-redes {
+  height: 2rem;
+  width: 2rem;
+  cursor: pointer;
+}
+
+.btn-redes:hover {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  color: rgba(59, 32, 103, 0.9);
+}
+
+.bg-aqua {
+  background-color: #3ad8c1;
+}
+
+.text-purple {
+  color: rgba(28, 0, 74);
+}
+
+.member-photo {
+  color: #3ad8c1;
+}
+
+.member-name {
+  color: rgba(59, 32, 103, 0.9);
+}
+
+.member-card {
+  filter: grayscale(1);
+  transition: all 0.2s ease-in-out;
+}
+
+.member-card:hover {
+  filter: grayscale(0);
+  transform: scale(1.05);
+}

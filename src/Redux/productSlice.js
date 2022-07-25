@@ -172,6 +172,9 @@ export const productSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    cleanDetail: (state) => {
+      state.detailsOfProduct = {};
+    },
   },
   getUsers: (state, action) => {
     state.usersLoaded = action.payload;
@@ -205,6 +208,7 @@ export const {
   loginUser,
   setShowSlider,
   setSearch,
+  cleanDetail,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -269,7 +273,10 @@ export const createProductAsync = (newProduct) => (dispatch) => {
   formData.append("stock", newProduct.stock);
   formData.append("price", newProduct.price);
   formData.append("description", newProduct.description);
-  formData.append("technical_especification", newProduct.technical_especification);
+  formData.append(
+    "technical_especification",
+    newProduct.technical_especification
+  );
 
   formData.append("categories", JSON.stringify(newProduct.categories));
   formData.append("brand", newProduct.brand);
