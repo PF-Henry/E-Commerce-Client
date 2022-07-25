@@ -2,6 +2,12 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Navigate, NavLink, useParams } from "react-router-dom";
 import { addToCart, getDetailProductAsync } from "../../Redux/productSlice";
+import { NavLink, useParams } from "react-router-dom"; 
+import {
+  addToCart,
+  getDetailProductAsync,
+  cleanDetail,
+} from "../../Redux/productSlice";
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
@@ -53,7 +59,8 @@ export const ProductDetail = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     dispatch(getDetailProductAsync(id));
-  }, []);
+    return () => dispatch(cleanDetail());
+  }, [dispatch, id]);
 
   return (
     <div>
