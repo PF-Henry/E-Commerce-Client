@@ -49,7 +49,7 @@ const Filteredbar = ({
   return (
     <div className="filterBG">
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
-        <div className="d-flex gap-2 flex-wrap">
+        <div className="d-flex gap-2 flex-wrap justify-content-center">
           <div
             className="btn px-3 bg-purple-dark text-white d-flex align-items-center gap-1 filterBtn border-0 letter-spacing"
             type="button"
@@ -62,7 +62,7 @@ const Filteredbar = ({
           </div>
 
           {/* Results per Page */}
-          <div className="form-floating" style={{ width: "150px" }}>
+          <div className="form-floating" style={{ width: "135px" }}>
             <select
               className="form-select bg-purple-dark text-white"
               id="resultsPerPage"
@@ -75,7 +75,7 @@ const Filteredbar = ({
               <option value="16">16</option>
             </select>
             <label htmlFor="resultsPerPage" className="text-white">
-              Results per page
+              Items per page
             </label>
           </div>
 
