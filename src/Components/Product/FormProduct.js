@@ -17,7 +17,7 @@ import {
   resetMsg,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
-import "./CreateForm.css";
+import "./FormProduct.css";
 
 const stringRegExp = /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
 const numberRegExp = /^[0-9]+$/;
@@ -36,15 +36,43 @@ export function validate(input) {
   return errors;
 }
 
-export default function Create() {
+
+
+
+export default function Create(props) {
+
+  
+  const titleTypeOperation = props.id ? "Update Product" : "Create Product";
+
   const brands = useSelector((state) => state.products.brandsLoaded);
   const categories = useSelector((state) => state.products.categoriesLoaded);
+  const productDetails = useSelector((state) => state.products.detailsOfProduct);
 
   let error = useSelector((state) => state.products.error);
   let msg = useSelector((state) => state.products.msg);
 
   let dispatch = useDispatch();
+  
 
+  useEffect(() => {
+
+    dispatch(resetError());
+    dispatch(resetMsg());
+    dispatch(getCategoriesAsync());
+    dispatch(getBrandsAsync());
+
+    if (parseInt(props.id)>0) setInput(productDetails); 
+    else setInput({props});
+    
+    return () => {
+      dispatch(getProductsAsync());
+    }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [props && productDetails]);
+
+
+
+  
   const inputStateInitial = {
     name: "",
     description: "",
@@ -57,7 +85,10 @@ export default function Create() {
     state: true,
   };
 
-  const [input, setInput] = useState(inputStateInitial);
+
+  const [input, setInput] = useState(inputStateInitial);     
+  
+  
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -68,6 +99,9 @@ export default function Create() {
     categories: "",
     images: "",
   });
+
+
+  
 
   function handleInputChange(e) {
     if (e.target.value.length === 0) {
@@ -217,25 +251,10 @@ export default function Create() {
     } else {
       const newError = "Form incomplete. Please check the errors.";
       dispatch(createProductError(newError));
-
-      // setErrors({
-      //   ...errors,
-      // });
     }
   }
 
-  useEffect(() => {
-    dispatch(resetError());
-    dispatch(resetMsg());
-    dispatch(getCategoriesAsync());
-    dispatch(getBrandsAsync());
-    
-
-    return () => {
-      dispatch(getProductsAsync());
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -252,10 +271,15 @@ export default function Create() {
     // eslint-disable-next-line
   }, [msg]);
 
+  
+    
   return (
     <div className="letter-spacing">
-      <h1 className="formH1">Create Product</h1>
+      <h1 className="formH1">{titleTypeOperation}</h1>
 
+
+      
+      
       <div className="formContainer">
         <div>
           {msg && msg.length > 0 ? (
@@ -492,6 +516,9 @@ export default function Create() {
           </div>
         </form>
       </div>
+      
+      
+
     </div>
   );
 }
