@@ -2,9 +2,9 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
-import CreateForm from "./Components/CreateForm/CreateForm";
+import { CreateProduct } from "./Components/Product/CreateProduct";
 import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
-import { UpdateProduct } from "./Components/UpdateProduct/UpdateProduct";
+import { UpdateProduct } from "./Components/Product/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";
@@ -42,7 +42,7 @@ function App() {
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
-          <Route path="products/create" element={<CreateForm />} />
+          <Route path="products/create" element={<CreateProduct />} />
           <Route path="products/update/:id" element={"Pendiente"} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="brands" element={"Pendiente"} />
