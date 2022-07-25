@@ -41,7 +41,11 @@ export function validate(input) {
 
 export default function Create(props) {
 
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+  
+=======
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
   const titleTypeOperation = props.id ? "Update Product" : "Create Product";
 
   const brands = useSelector((state) => state.products.brandsLoaded);
@@ -52,7 +56,29 @@ export default function Create(props) {
   let msg = useSelector((state) => state.products.msg);
 
   let dispatch = useDispatch();
+  
 
+  useEffect(() => {
+
+    dispatch(resetError());
+    dispatch(resetMsg());
+    dispatch(getCategoriesAsync());
+    dispatch(getBrandsAsync());
+
+    if (parseInt(props.id)>0) setInput(productDetails); 
+    else setInput({props});
+    
+    return () => {
+      dispatch(getProductsAsync());
+    }
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, [props && productDetails]);
+
+
+
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+  
+=======
 
   useEffect(() => {
 
@@ -73,6 +99,7 @@ export default function Create(props) {
 
 
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
   const inputStateInitial = {
     name: "",
     description: "",
@@ -86,9 +113,15 @@ export default function Create(props) {
   };
 
 
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+  const [input, setInput] = useState(inputStateInitial);     
+  
+  
+=======
   const [input, setInput] = useState(inputStateInitial);
 
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
   const [errors, setErrors] = useState({
     name: "",
     description: "",
@@ -101,7 +134,11 @@ export default function Create(props) {
   });
 
 
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+  
+=======
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
 
   function handleInputChange(e) {
     if (e.target.value.length === 0) {
@@ -254,7 +291,11 @@ export default function Create(props) {
     }
   }
 
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+  
+=======
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
 
   useEffect(() => {
     setTimeout(() => {
@@ -271,6 +312,13 @@ export default function Create(props) {
     // eslint-disable-next-line
   }, [msg]);
 
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+  
+    
+  return (
+    <div className="letter-spacing">
+      <h1 className="formH1">{titleTypeOperation}</h1>
+=======
 
 
   return (
@@ -279,7 +327,11 @@ export default function Create(props) {
 
 
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
 
+
+      
+      
       <div className="formContainer">
         <div>
           {msg && msg.length > 0 ? (
@@ -516,8 +568,13 @@ export default function Create(props) {
           </div>
         </form>
       </div>
+<<<<<<< HEAD:src/Components/Product/FormProduct.js
+      
+      
+=======
 
 
+>>>>>>> b919c0f41d304ac892e4ea80628016c24fd02b12:src/Components/CreateForm/CreateForm.js
 
     </div>
   );
