@@ -15,7 +15,7 @@ const UsersTable = ({ users }) => {
 
   return (
     <div className="letter-spacing mx-1 mt-3">
-      <table className="table table-hover caption-top table-borderless">
+      <table className="table table-hover caption-top">
         <caption>Users</caption>
         <thead className="bg-purple-dark text-white">
           <tr>
