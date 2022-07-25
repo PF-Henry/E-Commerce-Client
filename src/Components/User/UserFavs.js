@@ -1,15 +1,10 @@
 import React from "react";
 import { FaHeart } from "react-icons/fa";
-import UserSideBar from "./UserSideBar";
 import "./UserStyles.css";
 
 const UserFavs = () => {
   return (
     <div className="userContainer">
-      <div className="sideBar animate__animated animate__fadeInLeft">
-        <UserSideBar />
-      </div>
-
       <div className="userDashboard">
         <div className="row d-flex justify-content-center mb-2 userPruchasesContainer">
           <div className="container row d-flex justify-content-center mb-2 userContainer">

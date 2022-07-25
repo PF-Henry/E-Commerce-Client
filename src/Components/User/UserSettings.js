@@ -1,14 +1,9 @@
 import React from "react";
-import UserSideBar from "./UserSideBar";
 import "./UserStyles.css";
 
 const UserSettings = () => {
   return (
     <div className="userContainer">
-      <div className="sideBar animate__animated animate__fadeInLeft">
-        <UserSideBar />
-      </div>
-
       <div class="container rounded bg-white mt-5 mb-5 userSettingsContainer">
         <div class="row">
           <div class="col-md-3 border-right">
