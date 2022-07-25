@@ -235,8 +235,11 @@ const onDrop = useCallback((acceptedFiles) => {
   }
 
   useEffect(() => {
+    dispatch(resetError());
+    dispatch(resetMsg());
     dispatch(getCategoriesAsync());
     dispatch(getBrandsAsync());
+    
 
     return () => {
       dispatch(getProductsAsync());
