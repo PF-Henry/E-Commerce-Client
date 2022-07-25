@@ -64,6 +64,10 @@ const Home = () => {
     indexOfLastItem
   );
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [filteredProductsByBrands.length]);
+
   // const handleSubmit = (e) => {
   //   dispatch(resetError());
   //   dispatch(getProductsAsync());
