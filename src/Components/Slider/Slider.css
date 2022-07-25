@@ -63,7 +63,7 @@
 
 .scrollDown {
     position: inherit;
-    bottom: 50px;
+    bottom: 60px;
 }
 
 
@@ -75,4 +75,79 @@
 .txtIconDown {
     color: #FFF;
     font-size: 40px;
+}
+
+
+@media (min-width: 280px) and (max-width:767px){
+    .slider_container {
+        margin-top: 73px;
+    }
+    .slider-info-box {
+        width: 250px;
+        height: 130px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .slider-info-title{
+        margin: 0;
+        padding: 0;
+        line-height: 6px;
+        font-size: 14px;
+        color: #FFF;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .slider-info-txt {
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        letter-spacing: 10px;
+        text-align: center;
+        color: #FFF;
+    }
+
+    .slider-info-title--right{
+        margin: 0;
+        padding: 0;
+        line-height: 12px;
+        font-size: 16px;
+        letter-spacing: 10px;
+        color: #FFF;
+        font-weight: 400;
+        text-align: center;
+    }
+
+    .slider-info--color {
+        font-size: 20px;
+        letter-spacing: 10px;
+        color: aqua;
+        font-weight: bold;
+    }
+
+    .scrollDown {
+        position: absolute;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    .txtIconDown--txt {
+        color: #fff;
+        font-size: 8px;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .txtIconDown {
+        color: #FFF;
+        font-size: 14px;
+        margin: 0;
+        padding: 0;
+    }
 }

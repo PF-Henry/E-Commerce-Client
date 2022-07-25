@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { Navigate, NavLink, useParams } from "react-router-dom";
+import { addToCart, getDetailProductAsync } from "../../Redux/productSlice";
+import { NavLink, useParams } from "react-router-dom"; 
 import {
   addToCart,
   getDetailProductAsync,
@@ -9,6 +11,8 @@ import {
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
+
+
 
 export const ProductDetail = () => {
   const product = useSelector((state) => state.products.detailsOfProduct);
@@ -33,10 +37,11 @@ export const ProductDetail = () => {
       : product.images[0].url_image;
     productDetails.img2 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
-      : product.images[0].url_image;
+      : product.images[1].url_image;
     productDetails.img3 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
-      : product.images[0].url_image;
+      : product.images[2].url_image;
+      console.log(product.images[2].url_image)
     productDetails.brandName = product.brand.name;
     productDetails.price = product.price;
     productDetails.stock = product.stock;
@@ -85,7 +90,7 @@ export const ProductDetail = () => {
 
             <div className="div-container-sectionOne-One-Picture--Two">
               <img
-                src={productDetails.img1}
+                src={productDetails.img2}
                 alt={productDetails.name}
                 className="img-fluid"
               />
@@ -93,7 +98,7 @@ export const ProductDetail = () => {
 
             <div className="div-container-sectionOne-One-Picture--Three">
               <img
-                src={productDetails.img1}
+                src={productDetails.img3}
                 alt={productDetails.name}
                 className="img-fluid"
               />
