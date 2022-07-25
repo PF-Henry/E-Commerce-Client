@@ -3,7 +3,7 @@ import Searchbar from "../Searchbar/Searchbar";
 import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { MdOutlineShoppingCart } from "react-icons/md";
+import { MdOutlineShoppingCart, MdOutlineFavoriteBorder } from "react-icons/md";
 // import { Login } from "../Login/Login";
 
 import { useSelector } from "react-redux/es/exports";
@@ -13,8 +13,8 @@ const Navbar = () => {
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (
-    <nav className="navbar navbar-dark navbar-expand-lg fixed-top animate__animated animate__fadeInDown bg-purple-dark-90 text-white">
-      <div className="container-md">
+    <nav className="navbar navbar-dark navbar-expand-lg fixed-top animate__animated animate__fadeInDown  text-white bgNavResponsive">
+      <div className="container-md ">
         <div className="navbar-brand basis">
           <Link
             to="/"
@@ -71,6 +71,14 @@ const Navbar = () => {
             >
               <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
                 ADMIN <CgProfile size={"1.6rem"} />
+              </div>
+            </Link>
+            <Link
+              to="/user/favorites"
+              className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+            >
+              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
+                <MdOutlineFavoriteBorder size={"1.6rem"} />
               </div>
             </Link>
             <Link

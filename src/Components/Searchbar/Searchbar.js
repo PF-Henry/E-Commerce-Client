@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetError,
@@ -7,34 +7,45 @@ import {
 } from "../../Redux/productSlice";
 import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
+import { MdOutlineClose } from "react-icons/md";
 import "./Searchbar.css";
 
 const Searchbar = ({ content }) => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.products.search);
-  // const [search, setSearch] = useState("");
 
   const handleInputChange = (e) => {
     e.preventDefault();
     dispatch(setSearch(e.target.value));
-    // setSearch(e.target.value);
     dispatch(searchProductAsync(e.target.value));
   };
 
   const handleSubmit = (e) => {
     dispatch(resetError());
     dispatch(searchProductAsync(search));
-    setSearch("");
+  };
+
+  const handleClearSearch = () => {
+    dispatch(setSearch(""));
+    dispatch(searchProductAsync(""));
   };
 
   return (
-    <form className="input-group input-group-sm div--Serchbar mt-3 mt-lg-0">
+    <form className="input-group input-group-sm div--Serchbar mt-3 mt-lg-0 position-relative">
       <input
         value={search}
         className="form-control input--SearchBar"
         placeholder={"Search " + content}
         onChange={(e) => handleInputChange(e)}
       />
+      <div
+        className={`text-secondary clear-search-btn d-flex align-items-center pe-1 ${
+          search === "" && "d-none"
+        }`}
+        onClick={() => handleClearSearch()}
+      >
+        <MdOutlineClose size={"1.2rem"} />
+      </div>
       <Link to="/" className="btn--Searchbar d-flex align-items-center">
         <button
           className="btn--Searchbar d-flex align-items-center px-3"
