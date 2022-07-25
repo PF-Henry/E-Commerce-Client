@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from "react";
 
-import DropBox from '../DropBox/DropBox';
-import ImageDropBox from '../DropBox/ImageDropBox';
-import { MAX_IMAGES_PRODUCT, MAX_CATEGORIES_PRODUCT  } from "../../Constants/parameters";
-
+import DropBox from "../DropBox/DropBox";
+import ImageDropBox from "../DropBox/ImageDropBox";
+import {
+  MAX_IMAGES_PRODUCT,
+  MAX_CATEGORIES_PRODUCT,
+} from "../../Constants/parameters";
 
 import {
   getBrandsAsync,
@@ -17,25 +19,22 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import "./CreateForm.css";
 
-
 const stringRegExp = /^[ a-zA-ZñÑáéíóúÁÉÍÓÚ0-9]+$/;
-const numberRegExp = /^[0-9]+$/; 
-
+const numberRegExp = /^[0-9]+$/;
 
 export function validate(input) {
   let errors = {};
-  if ((!input.name) || !(input.name.length>0)) errors.name = 'Name is required';
-  if (!input.price) errors.price = 'Price is required';
-  if (!input.stock) errors.stock = 'Stock is required';
-  if ((input.brand === "") || (input.brand === "0"))  errors.brand = 'Brand is required';
+  if (!input.name || !(input.name.length > 0)) errors.name = "Name is required";
+  if (!input.price) errors.price = "Price is required";
+  if (!input.stock) errors.stock = "Stock is required";
+  if (input.brand === "" || input.brand === "0")
+    errors.brand = "Brand is required";
 
-  if (input.categories.length <= 0) errors.categories = 'Categories is required';
+  if (input.categories.length <= 0)
+    errors.categories = "Categories is required";
 
   return errors;
 }
-
-
-
 
 export default function Create() {
   const brands = useSelector((state) => state.products.brandsLoaded);
@@ -70,20 +69,18 @@ export default function Create() {
     images: "",
   });
 
-
-
-
   function handleInputChange(e) {
-    
-    if (e.target.value.length === 0){
+    if (e.target.value.length === 0) {
       e.target.value = "";
     } else {
-      if ((e.target.name === 'name')  && (!stringRegExp.test(e.target.value))) return false;
-      if ((e.target.name === 'price') && (!numberRegExp.test(e.target.value))) return false;
-      if ((e.target.name === 'stock') && (!numberRegExp.test(e.target.value))) return false;
+      if (e.target.name === "name" && !stringRegExp.test(e.target.value))
+        return false;
+      if (e.target.name === "price" && !numberRegExp.test(e.target.value))
+        return false;
+      if (e.target.name === "stock" && !numberRegExp.test(e.target.value))
+        return false;
     }
 
-   
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -99,7 +96,7 @@ export default function Create() {
 
   function onChangeCategories(e) {
     if (e.target.value === "0") return;
-    if (input.categories === MAX_CATEGORIES_PRODUCT) return false; 
+    if (input.categories === MAX_CATEGORIES_PRODUCT) return false;
 
     if (
       input.categories.filter((item) => item.name === e.target.value).length !==
@@ -160,45 +157,40 @@ export default function Create() {
     );
   }
 
-
   function onChangeState(e) {
     setInput({
       ...input,
       state: e.target.checked,
     });
   }
-  
 
-
-
-
-// -------------------------- DropBox methods ---------------------------------
-let idImage = 0;
-const onDrop = useCallback((acceptedFiles) => {
-  acceptedFiles.map((file, index) => {
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      if (input.images.length < MAX_IMAGES_PRODUCT) {        
-        setInput((prevState) => {
-          if (prevState.images.length < MAX_IMAGES_PRODUCT) {
-                return {
-                      ...prevState,
-                      images: [ ...prevState.images , {id: idImage++,  src: e.target.result }],
-                    };
-          } else {
-            return prevState;
-          };
-          });          
-      }
-    };
-    reader.readAsDataURL(file);
-    return file;
-  });
-// eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
-
-
-
+  // -------------------------- DropBox methods ---------------------------------
+  let idImage = 0;
+  const onDrop = useCallback((acceptedFiles) => {
+    acceptedFiles.map((file, index) => {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        if (input.images.length < MAX_IMAGES_PRODUCT) {
+          setInput((prevState) => {
+            if (prevState.images.length < MAX_IMAGES_PRODUCT) {
+              return {
+                ...prevState,
+                images: [
+                  ...prevState.images,
+                  { id: idImage++, src: e.target.result },
+                ],
+              };
+            } else {
+              return prevState;
+            }
+          });
+        }
+      };
+      reader.readAsDataURL(file);
+      return file;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   function onClickDelete(e) {
     e.preventDefault();
@@ -215,19 +207,17 @@ const onDrop = useCallback((acceptedFiles) => {
   }
   // -------------------------- DropBox methods ---------------------------------
 
-  
-
   function onClickCreate(e) {
     e.preventDefault();
 
-    setErrors(validate({...input}));
+    setErrors(validate({ ...input }));
 
     if (Object.keys(errors).length === 0) {
       dispatch(createProductAsync(input));
     } else {
       const newError = "Form incomplete. Please check the errors.";
       dispatch(createProductError(newError));
-      
+
       // setErrors({
       //   ...errors,
       // });
@@ -240,24 +230,24 @@ const onDrop = useCallback((acceptedFiles) => {
 
     return () => {
       dispatch(getProductsAsync());
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(resetError());
+    }, 4000);
+    // eslint-disable-next-line
+  }, [error]);
 
   useEffect(() => {
-    setTimeout(()=>{dispatch(resetError())},4000);
+    setTimeout(() => {
+      dispatch(resetMsg());
+      setInput(inputStateInitial);
+    }, 4000);
     // eslint-disable-next-line
-  },[error]);
-
-
-  useEffect(() => {
-    setTimeout(()=>{
-          dispatch(resetMsg());
-          setInput(inputStateInitial);
-    },4000);   
-    // eslint-disable-next-line
-  },[msg]);
+  }, [msg]);
 
   return (
     <div className="letter-spacing">
@@ -267,104 +257,108 @@ const onDrop = useCallback((acceptedFiles) => {
         <div>
           {msg && msg.length > 0 ? (
             <div className="alert alert-success" role="alert">
-              {msg} 
-              {window.scrollTo(0,0)}
-              {console.log("mensaje:",msg)}
+              {msg}
+              {window.scrollTo(0, 0)}
+              {console.log("mensaje:", msg)}
             </div>
-                      
           ) : (
             <div></div>
           )}
           {error && error.length > 0 ? (
-            <div className="alert alert-danger" role="alert">{error} 
-                {window.scrollTo(0,0)}
+            <div className="alert alert-danger" role="alert">
+              {error}
+              {window.scrollTo(0, 0)}
             </div>
           ) : (
             <div></div>
           )}
         </div>
 
-        <form >
-
-    <div className="row col-12">
-        <div className="column col-12 col-md-6">
-            <div className="form-group">
-              <label className="formItem" htmlFor="name">
-                Name:
-              </label>
-              <input
-                type="text"
-                onChange={handleInputChange}
-                className="form-control"
-                name="name"
-                value={input.name}
-                maxLength={60}
-                placeholder="Name"
-              />
-              <div className="form_error text-danger">{errors.name && (<span>{errors.name}</span>)} </div>
-            </div>
-            <div className="form-group">
-              <label className="formItem" htmlFor="name">
-                Description
-              </label>
-              <input
-                type="text"
-                onChange={handleInputChange}
-                className="form-control"
-                name="description"
-                value={input.description}
-                placeholder="Description"
-              />
-            </div>
-            <div className="form-group">
-              <label className="formItem" htmlFor="name">
-                Technical Specification
-              </label>
-              <textarea
-                rows={3}
-                onChange={handleInputChange}
-                className="form-control"
-                name="technical_especification"
-                value={input.technical_especification}
-                placeholder="Technical Specification"
-              />
-            </div>
-
-            <div className="row">
-              <div className="form-group col-12 col-sm-6">
+        <form>
+          <div className="row col-12">
+            <div className="column col-12 col-md-6">
+              <div className="form-group">
                 <label className="formItem" htmlFor="name">
-                  Price
+                  Name:
                 </label>
                 <input
                   type="text"
                   onChange={handleInputChange}
                   className="form-control"
-                  name="price"
-                  value={input.price}
-                  maxLength={15}
-                  placeholder="Price"
+                  name="name"
+                  value={input.name}
+                  maxLength={60}
+                  placeholder="Name"
                 />
-                <div className="form_error text-danger">{errors.price && (<span>{errors.price}</span>)} </div>
+                <div className="form_error text-danger">
+                  {errors.name && <span>{errors.name}</span>}{" "}
+                </div>
               </div>
-              <div className="form-group col-12 col-sm-6">
-                <label className="formItem" htmlFor="stock">
-                  Stock
+              <div className="form-group">
+                <label className="formItem" htmlFor="name">
+                  Description
                 </label>
                 <input
                   type="text"
                   onChange={handleInputChange}
                   className="form-control"
-                  name="stock"
-                  value={input.stock}
-                  maxLength={10}
-                  placeholder="Stock"
+                  name="description"
+                  value={input.description}
+                  placeholder="Description"
                 />
-                <div className="form_error text-danger">{errors.stock && (<span>{errors.stock}</span>)} </div>
               </div>
-            </div>
-              
+              <div className="form-group">
+                <label className="formItem" htmlFor="name">
+                  Technical Specification
+                </label>
+                <textarea
+                  rows={3}
+                  onChange={handleInputChange}
+                  className="form-control"
+                  name="technical_especification"
+                  value={input.technical_especification}
+                  placeholder="Technical Specification"
+                />
+              </div>
 
-            <div className="row">
+              <div className="row">
+                <div className="form-group col-12 col-sm-6">
+                  <label className="formItem" htmlFor="name">
+                    Price
+                  </label>
+                  <input
+                    type="text"
+                    onChange={handleInputChange}
+                    className="form-control"
+                    name="price"
+                    value={input.price}
+                    maxLength={15}
+                    placeholder="Price"
+                  />
+                  <div className="form_error text-danger">
+                    {errors.price && <span>{errors.price}</span>}{" "}
+                  </div>
+                </div>
+                <div className="form-group col-12 col-sm-6">
+                  <label className="formItem" htmlFor="stock">
+                    Stock
+                  </label>
+                  <input
+                    type="text"
+                    onChange={handleInputChange}
+                    className="form-control"
+                    name="stock"
+                    value={input.stock}
+                    maxLength={10}
+                    placeholder="Stock"
+                  />
+                  <div className="form_error text-danger">
+                    {errors.stock && <span>{errors.stock}</span>}{" "}
+                  </div>
+                </div>
+              </div>
+
+              <div className="row">
                 <div className="col-12 col-sm-6 col-md-6">
                   <div className="form-group">
                     <label className="formItem" htmlFor="brands">
@@ -385,15 +379,17 @@ const onDrop = useCallback((acceptedFiles) => {
                         </option>
                       ))}
                     </select>
-                    <div className="form_error text-danger">{errors.brand && (<span>{errors.brand}</span>)} </div>
+                    <div className="form_error text-danger">
+                      {errors.brand && <span>{errors.brand}</span>}{" "}
+                    </div>
                   </div>
-                  
                 </div>
 
                 <div className="col-12 col-sm-6 col-md-6">
                   <div className="form-group">
                     <label className="formItem" htmlFor="categories">
-                      Categories: <span className="form_indications">4 max</span>
+                      Categories:{" "}
+                      <span className="form_indications">4 max</span>
                     </label>
 
                     <select
@@ -409,7 +405,9 @@ const onDrop = useCallback((acceptedFiles) => {
                         </option>
                       ))}
                     </select>
-                    <div className="form_error text-danger">{errors.categories && (<span>{errors.categories}</span>)} </div>
+                    <div className="form_error text-danger">
+                      {errors.categories && <span>{errors.categories}</span>}{" "}
+                    </div>
                     <div className="d-flex justify-content-center mt-3 flex-wrap gap-3">
                       {input.categories.map((item, index) => (
                         <div key={index}>
@@ -424,55 +422,62 @@ const onDrop = useCallback((acceptedFiles) => {
                         </div>
                       ))}
                     </div>
-                  </div>                    
+                  </div>
                 </div>
-              
-            </div>
-
-            <div className="form-group">
-              <label className="formItem" htmlFor="name">
-                Product State
-              </label>
-              <div className="form-check form-control-lg form-switch">
-                <label className="form-check-label small" for="state">{(input.state? "Active" : "Inactive")}</label>
-                <input className="form-check-input" 
-                      type="checkbox" 
-                      id="state" 
-                      name="state" 
-                      checked={input.state}
-                      onChange={onChangeState}/>
               </div>
-              
+
+              <div className="form-group">
+                <label className="formItem" htmlFor="name">
+                  Product State
+                </label>
+                <div className="form-check form-control-lg form-switch">
+                  <label className="form-check-label small" htmlFor="state">
+                    {input.state ? "Active" : "Inactive"}
+                  </label>
+                  <input
+                    className="form-check-input"
+                    type="checkbox"
+                    id="state"
+                    name="state"
+                    checked={input.state}
+                    onChange={onChangeState}
+                  />
+                </div>
+              </div>
             </div>
 
-        </div>
+            <div className="column col-12 col-md-6">
+              <div className="form-group col-12 ">
+                <label className="formItem" htmlFor="images">
+                  Images: <span className="form_indications">3 max</span>
+                </label>
 
-        <div className="column col-12 col-md-6">
-          <div className="form-group col-12 ">
-            <label className="formItem" htmlFor="images">
-              Images: <span className="form_indications">3 max</span>
-            </label>
+                <DropBox onDrop={onDrop} />
 
-            <DropBox onDrop={onDrop} />
-
-            
-            { input.images && (input.images.length > 0) &&
-              (<div className="containerDropBoxImage"> 
-                {input.images.map((image, index) => {
-                  return <div key={index} className="containerDropBoxImageAndButton">
-                  <ImageDropBox image={image} />
-                  <button className="btnDropBox" onClick={onClickDelete} id={image.id} >Delete</button>
-                </div>
-                })} 
-              </div>)
-            }
-
+                {input.images && input.images.length > 0 && (
+                  <div className="containerDropBoxImage">
+                    {input.images.map((image, index) => {
+                      return (
+                        <div
+                          key={index}
+                          className="containerDropBoxImageAndButton"
+                        >
+                          <ImageDropBox image={image} />
+                          <button
+                            className="btnDropBox"
+                            onClick={onClickDelete}
+                            id={image.id}
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
           </div>
-        </div>
-    </div>
-
-
-          
 
           <div className="mb-5 d-flex justify-content-center mt-4">
             <input

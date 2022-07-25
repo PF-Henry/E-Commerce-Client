@@ -3,7 +3,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import CreateForm from "./Components/CreateForm/CreateForm";
-import AdminDashboard from "./Components/Admin/AdminDashboard";
 import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
 import { UpdateProduct } from "./Components/UpdateProduct/UpdateProduct";
 import { ToastContainer } from "react-toastify";
@@ -28,15 +27,13 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />
-        <Route path="/CreateProduct" element={<CreateForm />} />
         <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
-        <Route path="/user" element={<LayoutUser />}>
+        <Route path="/user/" element={<LayoutUser />}>
           <Route path="favorites" element={<UserFavs />} />
           <Route path="orders" element={"Pendiente"} />
           <Route path="reviews" element={"Pendiente"} />
@@ -46,19 +43,13 @@ function App() {
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
           <Route path="products/create" element={<CreateForm />} />
+          <Route path="products/update/:id" element={"Pendiente"} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="brands" element={"Pendiente"} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
-        {/* <Route path="/user/settings" element={<UserSettings />} /> */}
-        {/* <Route path="/user/favorites" element={<UserFavs />} /> */}
-        {/* <Route path="/admin/products" element={<AdminProducts />} />
-        <Route path="/admin/categories" element={<AdminCategories />} />
-        <Route path="/admin/orders" element={<AdminOrders />} />
-        <Route path="/admin/users" element={<AdminUsers />} />
-        <Route path="/admin/settings" element={<AdminSettings />} /> */}
       </Routes>
     </div>
   );
