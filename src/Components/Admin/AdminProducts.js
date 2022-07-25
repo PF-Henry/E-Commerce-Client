@@ -33,7 +33,7 @@ const AdminProducts = () => {
           <ProductsCategoriesTable
             products={allDBProducts}
             name={"Products"}
-            ruta={"/UpdateProduct/"}
+            ruta={"/admin/products/update/"}
           />
         </div>
       </div>

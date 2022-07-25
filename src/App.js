@@ -32,7 +32,7 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />
-        <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
+        {/* <Route path="/UpdateProduct/:id" element={<UpdateProduct />} /> */}
         <Route path="/user/" element={<LayoutUser />}>
           <Route path="favorites" element={<UserFavs />} />
           <Route path="orders" element={"Pendiente"} />
@@ -43,7 +43,7 @@ function App() {
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
           <Route path="products/create" element={<CreateProduct />} />
-          <Route path="products/update/:id" element={"Pendiente"} />
+          <Route path="products/update/:id" element={<UpdateProduct />} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="brands" element={"Pendiente"} />
           <Route path="orders" element={<AdminOrders />} />
