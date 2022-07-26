@@ -191,6 +191,9 @@ export const productSlice = createSlice({
       // console.log(state.productsLoaded)
       state.favorites = action.payload;
     },
+    removeFavorite: (state, action) => {
+      state.favorites = state.favorites.filter(p => p.id === action.payload);
+    },
    },
 });
 
@@ -225,6 +228,7 @@ export const {
   getBrandID,
   cleanDetail,
   addFavorite,
+  removeFavorite,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -382,8 +386,16 @@ export const loginUserAsync = (payload) => (dispatch) => {
 
 export const addFavoriteAsync = ( payload ) => (dispatch) => {
   axios.put(`${apiUrl}favorites/add`, payload) 
+  // .then( (response) => {
+  //     console.log(response.data);
+  // })
+  .catch((error) => console.log(error));
+};
+
+export const removeFavoriteAsync = ( payload ) => (dispatch) => {
+  axios.put(`${apiUrl}favorites/remove`, payload) 
   .then( (response) => {
-      console.log(response.data);
+      dispatch(removeFavorite(payload.productId));
   })
   .catch((error) => console.log(error));
 };

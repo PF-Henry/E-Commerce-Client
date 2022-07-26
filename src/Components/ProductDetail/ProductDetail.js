@@ -67,6 +67,11 @@ export const ProductDetail = () => {
     return () => dispatch(cleanDetail());
   }, [dispatch, id]);
 
+  // useEffect(() => {
+    
+  // }, [mainImage])
+  
+
   const onChangeImage = (url) => {
     setMainImage(mainImage = url );
   }
