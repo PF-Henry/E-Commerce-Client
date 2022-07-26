@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 // import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductsAsync } from "../../Redux/productSlice";
+import { getProductsAsync, loginGoogleAsync } from "../../Redux/productSlice";
 import { FaArrowUp } from "react-icons/fa";
 import sorting from "../../Functions/sorting";
 import "./Home.css";
@@ -17,7 +17,7 @@ const Home = () => {
   const filtersCategories = useSelector((state) => state.products.filter);
   const brandsFilter = useSelector((state) => state.products.brandsFilter);
   const error = useSelector((state) => state.products.error);
-
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
