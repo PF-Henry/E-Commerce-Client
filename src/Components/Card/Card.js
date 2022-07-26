@@ -3,13 +3,12 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart, addFavoriteAsync } from "../../Redux/productSlice";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+import { useSelector } from "react-redux";
 import "./Card.css";
 
-
-
 const Card = ({ object }) => {
-  
-
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let productCartIndex = cartItems.findIndex((item) => item.id === object.id);
   const dispatch = useDispatch();
 
   const handleAddToCart = (item) => {
@@ -18,12 +17,12 @@ const Card = ({ object }) => {
 
   let [heartSelected, setHeartSelected] = useState(false);
 
-  const onFavoriteClick = ( userId , productId) => {
+  const onFavoriteClick = (userId, productId) => {
     // console.log(item);
     if (heartSelected) {
       setHeartSelected((heartSelected = false));
     } else {
-      dispatch(addFavoriteAsync({userId, productId}))
+      dispatch(addFavoriteAsync({ userId, productId }));
       setHeartSelected((heartSelected = true));
     }
   };
@@ -73,14 +72,21 @@ const Card = ({ object }) => {
         </NavLink>
         <div className="mt-auto">
           <h1 className="text-blue mb-3 letter-spacing">${object.price}</h1>
-          <div
-            className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
-            onClick={() => {
-              handleAddToCart(object);
-            }}
-          >
-            Add to the cart
-          </div>
+          {productCartIndex !== -1 &&
+          object.stock === cartItems[productCartIndex].quantity ? (
+            <div className="btn disabled btn-danger py-1 addToCartBtn border-0 letter-spacing">
+              Out of Stock
+            </div>
+          ) : (
+            <div
+              className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
+              onClick={() => {
+                handleAddToCart(object);
+              }}
+            >
+              Add to the cart
+            </div>
+          )}
         </div>
       </div>
     </div>
