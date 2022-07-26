@@ -1,15 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Searchbar from "../Searchbar/Searchbar";
 import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingCart, MdOutlineFavoriteBorder } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { loginGoogleAsync } from '../../Redux/productSlice';
 // import { Login } from "../Login/Login";
 
 import { useSelector } from "react-redux/es/exports";
 import "./Navbar.css";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  const role = useSelector((state) => state.products.role);
+  useEffect(() => {
+    dispatch(loginGoogleAsync());
+    console.log(role);
+  }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  , [])
+  
+  console.log('Role in Navbar', typeof role, role);
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (
@@ -48,16 +60,20 @@ const Navbar = () => {
             >
               ABOUT US
             </Link>
-            <Link
-              to="/login"
-              className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
-            >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover">
-                {/* data-toggle="modal" data-target="#exampleModalCenter" */}
-                LOGIN <CgProfile size={"1.6rem"} />
-              </div>
-            </Link>
-            <Link
+            {role === 'Guest' ? 
+              <Link
+                to="/login"
+                className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+              >
+                <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover">
+                  {/* data-toggle="modal" data-target="#exampleModalCenter" */}
+                  LOGIN <CgProfile size={"1.6rem"} />
+                </div>
+              </Link>
+            : null}
+            
+            {role === 'User' ?
+              <Link
               to="/user"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
             >
@@ -65,15 +81,21 @@ const Navbar = () => {
                 USER <CgProfile size={"1.6rem"} />
               </div>
             </Link>
-            <Link
+            : null}
+
+            {role === 'Admin' ?
+              <Link
               to="/admin"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
-            >
+              >
               <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
                 ADMIN <CgProfile size={"1.6rem"} />
               </div>
-            </Link>
-            <Link
+              </Link>
+            : null}
+
+            {role === 'User' ?
+              <Link
               to="/user/favorites"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
             >
@@ -81,6 +103,8 @@ const Navbar = () => {
                 <MdOutlineFavoriteBorder size={"1.6rem"} />
               </div>
             </Link>
+            : null}
+            
             <Link
               to="/cart"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
