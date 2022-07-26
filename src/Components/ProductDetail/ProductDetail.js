@@ -12,7 +12,8 @@ import "./ProductDetail.css";
 
 export const ProductDetail = () => {
   const product = useSelector((state) => state.products.detailsOfProduct);
-  
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let productCartIndex = cartItems.findIndex((item) => item.id === product.id);
   const productDetails = {
     name: "",
     img1: "",
@@ -33,10 +34,14 @@ export const ProductDetail = () => {
       : product.images[0].url_image;
     productDetails.img2 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
-      : product.images.length > 1 ? product.images[1].url_image : product.images[0].url_image;
+      : product.images.length > 1
+      ? product.images[1].url_image
+      : product.images[0].url_image;
     productDetails.img3 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
-      : product.images.length > 2 ? product.images[2].url_image : product.images[0].url_image;
+      : product.images.length > 2
+      ? product.images[2].url_image
+      : product.images[0].url_image;
 
     productDetails.brandName = product.brand.name;
     productDetails.price = product.price;
@@ -48,7 +53,7 @@ export const ProductDetail = () => {
       : product.categories[0].name;
   }
 
-  let [mainImage, setMainImage] = useState(productDetails.img1)
+  let [mainImage, setMainImage] = useState(productDetails.img1);
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -63,10 +68,10 @@ export const ProductDetail = () => {
   }, [dispatch, id]);
 
   const onChangeImage = (url) => {
-    setMainImage(mainImage = url )
-    console.log(url)
-    console.log(mainImage)
-  }
+    setMainImage((mainImage = url));
+    console.log(url);
+    console.log(mainImage);
+  };
 
   return (
     <div>
@@ -115,21 +120,19 @@ export const ProductDetail = () => {
           </div>
 
           <div className="div-container-sectionOne-Two animate__animated animate__fadeIn">
-            {
-              mainImage.length === 0 
-              ?
+            {mainImage.length === 0 ? (
               <img
                 src={productDetails.img1}
                 alt={productDetails.name}
                 className="img-fluid"
               />
-              :
+            ) : (
               <img
                 src={mainImage}
                 alt={productDetails.name}
                 className="img-fluid"
               />
-            }
+            )}
           </div>
 
           <div className="div-container-sectionOne-Three animate__animated animate__fadeInRight">
@@ -177,15 +180,23 @@ export const ProductDetail = () => {
                 <option>5</option>
                 <option>6</option>
               </select> */}
-              <button
-                className="btnDetail-Add-Product"
-                onClick={() => {
-                  handleAddToCart(product);
-                }}
-              >
-                {" "}
-                Add to the cart
-              </button>
+              {productCartIndex !== -1 &&
+              product.stock === cartItems[productCartIndex].quantity ? (
+                <button className="btn btnDetail-Add-Product btn-danger disabled">
+                  {" "}
+                  Out of Stock
+                </button>
+              ) : (
+                <button
+                  className="btnDetail-Add-Product"
+                  onClick={() => {
+                    handleAddToCart(product);
+                  }}
+                >
+                  {" "}
+                  Add to the cart
+                </button>
+              )}
             </div>
           </div>
         </div>
