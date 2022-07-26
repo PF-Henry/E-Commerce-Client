@@ -21,6 +21,11 @@
   color: #3ad8c1;
 }
 
+.member-photo img {
+  height: 10rem;
+  border-radius: 50%;
+}
+
 .member-name {
   color: rgba(59, 32, 103, 0.9);
 }

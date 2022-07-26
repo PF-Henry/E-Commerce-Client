@@ -3,6 +3,10 @@ import Navbar from "../../Components/Navbar/Navbar";
 import { Footer } from "../../Components/Footer/Footer";
 import { VscAccount, VscGithubInverted } from "react-icons/vsc";
 import { FaLinkedinIn } from "react-icons/fa";
+import gustavoImg from "../../assets/gustavo.jpg";
+import richyImg from "../../assets/Richy.jpg";
+import sneiderImg from "../../assets/Sneider.jpg";
+import victorImg from "../../assets/Victor.jpg";
 import "./AboutUs.css";
 
 const AboutUs = () => {
@@ -10,28 +14,39 @@ const AboutUs = () => {
     {
       name: "Gerardo Graziano",
       github: "https://github.com/gerardograziano",
-      linkedin: "url",
+      linkedin: "https://www.linkedin.com/in/gerardo-graziano-35177799/",
+      img: "",
     },
-    { name: "Gustavo Leyria", github: "url", linkedin: "url" },
+    {
+      name: "Gustavo Leyria",
+      github: "https://github.com/gustavoleyria",
+      linkedin: "https://www.linkedin.com/in/gustavo-leyria-1980/",
+      img: gustavoImg,
+    },
     {
       name: "Ricardo Vargas",
       github: "https://github.com/Vartro09",
-      linkedin: "url",
+      linkedin:
+        "https://www.linkedin.com/in/ricardo-andr%C3%A9s-vargas-n%C3%A1jar-%F0%9F%87%A8%F0%9F%87%B7-313573194/?midToken=AQESPCuIWlCs0A&midSig=1Msje_T5y-pWk1&trk=eml-jobs_applicant_applied-header-27-profile&trkEmail=eml-jobs_applicant_applied-header-27-profile-null-cnxwcf%7El58al42q%7Ee5-null-neptune%2Fprofile%7Evanity%2Eview",
+      img: richyImg,
     },
     {
       name: "Sneider Gallegos",
       github: "https://github.com/Satronic",
-      linkedin: "url",
+      linkedin: "https://www.linkedin.com/in/sneider-gallegos-marin/",
+      img: sneiderImg,
     },
     {
       name: "Victor Arias",
       github: "https://github.com/VicTips",
       linkedin: "https://www.linkedin.com/in/victips/",
+      img: victorImg,
     },
     {
       name: "Yohanaly Palma",
       github: "https://github.com/Ypalma876",
       linkedin: "url",
+      img: "",
     },
   ];
   return (
@@ -43,7 +58,11 @@ const AboutUs = () => {
           {TEAM.map((member, index) => (
             <div key={index} className="member-card">
               <div className="member-photo">
-                <VscAccount size={"10rem"} />
+                {member.img === "" ? (
+                  <VscAccount size={"10rem"} />
+                ) : (
+                  <img src={member.img} alt={member.name} />
+                )}
               </div>
               <div className="fw-bold mt-1 fs-5 member-name">{member.name}</div>
               <div className="d-flex align-items-center justify-content-center gap-2 mt-1">
