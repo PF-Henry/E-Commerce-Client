@@ -32,7 +32,6 @@ function App() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />
-        {/* <Route path="/UpdateProduct/:id" element={<UpdateProduct />} /> */}
         <Route path="/user/" element={<LayoutUser />}>
           <Route path="favorites" element={<UserFavs />} />
           <Route path="orders" element={"Pendiente"} />
