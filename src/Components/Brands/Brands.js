@@ -1,14 +1,26 @@
 import React from "react";
-import { Sliderbrands } from "../Sliderbrands/Sliderbrands";
-import './Brands.css'
+import BrandIcon from "../Brandicon/BrandIcon";
+import "./Brands.css";
 
 const Brands = () => {
-  return (
-    <div className="brands-container">
-      <h1>BRANDS</h1>
-      <Sliderbrands />
-    </div>
-  );
+  const brandsArray = [
+    "Apple",
+    "Hp",
+    "Epson",
+    "Nintendoswitch",
+    "Logitech",
+    "Xbox",
+    "Playstation5",
+    "Samsung",
+    "Huawei",
+    "Lg",
+    "Xiaomi",
+    "Lenovo",
+    "Asus",
+    "Dell",
+  ];
+
+  return <div className="py-4 bg-secondary">brands</div>;
 };
 
 export default Brands;
