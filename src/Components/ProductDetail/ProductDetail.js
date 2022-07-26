@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useParams } from "react-router-dom";
-import { addToCart, getDetailProductAsync, cleanDetail } from "../../Redux/productSlice";
+import {
+  addToCart,
+  getDetailProductAsync,
+  cleanDetail,
+} from "../../Redux/productSlice";
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
-
-
 
 export const ProductDetail = () => {
   const product = useSelector((state) => state.products.detailsOfProduct);
@@ -35,6 +37,7 @@ export const ProductDetail = () => {
     productDetails.img3 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
       : product.images.length > 2 ? product.images[2].url_image : product.images[0].url_image;
+
     productDetails.brandName = product.brand.name;
     productDetails.price = product.price;
     productDetails.stock = product.stock;

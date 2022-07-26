@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Products_CategoriesTable from "../Tables/ProductsTable";
+import ProductsCategoriesTable from "../Tables/ProductsTable";
 import Searchbar from "../Searchbar/Searchbar";
 import { getAllDBProductsAsync } from "../../Redux/productSlice";
 import "./AdminDashboard.css";
@@ -30,10 +30,10 @@ const AdminProducts = () => {
         </div>
 
         <div className="d-flex justify-content-evenly flex-wrap">
-          <Products_CategoriesTable
+          <ProductsCategoriesTable
             products={allDBProducts}
             name={"Products"}
-            ruta={"/UpdateProduct/"}
+            ruta={"/admin/products/update/"}
           />
         </div>
       </div>
