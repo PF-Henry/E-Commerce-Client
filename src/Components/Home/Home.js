@@ -33,7 +33,12 @@ const Home = () => {
     dispatch(getFavoriteAsync(1));
   }, [favoriteState.length]);
 
-  let sortedProducts = sorting([...allProducts], sortingMethod);
+  // Esta función filtra los productos que están disponibles
+  let availableProducts = [...allProducts].filter((product) => {
+    return product.state === true;
+  });
+
+  let sortedProducts = sorting(availableProducts, sortingMethod);
 
   let filteredProducts = !filtersCategories.length
     ? sortedProducts
