@@ -1,23 +1,29 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../Redux/productSlice";
+import { addToCart, addFavoriteAsync } from "../../Redux/productSlice";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import "./Card.css";
 
+
+
 const Card = ({ object }) => {
+  
+
   const dispatch = useDispatch();
+
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
   };
 
   let [heartSelected, setHeartSelected] = useState(false);
 
-  const onFavoriteClick = (id, name) => {
-    console.log("favorite " + id + " " + name);
+  const onFavoriteClick = ( userId , productId) => {
+    // console.log(item);
     if (heartSelected) {
       setHeartSelected((heartSelected = false));
     } else {
+      dispatch(addFavoriteAsync({userId, productId}))
       setHeartSelected((heartSelected = true));
     }
   };
@@ -27,7 +33,7 @@ const Card = ({ object }) => {
       {heartSelected ? (
         <button
           className="card-btn-favorite favorite"
-          onClick={() => onFavoriteClick(object.id, object.name)}
+          onClick={() => onFavoriteClick(1, object.id)}
         >
           {" "}
           <MdOutlineFavorite />{" "}
@@ -35,7 +41,7 @@ const Card = ({ object }) => {
       ) : (
         <button
           className="card-btn-favorite nonFavorite"
-          onClick={() => onFavoriteClick(object.id, object.name)}
+          onClick={() => onFavoriteClick(1, object.id)}
         >
           {" "}
           <MdOutlineFavoriteBorder />{" "}

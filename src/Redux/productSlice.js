@@ -39,6 +39,7 @@ export const productSlice = createSlice({
     userLogged: [],
     showSlider: true,
     search: "",
+    favorites: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -175,6 +176,10 @@ export const productSlice = createSlice({
     cleanDetail: (state) => {
       state.detailsOfProduct = {};
     },
+    addFavorite: (state, action) => {
+      // console.log(state.productsLoaded)
+      state.favorites = action.payload;
+    },
   },
   getUsers: (state, action) => {
     state.usersLoaded = action.payload;
@@ -209,6 +214,7 @@ export const {
   setShowSlider,
   setSearch,
   cleanDetail,
+  addFavorite,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -357,12 +363,29 @@ export const postUserAsync = (payload) => (dispatch) => {
 
 export const loginUserAsync = (payload) => (dispatch) => {
   console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
+  // axios.post(`${apiUrl}/users/register`, payload) 
   // .then( (response) => {
   //     dispatch(loginUser(response.data));
   // })
-
-  /*FALTA PROBAR Y LOS ERRORES*/
+  // .catch((error) => console.log(error));
 };
+
+export const addFavoriteAsync = ( payload ) => (dispatch) => {
+  axios.put(`${apiUrl}favorites/add`, payload) 
+  .then( (response) => {
+      console.log(response.data);
+  })
+  .catch((error) => console.log(error));
+};
+
+export const getFavoriteAsync = ( payload ) => (dispatch) => {
+  axios.get(`${apiUrl}favorites/user/${payload}`) 
+  .then( (response) => {
+      dispatch(addFavorite(response.data));
+  })
+  .catch((error) => console.log(error));
+};
+
+
 
 export default productSlice.reducer;

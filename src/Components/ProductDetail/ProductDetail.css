@@ -224,3 +224,7 @@
     border-bottom: 2px dotted #CACACA;
 }
 
+.leftImage {
+    cursor: pointer;
+}
+

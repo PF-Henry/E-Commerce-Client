@@ -1,13 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate, NavLink, useParams } from "react-router-dom";
-import { addToCart, getDetailProductAsync } from "../../Redux/productSlice";
-import { NavLink, useParams } from "react-router-dom"; 
-import {
-  addToCart,
-  getDetailProductAsync,
-  cleanDetail,
-} from "../../Redux/productSlice";
+import { NavLink, useParams } from "react-router-dom";
+import { addToCart, getDetailProductAsync, cleanDetail } from "../../Redux/productSlice";
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
@@ -16,7 +10,7 @@ import "./ProductDetail.css";
 
 export const ProductDetail = () => {
   const product = useSelector((state) => state.products.detailsOfProduct);
-
+  
   const productDetails = {
     name: "",
     img1: "",
@@ -37,18 +31,21 @@ export const ProductDetail = () => {
       : product.images[0].url_image;
     productDetails.img2 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
-      : product.images[1].url_image;
+      : product.images.length > 1 ? product.images[1].url_image : product.images[0].url_image;
     productDetails.img3 = !product.images.length
       ? "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
-      : product.images[2].url_image;
-      console.log(product.images[2].url_image)
+      : product.images.length > 2 ? product.images[2].url_image : product.images[0].url_image;
     productDetails.brandName = product.brand.name;
     productDetails.price = product.price;
     productDetails.stock = product.stock;
     productDetails.technical_especification = product.technical_especification;
     productDetails.description = product.description;
-    productDetails.categories = product.categories[0].name;
+    productDetails.categories = !product.categories.length
+      ? "Without categories"
+      : product.categories[0].name;
   }
+
+  let [mainImage, setMainImage] = useState(productDetails.img1)
 
   const dispatch = useDispatch();
   const { id } = useParams();
@@ -61,6 +58,12 @@ export const ProductDetail = () => {
     dispatch(getDetailProductAsync(id));
     return () => dispatch(cleanDetail());
   }, [dispatch, id]);
+
+  const onChangeImage = (url) => {
+    setMainImage(mainImage = url )
+    console.log(url)
+    console.log(mainImage)
+  }
 
   return (
     <div>
@@ -84,7 +87,8 @@ export const ProductDetail = () => {
               <img
                 src={productDetails.img1}
                 alt={productDetails.name}
-                className="img-fluid"
+                className="img-fluid leftImage"
+                onClick={() => onChangeImage(productDetails.img1)}
               />
             </div>
 
@@ -92,7 +96,8 @@ export const ProductDetail = () => {
               <img
                 src={productDetails.img2}
                 alt={productDetails.name}
-                className="img-fluid"
+                className="img-fluid leftImage"
+                onClick={() => onChangeImage(productDetails.img2)}
               />
             </div>
 
@@ -100,17 +105,28 @@ export const ProductDetail = () => {
               <img
                 src={productDetails.img3}
                 alt={productDetails.name}
-                className="img-fluid"
+                className="img-fluid leftImage"
+                onClick={() => onChangeImage(productDetails.img3)}
               />
             </div>
           </div>
 
           <div className="div-container-sectionOne-Two animate__animated animate__fadeIn">
-            <img
-              src={productDetails.img1}
-              alt={productDetails.name}
-              className="img-fluid"
-            />
+            {
+              mainImage.length === 0 
+              ?
+              <img
+                src={productDetails.img1}
+                alt={productDetails.name}
+                className="img-fluid"
+              />
+              :
+              <img
+                src={mainImage}
+                alt={productDetails.name}
+                className="img-fluid"
+              />
+            }
           </div>
 
           <div className="div-container-sectionOne-Three animate__animated animate__fadeInRight">
