@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
-import { getDetailProductAsync } from "../../Redux/productSlice";
+import { getDetailProductAsync } from "../../../Redux/productSlice";
 
 import Form from "./UpdateFormProduct";
 
@@ -32,12 +32,12 @@ export const UpdateProduct = () => {
       <div>
         <div>
           {msg && msg.length > 0 ? (
-            <div className="alert alert-success">{msg} </div>
+            <div className="alert alert-warning">{msg} </div>
           ) : (
             <div></div>
           )}
           {error && error.length > 0 ? (
-            <div className="alert alert-success">{error} </div>
+            <div className="alert alert-warning">{error} </div>
           ) : (
             <div></div>
           )}

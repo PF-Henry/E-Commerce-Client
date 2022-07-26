@@ -1,12 +1,12 @@
 .formH1 {
-  margin: 6rem 0 2rem 0;
+  margin: 1rem 0 2rem 0;
 }
 
 .formContainer {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 70vw;
   margin: auto;
   text-align: left;
   

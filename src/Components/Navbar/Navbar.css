@@ -7,6 +7,10 @@
   cursor: pointer;
 }
 
+.bgNavResponsive {
+  background-color: rgba(28, 0, 74, 0.9);
+}
+
 .display_around2 {
   display: flex;
   justify-content: flex-end;
@@ -31,4 +35,11 @@
 
 .bg-purple-dark-90 {
   background-color: rgba(28, 0, 74, 0.9);
+}
+
+
+@media (min-width: 280px) and (max-width:767px){
+  .bgNavResponsive {
+    background-color: #1c004a;
+  }
 }

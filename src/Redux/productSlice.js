@@ -7,9 +7,160 @@ import { getUserFromToken } from "../Functions/session";
 
 
 export const productSlice = createSlice({
-    name: "products",
-    initialState: {
-        productsLoaded: [],
+  name: "products",
+  initialState: {
+    productsLoaded: [],
+
+    productDetail: {
+      name: "",
+      stock: 0,
+      price: 0,
+      description: "",
+      technical_especification: "",
+      brand: "",
+      images: [],
+      category: [],
+      image: [],
+    },
+    detailsOfProduct: {},
+    brandsLoaded: [],
+    itemsPerPageState: 8,
+    categoriesLoaded: [],
+    sorting: NEWEST,
+    filter: [],
+    brandsFilter: [],
+    imagesLoaded: [],
+    error: "",
+    msg: "",
+    allDBProducts: [],
+    cartItems: localStorage.getItem("cartItems")
+      ? JSON.parse(localStorage.getItem("cartItems"))
+      : [],
+    usersLoaded: [],
+    user: [],
+    userLogged: [],
+    showSlider: true,
+    search: "",
+    categoryID: {},
+    brandID: {},
+    favorites: [],
+  },
+  reducers: {
+    getProducts: (state, action) => {
+      state.productsLoaded = action.payload;
+    },
+    getDetail: (state, action) => {
+      state.productDetail = action.payload;
+    },
+    getBrands: (state, action) => {
+      state.brandsLoaded = action.payload;
+    },
+    getCategories: (state, action) => {
+      state.categoriesLoaded = action.payload;
+    },
+    changeSorting: (state, action) => {
+      state.sorting = action.payload;
+    },
+    changeFilter: (state, action) => {
+      state.filter = action.payload;
+    },
+    changeBrandsFilter: (state, action) => {
+      state.brandsFilter = action.payload;
+    },
+    getImages: (state, action) => {
+      state.imagesLoaded = action.payload;
+    },
+    createProductMsg: (state, action) => {
+      state.msg = action.payload;
+    },
+    createProductError: (state, action) => {
+      state.error = action.payload;
+    },
+    switchItemsPerPage: (state, action) => {
+      state.itemsPerPageState = action.payload;
+    },
+    searchProduct: (state, action) => {
+      state.productsLoaded = action.payload;
+      state.allDBProducts = action.payload;
+    },
+    searchProductError: (state, action) => {
+      state.error = action.payload;
+    },
+    resetError: (state, action) => {
+      state.error = "";
+    },
+    resetMsg: (state, action) => {
+      state.msg = "";
+    },
+    getProductDetails: (state, action) => {
+      state.detailsOfProduct = action.payload;
+    },
+    getAllDBProducts: (state, action) => {
+      state.allDBProducts = action.payload;
+    },
+    addToCart: (state, action) => {
+      let productIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.item.id
+      );
+      if (productIndex === -1) {
+        state.cartItems.push({
+          ...action.payload.item,
+          quantity: action.payload.quantity,
+        });
+        toast.success(
+          `${action.payload.quantity} ${action.payload.item.name} added to the cart.`,
+          {
+            position: "bottom-right",
+          }
+        );
+      } else {
+        if (
+          state.cartItems[productIndex].quantity <
+          state.cartItems[productIndex].stock
+        ) {
+          state.cartItems[productIndex].quantity += action.payload.quantity;
+          toast.info(
+            `${action.payload.quantity} more ${action.payload.item.name} added to the cart.`,
+            {
+              position: "bottom-right",
+            }
+          );
+        } else {
+          toast.error("This product does not have more units in stock.", {
+            position: "bottom-right",
+          });
+        }
+      }
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    removeFromCart: (state, action) => {
+      state.cartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id
+      );
+      toast.error(`${action.payload.name} removed from the cart.`, {
+        position: "bottom-right",
+      });
+
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+    },
+    decreaseCart: (state, action) => {
+      let productIndex = state.cartItems.findIndex(
+        (product) => product.id === action.payload.id
+      );
+      if (state.cartItems[productIndex].quantity > 1) {
+        state.cartItems[productIndex].quantity -= 1;
+        toast.info(`1 ${action.payload.name} removed from the cart.`, {
+          position: "bottom-right",
+        });
+      } else {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.id
+        );
+        toast.error(`${action.payload.name} removed from the cart.`, {
+          position: "bottom-right",
+        });
+      }
 
         productDetail: {
             name: "",
@@ -199,39 +350,56 @@ export const productSlice = createSlice({
         },
     },
     getUsers: (state, action) => {
-        state.usersLoaded = action.payload;
+      state.usersLoaded = action.payload;
     },
+    getCategoryID: (state, action) => {
+      state.categoryID = action.payload;
+    },
+    getBrandID: (state, action) => {
+      state.brandID = action.payload;
+    },
+    cleanDetail: (state) => {
+      state.detailsOfProduct = {};
+    },
+    addFavorite: (state, action) => {
+      // console.log(state.productsLoaded)
+      state.favorites = action.payload;
+    },
+  },
 });
 
 export const {
-    getProducts,
-    getDetail,
-    getBrands,
-    switchItemsPerPage,
-    getCategories,
-    changeSorting,
-    changeFilter,
-    changeBrandsFilter,
-    getImages,
-    createProductMsg,
-    createProductError,
-    searchProduct,
-    searchProductError,
-    getProductDetails,
-    getAllDBProducts,
-    resetError,
-    resetMsg,
-    addToCart,
-    removeFromCart,
-    decreaseCart,
-    getUsers,
-    cleanCart,
-    postUser,
-    loginUser,
-    setShowSlider,
-    setSearch,
-    cleanDetail,
-    loginGoogle,
+  getProducts,
+  getDetail,
+  getBrands,
+  switchItemsPerPage,
+  getCategories,
+  changeSorting,
+  changeFilter,
+  changeBrandsFilter,
+  getImages,
+  createProductMsg,
+  createProductError,
+  searchProduct,
+  searchProductError,
+  getProductDetails,
+  getAllDBProducts,
+  resetError,
+  resetMsg,
+  addToCart,
+  removeFromCart,
+  decreaseCart,
+  getUsers,
+  cleanCart,
+  postUser,
+  loginUser,
+  setShowSlider,
+  setSearch,
+  getCategoryID,
+  getBrandID,
+  cleanDetail,
+  addFavorite,
+   loginGoogle,
     registerGoogle,
     logout,
 } = productSlice.actions;
@@ -426,6 +594,97 @@ export const logoutAsync = () => (dispatch) => {
         .catch((error) => console.log(error));
 
     /*FALTA PROBAR Y LOS ERRORES*/
+
+export const addFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .put(`${apiUrl}favorites/add`, payload)
+    .then((response) => {
+      console.log(response.data);
+    })
+    .catch((error) => console.log(error));
+};
+
+export const getCategoryByIDAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}categories/${payload}`)
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getCategoryID(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const updateCategoryAsync = (id, payload) => (dispatch) => {
+  axios
+    .put(`${apiUrl}categories/${id}`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+export const createCategoryAsync = (payload) => (dispatch) => {
+  axios
+    .post(`${apiUrl}categories`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+export const getBrandByIDAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}brands/${payload}`)
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getBrandID(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const updateBrandAsync = (id, payload) => (dispatch) => {
+  axios
+    .put(`${apiUrl}brands/${id}`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+export const createBrandAsync = (payload) => (dispatch) => {
+  axios
+    .post(`${apiUrl}brands`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+export const getFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .get(`${apiUrl}favorites/user/${payload}`)
+    .then((response) => {
+      dispatch(addFavorite(response.data));
+    })
+    .catch((error) => console.log(error));
 };
 
 
