@@ -45,7 +45,7 @@ const AboutUs = () => {
     {
       name: "Yohanaly Palma",
       github: "https://github.com/Ypalma876",
-      linkedin: "url",
+      linkedin: "https://www.linkedin.com/in/yohanaly-palma/?locale=en_US",
       img: "",
     },
   ];
