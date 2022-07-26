@@ -24,10 +24,12 @@
 .member-photo img {
   height: 10rem;
   border-radius: 50%;
+  border: 10px solid #3ad8c1;
 }
 
 .member-name {
   color: rgba(59, 32, 103, 0.9);
+  user-select: none;
 }
 
 .member-card {
