@@ -6,7 +6,7 @@ import Header from "../Header/Header";
 // import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductsAsync,getFavoriteAsync } from "../../Redux/productSlice";
+import { getProductsAsync } from "../../Redux/productSlice";
 import { FaArrowUp } from "react-icons/fa";
 import sorting from "../../Functions/sorting";
 import "./Home.css";
@@ -19,8 +19,8 @@ const Home = () => {
   const brandsFilter = useSelector((state) => state.products.brandsFilter);
   const error = useSelector((state) => state.products.error);
 
-  const favoriteState = useSelector((state) => state.products.favorites);
-  console.log(favoriteState);
+  // const favoriteState = useSelector((state) => state.products.favorites);
+
 
 
   const dispatch = useDispatch();
@@ -30,10 +30,6 @@ const Home = () => {
       dispatch(getProductsAsync());
     }
   }, [allProducts, dispatch]);
-  
-  useEffect( () => {
-    dispatch(getFavoriteAsync(1));
-  }, [favoriteState.length])
 
   let sortedProducts = sorting([...allProducts], sortingMethod);
 
