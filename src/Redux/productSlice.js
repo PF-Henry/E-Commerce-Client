@@ -39,6 +39,8 @@ export const productSlice = createSlice({
     userLogged: [],
     showSlider: true,
     search: "",
+    categoryID: {},
+    brandID: {},
     favorites: [],
   },
   reducers: {
@@ -173,6 +175,15 @@ export const productSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
+    getUsers: (state, action) => {
+      state.usersLoaded = action.payload;
+    },
+    getCategoryID: (state, action) => {
+      state.categoryID = action.payload;
+    },
+    getBrandID: (state, action) => {
+      state.brandID = action.payload;
+    },
     cleanDetail: (state) => {
       state.detailsOfProduct = {};
     },
@@ -180,10 +191,7 @@ export const productSlice = createSlice({
       // console.log(state.productsLoaded)
       state.favorites = action.payload;
     },
-  },
-  getUsers: (state, action) => {
-    state.usersLoaded = action.payload;
-  },
+   },
 });
 
 export const {
@@ -213,6 +221,8 @@ export const {
   loginUser,
   setShowSlider,
   setSearch,
+  getCategoryID,
+  getBrandID,
   cleanDetail,
   addFavorite,
 } = productSlice.actions;
@@ -378,6 +388,76 @@ export const addFavoriteAsync = ( payload ) => (dispatch) => {
   .catch((error) => console.log(error));
 };
 
+export const getCategoryByIDAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}categories/${payload}`)
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getCategoryID(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const updateCategoryAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}categories/${id}`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+export const createCategoryAsync = (payload) => (dispatch) => {
+  axios.post(`${apiUrl}categories`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
+};
+
+export const getBrandByIDAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}brands/${payload}`)
+    .then((data) => data.json())
+    .then((json) => {
+      dispatch(getBrandID(json));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const updateBrandAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}brands/${id}`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+export const createBrandAsync = (payload) => (dispatch) => {
+  axios.post(`${apiUrl}brands`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
 export const getFavoriteAsync = ( payload ) => (dispatch) => {
   axios.get(`${apiUrl}favorites/user/${payload}`) 
   .then( (response) => {
@@ -385,7 +465,5 @@ export const getFavoriteAsync = ( payload ) => (dispatch) => {
   })
   .catch((error) => console.log(error));
 };
-
-
 
 export default productSlice.reducer;

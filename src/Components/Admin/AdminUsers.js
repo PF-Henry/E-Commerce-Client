@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import UsersTable from "../Tables/UsersTable";
 import Searchbar from "../Searchbar/Searchbar";
 import "./AdminDashboard.css";
+import { useSelector } from "react-redux";
+import { getUsersAsync } from "../../Redux/productSlice";
 
 const AdminUsers = () => {
-  const allUsers = [
-    { username: "Yoha", id: 1, type: "admin" },
-    { username: "Richy", id: 2, type: "user" },
-    { username: "Victor", id: 3, type: "admin" },
-    { username: "Gerardo", id: 4, type: "user" },
-    { username: "Sneider", id: 5, type: "admin" },
-    { username: "Gustavo", id: 6, type: "user" },
-  ];
+  const allUsers = useSelector((state) => state.products.usersLoaded);
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!allUsers.length) {
+      dispatch(getUsersAsync());
+    }
+  }, [allUsers, dispatch]);
 
   return (
     <div className="adminContainer">
