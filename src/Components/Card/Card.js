@@ -1,37 +1,52 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../Redux/productSlice";
-import { MdOutlineFavoriteBorder,MdOutlineFavorite } from 'react-icons/md';
+import { addToCart, addFavoriteAsync } from "../../Redux/productSlice";
+import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import "./Card.css";
 
 
+
 const Card = ({ object }) => {
+  
+
   const dispatch = useDispatch();
+
   const handleAddToCart = (item) => {
     dispatch(addToCart(item));
   };
 
-  let [heartSelected, setHeartSelected] = useState(false)
+  let [heartSelected, setHeartSelected] = useState(false);
 
-  const onFavoriteClick = (id, name) => {
-    console.log("favorite " + id + ' ' + name);
+  const onFavoriteClick = ( userId , productId) => {
+    // console.log(item);
     if (heartSelected) {
-      setHeartSelected(heartSelected = false);
+      setHeartSelected((heartSelected = false));
     } else {
-      setHeartSelected(heartSelected = true);
+      dispatch(addFavoriteAsync({userId, productId}))
+      setHeartSelected((heartSelected = true));
     }
-  }
+  };
 
   return (
     <div className="card productCard border-0 animate__animated animate__fadeIn">
-      {
-        heartSelected? 
-        <button className="card-btn-favorite favorite" onClick={ () => onFavoriteClick(object.id , object.name )}> <MdOutlineFavorite/> </button>
-        :
-        <button className="card-btn-favorite nonFavorite" onClick={ () => onFavoriteClick(object.id , object.name )}> <MdOutlineFavoriteBorder/> </button>
-
-      }
+      {heartSelected ? (
+        <button
+          className="card-btn-favorite favorite"
+          onClick={() => onFavoriteClick(1, object.id)}
+        >
+          {" "}
+          <MdOutlineFavorite />{" "}
+        </button>
+      ) : (
+        <button
+          className="card-btn-favorite nonFavorite"
+          onClick={() => onFavoriteClick(1, object.id)}
+        >
+          {" "}
+          <MdOutlineFavoriteBorder />{" "}
+        </button>
+      )}
       <img
         src={
           object.images.length

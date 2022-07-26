@@ -2,17 +2,16 @@ import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
 import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
-import CreateForm from "./Components/CreateForm/CreateForm";
-import AdminDashboard from "./Components/Admin/AdminDashboard";
+import { CreateProduct } from "./Components/Product/CreateProduct";
 import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
-import { UpdateProduct } from "./Components/Updates/UpdateProduct/UpdateProduct";
+import { UpdateProduct } from "./Components/Product/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import Cart from "./Pages/Cart/Cart";
 import AboutUs from "./Pages/AboutUs/AboutUs";
 import { Login } from "./Components/Login/Login";
 import { SignIn } from "./Components/SignIn/SignIn";
 import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
-import UserDashboard from "./Components/User/UserDashboard";
+import LayoutUser from "./Components/User/Dashboard/LayoutUser";
 import Layout from "./Components/Admin/Dashboard/Layout";
 import UserSettings from "./Components/User/UserSettings";
 import UserFavs from "./Components/User/UserFavs";
@@ -31,28 +30,28 @@ function App() {
       <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/admin" element={<AdminDashboard />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<SignIn />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/product_detail/:id" element={<ProductDetail />} />
-        <Route path="/CreateProduct" element={<CreateForm />} />
-        <Route path="/UpdateProduct/:id" element={<UpdateProduct />} />
-        <Route path="/user" element={<UserDashboard />} />
+        <Route path="/user/" element={<LayoutUser />}>
+          <Route path="favorites" element={<UserFavs />} />
+          <Route path="orders" element={"Pendiente"} />
+          <Route path="reviews" element={"Pendiente"} />
+          <Route path="settings" element={<UserSettings />} />
+        </Route>
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/admin/" element={<Layout />}>
           <Route path="products" element={<AdminProducts />} />
+          <Route path="products/create" element={<CreateProduct />} />
+          <Route path="products/update/:id" element={<UpdateProduct />} />
           <Route path="categories" element={<AdminCategories />} />
           <Route path="brands" element={<AdminBrands />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>
-        <Route path="/user/settings" element={<UserSettings />} />
-        <Route path="/user/favorites" element={<UserFavs />} />
-        <Route path='admin/UpdateCategory/:id' element={<UpdateCategory />} />
-        <Route path='admin/UpdateBrand/:id' element={<UpdateBrand />} />
       </Routes>
     </div>
   );

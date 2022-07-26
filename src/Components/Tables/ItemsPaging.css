@@ -1,20 +1,19 @@
 .pagination-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    list-style: none;
+  list-style: none;
 }
 
 .pagination-container-item {
-    margin: 0 4px;
-    padding: 4px 0;
-    width: 35px;
-    background-color: #1c004a;
-    color: #FFF;
-    cursor: pointer;
+  padding: 4px 0;
+  width: 35px;
+  cursor: pointer;
 }
 
 .pagination-container-item:hover {
-    background-color: aqua;
-    color: #1c004a;
+  background-color: #3ad8c1;
+  color: #1c004a !important;
+}
+
+.pagination-container-item-active {
+  background-color: #3ad8c1 !important;
+  color: #1c004a !important;
 }
