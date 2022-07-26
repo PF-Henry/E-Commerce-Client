@@ -20,6 +20,9 @@ import AdminCategories from "./Components/Admin/AdminCategories";
 import AdminOrders from "./Components/Admin/AdminOrders";
 import AdminUsers from "./Components/Admin/AdminUsers";
 import AdminSettings from "./Components/Admin/AdminSettings";
+import AdminBrands from "./Components/Admin/AdminBrands";
+import UpdateCategory from "./Components/Updates/UpdateCategory/UpdateCategory";
+import UpdateBrand from "./Components/Updates/UpdateBrand/UpdateBrand";
 
 
 
@@ -47,7 +50,7 @@ function App() {
           <Route path="products/create" element={<CreateProduct />} />
           <Route path="products/update/:id" element={<UpdateProduct />} />
           <Route path="categories" element={<AdminCategories />} />
-          <Route path="brands" element={"Pendiente"} />
+          <Route path="brands" element={<AdminBrands />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
