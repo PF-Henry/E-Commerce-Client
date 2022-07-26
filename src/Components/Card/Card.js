@@ -11,8 +11,8 @@ const Card = ({ object }) => {
   let productCartIndex = cartItems.findIndex((item) => item.id === object.id);
   const dispatch = useDispatch();
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleAddToCart = (item, quantity) => {
+    dispatch(addToCart({ item, quantity }));
   };
 
   let [heartSelected, setHeartSelected] = useState(false);
@@ -81,10 +81,10 @@ const Card = ({ object }) => {
             <div
               className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
               onClick={() => {
-                handleAddToCart(object);
+                handleAddToCart(object, 1);
               }}
             >
-              Add to the cart
+              Add to Cart
             </div>
           )}
         </div>

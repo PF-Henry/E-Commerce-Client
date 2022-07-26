@@ -98,24 +98,33 @@ export const productSlice = createSlice({
     },
     addToCart: (state, action) => {
       let productIndex = state.cartItems.findIndex(
-        (product) => product.id === action.payload.id
+        (product) => product.id === action.payload.item.id
       );
       if (productIndex === -1) {
-        state.cartItems.push({ ...action.payload, quantity: 1 });
-        toast.success("Product added to the cart.", {
-          position: "bottom-right",
+        state.cartItems.push({
+          ...action.payload.item,
+          quantity: action.payload.quantity,
         });
+        toast.success(
+          `${action.payload.quantity} ${action.payload.item.name} added to the cart.`,
+          {
+            position: "bottom-right",
+          }
+        );
       } else {
         if (
           state.cartItems[productIndex].quantity <
           state.cartItems[productIndex].stock
         ) {
-          state.cartItems[productIndex].quantity += 1;
-          toast.info("One more unit added to the cart.", {
-            position: "bottom-right",
-          });
+          state.cartItems[productIndex].quantity += action.payload.quantity;
+          toast.info(
+            `${action.payload.quantity} more ${action.payload.item.name} added to the cart.`,
+            {
+              position: "bottom-right",
+            }
+          );
         } else {
-          toast.error("This product does not have more items in stock.", {
+          toast.error("This product does not have more units in stock.", {
             position: "bottom-right",
           });
         }
@@ -127,7 +136,7 @@ export const productSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
-      toast.error("Product removed from the cart.", {
+      toast.error(`${action.payload.name} removed from the cart.`, {
         position: "bottom-right",
       });
 
@@ -139,14 +148,14 @@ export const productSlice = createSlice({
       );
       if (state.cartItems[productIndex].quantity > 1) {
         state.cartItems[productIndex].quantity -= 1;
-        toast.info("One unit subtracted from the cart.", {
+        toast.info(`1 ${action.payload.name} removed from the cart.`, {
           position: "bottom-right",
         });
       } else {
         state.cartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.id
         );
-        toast.error("Product removed from the cart.", {
+        toast.error(`${action.payload.name} removed from the cart.`, {
           position: "bottom-right",
         });
       }
@@ -191,7 +200,7 @@ export const productSlice = createSlice({
       // console.log(state.productsLoaded)
       state.favorites = action.payload;
     },
-   },
+  },
 });
 
 export const {
@@ -373,19 +382,20 @@ export const postUserAsync = (payload) => (dispatch) => {
 
 export const loginUserAsync = (payload) => (dispatch) => {
   console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload) 
+  // axios.post(`${apiUrl}/users/register`, payload)
   // .then( (response) => {
   //     dispatch(loginUser(response.data));
   // })
   // .catch((error) => console.log(error));
 };
 
-export const addFavoriteAsync = ( payload ) => (dispatch) => {
-  axios.put(`${apiUrl}favorites/add`, payload) 
-  .then( (response) => {
+export const addFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .put(`${apiUrl}favorites/add`, payload)
+    .then((response) => {
       console.log(response.data);
-  })
-  .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 };
 
 export const getCategoryByIDAsync = (payload) => (dispatch) => {
@@ -398,7 +408,8 @@ export const getCategoryByIDAsync = (payload) => (dispatch) => {
 };
 
 export const updateCategoryAsync = (id, payload) => (dispatch) => {
-  axios.put(`${apiUrl}categories/${id}`, payload)
+  axios
+    .put(`${apiUrl}categories/${id}`, payload)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -411,16 +422,17 @@ export const updateCategoryAsync = (id, payload) => (dispatch) => {
 };
 
 export const createCategoryAsync = (payload) => (dispatch) => {
-  axios.post(`${apiUrl}categories`, payload)
-  .then((response) => {
-    if (response.data.error) {
-      dispatch(createProductError(response.data.error));
-    }
-    dispatch(createProductMsg(response.data.msg));
-  }) // cacth generar un dispatch un error
-  .catch((error) => {
-    dispatch(createProductError(error));
-  });
+  axios
+    .post(`${apiUrl}categories`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
 };
 
 export const getBrandByIDAsync = (payload) => (dispatch) => {
@@ -433,7 +445,8 @@ export const getBrandByIDAsync = (payload) => (dispatch) => {
 };
 
 export const updateBrandAsync = (id, payload) => (dispatch) => {
-  axios.put(`${apiUrl}brands/${id}`, payload)
+  axios
+    .put(`${apiUrl}brands/${id}`, payload)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -446,7 +459,8 @@ export const updateBrandAsync = (id, payload) => (dispatch) => {
 };
 
 export const createBrandAsync = (payload) => (dispatch) => {
-  axios.post(`${apiUrl}brands`, payload)
+  axios
+    .post(`${apiUrl}brands`, payload)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -458,12 +472,13 @@ export const createBrandAsync = (payload) => (dispatch) => {
     });
 };
 
-export const getFavoriteAsync = ( payload ) => (dispatch) => {
-  axios.get(`${apiUrl}favorites/user/${payload}`) 
-  .then( (response) => {
+export const getFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .get(`${apiUrl}favorites/user/${payload}`)
+    .then((response) => {
       dispatch(addFavorite(response.data));
-  })
-  .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 };
 
 export default productSlice.reducer;

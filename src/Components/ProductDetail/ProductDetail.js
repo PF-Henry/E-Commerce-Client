@@ -9,11 +9,21 @@ import {
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
+import optionsArray from "../../Functions/optionsArray";
 
 export const ProductDetail = () => {
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
-  let productCartIndex = cartItems.findIndex((item) => item.id === product.id);
+  const productCartIndex = cartItems.findIndex(
+    (item) => item.id === product.id
+  );
+
+  const options = optionsArray(
+    productCartIndex,
+    product.stock,
+    productCartIndex !== -1 && cartItems[productCartIndex].quantity
+  );
+
   const productDetails = {
     name: "",
     img1: "",
@@ -42,7 +52,6 @@ export const ProductDetail = () => {
       : product.images.length > 2
       ? product.images[2].url_image
       : product.images[0].url_image;
-
     productDetails.brandName = product.brand.name;
     productDetails.price = product.price;
     productDetails.stock = product.stock;
@@ -57,8 +66,13 @@ export const ProductDetail = () => {
 
   const dispatch = useDispatch();
   const { id } = useParams();
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const [quantity, setQuantity] = useState(1);
+  const handleChangeQuantity = (e) => {
+    setQuantity(parseInt(e.target.value));
+  };
+  const handleAddToCart = (item, quantity) => {
+    dispatch(addToCart({ item, quantity }));
+    setQuantity(1);
   };
 
   useEffect(() => {
@@ -157,7 +171,9 @@ export const ProductDetail = () => {
                 <h2 className="div-info-product-title">Stock:</h2>
                 <h3 className="div-info-product-description">
                   {" "}
-                  {productDetails.stock}
+                  {productCartIndex === -1
+                    ? productDetails.stock
+                    : product.stock - cartItems[productCartIndex].quantity}
                 </h3>
               </div>
             </div>
@@ -171,31 +187,35 @@ export const ProductDetail = () => {
             </div>
 
             <div className="div-info-btn">
-              {/* <select className="form-select select-quantity">
-                <option>Select Quantity</option>
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-              </select> */}
               {productCartIndex !== -1 &&
               product.stock === cartItems[productCartIndex].quantity ? (
-                <button className="btn btnDetail-Add-Product btn-danger disabled">
+                <button className="btnDetail-Add-Product btn btn-danger disabled px-5">
                   {" "}
                   Out of Stock
                 </button>
               ) : (
-                <button
-                  className="btnDetail-Add-Product"
-                  onClick={() => {
-                    handleAddToCart(product);
-                  }}
-                >
-                  {" "}
-                  Add to the cart
-                </button>
+                <div className="input-group px-3">
+                  <select
+                    className="form-select"
+                    onChange={(e) => handleChangeQuantity(e)}
+                    value={quantity}
+                  >
+                    {options.map((n) => (
+                      <option key={n} value={n}>
+                        {n}
+                      </option>
+                    ))}
+                  </select>
+                  <button
+                    className="btnDetail-Add-Product px-4"
+                    onClick={() => {
+                      handleAddToCart(product, quantity);
+                    }}
+                  >
+                    {" "}
+                    Add to Cart
+                  </button>
+                </div>
               )}
             </div>
           </div>
