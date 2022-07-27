@@ -203,10 +203,6 @@ export const productSlice = createSlice({
     setSearch: (state, action) => {
       state.search = action.payload;
     },
-    cleanDetail: (state) => {
-      state.detailsOfProduct = {};
-    },
-
     getUsers: (state, action) => {
       state.usersLoaded = action.payload;
     },

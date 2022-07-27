@@ -25,6 +25,7 @@ const Filteredbar = ({
   const allBrands = useSelector((state) => state.products.brandsLoaded);
   const allCategories = useSelector((state) => state.products.categoriesLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
+  const itemsPerPageState = useSelector((state) => state.products.itemsPerPage);
   const [filters, setFilters] = useState([]);
   const [brandsFilter, setBrandsFilter] = useState([]);
   const dispatch = useDispatch();
@@ -67,12 +68,11 @@ const Filteredbar = ({
               className="form-select bg-purple-dark text-white"
               id="resultsPerPage"
               aria-label="Floating label select example"
-              defaultValue={1}
               onChange={(e) => itemsPerPageSelected(e)}
             >
-              <option value="8">8</option>
-              <option value="12">12</option>
-              <option value="16">16</option>
+              <option value={8}>8</option>
+              <option value={12}>12</option>
+              <option value={16}>16</option>
             </select>
             <label htmlFor="resultsPerPage" className="text-white">
               Items per page
