@@ -191,6 +191,12 @@ export const productSlice = createSlice({
       // console.log(state.productsLoaded)
       state.favorites = action.payload;
     },
+    searchCategory: (state, action) => {
+      state.categoriesLoaded = action.payload;
+    },
+    searchBrand: (state, action) => {
+      state.brandsLoaded = action.payload;
+    },
    },
 });
 
@@ -225,6 +231,8 @@ export const {
   getBrandID,
   cleanDetail,
   addFavorite,
+  searchCategory,
+  searchBrand,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -464,6 +472,32 @@ export const getFavoriteAsync = ( payload ) => (dispatch) => {
       dispatch(addFavorite(response.data));
   })
   .catch((error) => console.log(error));
+};
+
+export const searchCategoryAsync = (brand) => (dispatch) => {
+  fetch(`${apiUrl}categories?name=${brand}`)
+    .then((data) => data.json())
+    .then((json) => {
+      if (json.error) {
+        return dispatch(searchProductError(json.error));
+      }
+      dispatch(searchCategory(json));
+      dispatch(searchProductError(""));
+    })
+    .catch((error) => console.log(error));
+};
+
+export const searchBrandAsync = (brand) => (dispatch) => {
+  fetch(`${apiUrl}brands?name=${brand}`)
+    .then((data) => data.json())
+    .then((json) => {
+      if (json.error) {
+        return dispatch(searchProductError(json.error));
+      }
+      dispatch(searchBrand(json));
+      dispatch(searchProductError(""));
+    })
+    .catch((error) => console.log(error));
 };
 
 export default productSlice.reducer;

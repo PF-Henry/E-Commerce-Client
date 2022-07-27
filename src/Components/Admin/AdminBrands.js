@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProductsCategoriesTable from "../Tables/ProductsTable";
-import Searchbar from "../Searchbar/Searchbar";
 import { getBrandsAsync, createBrandAsync } from "../../Redux/productSlice";
 import './AdminDashboard.css'
+import AdminSearchbar from "./AdminSearchBar";
 
 
 const AdminBrands = () => {
@@ -34,7 +33,7 @@ const AdminBrands = () => {
         <div className="adminContainer">
             <div className="adminDashboard adminProducts">
                 <div className="d-flex justify-content-center gap-3 mb-3">
-                    <Searchbar content='Brand'/>
+                    <AdminSearchbar content='Brand'/>
                     <button
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         data-toggle="collapse"

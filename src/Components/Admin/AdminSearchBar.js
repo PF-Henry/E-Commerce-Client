@@ -4,34 +4,37 @@ import {
   resetError,
   searchBrandAsync,
   searchCategoryAsync,
-  searchProductAsync,
   setSearch,
 } from "../../Redux/productSlice";
 import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
 import { MdOutlineClose } from "react-icons/md";
-import "./Searchbar.css";
+import "../Searchbar/Searchbar.css";
 
-const Searchbar = ({ content }) => {
+const AdminSearchbar = ({ content }) => {
   const dispatch = useDispatch();
   const search = useSelector((state) => state.products.search);
 
   const handleInputChange = (e) => {
     e.preventDefault();
     dispatch(setSearch(e.target.value));
-    if (content === 'Category') dispatch(searchCategoryAsync);
-    else if (content === 'Brand') dispatch(searchBrandAsync);
-    dispatch(searchProductAsync(e.target.value));
+    if (content === 'Category') dispatch(searchCategoryAsync(search));
+    // else if (content === 'Brand') dispatch(searchBrandAsync);
+    dispatch(searchBrandAsync(search));
   };
 
   const handleSubmit = (e) => {
     dispatch(resetError());
-    dispatch(searchProductAsync(search));
+    if (content === 'Category') dispatch(searchCategoryAsync(search));
+    // else if (content === 'Brand') dispatch(searchBrandAsync);
+    dispatch(searchBrandAsync(search));
   };
 
   const handleClearSearch = () => {
     dispatch(setSearch(""));
-    dispatch(searchProductAsync(""));
+    if (content === 'Category') dispatch(searchCategoryAsync(''));
+    // else if (content === 'Brand') dispatch(searchBrandAsync);
+    dispatch(searchBrandAsync(''));
   };
 
   return (
@@ -50,7 +53,7 @@ const Searchbar = ({ content }) => {
       >
         <MdOutlineClose size={"1.2rem"} />
       </div>
-      <Link to="/" className="btn--Searchbar d-flex align-items-center">
+      <Link to="/admin" className="btn--Searchbar d-flex align-items-center">
         <button
           className="btn--Searchbar d-flex align-items-center px-3"
           onClick={(e) => handleSubmit(e)}
@@ -62,4 +65,4 @@ const Searchbar = ({ content }) => {
   );
 };
 
-export default Searchbar;
+export default AdminSearchbar;
