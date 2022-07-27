@@ -162,160 +162,51 @@ export const productSlice = createSlice({
         });
       }
     },
-    reducers: {
-      getProducts: (state, action) => {
-        state.productsLoaded = action.payload;
-      },
-      getDetail: (state, action) => {
-        state.productDetail = action.payload;
-      },
-      getBrands: (state, action) => {
-        state.brandsLoaded = action.payload;
-      },
-      getCategories: (state, action) => {
-        state.categoriesLoaded = action.payload;
-      },
-      changeSorting: (state, action) => {
-        state.sorting = action.payload;
-      },
-      changeFilter: (state, action) => {
-        state.filter = action.payload;
-      },
-      changeBrandsFilter: (state, action) => {
-        state.brandsFilter = action.payload;
-      },
-      getImages: (state, action) => {
-        state.imagesLoaded = action.payload;
-      },
-      createProductMsg: (state, action) => {
-        state.msg = action.payload;
-      },
-      createProductError: (state, action) => {
-        state.error = action.payload;
-      },
-      switchItemsPerPage: (state, action) => {
-        state.itemsPerPageState = action.payload;
-      },
-      searchProduct: (state, action) => {
-        state.productsLoaded = action.payload;
-        state.allDBProducts = action.payload;
-      },
-      searchProductError: (state, action) => {
-        state.error = action.payload;
-      },
-      resetError: (state, action) => {
-        state.error = "";
-      },
-      resetMsg: (state, action) => {
-        state.msg = "";
-      },
-      getProductDetails: (state, action) => {
-        state.detailsOfProduct = action.payload;
-      },
-      getAllDBProducts: (state, action) => {
-        state.allDBProducts = action.payload;
-      },
-      addToCart: (state, action) => {
-        let productIndex = state.cartItems.findIndex(
-          (product) => product.id === action.payload.id
-        );
-        if (productIndex === -1) {
-          state.cartItems.push({ ...action.payload, quantity: 1 });
-          toast.success("Product added to the cart.", {
-            position: "bottom-right",
-          });
-        } else {
-          if (
-            state.cartItems[productIndex].quantity <
-            state.cartItems[productIndex].stock
-          ) {
-            state.cartItems[productIndex].quantity += 1;
-            toast.info("One more unit added to the cart.", {
-              position: "bottom-right",
-            });
-          } else {
-            toast.error("This product does not have more items in stock.", {
-              position: "bottom-right",
-            });
-          }
-        }
 
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      removeFromCart: (state, action) => {
-        state.cartItems = state.cartItems.filter(
-          (item) => item.id !== action.payload.id
-        );
-        toast.error("Product removed from the cart.", {
-          position: "bottom-right",
-        });
-
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      decreaseCart: (state, action) => {
-        let productIndex = state.cartItems.findIndex(
-          (product) => product.id === action.payload.id
-        );
-        if (state.cartItems[productIndex].quantity > 1) {
-          state.cartItems[productIndex].quantity -= 1;
-          toast.info("One unit subtracted from the cart.", {
-            position: "bottom-right",
-          });
-        } else {
-          state.cartItems = state.cartItems.filter(
-            (item) => item.id !== action.payload.id
-          );
-          toast.error("Product removed from the cart.", {
-            position: "bottom-right",
-          });
-        }
-
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      cleanCart: (state) => {
-        state.cartItems = [];
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      postUser: (state, action) => {
-        return {
-          ...state,
-          user: action.payload,
-        };
-      },
-      loginUser: (state, action) => {
-        return {
-          ...state,
-          userLogged: action.payload,
-        };
-      },
-      //***** Authentication *****//
-      loginGoogle: (state, action) => {
-        const token = action.payload.token;
-        const user = getUserFromToken(token);
-        const role = user.role.name;
-        console.log("Role in reducer - Login", role);
-        state.role = role;
-      },
-      registerGoogle: (state, action) => {
-        const token = action.payload.token;
-        console.log("Token in reducer - Register", token);
-        state.msg = action.payload;
-      },
-
-      logout: (state, action) => {
-        state.role = "Guest";
-      },
-      //******************************/
-      setShowSlider: (state, action) => {
-        state.showSlider = action.payload;
-      },
-      setSearch: (state, action) => {
-        state.search = action.payload;
-      },
-      cleanDetail: (state) => {
-        state.detailsOfProduct = {};
-      },
+    cleanCart: (state) => {
+      state.cartItems = [];
+      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
     },
+    postUser: (state, action) => {
+      return {
+        ...state,
+        user: action.payload,
+      };
+    },
+    loginUser: (state, action) => {
+      return {
+        ...state,
+        userLogged: action.payload,
+      };
+    },
+    //***** Authentication *****//
+    loginGoogle: (state, action) => {
+      const token = action.payload.token;
+      const user = getUserFromToken(token);
+      const role = user.role.name;
+      console.log("Role in reducer - Login", role);
+      state.role = role;
+    },
+    registerGoogle: (state, action) => {
+      const token = action.payload.token;
+      console.log("Token in reducer - Register", token);
+      state.msg = action.payload;
+    },
+
+    logout: (state, action) => {
+      state.role = "Guest";
+    },
+    //******************************/
+    setShowSlider: (state, action) => {
+      state.showSlider = action.payload;
+    },
+    setSearch: (state, action) => {
+      state.search = action.payload;
+    },
+    cleanDetail: (state) => {
+      state.detailsOfProduct = {};
+    },
+
     getUsers: (state, action) => {
       state.usersLoaded = action.payload;
     },
@@ -333,10 +224,9 @@ export const productSlice = createSlice({
       state.favorites = action.payload;
     },
     removeFavorite: (state, action) => {
-      state.favorites = state.favorites.filter(p => p.id === action.payload);
+      state.favorites = state.favorites.filter((p) => p.id === action.payload);
     },
-   },
-
+  },
 });
 
 export const {
@@ -571,20 +461,22 @@ export const logoutAsync = () => (dispatch) => {
   /*FALTA PROBAR Y LOS ERRORES*/
 };
 
-export const addFavoriteAsync = ( payload ) => (dispatch) => {
-  axios.put(`${apiUrl}favorites/add`, payload) 
-  // .then( (response) => {
-  //     console.log(response.data);
-  // })
-  .catch((error) => console.log(error));
+export const addFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .put(`${apiUrl}favorites/add`, payload)
+    // .then( (response) => {
+    //     console.log(response.data);
+    // })
+    .catch((error) => console.log(error));
 };
 
-export const removeFavoriteAsync = ( payload ) => (dispatch) => {
-  axios.put(`${apiUrl}favorites/remove`, payload) 
-  .then( (response) => {
+export const removeFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .put(`${apiUrl}favorites/remove`, payload)
+    .then((response) => {
       dispatch(removeFavorite(payload.productId));
-  })
-  .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 };
 
 export const getCategoryByIDAsync = (payload) => (dispatch) => {
