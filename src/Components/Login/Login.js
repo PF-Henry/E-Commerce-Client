@@ -6,7 +6,7 @@ import Github from "./images/github.png";
 import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
 import { useDispatch, useSelector} from 'react-redux';
-import { loginUserAsync, loginGoogleAsync, registerGoogleAsync } from '../../Redux/productSlice';
+import { loginUserAsync, loginGoogleAsync, registerGoogleAsync, resetError } from '../../Redux/productSlice';
 
 import apiUrl from '../../Constants/apiUrl';
 
@@ -14,12 +14,16 @@ export const Login = () => {
 
     const dispatch = useDispatch();
     const role = useSelector((state) => state.products.role);
+    const error = useSelector((state) => state.products.error);
     console.log('Role in login', role);
     
 
     useEffect(() => {
         console.log('Dispatch registerUserAsync - Login Form');
         dispatch(registerGoogleAsync());
+        return () => {
+            dispatch(resetError());
+        }
     }
     , [dispatch])
     
@@ -59,6 +63,15 @@ export const Login = () => {
 
   return (
     <div className='padding-container--login'>
+        {error ?
+            <div className='message-container--login error '>
+                <p>{error}</p>
+            </div>
+        :
+            <div className='message-container--login disable-error '>
+                <p>{error}</p>
+            </div>
+        }
         <div className="login-container--login">
             <div className='section-title--login'>
                 <h5 className="section-title--title--login" >Choose a Login Method</h5>
@@ -127,9 +140,7 @@ export const Login = () => {
         </div>  
         {/* END  LOGIN CONTAINER*/}
 
-        <div className='message-container--login error'>
-            <p>HERE GOES THE MESSAGE!!</p>
-        </div>
+        
     </div>
   )
 }
