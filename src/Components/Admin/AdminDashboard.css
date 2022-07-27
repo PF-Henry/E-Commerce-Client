@@ -3,24 +3,9 @@
   margin-bottom: 2vw;
 }
 
-.sideBar {
-  width: 16vw;
-  background-color: #dbfdf8;
-  height: 100vh;
-  position: sticky;
-}
-
-.adminContainer{
-  display: flex;
-}
-
-.adminDashboard {
-  width: 85vw;
-}
-
-.adminMenu{
+.adminMenu {
   padding-top: 7vw;
-  padding-left: 2.5vw;  
+  padding-left: 2.5vw;
 }
 .adminMenuLink {
   color: #1c004a;
@@ -30,11 +15,13 @@
 }
 
 .adminMenuIcon {
-  float:left;
+  float: left;
   margin-right: 0.8em;
 }
 
-.cardIconRevenue, .cardIconSales, .cardIconOrders {
+.cardIconRevenue,
+.cardIconSales,
+.cardIconOrders {
   width: 3.5rem;
   height: 3.5rem;
   border-radius: 50%;
@@ -52,10 +39,6 @@
 
 .cardIconOrders {
   background-color: #dfeaf8;
-}
-
-.adminProducts {
-  margin-top: 8vw;
 }
 
 .adminOrders {

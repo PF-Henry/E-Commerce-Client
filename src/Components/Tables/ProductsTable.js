@@ -40,7 +40,7 @@ const ProductsCategoriesTable = ({ products, name, ruta }) => {
   }
 
   return (
-    <div className="letter-spacing mx-1 mt-3">
+    <div className="letter-spacing mx-1 mt-3 table-responsive">
       <table className="table table-hover caption-top table-borderless">
         <caption>List of {name}</caption>
         <thead className="bg-purple-dark text-white">
