@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart, addFavoriteAsync, removeFavoriteAsync } from "../../Redux/productSlice";
+import {
+  addToCart,
+  addFavoriteAsync,
+  removeFavoriteAsync,
+} from "../../Redux/productSlice";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
-import { useSelector } from "react-redux";
 import "./Card.css";
 
 const Card = ({ object }) => {
@@ -16,23 +19,21 @@ const Card = ({ object }) => {
     dispatch(addToCart({ item, quantity }));
   };
 
-  let [heartSelected, setHeartSelected] = useState(favoriteState.find(p => p.id === object.id));
+  let [heartSelected, setHeartSelected] = useState(
+    favoriteState.find((p) => p.id === object.id)
+  );
 
+  const onFavoriteClick = (userId, productId) => {
+    let heartSelectedThree = favoriteState.find((p) => p.id === productId);
 
-  const onFavoriteClick = ( userId , productId) => {
-      let heartSelectedThree = favoriteState.find(p => p.id === productId);
-
-      if (heartSelectedThree) {
-        dispatch(removeFavoriteAsync({userId, productId}))
-        setHeartSelected((heartSelected = false));
-      } else {
-        dispatch(addFavoriteAsync({userId, productId}))
-        setHeartSelected((heartSelected = true));
-      }
+    if (heartSelectedThree) {
+      dispatch(removeFavoriteAsync({ userId, productId }));
+      setHeartSelected((heartSelected = false));
+    } else {
+      dispatch(addFavoriteAsync({ userId, productId }));
+      setHeartSelected((heartSelected = true));
+    }
   };
-
-
-
 
   return (
     <div className="card productCard border-0 animate__animated animate__fadeIn">
