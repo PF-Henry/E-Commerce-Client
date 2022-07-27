@@ -12,7 +12,19 @@
   
 }
 
-/* .formContainer__ */
+.div-container-header--btn {
+  width: 80px;
+  height: 25px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3ad8c1;
+  color: #1c004a;
+  text-decoration: none;
+
+  transition: 0.6s ease all;
+}
+
+
 
 .form_error{
   font-size: x-small;

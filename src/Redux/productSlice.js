@@ -263,26 +263,26 @@ export const switchItemsPerPageAsync = (e) => () => {
 };
 
 // ------------------------ CREATE PRODUCT ------------------------------
-export const createProductAsync = (newProduct) => (dispatch) => {
+export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
 
   const formData = new FormData();
-  console.log(newProduct);
+  console.log(updateProduct);
 
-  formData.append("name", newProduct.name);
-  formData.append("stock", newProduct.stock);
-  formData.append("price", newProduct.price);
-  formData.append("description", newProduct.description);
+  formData.append("name", updateProduct.name);
+  formData.append("stock", updateProduct.stock);
+  formData.append("price", updateProduct.price);
+  formData.append("description", updateProduct.description);
   formData.append(
     "technical_especification",
-    newProduct.technical_especification
+    updateProduct.technical_especification
   );
 
-  formData.append("categories", JSON.stringify(newProduct.categories));
-  formData.append("brand", newProduct.brand);
-  formData.append("state", newProduct.state);
+  formData.append("categories", JSON.stringify(updateProduct.categories));
+  formData.append("brand", updateProduct.brand);
+  formData.append("state", updateProduct.state);
 
-  newProduct.images.forEach((image) => {
+  updateProduct.images.forEach((image) => {
     formData.append("fileName", image.src);
   });
 
@@ -299,6 +299,42 @@ export const createProductAsync = (newProduct) => (dispatch) => {
     });
 };
 // ------------------------ CREATE PRODUCT ------------------------------
+
+export const updateProductAsync = (id, updateProduct) => (dispatch) => {
+  const formData = new FormData();
+  console.log(updateProduct);
+
+  formData.append("name", updateProduct.name);
+  formData.append("stock", updateProduct.stock);
+  formData.append("price", updateProduct.price);
+  formData.append("description", updateProduct.description);
+  formData.append(
+    "technical_especification",
+    updateProduct.technical_especification
+  );
+
+  formData.append("categories", JSON.stringify(updateProduct.categories));
+  formData.append("brand", updateProduct.brand);
+  formData.append("state", updateProduct.state);
+
+  updateProduct.images.forEach((image) => {
+    formData.append("fileName", image.src);
+  });
+
+  axios
+    .put(`${apiUrl}products/${id}`, formData)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
+
+
 
 export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
@@ -322,19 +358,7 @@ export const getDetailProductAsync = (payload) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateProductAsync = (id, updateProduct) => (dispatch) => {
-  axios
-    .put(`${apiUrl}products/${id}`, updateProduct)
-    .then((response) => {
-      if (response.data.error) {
-        dispatch(createProductError(response.data.error));
-      }
-      dispatch(createProductMsg(response.data.msg));
-    }) // cacth generar un dispatch un error
-    .catch((error) => {
-      dispatch(createProductError(error));
-    });
-};
+
 
 export const getUsersAsync = () => (dispatch) => {
   fetch(`${apiUrl}users`)
