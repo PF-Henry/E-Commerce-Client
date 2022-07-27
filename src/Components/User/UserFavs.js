@@ -24,37 +24,6 @@ const UserFavs = () => {
                 My favs
               </h5>
             </div>
-
-            <div className="col-md-3">
-              <div className="card">
-                <div className="card-body cardBody">
-                  <div className="cardContent">
-                    <h5 className="card-title cardTitleH5">Item 1</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card">
-                <div className="card-body cardBody">
-                  <div className="cardContent">
-                    <h5 className="card-title cardTitleH5">Item 2</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="col-md-3">
-              <div className="card">
-                <div className="card-body cardBody">
-                  <div className="cardContent">
-                    <h5 className="card-title cardTitleH5">Item 3</h5>
-                  </div>
-                </div>
-              </div>
-            </div>
-
             <Cards products={favoriteState} />
           </div>
         </div>

@@ -163,110 +163,6 @@ export const productSlice = createSlice({
       }
     },
 
-<<<<<<< HEAD
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      removeFromCart: (state, action) => {
-        state.cartItems = state.cartItems.filter(
-          (item) => item.id !== action.payload.id
-        );
-        toast.error("Product removed from the cart.", {
-          position: "bottom-right",
-        });
-
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      decreaseCart: (state, action) => {
-        let productIndex = state.cartItems.findIndex(
-          (product) => product.id === action.payload.id
-        );
-        if (state.cartItems[productIndex].quantity > 1) {
-          state.cartItems[productIndex].quantity -= 1;
-          toast.info("One unit subtracted from the cart.", {
-            position: "bottom-right",
-          });
-        } else {
-          state.cartItems = state.cartItems.filter(
-            (item) => item.id !== action.payload.id
-          );
-          toast.error("Product removed from the cart.", {
-            position: "bottom-right",
-          });
-        }
-
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      cleanCart: (state) => {
-        state.cartItems = [];
-        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-      },
-      postUser: (state, action) => {
-        return {
-          ...state,
-          user: action.payload,
-        };
-      },
-      loginUser: (state, action) => {
-        return {
-          ...state,
-          userLogged: action.payload,
-        };
-      },
-      //***** Authentication *****//
-      loginGoogle: (state, action) => {
-        const token = action.payload.token;
-        const user = getUserFromToken(token);
-        const role = user.role.name;
-        console.log("Role in reducer - Login", role);
-        state.role = role;
-      },
-      registerGoogle: (state, action) => {
-        const token = action.payload.token;
-        console.log("Token in reducer - Register", token);
-        state.msg = action.payload;
-      },
-
-      logout: (state, action) => {
-        state.role = "Guest";
-      },
-      //******************************/
-      setShowSlider: (state, action) => {
-        state.showSlider = action.payload;
-      },
-      setSearch: (state, action) => {
-        state.search = action.payload;
-      },
-      cleanDetail: (state) => {
-        state.detailsOfProduct = {};
-      },
-      getUsers: (state, action) => {
-        state.usersLoaded = action.payload;
-      },
-      getCategoryID: (state, action) => {
-        state.categoryID = action.payload;
-      },
-      getBrandID: (state, action) => {
-        state.brandID = action.payload;
-      },
-      cleanDetail: (state) => {
-        state.detailsOfProduct = {};
-      },
-      addFavorite: (state, action) => {
-        // console.log(state.productsLoaded)
-        state.favorites = action.payload;
-      },
-      searchCategory: (state, action) => {
-        state.categoriesLoaded = action.payload;
-      },
-      searchBrand: (state, action) => {
-        state.brandsLoaded = action.payload;
-      },
-      removeFavorite: (state, action) => {
-        state.favorites = state.favorites.filter(p => p.id === action.payload);
-      },
-    },
-  }
-=======
     cleanCart: (state) => {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -327,7 +223,6 @@ export const productSlice = createSlice({
       state.favorites = state.favorites.filter((p) => p.id === action.payload);
     },
   },
->>>>>>> 413a4dba2817efb1a8af2054484902f87bbaad47
 });
 
 export const {

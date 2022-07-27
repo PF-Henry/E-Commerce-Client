@@ -33,7 +33,7 @@ const AdminBrands = () => {
         <div className="adminContainer">
             <div className="adminDashboard adminProducts">
                 <div className="d-flex justify-content-center gap-3 mb-3">
-                    <AdminSearchbar content='Brand'/>
+                    {/* <AdminSearchbar content='Brand'/> */}
                     <button
                         className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
                         data-toggle="collapse"

@@ -33,7 +33,7 @@ const AdminCategories = () => {
     <div className="adminContainer">
       <div className="adminDashboard adminProducts">
         <div className="d-flex justify-content-center gap-3 mb-3">
-          <Searchbar content="Category" />
+          {/* <Searchbar content="Category" /> */}
           <button
             className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
             // to="/CreateCategory"
