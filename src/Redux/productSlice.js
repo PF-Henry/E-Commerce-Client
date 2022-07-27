@@ -162,7 +162,6 @@ export const productSlice = createSlice({
         });
       }
     },
-
     cleanCart: (state) => {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -227,6 +226,23 @@ export const productSlice = createSlice({
     removeFavorite: (state, action) => {
       state.favorites = state.favorites.filter((p) => p.id === action.payload);
     },
+    changeCategoryCheckedStatus: (state, action) => {
+      state.categoriesLoaded[action.payload.index].checked =
+        action.payload.status;
+    },
+    changeBrandCheckedStatus: (state, action) => {
+      state.brandsLoaded[action.payload.index].checked = action.payload.status;
+    },
+    clearCheckedStatus: (state) => {
+      state.categoriesLoaded = state.categoriesLoaded.map((category) => ({
+        ...category,
+        checked: false,
+      }));
+      state.brandsLoaded = state.brandsLoaded.map((brand) => ({
+        ...brand,
+        checked: false,
+      }));
+    },
   },
 });
 
@@ -267,6 +283,9 @@ export const {
   logout,
   setLoginError,
   setRegisterError,
+  changeCategoryCheckedStatus,
+  changeBrandCheckedStatus,
+  clearCheckedStatus,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -291,7 +310,7 @@ export const getBrandsAsync = () => (dispatch) => {
   fetch(`${apiUrl}brands`)
     .then((response) => response.json())
     .then((json) => {
-      dispatch(getBrands(json));
+      dispatch(getBrands(json.map((brand) => ({ ...brand, checked: false }))));
     })
     .catch((error) => console.log(error));
 };
@@ -300,7 +319,9 @@ export const getCategoriesAsync = () => (dispatch) => {
   fetch(`${apiUrl}categories`)
     .then((response) => response.json())
     .then((json) => {
-      dispatch(getCategories(json));
+      dispatch(
+        getCategories(json.map((category) => ({ ...category, checked: false })))
+      );
     })
     .catch((error) => console.log(error));
 };
