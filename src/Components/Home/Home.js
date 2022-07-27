@@ -7,7 +7,11 @@ import Header from "../Header/Header";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
 
-import { getProductsAsync, loginGoogleAsync, getFavoriteAsync } from "../../Redux/productSlice";
+import {
+  getProductsAsync,
+  loginGoogleAsync,
+  getFavoriteAsync,
+} from "../../Redux/productSlice";
 
 import { FaArrowUp } from "react-icons/fa";
 import sorting from "../../Functions/sorting";
@@ -28,6 +32,9 @@ const Home = () => {
     }
   }, [allProducts, dispatch]);
 
+  let availableProducts = [...allProducts].filter((product) => {
+    return product.state === true;
+  });
 
   let sortedProducts = sorting(availableProducts, sortingMethod);
 
