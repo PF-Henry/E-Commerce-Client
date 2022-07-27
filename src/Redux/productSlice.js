@@ -3,12 +3,12 @@ import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { getUserFromToken } from "../Functions/session";
 
 export const productSlice = createSlice({
   name: "products",
   initialState: {
     productsLoaded: [],
-
     productDetail: {
       name: "",
       stock: 0,
@@ -20,6 +20,8 @@ export const productSlice = createSlice({
       category: [],
       image: [],
     },
+    token: "",
+    role: "Guest",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -98,24 +100,33 @@ export const productSlice = createSlice({
     },
     addToCart: (state, action) => {
       let productIndex = state.cartItems.findIndex(
-        (product) => product.id === action.payload.id
+        (product) => product.id === action.payload.item.id
       );
       if (productIndex === -1) {
-        state.cartItems.push({ ...action.payload, quantity: 1 });
-        toast.success("Product added to the cart.", {
-          position: "bottom-right",
+        state.cartItems.push({
+          ...action.payload.item,
+          quantity: action.payload.quantity,
         });
+        toast.success(
+          `${action.payload.quantity} ${action.payload.item.name} added to the cart.`,
+          {
+            position: "bottom-right",
+          }
+        );
       } else {
         if (
           state.cartItems[productIndex].quantity <
           state.cartItems[productIndex].stock
         ) {
-          state.cartItems[productIndex].quantity += 1;
-          toast.info("One more unit added to the cart.", {
-            position: "bottom-right",
-          });
+          state.cartItems[productIndex].quantity += action.payload.quantity;
+          toast.info(
+            `${action.payload.quantity} more ${action.payload.item.name} added to the cart.`,
+            {
+              position: "bottom-right",
+            }
+          );
         } else {
-          toast.error("This product does not have more items in stock.", {
+          toast.error("This product does not have more units in stock.", {
             position: "bottom-right",
           });
         }
@@ -127,7 +138,7 @@ export const productSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (item) => item.id !== action.payload.id
       );
-      toast.error("Product removed from the cart.", {
+      toast.error(`${action.payload.name} removed from the cart.`, {
         position: "bottom-right",
       });
 
@@ -139,41 +150,171 @@ export const productSlice = createSlice({
       );
       if (state.cartItems[productIndex].quantity > 1) {
         state.cartItems[productIndex].quantity -= 1;
-        toast.info("One unit subtracted from the cart.", {
+        toast.info(`1 ${action.payload.name} removed from the cart.`, {
           position: "bottom-right",
         });
       } else {
         state.cartItems = state.cartItems.filter(
           (item) => item.id !== action.payload.id
         );
-        toast.error("Product removed from the cart.", {
+        toast.error(`${action.payload.name} removed from the cart.`, {
           position: "bottom-right",
         });
       }
+    },
+    reducers: {
+      getProducts: (state, action) => {
+        state.productsLoaded = action.payload;
+      },
+      getDetail: (state, action) => {
+        state.productDetail = action.payload;
+      },
+      getBrands: (state, action) => {
+        state.brandsLoaded = action.payload;
+      },
+      getCategories: (state, action) => {
+        state.categoriesLoaded = action.payload;
+      },
+      changeSorting: (state, action) => {
+        state.sorting = action.payload;
+      },
+      changeFilter: (state, action) => {
+        state.filter = action.payload;
+      },
+      changeBrandsFilter: (state, action) => {
+        state.brandsFilter = action.payload;
+      },
+      getImages: (state, action) => {
+        state.imagesLoaded = action.payload;
+      },
+      createProductMsg: (state, action) => {
+        state.msg = action.payload;
+      },
+      createProductError: (state, action) => {
+        state.error = action.payload;
+      },
+      switchItemsPerPage: (state, action) => {
+        state.itemsPerPageState = action.payload;
+      },
+      searchProduct: (state, action) => {
+        state.productsLoaded = action.payload;
+        state.allDBProducts = action.payload;
+      },
+      searchProductError: (state, action) => {
+        state.error = action.payload;
+      },
+      resetError: (state, action) => {
+        state.error = "";
+      },
+      resetMsg: (state, action) => {
+        state.msg = "";
+      },
+      getProductDetails: (state, action) => {
+        state.detailsOfProduct = action.payload;
+      },
+      getAllDBProducts: (state, action) => {
+        state.allDBProducts = action.payload;
+      },
+      addToCart: (state, action) => {
+        let productIndex = state.cartItems.findIndex(
+          (product) => product.id === action.payload.id
+        );
+        if (productIndex === -1) {
+          state.cartItems.push({ ...action.payload, quantity: 1 });
+          toast.success("Product added to the cart.", {
+            position: "bottom-right",
+          });
+        } else {
+          if (
+            state.cartItems[productIndex].quantity <
+            state.cartItems[productIndex].stock
+          ) {
+            state.cartItems[productIndex].quantity += 1;
+            toast.info("One more unit added to the cart.", {
+              position: "bottom-right",
+            });
+          } else {
+            toast.error("This product does not have more items in stock.", {
+              position: "bottom-right",
+            });
+          }
+        }
 
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
-    cleanCart: (state) => {
-      state.cartItems = [];
-      localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
-    },
-    postUser: (state, action) => {
-      return {
-        ...state,
-        user: action.payload,
-      };
-    },
-    loginUser: (state, action) => {
-      return {
-        ...state,
-        userLogged: action.payload,
-      };
-    },
-    setShowSlider: (state, action) => {
-      state.showSlider = action.payload;
-    },
-    setSearch: (state, action) => {
-      state.search = action.payload;
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      },
+      removeFromCart: (state, action) => {
+        state.cartItems = state.cartItems.filter(
+          (item) => item.id !== action.payload.id
+        );
+        toast.error("Product removed from the cart.", {
+          position: "bottom-right",
+        });
+
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      },
+      decreaseCart: (state, action) => {
+        let productIndex = state.cartItems.findIndex(
+          (product) => product.id === action.payload.id
+        );
+        if (state.cartItems[productIndex].quantity > 1) {
+          state.cartItems[productIndex].quantity -= 1;
+          toast.info("One unit subtracted from the cart.", {
+            position: "bottom-right",
+          });
+        } else {
+          state.cartItems = state.cartItems.filter(
+            (item) => item.id !== action.payload.id
+          );
+          toast.error("Product removed from the cart.", {
+            position: "bottom-right",
+          });
+        }
+
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      },
+      cleanCart: (state) => {
+        state.cartItems = [];
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      },
+      postUser: (state, action) => {
+        return {
+          ...state,
+          user: action.payload,
+        };
+      },
+      loginUser: (state, action) => {
+        return {
+          ...state,
+          userLogged: action.payload,
+        };
+      },
+      //***** Authentication *****//
+      loginGoogle: (state, action) => {
+        const token = action.payload.token;
+        const user = getUserFromToken(token);
+        const role = user.role.name;
+        console.log("Role in reducer - Login", role);
+        state.role = role;
+      },
+      registerGoogle: (state, action) => {
+        const token = action.payload.token;
+        console.log("Token in reducer - Register", token);
+        state.msg = action.payload;
+      },
+
+      logout: (state, action) => {
+        state.role = "Guest";
+      },
+      //******************************/
+      setShowSlider: (state, action) => {
+        state.showSlider = action.payload;
+      },
+      setSearch: (state, action) => {
+        state.search = action.payload;
+      },
+      cleanDetail: (state) => {
+        state.detailsOfProduct = {};
+      },
     },
     getUsers: (state, action) => {
       state.usersLoaded = action.payload;
@@ -195,6 +336,7 @@ export const productSlice = createSlice({
       state.favorites = state.favorites.filter(p => p.id === action.payload);
     },
    },
+
 });
 
 export const {
@@ -229,6 +371,9 @@ export const {
   cleanDetail,
   addFavorite,
   removeFavorite,
+  loginGoogle,
+  registerGoogle,
+  logout,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -377,11 +522,53 @@ export const postUserAsync = (payload) => (dispatch) => {
 
 export const loginUserAsync = (payload) => (dispatch) => {
   console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload) 
+  // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
   // .then( (response) => {
   //     dispatch(loginUser(response.data));
   // })
-  // .catch((error) => console.log(error));
+
+  /*FALTA PROBAR Y LOS ERRORES*/
+};
+
+export const loginGoogleAsync = () => (dispatch) => {
+  axios
+    .get(`${apiUrl}auth/login`)
+    .then((response) => {
+      if (Object.keys(response.data).length === 0) {
+        return;
+      }
+      console.log("Response en Login", response.data);
+      return dispatch(loginGoogle(response.data));
+    })
+    .catch((error) => console.log(error));
+
+  /*FALTA PROBAR Y LOS ERRORES*/
+};
+
+export const registerGoogleAsync = () => (dispatch) => {
+  axios
+    .get(`${apiUrl}auth/register`)
+    .then((response) => {
+      console.log("Response in Register", response.data);
+      if (response.data.token) {
+        return dispatch(registerGoogle(response.data));
+      }
+    })
+    .catch((error) => console.log(error));
+
+  /*FALTA PROBAR Y LOS ERRORES*/
+};
+
+export const logoutAsync = () => (dispatch) => {
+  axios
+    .get(`${apiUrl}auth/logout`)
+    .then((response) => {
+      console.log(response.data);
+      dispatch(logout(response.data));
+    })
+    .catch((error) => console.log(error));
+
+  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const addFavoriteAsync = ( payload ) => (dispatch) => {
@@ -410,7 +597,8 @@ export const getCategoryByIDAsync = (payload) => (dispatch) => {
 };
 
 export const updateCategoryAsync = (id, payload) => (dispatch) => {
-  axios.put(`${apiUrl}categories/${id}`, payload)
+  axios
+    .put(`${apiUrl}categories/${id}`, payload)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -423,16 +611,17 @@ export const updateCategoryAsync = (id, payload) => (dispatch) => {
 };
 
 export const createCategoryAsync = (payload) => (dispatch) => {
-  axios.post(`${apiUrl}categories`, payload)
-  .then((response) => {
-    if (response.data.error) {
-      dispatch(createProductError(response.data.error));
-    }
-    dispatch(createProductMsg(response.data.msg));
-  }) // cacth generar un dispatch un error
-  .catch((error) => {
-    dispatch(createProductError(error));
-  });
+  axios
+    .post(`${apiUrl}categories`, payload)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
 };
 
 export const getBrandByIDAsync = (payload) => (dispatch) => {
@@ -445,7 +634,8 @@ export const getBrandByIDAsync = (payload) => (dispatch) => {
 };
 
 export const updateBrandAsync = (id, payload) => (dispatch) => {
-  axios.put(`${apiUrl}brands/${id}`, payload)
+  axios
+    .put(`${apiUrl}brands/${id}`, payload)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -458,7 +648,8 @@ export const updateBrandAsync = (id, payload) => (dispatch) => {
 };
 
 export const createBrandAsync = (payload) => (dispatch) => {
-  axios.post(`${apiUrl}brands`, payload)
+  axios
+    .post(`${apiUrl}brands`, payload)
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
@@ -470,12 +661,13 @@ export const createBrandAsync = (payload) => (dispatch) => {
     });
 };
 
-export const getFavoriteAsync = ( payload ) => (dispatch) => {
-  axios.get(`${apiUrl}favorites/user/${payload}`) 
-  .then( (response) => {
+export const getFavoriteAsync = (payload) => (dispatch) => {
+  axios
+    .get(`${apiUrl}favorites/user/${payload}`)
+    .then((response) => {
       dispatch(addFavorite(response.data));
-  })
-  .catch((error) => console.log(error));
+    })
+    .catch((error) => console.log(error));
 };
 
 export default productSlice.reducer;

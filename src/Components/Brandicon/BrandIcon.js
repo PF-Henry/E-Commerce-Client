@@ -19,33 +19,33 @@ import {
 const BrandIcon = (brandName) => {
   switch (brandName) {
     case "Apple":
-      return <SiApple />;
+      return <SiApple size={"2rem"} />;
     case "Hp":
-      return <SiHp />;
+      return <SiHp size={"2rem"} />;
     case "Epson":
-      return <SiEpson />;
+      return <SiEpson size={"2rem"} />;
     case "Nintendoswitch":
-      return <SiNintendoswitch />;
+      return <SiNintendoswitch size={"2rem"} />;
     case "Logitech":
-      return <SiLogitech />;
+      return <SiLogitech size={"2rem"} />;
     case "Xbox":
-      return <SiXbox />;
+      return <SiXbox size={"2rem"} />;
     case "Playstation5":
-      return <SiPlaystation5 />;
+      return <SiPlaystation5 size={"4rem"} />;
     case "Samsung":
-      return <SiSamsung />;
+      return <SiSamsung size={"2rem"} />;
     case "Huawei":
-      return <SiHuawei />;
+      return <SiHuawei size={"2rem"} />;
     case "Lg":
-      return <SiLg />;
+      return <SiLg size={"2rem"} />;
     case "Xiaomi":
-      return <SiXiaomi />;
+      return <SiXiaomi size={"2rem"} />;
     case "Lenovo":
-      return <SiLenovo />;
+      return <SiLenovo size={"2rem"} />;
     case "Asus":
-      return <SiAsus />;
+      return <SiAsus size={"2rem"} />;
     case "Dell":
-      return <SiDell />;
+      return <SiDell size={"2rem"} />;
     default:
       return <div>Brand not found!</div>;
   }

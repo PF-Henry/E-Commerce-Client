@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-
+import imageToBase64 from 'image-to-base64/browser';
 import DropBox from "../DropBox/DropBox";
 import ImageDropBox from "../DropBox/ImageDropBox";
 import {
@@ -39,10 +39,16 @@ export function validate(input) {
 
 
 
-export default function Create(props) {
 
 
-  const titleTypeOperation = props.id ? "Update Product" : "Create Product";
+
+
+
+
+export default function FormProduct(props) {
+  
+  let idImage = 0; // indice para el dropbox de imagenes
+  const titleTypeOperation = (props.id === 0) ? "Create Product" : "Update Product";
 
   const brands = useSelector((state) => state.products.brandsLoaded);
   const categories = useSelector((state) => state.products.categoriesLoaded);
@@ -52,6 +58,14 @@ export default function Create(props) {
   let msg = useSelector((state) => state.products.msg);
 
   let dispatch = useDispatch();
+  useEffect(() => {
+      setInput(inputStateInitial);
+
+  }, []);
+
+
+  
+
 
 
   useEffect(() => {
@@ -61,14 +75,55 @@ export default function Create(props) {
     dispatch(getCategoriesAsync());
     dispatch(getBrandsAsync());
 
-    if (parseInt(props.id)>0) setInput(productDetails);
-    else setInput({props});
+    if (parseInt(props.id) === 0) setInput(inputStateInitial);
+    else {
+           // convertir utl imagenes a base64
+           
 
+             const b64_array = productDetails.images.map( (image) => {
+              
+            // const b64 = imageToBase64(image.url_image).then( (b64) => {
+            //   return b64;
+            //   });
+
+            // const bb = b64.then(base64 => {
+            //                 return base64;}
+            //    ).catch(err => {
+            //     console.log(err);
+            //     return err;
+            //     }
+            //     );
+
+                return {
+                   id: idImage++,
+                   src: image.url_image,
+                }
+            });
+
+            //console.log("imagenes:", b64_array);
+
+            setInput({...productDetails,
+                        brand: productDetails.brand.name,         
+                        images: b64_array,
+                      });
+
+            const selectBrands = document.getElementById("selectBrands");
+            selectBrands.value = productDetails.brand.name;
+            //selectBrands.onChange();
+            // falta configurar las imagenes
+
+            //setErrors(validate(input));
+
+    };
+
+
+    
     return () => {
       dispatch(getProductsAsync());
     }
 // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [props && productDetails]);
+}, [(props && productDetails)]);
+//}, [(props.id)]);
 
 
 
@@ -90,14 +145,14 @@ export default function Create(props) {
 
 
   const [errors, setErrors] = useState({
-    name: "",
-    description: "",
-    technical_especification: "",
-    price: "",
-    stock: "",
-    brand: "",
-    categories: "",
-    images: "",
+    // name: "",
+    // description: "",
+    // technical_especification: "",
+    // price: "",
+    // stock: "",
+    // brand: "",
+    // categories: "",
+    // images: "",
   });
 
 
@@ -199,7 +254,6 @@ export default function Create(props) {
   }
 
   // -------------------------- DropBox methods ---------------------------------
-  let idImage = 0;
   const onDrop = useCallback((acceptedFiles) => {
     acceptedFiles.map((file, index) => {
       const reader = new FileReader();
@@ -247,7 +301,9 @@ export default function Create(props) {
     setErrors(validate({ ...input }));
 
     if (Object.keys(errors).length === 0) {
-      dispatch(createProductAsync(input));
+      console.log(input);
+        if (props.id === 0) dispatch(createProductAsync(input));
+        //if (props.id > 0) dispatch(updateProductAsync(input));
     } else {
       const newError = "Form incomplete. Please check the errors.";
       dispatch(createProductError(newError));
@@ -266,7 +322,7 @@ export default function Create(props) {
   useEffect(() => {
     setTimeout(() => {
       dispatch(resetMsg());
-      setInput(inputStateInitial);
+      if (props.id === 0) setInput(inputStateInitial);
     }, 4000);
     // eslint-disable-next-line
   }, [msg]);
@@ -510,7 +566,7 @@ export default function Create(props) {
             <input
               className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
               type="button"
-              value="Add Product"
+              value={(props.id === 0) ? "Create Product" : "Update Product"}
               onClick={onClickCreate}
             />
           </div>
