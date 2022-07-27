@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import imageToBase64 from 'image-to-base64/browser';
+import { useNavigate, NavLink, } from "react-router-dom";
 import DropBox from "../DropBox/DropBox";
 import ImageDropBox from "../DropBox/ImageDropBox";
 import {
@@ -12,6 +12,7 @@ import {
   getCategoriesAsync,
   getProductsAsync,
   createProductAsync,
+  updateProductAsync,
   createProductError,
   resetError,
   resetMsg,
@@ -57,17 +58,18 @@ export default function FormProduct(props) {
   let error = useSelector((state) => state.products.error);
   let msg = useSelector((state) => state.products.msg);
 
+  let navigate = useNavigate();
+
+
   let dispatch = useDispatch();
   useEffect(() => {
       setInput(inputStateInitial);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
   
-
-
-
   useEffect(() => {
 
     dispatch(resetError());
@@ -77,42 +79,14 @@ export default function FormProduct(props) {
 
     if (parseInt(props.id) === 0) setInput(inputStateInitial);
     else {
-           // convertir utl imagenes a base64
-           
-
-             const b64_array = productDetails.images.map( (image) => {
-              
-            // const b64 = imageToBase64(image.url_image).then( (b64) => {
-            //   return b64;
-            //   });
-
-            // const bb = b64.then(base64 => {
-            //                 return base64;}
-            //    ).catch(err => {
-            //     console.log(err);
-            //     return err;
-            //     }
-            //     );
-
-                return {
-                   id: idImage++,
-                   src: image.url_image,
-                }
-            });
-
-            //console.log("imagenes:", b64_array);
-
+                                 
             setInput({...productDetails,
                         brand: productDetails.brand.name,         
-                        images: b64_array,
+                        images : props.images,                       
                       });
 
             const selectBrands = document.getElementById("selectBrands");
             selectBrands.value = productDetails.brand.name;
-            //selectBrands.onChange();
-            // falta configurar las imagenes
-
-            //setErrors(validate(input));
 
     };
 
@@ -140,21 +114,8 @@ export default function FormProduct(props) {
     state: true,
   };
 
-
   const [input, setInput] = useState(inputStateInitial);
-
-
-  const [errors, setErrors] = useState({
-    // name: "",
-    // description: "",
-    // technical_especification: "",
-    // price: "",
-    // stock: "",
-    // brand: "",
-    // categories: "",
-    // images: "",
-  });
-
+  const [errors, setErrors] = useState({});
 
 
 
@@ -261,6 +222,7 @@ export default function FormProduct(props) {
         if (input.images.length < MAX_IMAGES_PRODUCT) {
           setInput((prevState) => {
             if (prevState.images.length < MAX_IMAGES_PRODUCT) {
+
               return {
                 ...prevState,
                 images: [
@@ -295,15 +257,18 @@ export default function FormProduct(props) {
   }
   // -------------------------- DropBox methods ---------------------------------
 
-  function onClickCreate(e) {
+  function onClickSalve(e) {
     e.preventDefault();
 
     setErrors(validate({ ...input }));
 
     if (Object.keys(errors).length === 0) {
       console.log(input);
-        if (props.id === 0) dispatch(createProductAsync(input));
-        //if (props.id > 0) dispatch(updateProductAsync(input));
+        if (props.id === 0) dispatch(createProductAsync(input)); // alta de producto
+        if (props.id > 0){    //  ----------------- // update de producto
+          console.log("listo para update:", input);
+          dispatch(updateProductAsync(props.id, input));
+        } 
     } else {
       const newError = "Form incomplete. Please check the errors.";
       dispatch(createProductError(newError));
@@ -320,21 +285,30 @@ export default function FormProduct(props) {
   }, [error]);
 
   useEffect(() => {
+
     setTimeout(() => {
-      dispatch(resetMsg());
-      if (props.id === 0) setInput(inputStateInitial);
+      
+      if (msg && (props.id === 0)){
+        dispatch(resetMsg());
+        setInput(inputStateInitial);
+      }
+      
     }, 4000);
     // eslint-disable-next-line
   }, [msg]);
+  //}, [props.id===0]);
 
 
 
   return (
     <div className="letter-spacing">
+       <NavLink
+            to="/admin/products"
+            className="div-container-header--btn animate__animated animate__fadeInLeft"
+          >
+            Back
+          </NavLink>
       <h1 className="formH1">{titleTypeOperation}</h1>
-
-
-
 
       <div className="formContainer">
         <div>
@@ -342,7 +316,6 @@ export default function FormProduct(props) {
             <div className="alert alert-success" role="alert">
               {msg}
               {window.scrollTo(0, 0)}
-              {console.log("mensaje:", msg)}
             </div>
           ) : (
             <div></div>
@@ -567,7 +540,7 @@ export default function FormProduct(props) {
               className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
               type="button"
               value={(props.id === 0) ? "Create Product" : "Update Product"}
-              onClick={onClickCreate}
+              onClick={onClickSalve}
             />
           </div>
         </form>
@@ -578,3 +551,51 @@ export default function FormProduct(props) {
     </div>
   );
 }
+
+
+
+
+
+
+                        
+                                        //  src: imageToBase64(productDetails.images[1].url_image)
+                                        //  .then(base64 => {console.log(base64); return base64;})}],
+                        
+
+                        // productDetails.images.map( async (image) => {
+                      
+                        //   let b64 = await imageToBase64(image.url_image)
+                        //               .then(base64 => {
+                        //                 const completab64 = "data:image/jpeg;base64," + base64;
+                        //                 console.log(completab64);
+                        //                 return completab64;
+                        //               });
+                        //     return {
+                        //       id: idImage++,
+                        //       src: b64,
+                        //     }
+                        // }),
+
+
+ // convertir utl imagenes a base64
+           
+
+
+          //  const b64_array = [];
+          //  if (productDetails.image && productDetails.images.length !== 0) {
+          //    console.log("estoy en b64");
+          //      b64_array = productDetails.images.map( async (image) => {
+                      
+          //      const b64 = imageToBase64(image.url_image)
+          //                  .then(base64 => {
+                             
+          //                    const completab64 = "data:image/jpeg;base64," + base64;
+          //                    console.log(completab64);
+          //                    return completab64;
+          //                  });
+          //        return {
+          //          id: idImage++,
+          //          src: b64,
+          //        }
+          //    });
+          //  }
