@@ -6,10 +6,10 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  width: 80vw;
+  width: 70vw;
   margin: auto;
   text-align: left;
-  
+
 }
 
 /* .formContainer__ */

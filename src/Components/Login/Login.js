@@ -1,17 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Login.css';
 import Google from './images/google.png';
 import Facebook from "./images/facebook.png";
 import Github from "./images/github.png";
 import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
-import { useDispatch } from 'react-redux';
-import { loginUserAsync } from '../../Redux/productSlice';
+import { useDispatch, useSelector} from 'react-redux';
+import { loginUserAsync, loginGoogleAsync, registerGoogleAsync } from '../../Redux/productSlice';
+
 import apiUrl from '../../Constants/apiUrl';
 
 export const Login = () => {
 
     const dispatch = useDispatch();
+    const role = useSelector((state) => state.products.role);
+    console.log('Role in login', role);
+    
+
+    useEffect(() => {
+        console.log('Dispatch registerUserAsync - Login Form');
+        dispatch(registerGoogleAsync());
+    }
+    , [dispatch])
+    
 
     const [user, setUser] = useState({
         email: '',

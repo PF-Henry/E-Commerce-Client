@@ -27,8 +27,8 @@ const Cart = () => {
   const handleRemoveFromCart = (item) => {
     dispatch(removeFromCart(item));
   };
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleAddToCart = (item, quantity) => {
+    dispatch(addToCart({ item, quantity }));
   };
   const handleDecreaseCart = (item) => {
     dispatch(decreaseCart(item));
@@ -146,7 +146,7 @@ const Cart = () => {
                     <div
                       className="btn border aqua-hover d-flex align-items-center"
                       onClick={() => {
-                        handleAddToCart(product);
+                        handleAddToCart(product, 1);
                       }}
                     >
                       <FiPlus />

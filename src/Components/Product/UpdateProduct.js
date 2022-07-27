@@ -1,11 +1,9 @@
 import React from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getDetailProductAsync } from "../../Redux/productSlice";
 import FormProduct from "./FormProduct";
 import { useEffect } from "react";
-
-
 
 
 export const UpdateProduct = () => {

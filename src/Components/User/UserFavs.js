@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaHeart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { getFavoriteAsync } from "../../Redux/productSlice";
+import Cards from "../Cards/Cards";
 import "./UserStyles.css";
 
 const UserFavs = () => {
+  const dispatch = useDispatch();
+  const favoriteState = useSelector((state) => state.products.favorites);
+
+  useEffect( () => {
+    dispatch(getFavoriteAsync(1));
+  }, [favoriteState.length, dispatch])
+
   return (
     <div className="userContainer">
       <div className="userDashboard">
@@ -44,6 +54,8 @@ const UserFavs = () => {
                 </div>
               </div>
             </div>
+
+            <Cards products={favoriteState} />
           </div>
         </div>
       </div>

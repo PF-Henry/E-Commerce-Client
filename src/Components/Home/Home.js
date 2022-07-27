@@ -6,11 +6,16 @@ import Header from "../Header/Header";
 // import Brands from "../Brands/Brands";
 import { Footer } from "../Footer/Footer";
 import { useSelector, useDispatch } from "react-redux";
-import { getProductsAsync,getFavoriteAsync } from "../../Redux/productSlice";
+
+import {
+  getProductsAsync,
+  loginGoogleAsync,
+  getFavoriteAsync,
+} from "../../Redux/productSlice";
+
 import { FaArrowUp } from "react-icons/fa";
 import sorting from "../../Functions/sorting";
 import "./Home.css";
-
 
 const Home = () => {
   const allProducts = useSelector((state) => state.products.productsLoaded);
@@ -18,24 +23,20 @@ const Home = () => {
   const filtersCategories = useSelector((state) => state.products.filter);
   const brandsFilter = useSelector((state) => state.products.brandsFilter);
   const error = useSelector((state) => state.products.error);
-
-  const favoriteState = useSelector((state) => state.products.favorites);
-  console.log(favoriteState);
-
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     if (!allProducts.length) {
       dispatch(getProductsAsync());
+      dispatch(getFavoriteAsync(1));
     }
   }, [allProducts, dispatch]);
-  
-  useEffect( () => {
-    dispatch(getFavoriteAsync(1));
-  }, [favoriteState.length])
 
-  let sortedProducts = sorting([...allProducts], sortingMethod);
+  let availableProducts = [...allProducts].filter((product) => {
+    return product.state === true;
+  });
+
+  let sortedProducts = sorting(availableProducts, sortingMethod);
 
   let filteredProducts = !filtersCategories.length
     ? sortedProducts

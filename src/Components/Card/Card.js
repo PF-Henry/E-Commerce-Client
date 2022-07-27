@@ -1,29 +1,36 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { addToCart, addFavoriteAsync } from "../../Redux/productSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  addFavoriteAsync,
+  removeFavoriteAsync,
+} from "../../Redux/productSlice";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
 import "./Card.css";
 
-
-
 const Card = ({ object }) => {
-  
-
+  const favoriteState = useSelector((state) => state.products.favorites);
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let productCartIndex = cartItems.findIndex((item) => item.id === object.id);
   const dispatch = useDispatch();
 
-  const handleAddToCart = (item) => {
-    dispatch(addToCart(item));
+  const handleAddToCart = (item, quantity) => {
+    dispatch(addToCart({ item, quantity }));
   };
 
-  let [heartSelected, setHeartSelected] = useState(false);
+  let [heartSelected, setHeartSelected] = useState(
+    favoriteState.find((p) => p.id === object.id)
+  );
 
-  const onFavoriteClick = ( userId , productId) => {
-    // console.log(item);
-    if (heartSelected) {
+  const onFavoriteClick = (userId, productId) => {
+    let heartSelectedThree = favoriteState.find((p) => p.id === productId);
+
+    if (heartSelectedThree) {
+      dispatch(removeFavoriteAsync({ userId, productId }));
       setHeartSelected((heartSelected = false));
     } else {
-      dispatch(addFavoriteAsync({userId, productId}))
+      dispatch(addFavoriteAsync({ userId, productId }));
       setHeartSelected((heartSelected = true));
     }
   };
@@ -73,14 +80,21 @@ const Card = ({ object }) => {
         </NavLink>
         <div className="mt-auto">
           <h1 className="text-blue mb-3 letter-spacing">${object.price}</h1>
-          <div
-            className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
-            onClick={() => {
-              handleAddToCart(object);
-            }}
-          >
-            Add to the cart
-          </div>
+          {productCartIndex !== -1 &&
+          object.stock === cartItems[productCartIndex].quantity ? (
+            <div className="btn disabled btn-danger py-1 addToCartBtn border-0 letter-spacing">
+              Out of Stock
+            </div>
+          ) : (
+            <div
+              className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
+              onClick={() => {
+                handleAddToCart(object, 1);
+              }}
+            >
+              Add to Cart
+            </div>
+          )}
         </div>
       </div>
     </div>
