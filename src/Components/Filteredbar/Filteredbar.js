@@ -25,7 +25,9 @@ const Filteredbar = ({
   const allBrands = useSelector((state) => state.products.brandsLoaded);
   const allCategories = useSelector((state) => state.products.categoriesLoaded);
   const sortingMethod = useSelector((state) => state.products.sorting);
-  const itemsPerPageState = useSelector((state) => state.products.itemsPerPage);
+  const itemsPerPageState = useSelector(
+    (state) => state.products.itemsPerPageState
+  );
   const [filters, setFilters] = useState([]);
   const [brandsFilter, setBrandsFilter] = useState([]);
   const dispatch = useDispatch();
@@ -47,6 +49,7 @@ const Filteredbar = ({
     dispatch(switchItemsPerPage(numberItems));
   };
 
+  console.log(itemsPerPageState);
   return (
     <div className="filterBG">
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
@@ -68,6 +71,7 @@ const Filteredbar = ({
               className="form-select bg-purple-dark text-white"
               id="resultsPerPage"
               aria-label="Floating label select example"
+              value={itemsPerPageState}
               onChange={(e) => itemsPerPageSelected(e)}
             >
               <option value={8}>8</option>
