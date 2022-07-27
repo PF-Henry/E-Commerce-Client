@@ -49,7 +49,6 @@ const Filteredbar = ({
     dispatch(switchItemsPerPage(numberItems));
   };
 
-  console.log(itemsPerPageState);
   return (
     <div className="filterBG">
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
