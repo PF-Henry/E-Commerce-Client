@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import Products_CategoriesTable from "../Tables/ProductsTable";
+import ProductsCategoriesTable from "../Tables/ProductsTable";
 import Searchbar from "../Searchbar/Searchbar";
 import { getBrandsAsync, createBrandAsync } from "../../Redux/productSlice";
 import './AdminDashboard.css'
@@ -30,7 +30,7 @@ const AdminBrands = () => {
         }
     }, [allBrands, dispatch]);
 
-    return ( 
+    return (
         <div className="adminContainer">
             <div className="adminDashboard adminProducts">
                 <div className="d-flex justify-content-center gap-3 mb-3">
@@ -72,9 +72,9 @@ const AdminBrands = () => {
                         </form>
                     </div>
                 </div>
-                
+
                 <div className="d-flex justify-content-evenly flex-wrap">
-                    <Products_CategoriesTable
+                    <ProductsCategoriesTable
                         products={allBrands}
                         name={'Brands'}
                         ruta={"/admin/UpdateBrand/"}
@@ -82,7 +82,7 @@ const AdminBrands = () => {
                 </div>
             </div>
         </div>
-        
+
     )
 }
 
