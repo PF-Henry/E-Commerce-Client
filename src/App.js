@@ -1,6 +1,6 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import { CreateProduct } from "./Components/Product/CreateProduct";
 import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
@@ -23,39 +23,87 @@ import AdminSettings from "./Components/Admin/AdminSettings";
 import AdminBrands from "./Components/Admin/AdminBrands";
 import UpdateCategory from "./Components/Updates/UpdateCategory/UpdateCategory";
 import UpdateBrand from "./Components/Updates/UpdateBrand/UpdateBrand";
+import { useSelector } from "react-redux";
+import { PublicRoutes } from "./Routes/PublicRoutes";
+import { AuthRouter } from "./Routes/AuthRouter";
+import { PrivateRoutes } from "./Routes/PrivateRoutes";
+import { AppRouter } from "./Routes/AppRouter";
+
 
 
 
 function App() {
-  
+
   return (
     <div className="App">
+      {/* <BrowserRouter> */}
       <ToastContainer />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<SignIn />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/product_detail/:id" element={<ProductDetail />} />
-        <Route path="/user/" element={<LayoutUser />}>
-          <Route path="favorites" element={<UserFavs />} />
-          <Route path="orders" element={"Pendiente"} />
-          <Route path="reviews" element={"Pendiente"} />
-          <Route path="settings" element={<UserSettings />} />
-        </Route>
-        <Route path="/error" element={<ErrorPage />} />
-        <Route path="/admin/" element={<Layout />}>
-          <Route path="products" element={<AdminProducts />} />
-          <Route path="products/create" element={<CreateProduct />} />
-          <Route path="products/update/:id" element={<UpdateProduct />} />
-          <Route path="categories" element={<AdminCategories />} />
-          <Route path="brands" element={<AdminBrands />} />
-          <Route path="orders" element={<AdminOrders />} />
-          <Route path="users" element={<AdminUsers />} />
-          <Route path="settings" element={<AdminSettings />} />
-        </Route>
-      </Routes>
+        <Routes>
+          <Route path="/" element={<Home />} />
+
+            {/* Administramos rutas publicas */}
+            <Route
+              // Con el path indicamos que esas rutas van a empezar con /auth/
+              path="/auth/*"
+              // En element le pasamos el componente
+              element={
+                <PublicRoutes >
+                  <AuthRouter/>
+                </PublicRoutes>
+              
+              }
+            
+            />
+
+            {/* Administramos rutas privadas */}
+            <Route
+              // Con el path indicamos que esas rutas van a empezar con /auth/
+              path="/app/*"
+              // En element le pasamos el componente
+              element={
+                <PrivateRoutes >
+                  <AppRouter/>
+                </PrivateRoutes>
+              
+              }
+            
+            />
+
+
+
+
+          {/* <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignIn />} /> */}
+          <Route path="/cart" element={<Cart />} />
+          {/* <Route path="/about" element={<AboutUs />} />
+          <Route path="/product_detail/:id" element={<ProductDetail />} /> */}
+
+
+          <Route path="/user/" element={<LayoutUser />}>
+            <Route path="favorites" element={<UserFavs />} />
+            <Route path="orders" element={"Pendiente"} />
+            <Route path="reviews" element={"Pendiente"} />
+            <Route path="settings" element={<UserSettings />} />
+          </Route>
+
+
+          <Route path="/error" element={<ErrorPage />} />
+
+
+          <Route path="/admin/" element={<Layout />}>
+            <Route path="products" element={<AdminProducts />} />
+            <Route path="products/create" element={<CreateProduct />} />
+            <Route path="products/update/:id" element={<UpdateProduct />} />
+            <Route path="categories" element={<AdminCategories />} />
+            <Route path="brands" element={<AdminBrands />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="settings" element={<AdminSettings />} />
+          </Route>
+
+
+        </Routes>
+      {/* </BrowserRouter> */}
     </div>
   );
 }
