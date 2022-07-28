@@ -12,6 +12,7 @@ import "./Card.css";
 const Card = ({ object }) => {
   const favoriteState = useSelector((state) => state.products.favorites);
   const cartItems = useSelector((state) => state.products.cartItems);
+  const role = useSelector((state) => state.products.role);
   let productCartIndex = cartItems.findIndex((item) => item.id === object.id);
   const dispatch = useDispatch();
 
@@ -37,7 +38,12 @@ const Card = ({ object }) => {
 
   return (
     <div className="card productCard border-0 animate__animated animate__fadeIn">
-      {heartSelected ? (
+      {
+        role === 'Guest' ? null 
+        :
+        role === 'User' 
+        &&
+        heartSelected ? (
         <button
           className="card-btn-favorite favorite"
           onClick={() => onFavoriteClick(1, object.id)}
@@ -45,7 +51,9 @@ const Card = ({ object }) => {
           {" "}
           <MdOutlineFavorite />{" "}
         </button>
-      ) : (
+        ) 
+        : 
+        (
         <button
           className="card-btn-favorite nonFavorite"
           onClick={() => onFavoriteClick(1, object.id)}
