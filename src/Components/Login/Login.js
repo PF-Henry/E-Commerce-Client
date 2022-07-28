@@ -103,7 +103,7 @@ export const Login = () => {
                 <h5 className="section-title--title--login" >Choose a Login Method</h5>
                 <div className='section-title-text--login'> 
                     <p className='m-0'>Don't have account yet?</p>
-                    <NavLink to='/register' > Sign In </NavLink>
+                    <NavLink to='/auth/register' > Sign In </NavLink>
                 </div>
 
             </div>
