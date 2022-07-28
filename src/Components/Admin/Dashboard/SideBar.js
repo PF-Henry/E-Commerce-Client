@@ -55,27 +55,27 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
         <Menu iconShape="circle">
           <MenuItem icon={<RiShoppingBagFill size={"1.2rem"} />}>
             Products
-            <Link to="/admin/products" />
+            <Link to="/admin/admin/products" />
           </MenuItem>
           <MenuItem icon={<MdCategory size={"1.2rem"} />}>
             Categories
-            <Link to="/admin/categories" />
+            <Link to="/admin/admin/categories" />
           </MenuItem>
           <MenuItem icon={<FaTags size={"1.2rem"} />}>
             Brands
-            <Link to="/admin/brands" />
+            <Link to="/admin/admin/brands" />
           </MenuItem>
           <MenuItem icon={<FaClipboardList size={"1.2rem"} />}>
             Orders
-            <Link to="/admin/orders" />
+            <Link to="/admin/admin/orders" />
           </MenuItem>
           <MenuItem icon={<IoPerson size={"1.2rem"} />}>
             Users
-            <Link to="/admin/users" />
+            <Link to="/admin/admin/users" />
           </MenuItem>
           <MenuItem icon={<RiSettings3Fill size={"1.2rem"} />}>
             Settings
-            <Link to="/admin/settings" />
+            <Link to="/admin/admin/settings" />
           </MenuItem>
         </Menu>
       </SidebarContent>

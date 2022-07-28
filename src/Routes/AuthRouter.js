@@ -13,7 +13,7 @@ import Cart from '../Pages/Cart/Cart';
 export const AuthRouter = () => {
 
 
-    
+
   return (
     <div>
         <Routes>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { MdOutlineShoppingCart, MdOutlineFavoriteBorder } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { loginGoogleAsync } from '../../Redux/productSlice';
+import { loginGoogleAsync } from "../../Redux/productSlice";
 // import { Login } from "../Login/Login";
 
 import { useSelector } from "react-redux/es/exports";
@@ -14,14 +14,16 @@ import "./Navbar.css";
 const Navbar = () => {
   const dispatch = useDispatch();
   const role = useSelector((state) => state.products.role);
-  useEffect(() => {
-    dispatch(loginGoogleAsync());
-    console.log(role);
-  }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  , [])
-  
-  console.log('Role in Navbar', typeof role, role);
+  useEffect(
+    () => {
+      dispatch(loginGoogleAsync());
+      console.log(role);
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
+
+  console.log("Role in Navbar", typeof role, role);
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (
@@ -60,7 +62,7 @@ const Navbar = () => {
             >
               ABOUT US
             </Link>
-            {role === 'Guest' ? 
+            {role === "Guest" ? (
               <Link
                 to="/auth/login"
                 className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
@@ -70,41 +72,41 @@ const Navbar = () => {
                   LOGIN <CgProfile size={"1.6rem"} />
                 </div>
               </Link>
-            : null}
-            
-            {role === 'User' ?
-              <Link
-              to="/user"
-              className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
-            >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
-                USER <CgProfile size={"1.6rem"} />
-              </div>
-            </Link>
-            : null}
+            ) : null}
 
-            {role === 'Admin' ?
+            {role === "User" ? (
               <Link
-              to="/admin"
-              className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+                to="/app/user"
+                className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
               >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
-                ADMIN <CgProfile size={"1.6rem"} />
-              </div>
+                <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
+                  USER <CgProfile size={"1.6rem"} />
+                </div>
               </Link>
-            : null}
+            ) : null}
 
-            {role === 'User' ?
+            {role === "Admin" ? (
               <Link
-              to="app/user/favorites"
-              className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
-            >
-              <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
-                <MdOutlineFavoriteBorder size={"1.6rem"} />
-              </div>
-            </Link>
-            : null}
-            
+                to="/admin/admin"
+                className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+              >
+                <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
+                  ADMIN <CgProfile size={"1.6rem"} />
+                </div>
+              </Link>
+            ) : null}
+
+            {role === "User" ? (
+              <Link
+                to="app/user/favorites"
+                className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+              >
+                <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
+                  <MdOutlineFavoriteBorder size={"1.6rem"} />
+                </div>
+              </Link>
+            ) : null}
+
             <Link
               to="/auth/cart"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
