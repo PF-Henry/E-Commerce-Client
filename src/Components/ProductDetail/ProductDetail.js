@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   addToCart,
   getDetailProductAsync,
@@ -11,7 +11,12 @@ import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
 import optionsArray from "../../Functions/optionsArray";
 
+
+
+
 export const ProductDetail = () => {
+  
+  const navigate = useNavigate();
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
   const productCartIndex = cartItems.findIndex(
@@ -81,23 +86,26 @@ export const ProductDetail = () => {
     return () => dispatch(cleanDetail());
   }, [dispatch, id]);
 
+  // useEffect(() => {
+    
+  // }, [mainImage])
+  
+
   const onChangeImage = (url) => {
-    setMainImage((mainImage = url));
-    console.log(url);
-    console.log(mainImage);
+    setMainImage(mainImage = url );
   };
+
 
   return (
     <div>
       <Navbar />
       <div className="div-container">
         <div className="div-container-header">
-          <NavLink
-            to="/"
-            className="div-container-header--btn animate__animated animate__fadeInLeft"
-          >
+          <button onClick={() => navigate(-1)} className="div-container-header--btn animate__animated animate__fadeInLeft">
             Back
-          </NavLink>
+          </button>
+      
+         
           <h1 className="titleDetail animate__animated animate__fadeInRight">
             {productDetails.name}
           </h1>
@@ -138,13 +146,13 @@ export const ProductDetail = () => {
               <img
                 src={productDetails.img1}
                 alt={productDetails.name}
-                className="img-fluid"
+                className="img-fluid animate__animated animate__fadeIn"
               />
             ) : (
               <img
                 src={mainImage}
                 alt={productDetails.name}
-                className="img-fluid"
+                className="img-fluid animate__animated animate__fadeIn"
               />
             )}
           </div>

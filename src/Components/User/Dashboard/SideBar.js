@@ -7,7 +7,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdExitToApp, MdOutlineFavorite } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { BsStarFill } from "react-icons/bs";
@@ -21,13 +21,13 @@ import { useDispatch } from 'react-redux';
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const logout = () => {
     dispatch(logoutAsync())
     navigate('/')
-    
+
   }
-  
+
   return (
     <ProSidebar
       image={false}

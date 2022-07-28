@@ -7,6 +7,8 @@ import gustavoImg from "../../assets/gustavo.jpg";
 import richyImg from "../../assets/Richy.jpg";
 import sneiderImg from "../../assets/Sneider.jpg";
 import victorImg from "../../assets/Victor.jpg";
+import gerardoImg from "../../assets/Gerardo.jpg";
+import yohanalyImg from "../../assets/Yoha.jpg";
 import "./AboutUs.css";
 
 const AboutUs = () => {
@@ -15,7 +17,7 @@ const AboutUs = () => {
       name: "Gerardo Graziano",
       github: "https://github.com/gerardograziano",
       linkedin: "https://www.linkedin.com/in/gerardo-graziano-35177799/",
-      img: "",
+      img: gerardoImg,
     },
     {
       name: "Gustavo Leyria",
@@ -46,7 +48,7 @@ const AboutUs = () => {
       name: "Yohanaly Palma",
       github: "https://github.com/Ypalma876",
       linkedin: "https://www.linkedin.com/in/yohanaly-palma/?locale=en_US",
-      img: "",
+      img: yohanalyImg,
     },
   ];
   return (
