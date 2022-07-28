@@ -18,6 +18,7 @@ import {
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.products.cartItems);
+  const role = useSelector((state) => state.products.role);
   const dispatch = useDispatch();
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   let subtotal = cartItems.reduce(
@@ -278,10 +279,19 @@ const Cart = () => {
                   Taxes and shipping calculated at checkout
                 </div>
                 <div className="d-flex justify-content-end pe-3">
-                  <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
-                    <MdOutlinePayment size={"1.3rem"} />
-                    Proceed to checkout
-                  </div>
+                  {role !== "Guest" ? (
+                    <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
+                      <MdOutlinePayment size={"1.3rem"} />
+                      Proceed to checkout
+                    </div>
+                  ) : (
+                    <Link to="/login" className="text-decoration-none">
+                      <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
+                        <MdOutlinePayment size={"1.3rem"} />
+                        Proceed to checkout
+                      </div>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>
