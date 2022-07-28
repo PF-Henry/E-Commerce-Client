@@ -62,7 +62,7 @@ const Navbar = () => {
             </Link>
             {role === 'Guest' ? 
               <Link
-                to="/login"
+                to="auth/login"
                 className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
               >
                 <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover">
@@ -96,7 +96,7 @@ const Navbar = () => {
 
             {role === 'User' ?
               <Link
-              to="/user/favorites"
+              to="app/user/favorites"
               className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
             >
               <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
@@ -106,7 +106,7 @@ const Navbar = () => {
             : null}
             
             <Link
-              to="/cart"
+              to="/auth/cart"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
             >
               CART{" "}

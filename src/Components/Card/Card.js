@@ -73,7 +73,7 @@ const Card = ({ object }) => {
       />
       <div className="card-body d-flex flex-column">
         <NavLink
-          to={`/product_detail/${object.id}`}
+          to={`auth/product_detail/${object.id}`}
           className="text-decoration-none text-reset"
         >
           <div className="mb-3">

@@ -6,6 +6,6 @@ import { useSelector } from 'react-redux';
 export const PrivateRoutes = ({ children }) => {
     const role = useSelector((state) => state.products.role);
 
-    return role === 'User' ? <Navigate to='app/user' /> : children
+    return role !== 'User' && role !== 'Admin' ? <Navigate to='/auth/login' /> : children
 
 }

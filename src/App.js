@@ -1,16 +1,11 @@
 import "./App.css";
 import "react-toastify/dist/ReactToastify.css";
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import { CreateProduct } from "./Components/Product/CreateProduct";
-import { ProductDetail } from "./Components/ProductDetail/ProductDetail";
 import { UpdateProduct } from "./Components/Product/UpdateProduct";
 import { ToastContainer } from "react-toastify";
 import Cart from "./Pages/Cart/Cart";
-import AboutUs from "./Pages/AboutUs/AboutUs";
-import { Login } from "./Components/Login/Login";
-import { SignIn } from "./Components/SignIn/SignIn";
-import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 import LayoutUser from "./Components/User/Dashboard/LayoutUser";
 import Layout from "./Components/Admin/Dashboard/Layout";
 import UserSettings from "./Components/User/UserSettings";
@@ -28,6 +23,8 @@ import { PublicRoutes } from "./Routes/PublicRoutes";
 import { AuthRouter } from "./Routes/AuthRouter";
 import { PrivateRoutes } from "./Routes/PrivateRoutes";
 import { AppRouter } from "./Routes/AppRouter";
+import { AdminRouter } from "./Routes/AdminRouter";
+import { AdminRoutes } from "./Routes/AdminRoutes";
 
 
 
@@ -36,7 +33,6 @@ function App() {
 
   return (
     <div className="App">
-      {/* <BrowserRouter> */}
       <ToastContainer />
         <Routes>
           <Route path="/" element={<Home />} />
@@ -69,28 +65,30 @@ function App() {
             
             />
 
+            {/* Administramos rutas de admin */}
+            <Route
+              // Con el path indicamos que esas rutas van a empezar con /auth/
+              path="/admin/*"
+              // En element le pasamos el componente
+              element={
+                <AdminRoutes >
+                  <AdminRouter/>
+                </AdminRoutes>
+              
+              }
+            
+            />
 
-
-
-          {/* <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<SignIn />} /> */}
-          <Route path="/cart" element={<Cart />} />
-          {/* <Route path="/about" element={<AboutUs />} />
-          <Route path="/product_detail/:id" element={<ProductDetail />} /> */}
-
-
-          <Route path="/user/" element={<LayoutUser />}>
+          {/* <Route path="/user/" element={<LayoutUser />}>
             <Route path="favorites" element={<UserFavs />} />
             <Route path="orders" element={"Pendiente"} />
             <Route path="reviews" element={"Pendiente"} />
             <Route path="settings" element={<UserSettings />} />
-          </Route>
+          </Route> */}
 
 
-          <Route path="/error" element={<ErrorPage />} />
 
-
-          <Route path="/admin/" element={<Layout />}>
+          {/* <Route path="/admin/" element={<Layout />}>
             <Route path="products" element={<AdminProducts />} />
             <Route path="products/create" element={<CreateProduct />} />
             <Route path="products/update/:id" element={<UpdateProduct />} />
@@ -99,11 +97,10 @@ function App() {
             <Route path="orders" element={<AdminOrders />} />
             <Route path="users" element={<AdminUsers />} />
             <Route path="settings" element={<AdminSettings />} />
-          </Route>
+          </Route> */}
 
 
         </Routes>
-      {/* </BrowserRouter> */}
     </div>
   );
 }
