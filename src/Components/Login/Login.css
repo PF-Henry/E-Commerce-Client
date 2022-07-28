@@ -160,9 +160,10 @@
     color: #942d2d;
 }
 
-.disable-error {
+.disable {
     background-color: transparent;
     color: white;
+    display: none;
 }
 
 @media (min-width: 280px) and (max-width:767px) {

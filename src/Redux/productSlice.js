@@ -179,13 +179,16 @@ export const productSlice = createSlice({
       };
     },
     //***** Authentication *****//
-    loginGoogle: (state, action) => {
-      const token = action.payload.token;
-      const user = getUserFromToken(token);
-      const role = user.role.name;
-      console.log("Role in reducer - Login", role);
-      state.role = role;
-    },
+    login: (state, action) => {
+            const token = action.payload.token;
+            const user = getUserFromToken(token);
+            const role = user.role.name;
+            console.log("Role in reducer - Login", role);
+            state.role = role;
+        },
+        setRegisterMsg: (state, action) => {
+            state.msg = action.payload;
+        },
     registerGoogle: (state, action) => {
       const token = action.payload.token;
       console.log("Token in reducer - Register", token);
@@ -278,10 +281,11 @@ export const {
   cleanDetail,
   addFavorite,
   removeFavorite,
-  loginGoogle,
+  login,
   registerGoogle,
   logout,
   setLoginError,
+  setRegisterMsg,
   setRegisterError,
   changeCategoryCheckedStatus,
   changeBrandCheckedStatus,
@@ -450,52 +454,82 @@ export const getUsersAsync = () => (dispatch) => {
 
 //************************************ AUTHENTICATION *************************************** */
 
-export const postUserAsync = (payload) => (dispatch) => {
-  console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload)
-  // .then( (response) => {
-  //     dispatch(postUser(response.data));
-  // })
+export const registerUserAsync = (payload) => (dispatch) => {
+    console.log(payload);
+    axios.post(`${apiUrl}users/register`, payload)
+        .then((response) => {
+            console.log('response', response.data);
+            if (response.data.msg) {
+                console.log('Message in register local: ', response.data.msg);
+                dispatch(setRegisterMsg(response.data.msg));
+            }
+            if (response.data.error) {
+                console.log('Error in register local: ', response.data.error);
+                dispatch(setRegisterError(response.data.error));
+            }
+        })
+        .catch((error) => {
+            dispatch(setRegisterError(error));
+        });
 
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const loginUserAsync = (payload) => (dispatch) => {
-  console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload)
-  // .then( (response) => {
-  //     dispatch(loginUser(response.data));
-  // })
+    console.log(payload);
+    axios.post(`${apiUrl}users/login`, payload)
+        .then((response) => {
+            console.log('response in login user', response.data);
+            if (response.data.token) {
+                dispatch(login(response.data));
+            }
+            if (response.data.msg) {
+                dispatch(setLoginError(response.data.msg));
+            }
+            if (response.data.error) {
+                dispatch(setLoginError(response.data.error));
+            }
+        })
+        .catch((error) => {
+            dispatch(setLoginError(error));
+        });
 
   /*FALTA PROBAR Y LOS ERRORES*/
 };
 
-export const loginGoogleAsync = () => async (dispatch) => {
-  axios
-    .get(`${apiUrl}auth/login`)
-    .then((response) => {
-      if (Object.keys(response.data).length === 0) {
-        return;
-      }
-      console.log("Response en Login", response.data);
-      dispatch(loginGoogle(response.data));
-      dispatch(cleanDetail());
-    })
-    .catch((error) => console.log(error));
+export const loginGoogleAsync = () => async(dispatch) => {
+    axios
+        .get(`${apiUrl}auth/login`)
+        .then((response) => {
+            console.log("Response en Login", response.data);
+            if (Object.keys(response.data).length === 0) {
+                return;
+            }
+            if (response.data.error) {
+                console.log("Error en Login", response.data.error);
+                dispatch(setLoginError(response.data.error));
+            }
+            if (response.data.token) {
+                dispatch(login(response.data));
+            }
+        })
+        .catch((error) => console.log(error));
 };
 
 export const registerGoogleAsync = () => (dispatch) => {
-  axios
-    .get(`${apiUrl}auth/register`)
-    .then((response) => {
-      console.log("Response in Register", response.data);
-      if (response.data.error) {
-        dispatch(setRegisterError(response.data.error));
-      }
-    })
-    .catch((error) => console.log(error));
+    axios
+        .get(`${apiUrl}auth/register`)
+        .then((response) => {
+            console.log("Response in Register", response.data);
+            if (response.data.error) {
+                dispatch(setRegisterError(response.data.error));
+            }
+            if (response.data.msg) {
+                dispatch(setRegisterMsg(response.data.msg));
+            }
+        })
+        .catch((error) => console.log(error));
 
-  /*FALTA PROBAR Y LOS ERRORES*/
+    /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const logoutAsync = () => (dispatch) => {
