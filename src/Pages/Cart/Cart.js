@@ -101,7 +101,7 @@ const Cart = () => {
                 </div>
                 <div className="col-7 col-lg-5 col-md-4 d-flex flex-column align-items-start pe-3 mb-2 mb-md-0">
                   <NavLink
-                    to={`/product_detail/${product.id}`}
+                    to={`/auth/product_detail/${product.id}`}
                     className="text-decoration-none text-reset"
                   >
                     <div className="fw-bold aqua-hover text-decoration-underline-hover text-start">

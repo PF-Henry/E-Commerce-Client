@@ -55,14 +55,14 @@ const Navbar = () => {
           </div>
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center">
             <Link
-              to="/about"
+              to="/auth/about"
               className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center"
             >
               ABOUT US
             </Link>
             {role === 'Guest' ? 
               <Link
-                to="auth/login"
+                to="/auth/login"
                 className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
               >
                 <div className="letter-spacing nav-li-font d-flex align-items-center gap-1 aqua-hover">
