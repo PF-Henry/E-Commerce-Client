@@ -45,14 +45,16 @@ const ProductsTable = ({ products, ruta }) => {
         <td>{product.price}</td>
         <td>{product.stock}</td>
         <td>{product.state ? "Active" : "Inactive"}</td>
-        <td className="d-flex justify-content-center gap-3">
-          <Link
-            to={`${ruta}${product.id}`}
-            className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
-            title="Edit"
-          >
-            <MdModeEdit size={"1.5rem"} />
-          </Link>
+        <td>
+          <div className="d-flex justify-content-center">
+            <Link
+              to={`${ruta}${product.id}`}
+              className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
+              title="Edit"
+            >
+              <MdModeEdit size={"1.5rem"} />
+            </Link>
+          </div>
         </td>
       </tr>
     ));
@@ -64,15 +66,23 @@ const ProductsTable = ({ products, ruta }) => {
         <caption>List of Products</caption>
         <thead className="bg-purple-dark text-white">
           <tr>
-            <th scope="col" className="px-3">
+            <th scope="col" className="px-4 align-middle">
               #
             </th>
             <th scope="col">Product Name</th>
-            <th scope="col">Images</th>
-            <th scope="col">Price</th>
-            <th scope="col">Stock</th>
-            <th scope="col">State</th>
-            <th scope="col" className="px-3">
+            <th scope="col" className="px-md-4 align-middle">
+              Images
+            </th>
+            <th scope="col" className="px-md-4 align-middle">
+              Price
+            </th>
+            <th scope="col" className="px-md-4 align-middle">
+              Stock
+            </th>
+            <th scope="col" className="px-md-4 align-middle">
+              State
+            </th>
+            <th scope="col" className="px-md-4 align-middle">
               Edit
             </th>
           </tr>
