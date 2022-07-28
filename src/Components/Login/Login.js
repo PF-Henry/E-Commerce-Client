@@ -6,26 +6,40 @@ import Github from "./images/github.png";
 import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
 import { useDispatch, useSelector} from 'react-redux';
-import { loginUserAsync, loginGoogleAsync, registerGoogleAsync, resetError } from '../../Redux/productSlice';
+import { useNavigate } from 'react-router-dom';
+import { loginGoogleAsync, loginUserAsync, registerGoogleAsync, resetError, resetMsg } from '../../Redux/productSlice';
 
 import apiUrl from '../../Constants/apiUrl';
 
 export const Login = () => {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const role = useSelector((state) => state.products.role);
     const error = useSelector((state) => state.products.error);
+    const message = useSelector((state) => state.products.msg);
     console.log('Role in login', role);
     
 
     useEffect(() => {
         console.log('Dispatch registerUserAsync - Login Form');
         dispatch(registerGoogleAsync());
+        // dispatch(loginGoogleAsync());
         return () => {
             dispatch(resetError());
+            dispatch(resetMsg());
         }
     }
     , [dispatch])
+
+    useEffect(() => {
+        if (role === 'User') {
+            console.log('Redirecting to Home');
+                navigate('/');
+            }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    , [role])
     
 
     const [user, setUser] = useState({
@@ -59,7 +73,9 @@ export const Login = () => {
             email: '',
             password: '',
         })
-      }
+
+      
+    }
 
   return (
     <div className='padding-container--login'>
@@ -68,8 +84,18 @@ export const Login = () => {
                 <p>{error}</p>
             </div>
         :
-            <div className='message-container--login disable-error '>
-                <p>{error}</p>
+            <div className='message-container--login disable '>
+                <p></p>
+            </div>
+        }
+
+        {message ?
+            <div className='message-container--login success '>
+                <p>{message}</p>
+            </div>
+        :
+            <div className='message-container--login disable '>
+                <p></p>
             </div>
         }
         <div className="login-container--login">

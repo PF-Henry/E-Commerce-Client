@@ -273,19 +273,6 @@ export const productSlice = createSlice({
                 state.cartItems = [];
                 localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
             },
-            postUser: (state, action) => {
-                return {
-                    ...state,
-                    user: action.payload,
-                };
-            },
-            loginUser: (state, action) => {
-                return {
-                    ...state,
-                    userLogged: action.payload,
-                };
-            },
-
             setShowSlider: (state, action) => {
                 state.showSlider = action.payload;
             },
@@ -314,7 +301,7 @@ export const productSlice = createSlice({
         },
 
         //******************************* Authentication ********************************//
-        loginGoogle: (state, action) => {
+        login: (state, action) => {
             const token = action.payload.token;
             const user = getUserFromToken(token);
             const role = user.role.name;
@@ -331,6 +318,9 @@ export const productSlice = createSlice({
         },
         setLoginError: (state, action) => {
             state.error = action.payload;
+        },
+        setRegisterMsg: (state, action) => {
+            state.msg = action.payload;
         },
         setRegisterError: (state, action) => {
             state.error = action.payload;
@@ -364,17 +354,17 @@ export const {
     getUsers,
     cleanCart,
     postUser,
-    loginUser,
     setShowSlider,
     setSearch,
     getCategoryID,
     getBrandID,
     cleanDetail,
     addFavorite,
-    loginGoogle,
+    login,
     registerGoogle,
     logout,
     setLoginError,
+    setRegisterMsg,
     setRegisterError,
 } = productSlice.actions;
 
@@ -514,22 +504,45 @@ export const getUsersAsync = () => (dispatch) => {
 
 //************************************ AUTHENTICATION *************************************** */
 
-export const postUserAsync = (payload) => (dispatch) => {
+export const registerUserAsync = (payload) => (dispatch) => {
     console.log(payload);
-    // axios.post(`${apiUrl}/users/register`, payload)
-    // .then( (response) => {
-    //     dispatch(postUser(response.data));
-    // })
+    axios.post(`${apiUrl}users/register`, payload)
+        .then((response) => {
+            console.log('response', response.data);
+            if (response.data.msg) {
+                console.log('Message in register local: ', response.data.msg);
+                dispatch(setRegisterMsg(response.data.msg));
+            }
+            if (response.data.error) {
+                console.log('Error in register local: ', response.data.error);
+                dispatch(setRegisterError(response.data.error));
+            }
+        })
+        .catch((error) => {
+            dispatch(setRegisterError(error));
+        });
 
-    /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const loginUserAsync = (payload) => (dispatch) => {
     console.log(payload);
-    // axios.post(`${apiUrl}/users/register`, payload) 
-    // .then( (response) => {
-    //     dispatch(loginUser(response.data));
-    // })
+    axios.post(`${apiUrl}users/login`, payload)
+        .then((response) => {
+            console.log('response in login user', response.data);
+            if (response.data.token) {
+                dispatch(login(response.data));
+            }
+            if (response.data.msg) {
+                dispatch(setLoginError(response.data.msg));
+            }
+            if (response.data.error) {
+                dispatch(setLoginError(response.data.error));
+            }
+        })
+        .catch((error) => {
+            dispatch(setLoginError(error));
+        });
+
 
     /*FALTA PROBAR Y LOS ERRORES*/
 };
@@ -538,12 +551,17 @@ export const loginGoogleAsync = () => async(dispatch) => {
     axios
         .get(`${apiUrl}auth/login`)
         .then((response) => {
+            console.log("Response en Login", response.data);
             if (Object.keys(response.data).length === 0) {
                 return;
             }
-            console.log("Response en Login", response.data);
-            dispatch(loginGoogle(response.data));
-            dispatch(cleanDetail());
+            if (response.data.error) {
+                console.log("Error en Login", response.data.error);
+                dispatch(setLoginError(response.data.error));
+            }
+            if (response.data.token) {
+                dispatch(login(response.data));
+            }
         })
         .catch((error) => console.log(error));
 
@@ -556,6 +574,9 @@ export const registerGoogleAsync = () => (dispatch) => {
             console.log("Response in Register", response.data);
             if (response.data.error) {
                 dispatch(setRegisterError(response.data.error));
+            }
+            if (response.data.msg) {
+                dispatch(setRegisterMsg(response.data.msg));
             }
         })
         .catch((error) => console.log(error));

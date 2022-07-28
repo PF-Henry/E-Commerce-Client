@@ -1,7 +1,7 @@
 .padding-container {
     padding-top: 100px;
 }
-  
+
 .login-container {
     border-radius: 10px;
     margin: 0 auto;
@@ -11,9 +11,9 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 2px 3px 14px 1px rgba(0,0,0,0.75);
+    box-shadow: 2px 3px 14px 1px rgba(0, 0, 0, 0.75);
 }
-  
+
 .section-title {
     width: 100%;
     height: 120px;
@@ -21,12 +21,12 @@
     flex-direction: column;
     justify-content: space-around;
 }
-  
+
 .section-title--title {
     font-size: 45px;
     color: #1c004a;
 }
-  
+
 .section-title-text {
     width: 100%;
     display: flex;
@@ -44,7 +44,6 @@
     align-items: center;
 }
 
-  
 .right {
     width: 50%;
     height: 160px;
@@ -52,7 +51,6 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-  
 }
 
 .div-social-buttons {
@@ -64,28 +62,28 @@
     align-items: center;
     border-right: 2px dotted #cacaca;
 }
-  
+
 .register-inputs {
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-  
+
 .right-input {
     width: 200px;
     border-radius: 5px;
     border: 1px solid #507cc0;
 }
-    
-.center{
+
+.center {
     width: 15%;
     height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-  
+
 .btnLogin {
     width: 200px;
     padding: 5px 0;
@@ -94,14 +92,13 @@
     color: #FFF;
     border: none;
 }
-  
+
 .btnLogin:hover {
     color: #1c004a !important;
     background-color: #3ad8c1;
 }
-  
-  
-.loginButton{
+
+.loginButton {
     width: 160px;
     height: 35px;
     padding: 5px 10px;
@@ -113,34 +110,48 @@
     font-weight: bold;
     cursor: pointer;
 }
-  
+
 .logo-footer-container {
     width: 100%;
     height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
-
     background-color: #1c004a;
 }
 
+.message-container--login p {
+    margin: 0;
+    padding: 0;
+}
 
+.success {
+    background-color: #9effd2;
+    color: #416655;
+}
 
-@media (min-width: 280px) and (max-width:767px){
-   
+.error {
+    background-color: #ff8e8e;
+    color: #942d2d;
+}
+
+.disable {
+    background-color: transparent;
+    color: white;
+    display: none;
+}
+
+@media (min-width: 280px) and (max-width:767px) {
     .login-container {
         width: 80%;
         height: 550px;
     }
-
     .section-title {
         padding: 20px 0;
     }
-   
     .section-title--title {
         font-size: 25px;
     }
-
     .section-options {
         height: 400px;
         display: flex;
@@ -148,21 +159,18 @@
         justify-content: space-around;
         align-items: center;
     }
-
     .right {
         width: 70%;
         height: 135px;
         padding-bottom: 30px;
         border-bottom: 1px dotted #929292;
     }
-
     .div-social-buttons {
         width: 100%;
         height: 115px;
         border-right: none;
     }
-
-    .loginButton{
+    .loginButton {
         width: 200px;
     }
 }
