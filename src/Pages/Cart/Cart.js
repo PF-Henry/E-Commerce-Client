@@ -285,7 +285,7 @@ const Cart = () => {
                       Proceed to checkout
                     </div>
                   ) : (
-                    <Link to="/login" className="text-decoration-none">
+                    <Link to="/auth/login" className="text-decoration-none">
                       <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
                         <MdOutlinePayment size={"1.3rem"} />
                         Proceed to checkout
