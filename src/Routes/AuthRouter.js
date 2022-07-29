@@ -15,7 +15,7 @@ export const AuthRouter = () => {
 
 
   return (
-    <div>
+    <div>   
         <Routes>
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/register" element={<SignIn />} />

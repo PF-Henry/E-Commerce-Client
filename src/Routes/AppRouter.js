@@ -7,6 +7,8 @@ import UserSettings from '../Components/User/UserSettings';
 import AboutUs from '../Pages/AboutUs/AboutUs';
 import Cart from '../Pages/Cart/Cart';
 import { ProductDetail } from '../Components/ProductDetail/ProductDetail';
+import { BsExclamationOctagon } from 'react-icons/bs';
+import AdminCategories from '../Components/Admin/AdminCategories';
 // import Cart from '../Pages/Cart/Cart';
 
 

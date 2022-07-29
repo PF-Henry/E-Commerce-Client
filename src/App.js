@@ -41,11 +41,11 @@ function App() {
             {/* Administramos rutas publicas */}
             <Route
               // Con el path indicamos que esas rutas van a empezar con /auth/
-              path="/auth/*"
+              path="/auth/*" 
               // En element le pasamos el componente
               element={
                 <PublicRoutes >
-                  <AuthRouter/>
+                  <AuthRouter/>   
                 </PublicRoutes>
               
               }
@@ -58,7 +58,7 @@ function App() {
               path="/app/*"
               // En element le pasamos el componente
               element={
-                <PrivateRoutes >
+                <PrivateRoutes > 
                   <AppRouter/>
                 </PrivateRoutes>
               
