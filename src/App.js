@@ -25,6 +25,7 @@ import { PrivateRoutes } from "./Routes/PrivateRoutes";
 import { AppRouter } from "./Routes/AppRouter";
 import { AdminRouter } from "./Routes/AdminRouter";
 import { AdminRoutes } from "./Routes/AdminRoutes";
+import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 
 
 
@@ -40,11 +41,11 @@ function App() {
             {/* Administramos rutas publicas */}
             <Route
               // Con el path indicamos que esas rutas van a empezar con /auth/
-              path="/auth/*"
+              path="/auth/*" 
               // En element le pasamos el componente
               element={
                 <PublicRoutes >
-                  <AuthRouter/>
+                  <AuthRouter/>   
                 </PublicRoutes>
               
               }
@@ -57,7 +58,7 @@ function App() {
               path="/app/*"
               // En element le pasamos el componente
               element={
-                <PrivateRoutes >
+                <PrivateRoutes > 
                   <AppRouter/>
                 </PrivateRoutes>
               
@@ -78,6 +79,8 @@ function App() {
               }
             
             />
+
+            <Route  path="*" element={<ErrorPage />} />
 
           {/* <Route path="/user/" element={<LayoutUser />}>
             <Route path="favorites" element={<UserFavs />} />

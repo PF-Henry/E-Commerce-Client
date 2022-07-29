@@ -4,6 +4,7 @@ import { NEWEST } from "../Constants/sorting";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getUserFromToken } from "../Functions/session";
+import { RiLayoutMasonryFill } from "react-icons/ri";
 
 export const productSlice = createSlice({
   name: "products",
