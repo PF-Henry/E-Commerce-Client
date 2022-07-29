@@ -23,7 +23,7 @@ export const getRoleFromToken = (token) => {
     return user.role.name;
 }
 
-// export const getUserId = () => {
+// export const getUserIdFromToken = () => {
 //     const user = getUserFromToken();
 //     if (user === undefined) {
 //         return undefined;

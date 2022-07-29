@@ -4,6 +4,7 @@ import { NEWEST } from "../Constants/sorting";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getUserFromToken } from "../Functions/session";
+import { RiLayoutMasonryFill } from "react-icons/ri";
 
 export const productSlice = createSlice({
     name: "products",
@@ -20,9 +21,9 @@ export const productSlice = createSlice({
             category: [],
             image: [],
         },
-        token: undefined,
+        token: "",
         role: "Guest",
-        userId: undefined,
+        roleId: 0,
         detailsOfProduct: {},
         brandsLoaded: [],
         itemsPerPageState: 8,
@@ -44,6 +45,8 @@ export const productSlice = createSlice({
         categoryID: {},
         brandID: {},
         favorites: [],
+        initPoint: "",
+        transactionState: "",
     },
     reducers: {
         getProducts: (state, action) => {
@@ -164,20 +167,38 @@ export const productSlice = createSlice({
             state.cartItems = [];
             localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
         },
+        postUser: (state, action) => {
+            return {
+                ...state,
+                user: action.payload,
+            };
+        },
+        loginUser: (state, action) => {
+            return {
+                ...state,
+                userLogged: action.payload,
+            };
+        },
         //***** Authentication *****//
         login: (state, action) => {
             const token = action.payload.token;
+            if (token === "") {
+                return
+            }
             const user = getUserFromToken(token);
             const role = user.role.name;
-            const userId = user.id;
+            const roleId = user.id;
             state.role = role;
-            state.userId = userId;
+            state.roleId = roleId;
             state.token = token;
+
         },
         setRegisterMsg: (state, action) => {
             state.msg = action.payload;
         },
         registerGoogle: (state, action) => {
+            const token = action.payload.token;
+            console.log("Token in reducer - Register", token);
             state.msg = action.payload;
         },
         logout: (state, action) => {
@@ -232,6 +253,17 @@ export const productSlice = createSlice({
                 checked: false,
             }));
         },
+        setInitPoint: (state, action) => {
+            state.initPoint = action.payload;
+        },
+        setTransactionState: (state, action) => {
+            state.transactionState = action.payload;
+            if (action.payload === "pending" || "approved") {
+                //Esto limpia el carrito
+                state.cartItems = [];
+                localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+            }
+        },
     },
 });
 
@@ -258,6 +290,8 @@ export const {
     decreaseCart,
     getUsers,
     cleanCart,
+    postUser,
+    loginUser,
     setShowSlider,
     setSearch,
     getCategoryID,
@@ -274,6 +308,8 @@ export const {
     changeCategoryCheckedStatus,
     changeBrandCheckedStatus,
     clearCheckedStatus,
+    setInitPoint,
+    setTransactionState,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -401,8 +437,6 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
         });
 };
 
-
-
 export const searchProductAsync = (product) => (dispatch) => {
     fetch(`${apiUrl}products?name=${product}`)
         .then((data) => data.json())
@@ -425,8 +459,6 @@ export const getDetailProductAsync = (payload) => (dispatch) => {
         .catch((error) => console.log(error));
 };
 
-
-
 export const getUsersAsync = () => (dispatch) => {
     fetch(`${apiUrl}users`)
         .then((response) => response.json())
@@ -440,29 +472,30 @@ export const getUsersAsync = () => (dispatch) => {
 
 export const registerUserAsync = (payload) => (dispatch) => {
     console.log(payload);
-    axios.post(`${apiUrl}users/register`, payload)
+    axios
+        .post(`${apiUrl}users/register`, payload)
         .then((response) => {
-            console.log('response', response.data);
+            console.log("response", response.data);
             if (response.data.msg) {
-                console.log('Message in register local: ', response.data.msg);
+                console.log("Message in register local: ", response.data.msg);
                 dispatch(setRegisterMsg(response.data.msg));
             }
             if (response.data.error) {
-                console.log('Error in register local: ', response.data.error);
+                console.log("Error in register local: ", response.data.error);
                 dispatch(setRegisterError(response.data.error));
             }
         })
         .catch((error) => {
             dispatch(setRegisterError(error));
         });
-
 };
 
 export const loginUserAsync = (payload) => (dispatch) => {
     console.log(payload);
-    axios.post(`${apiUrl}users/login`, payload)
+    axios
+        .post(`${apiUrl}users/login`, payload)
         .then((response) => {
-            console.log('response in login user', response.data);
+            console.log("response in login user", response.data);
             if (response.data.token) {
                 dispatch(login(response.data));
             }
@@ -630,5 +663,32 @@ export const getFavoriteAsync = (payload) => (dispatch) => {
         })
         .catch((error) => console.log(error));
 };
+
+export const checkoutAsync = (payload) => (dispatch) => {
+    fetch(`${apiUrl}mercadoPago/create_preference`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        })
+        .then(function(response) {
+            return response.json();
+        })
+        .then((preference) => dispatch(setInitPoint(preference.init_point)))
+        .catch((e) => console.log(e));
+};
+
+// export const getTransactionStateAsync = () => (dispatch) => {
+//   fetch()
+//     .then((res) => res.json())
+//     .then((data) => {
+//       dispatch(setTransactionState(data.ALGO));
+//       if (data.ALGO === "APROBADA" || "PENDING") {
+//         dispatch(cleanCart());
+//       }
+//     })
+//     .catch((e) => console.log(e));
+// };
 
 export default productSlice.reducer;
