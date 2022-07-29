@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Checkout from "../Components/Checkout/Checkout";
+// import Checkout from "../Components/Checkout/Checkout";
 import MsjTransaction from "../Components/Checkout/MsjTransaction";
 import { ErrorPage } from "../Components/ErrorPage/ErrorPage";
 import { Login } from "../Components/Login/Login";
@@ -19,7 +19,7 @@ export const AuthRouter = () => {
         <Route path="/product_detail/:id" element={<ProductDetail />} />
         <Route path="/error" element={<ErrorPage />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/pay" element={<Checkout />} />
+        {/* <Route path="/pay" element={<Checkout />} /> */}
         <Route path="/feedback" element={<MsjTransaction />} />
       </Routes>
     </div>

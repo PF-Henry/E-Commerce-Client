@@ -284,18 +284,18 @@ const Cart = () => {
                 </div>
                 <div className="d-flex justify-content-end pe-3">
                   {role === "Guest" ? (
-                    <Link to="/auth/pay" className="text-decoration-none">
-                      <div
-                        className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1"
-                        onClick={handleCheckout}
-                      >
+                    <Link to="/auth/login" className="text-decoration-none">
+                      <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
                         <MdOutlinePayment size={"1.3rem"} />
                         Proceed to checkout
                       </div>
                     </Link>
                   ) : (
-                    <Link to="/auth/login" className="text-decoration-none">
-                      <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
+                    <Link to="/app/pay" className="text-decoration-none">
+                      <div
+                        className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1"
+                        onClick={handleCheckout}
+                      >
                         <MdOutlinePayment size={"1.3rem"} />
                         Proceed to checkout
                       </div>
