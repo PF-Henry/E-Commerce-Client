@@ -48,7 +48,7 @@ function App() {
 
         {/* Administramos rutas privadas */}
         <Route
-          // Con el path indicamos que esas rutas van a empezar con /auth/
+          // Con el path indicamos que esas rutas van a empezar con /app/
           path="/app/*"
           // En element le pasamos el componente
           element={
@@ -60,7 +60,7 @@ function App() {
 
         {/* Administramos rutas de admin */}
         <Route
-          // Con el path indicamos que esas rutas van a empezar con /auth/
+          // Con el path indicamos que esas rutas van a empezar con /admin/
           path="/admin/*"
           // En element le pasamos el componente
           element={
@@ -70,9 +70,9 @@ function App() {
           }
         />
 
-            <Route  path="*" element={<ErrorPage />} />
+        <Route path="*" element={<ErrorPage />} />
 
-          {/* <Route path="/user/" element={<LayoutUser />}>
+        {/* <Route path="/user/" element={<LayoutUser />}>
 
             <Route path="favorites" element={<UserFavs />} />
             <Route path="orders" element={"Pendiente"} />

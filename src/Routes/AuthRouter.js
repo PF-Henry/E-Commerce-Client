@@ -11,16 +11,15 @@ import Cart from "../Pages/Cart/Cart";
 export const AuthRouter = () => {
   return (
     <div>
-        <Routes>
-            <Route exact path="/login" element={<Login />} />
-            <Route exact path="/register" element={<SignIn />} />
-            <Route exact path="/about" element={<AboutUs />} />
-            <Route exact path="/product_detail/:id" element={<ProductDetail />} />
-            <Route exact path="/cart" element={<Cart />} />
-            <Route  path="/auth/*" element={<ErrorPage />} />
-            <Route  path="*" element={<ErrorPage />} />
-            <Route exact path="/feedback" element={<MsjTransaction />} />
-        </Routes>
+      <Routes>
+        <Route exact path="/login" element={<Login />} />
+        <Route exact path="/register" element={<SignIn />} />
+        <Route exact path="/about" element={<AboutUs />} />
+        <Route exact path="/product_detail/:id" element={<ProductDetail />} />
+        <Route exact path="/cart" element={<Cart />} />
+        <Route exact path="/feedback" element={<MsjTransaction />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
     </div>
   );
 };
