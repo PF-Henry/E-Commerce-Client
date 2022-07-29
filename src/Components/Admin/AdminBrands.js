@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { useSelector, useDispatch } from "react-redux";
-import ProductsCategoriesTable from "../Tables/ProductsTable";
-=======
 // import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import ProductsCategoriesTable from "../Tables/ProductsTable";
-import Searchbar from "../Searchbar/Searchbar";
->>>>>>> 20c38b6d2c044e3d6eb22188db2b58dca5ef5894
 import { getBrandsAsync, createBrandAsync } from "../../Redux/productSlice";
 import './AdminDashboard.css'
-import AdminSearchbar from "./AdminSearchBar";
+// import AdminSearchbar from "./AdminSearchBar";
 
 
 const AdminBrands = () => {
