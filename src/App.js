@@ -25,6 +25,7 @@ import { PrivateRoutes } from "./Routes/PrivateRoutes";
 import { AppRouter } from "./Routes/AppRouter";
 import { AdminRouter } from "./Routes/AdminRouter";
 import { AdminRoutes } from "./Routes/AdminRoutes";
+import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 
 function App() {
   return (
@@ -69,7 +70,10 @@ function App() {
           }
         />
 
-        {/* <Route path="/user/" element={<LayoutUser />}>
+            <Route  path="*" element={<ErrorPage />} />
+
+          {/* <Route path="/user/" element={<LayoutUser />}>
+
             <Route path="favorites" element={<UserFavs />} />
             <Route path="orders" element={"Pendiente"} />
             <Route path="reviews" element={"Pendiente"} />

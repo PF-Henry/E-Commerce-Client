@@ -1,14 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import './ErrorPage.css';
 
 export const ErrorPage = () => {
+  const navigate = useNavigate();
   return (
     <div className='error-container'>
         <div className='error-container-img'>
-            <Link to='/'>
-                <button className='error-container-btn'>Back Home</button>
-            </Link>
+     
+              <button  onClick={() => navigate(-1)} className='error-container-btn'>Back</button>
+
         </div>
     </div>
   )
