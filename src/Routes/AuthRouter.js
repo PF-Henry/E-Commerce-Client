@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Checkout from "../Components/Checkout/Checkout";
+// import Checkout from "../Components/Checkout/Checkout";
 import MsjTransaction from "../Components/Checkout/MsjTransaction";
 import { ErrorPage } from "../Components/ErrorPage/ErrorPage";
 import { Login } from "../Components/Login/Login";

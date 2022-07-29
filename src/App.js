@@ -27,71 +27,60 @@ import { AdminRouter } from "./Routes/AdminRouter";
 import { AdminRoutes } from "./Routes/AdminRoutes";
 import { ErrorPage } from "./Components/ErrorPage/ErrorPage";
 
-
-
-
 function App() {
-
   return (
     <div className="App">
       <ToastContainer />
-        <Routes>
-          <Route path="/" element={<Home />} />
+      <Routes>
+        <Route path="/" element={<Home />} />
 
-            {/* Administramos rutas publicas */}
-            <Route
-              // Con el path indicamos que esas rutas van a empezar con /auth/
-              path="/auth/*" 
-              // En element le pasamos el componente
-              element={
-                <PublicRoutes >
-                  <AuthRouter/>   
-                </PublicRoutes>
-              
-              }
-            
-            />
+        {/* Administramos rutas publicas */}
+        <Route
+          // Con el path indicamos que esas rutas van a empezar con /auth/
+          path="/auth/*"
+          // En element le pasamos el componente
+          element={
+            <PublicRoutes>
+              <AuthRouter />
+            </PublicRoutes>
+          }
+        />
 
-            {/* Administramos rutas privadas */}
-            <Route
-              // Con el path indicamos que esas rutas van a empezar con /auth/
-              path="/app/*"
-              // En element le pasamos el componente
-              element={
-                <PrivateRoutes > 
-                  <AppRouter/>
-                </PrivateRoutes>
-              
-              }
-            
-            />
+        {/* Administramos rutas privadas */}
+        <Route
+          // Con el path indicamos que esas rutas van a empezar con /auth/
+          path="/app/*"
+          // En element le pasamos el componente
+          element={
+            <PrivateRoutes>
+              <AppRouter />
+            </PrivateRoutes>
+          }
+        />
 
-            {/* Administramos rutas de admin */}
-            <Route
-              // Con el path indicamos que esas rutas van a empezar con /auth/
-              path="/admin/*"
-              // En element le pasamos el componente
-              element={
-                <AdminRoutes >
-                  <AdminRouter/>
-                </AdminRoutes>
-              
-              }
-            
-            />
+        {/* Administramos rutas de admin */}
+        <Route
+          // Con el path indicamos que esas rutas van a empezar con /auth/
+          path="/admin/*"
+          // En element le pasamos el componente
+          element={
+            <AdminRoutes>
+              <AdminRouter />
+            </AdminRoutes>
+          }
+        />
 
             <Route  path="*" element={<ErrorPage />} />
 
           {/* <Route path="/user/" element={<LayoutUser />}>
+
             <Route path="favorites" element={<UserFavs />} />
             <Route path="orders" element={"Pendiente"} />
             <Route path="reviews" element={"Pendiente"} />
             <Route path="settings" element={<UserSettings />} />
           </Route> */}
 
-
-
-          {/* <Route path="/admin/" element={<Layout />}>
+        {/* <Route path="/admin/" element={<Layout />}>
             <Route path="products" element={<AdminProducts />} />
             <Route path="products/create" element={<CreateProduct />} />
             <Route path="products/update/:id" element={<UpdateProduct />} />
@@ -101,9 +90,7 @@ function App() {
             <Route path="users" element={<AdminUsers />} />
             <Route path="settings" element={<AdminSettings />} />
           </Route> */}
-
-
-        </Routes>
+      </Routes>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ErrorPage } from '../Components/ErrorPage/ErrorPage';
 import LayoutUser from '../Components/User/Dashboard/LayoutUser';
@@ -9,6 +9,7 @@ import Cart from '../Pages/Cart/Cart';
 import { ProductDetail } from '../Components/ProductDetail/ProductDetail';
 import { BsExclamationOctagon } from 'react-icons/bs';
 import AdminCategories from '../Components/Admin/AdminCategories';
+import Checkout from "../Components/Checkout/Checkout";
 // import Cart from '../Pages/Cart/Cart';
 
 
@@ -27,9 +28,10 @@ export const AppRouter = () => {
             </Route>
             <Route  path="product_detail/:id" element={<ProductDetail />} />
             <Route  path="/user/*" element={<ErrorPage />} /> 
+            <Route path="/pay" element={<Checkout />} />
             <Route  path="*" element={<ErrorPage />} />
             {/* <Route path="/cart" element={<Cart />} /> */}
         </Routes>
     </div>
-  )
-}
+  );
+};
