@@ -5,5 +5,5 @@ import { Navigate } from 'react-router-dom';
 
 export const PublicRoutes = ({ children }) => {
     const role = useSelector((state) => state.products.role);
-    return role === 'User' ? <Navigate to='app/user' /> : children
+    return role === 'User' ? <Navigate to='/app/user' /> : children
 }
