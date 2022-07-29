@@ -1,0 +1,16 @@
+.feedback-container {
+  padding-top: 4.71rem;
+  min-height: calc(100vh - 10.375rem);
+}
+
+@media (max-width: 767.98px) {
+  .feedback-container {
+    min-height: calc(100vh - 21.375rem);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .feedback-container {
+    min-height: calc(100vh - 16.25rem);
+  }
+}

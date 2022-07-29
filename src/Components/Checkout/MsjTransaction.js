@@ -1,31 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setTransactionState } from "../../Redux/productSlice";
+import Navbar from "../Navbar/Navbar";
+import { Footer } from "../Footer/Footer";
+import getQueryString from "../../Functions/getQueryString";
+import { MdOutlineInfo } from "react-icons/md";
+import { Link } from "react-router-dom";
+import "./Checkout.css";
 
 const MsjTransaction = () => {
-  function getQueryString() {
-    var query_string = {};
-    var query = window.location.search.substring(1);
-
-    var vars = query.split("&"); // pares de clave/valor
-    for (var i = 0; i < vars.length; i++) {
-      var pair = vars[i].split("=");
-
-      // If first entry with this name
-      if (typeof query_string[pair[0]] === "undefined") {
-        query_string[pair[0]] = decodeURIComponent(pair[1]);
-
-        // If second entry with this name
-      } else if (typeof query_string[pair[0]] === "string") {
-        var arr = [query_string[pair[0]], decodeURIComponent(pair[1])];
-        query_string[pair[0]] = arr;
-        // If third or later entry with this name
-      } else {
-        query_string[pair[0]].push(decodeURIComponent(pair[1]));
-      }
-    }
-    return query_string;
-  }
   console.log(getQueryString());
   const transactionState = useSelector(
     (state) => state.products.transactionState
@@ -34,7 +17,48 @@ const MsjTransaction = () => {
   useEffect(() => {
     dispatch(setTransactionState(getQueryString().status));
   }, [dispatch]);
-  return <div>{transactionState}</div>;
+  return (
+    <div>
+      <Navbar />
+      <div className="feedback-container d-flex justify-content-center align-items-center bg-light">
+        <div className="d-flex align-items-center justify-content-center">
+          {transactionState === "approved" || "pending" ? (
+            <div>
+              <div className="text-aqua">
+                <MdOutlineInfo size={"6rem"} />
+              </div>
+              <div className="text-purple fs-3 fw-semibold">
+                Thank you for your purchase!
+              </div>
+              <div className="text-purple fs-4 fw-light">
+                You can check the state of your order in
+              </div>
+              <Link
+                to="/app/user/orders"
+                className="fs-4 text-aqua fw-semibold"
+              >
+                {"User > Orders"}
+              </Link>
+            </div>
+          ) : (
+            <div>
+              <div className="text-aqua">
+                <MdOutlineInfo size={"6rem"} />
+              </div>
+              <div className="text-purple fs-3 fw-semibold">
+                Uh oh! Something went wrong with your payment.
+              </div>
+              <div className="text-purple fs-4 fw-light">Please try again.</div>
+              <Link to="/app/cart" className="fs-4 text-aqua fw-semibold">
+                Back to Cart
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default MsjTransaction;
