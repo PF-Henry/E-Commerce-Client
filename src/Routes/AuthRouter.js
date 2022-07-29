@@ -17,12 +17,13 @@ export const AuthRouter = () => {
   return (
     <div>
         <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<SignIn />} />
-            <Route path="/about" element={<AboutUs />} />
-            <Route path="/product_detail/:id" element={<ProductDetail />} />
-            <Route path="/error" element={<ErrorPage />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/register" element={<SignIn />} />
+            <Route exact path="/about" element={<AboutUs />} />
+            <Route exact path="/product_detail/:id" element={<ProductDetail />} />
+            <Route exact path="/cart" element={<Cart />} />
+            <Route  path="/auth/*" element={<ErrorPage />} />
+            <Route  path="*" element={<ErrorPage />} /> 
         </Routes>
     </div>
   )
