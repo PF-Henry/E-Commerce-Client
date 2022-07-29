@@ -21,7 +21,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "User",
+    role: "Guest",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -44,6 +44,8 @@ export const productSlice = createSlice({
     categoryID: {},
     brandID: {},
     favorites: [],
+    initPoint: "",
+    transactionState: "",
   },
   reducers: {
     getProducts: (state, action) => {
@@ -246,6 +248,17 @@ export const productSlice = createSlice({
         checked: false,
       }));
     },
+    setInitPoint: (state, action) => {
+      state.initPoint = action.payload;
+    },
+    setTransactionState: (state, action) => {
+      state.transactionState = action.payload;
+      if (action.payload === "pending" || "approved") {
+        //Esto limpia el carrito
+        state.cartItems = [];
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      }
+    },
   },
 });
 
@@ -290,6 +303,8 @@ export const {
   changeCategoryCheckedStatus,
   changeBrandCheckedStatus,
   clearCheckedStatus,
+  setInitPoint,
+  setTransactionState,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -643,5 +658,32 @@ export const getFavoriteAsync = (payload) => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+
+export const checkoutAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}mercadoPago/create_preference`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(function (response) {
+      return response.json();
+    })
+    .then((preference) => dispatch(setInitPoint(preference.init_point)))
+    .catch((e) => console.log(e));
+};
+
+// export const getTransactionStateAsync = () => (dispatch) => {
+//   fetch()
+//     .then((res) => res.json())
+//     .then((data) => {
+//       dispatch(setTransactionState(data.ALGO));
+//       if (data.ALGO === "APROBADA" || "PENDING") {
+//         dispatch(cleanCart());
+//       }
+//     })
+//     .catch((e) => console.log(e));
+// };
 
 export default productSlice.reducer;
