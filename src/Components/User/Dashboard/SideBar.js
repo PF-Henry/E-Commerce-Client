@@ -7,7 +7,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdExitToApp, MdOutlineFavorite } from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { BsStarFill } from "react-icons/bs";
@@ -15,19 +15,18 @@ import { SiHexo } from "react-icons/si";
 import { RiSettings3Fill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
 import "./Dashboard.css";
-import { logoutAsync } from '../../../Redux/productSlice';
-import { useDispatch } from 'react-redux';
+import { logoutAsync } from "../../../Redux/productSlice";
+import { useDispatch } from "react-redux";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
+
   const logout = () => {
-    dispatch(logoutAsync())
-    navigate('/')
-    
-  }
-  
+    dispatch(logoutAsync());
+    navigate("/");
+  };
+
   return (
     <ProSidebar
       image={false}
@@ -66,19 +65,19 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
         <Menu iconShape="circle">
           <MenuItem icon={<MdOutlineFavorite size={"1.2rem"} />}>
             Favorites
-            <Link to="/user/favorites" />
+            <Link to="/app/user/favorites" />
           </MenuItem>
           <MenuItem icon={<FaClipboardList size={"1.2rem"} />}>
             Orders
-            <Link to="/user/orders" />
+            <Link to="/app/user/orders" />
           </MenuItem>
           <MenuItem icon={<BsStarFill size={"1.2rem"} />}>
             Reviews
-            <Link to="/user/reviews" />
+            <Link to="/app/user/reviews" />
           </MenuItem>
           <MenuItem icon={<RiSettings3Fill size={"1.2rem"} />}>
             Settings
-            <Link to="/user/settings" />
+            <Link to="/app/user/settings" />
           </MenuItem>
         </Menu>
       </SidebarContent>
@@ -93,8 +92,11 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
               SIGN OUT <MdExitToApp size={"1.6rem"} />
             </div>
           </NavLink> */}
-          <div className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1" onClick={()=>logout()}>
-              SIGN OUT <MdExitToApp size={"1.6rem"} />
+          <div
+            className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1"
+            onClick={() => logout()}
+          >
+            SIGN OUT <MdExitToApp size={"1.6rem"} />
           </div>
         </div>
       </SidebarFooter>

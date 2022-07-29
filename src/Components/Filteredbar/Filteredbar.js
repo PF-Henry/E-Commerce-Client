@@ -12,6 +12,9 @@ import {
   switchItemsPerPage,
   changeBrandsFilter,
   getProductsAsync,
+  changeCategoryCheckedStatus,
+  changeBrandCheckedStatus,
+  clearCheckedStatus,
 } from "../../Redux/productSlice";
 import "./Filteredbar.css";
 import { SORTING_ARRAY } from "../../Constants/sorting";
@@ -49,7 +52,6 @@ const Filteredbar = ({
     dispatch(switchItemsPerPage(numberItems));
   };
 
-  console.log(itemsPerPageState);
   return (
     <div className="filterBG">
       <div className="d-flex align-items-baseline justify-content-around mt-5 flex-wrap gap-3">
@@ -139,57 +141,71 @@ const Filteredbar = ({
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Categories
           </h5>
-          {allCategories.map((category) => (
-            <div
+          {allCategories.map((category, index) => (
+            <form
               className="form-check text-start letter-spacing"
               key={category.id}
             >
               <input
                 className="form-check-input"
                 type="checkbox"
+                checked={category.checked}
                 value={category.name}
                 id={category.name}
-                onChange={(e) =>
+                onChange={(e) => {
+                  dispatch(
+                    changeCategoryCheckedStatus({
+                      index: index,
+                      status: e.target.checked,
+                    })
+                  );
                   filters.includes(e.target.value)
                     ? setFilters((filters) =>
                         filters.filter((option) => option !== e.target.value)
                       )
-                    : setFilters([...filters, e.target.value])
-                }
+                    : setFilters([...filters, e.target.value]);
+                }}
               />
               <label className="form-check-label" htmlFor={category.name}>
                 {category.name}
               </label>
-            </div>
+            </form>
           ))}
 
           <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
             Brands
           </h5>
-          {allBrands.map((brand) => (
-            <div
+          {allBrands.map((brand, index) => (
+            <form
               className="form-check text-start letter-spacing"
               key={brand.id}
             >
               <input
                 className="form-check-input"
                 type="checkbox"
+                checked={brand.checked}
                 value={brand.name}
                 id={brand.name}
-                onChange={(e) =>
+                onChange={(e) => {
+                  dispatch(
+                    changeBrandCheckedStatus({
+                      index: index,
+                      status: e.target.checked,
+                    })
+                  );
                   brandsFilter.includes(e.target.value)
                     ? setBrandsFilter((brandsFilter) =>
                         brandsFilter.filter(
                           (option) => option !== e.target.value
                         )
                       )
-                    : setBrandsFilter([...brandsFilter, e.target.value])
-                }
+                    : setBrandsFilter([...brandsFilter, e.target.value]);
+                }}
               />
               <label className="form-check-label" htmlFor={brand.name}>
                 {brandNames(brand.name)}
               </label>
-            </div>
+            </form>
           ))}
 
           {/* <h5 className="text-start ms-3 fw-bold letter-spacing mt-3">
@@ -232,10 +248,11 @@ const Filteredbar = ({
                 checkbox.checked = false;
               }
               setFilters([]);
-              dispatch(changeFilter(filters));
+              dispatch(changeFilter([]));
               setBrandsFilter([]);
-              dispatch(changeBrandsFilter(brandsFilter));
+              dispatch(changeBrandsFilter([]));
               dispatch(getProductsAsync());
+              dispatch(clearCheckedStatus());
             }}
           >
             Remove filter

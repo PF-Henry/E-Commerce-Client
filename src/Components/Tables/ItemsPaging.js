@@ -20,7 +20,7 @@ const ItemsPaging = ({ itemsPerPage, allItems, paging, currentPg }) => {
                 }`}
                 key={num}
               >
-                <a onClick={() => paging(num)}>{num}</a>
+                <div onClick={() => paging(num)}>{num}</div>
               </li>
             );
           })}

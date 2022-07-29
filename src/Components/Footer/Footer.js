@@ -35,13 +35,13 @@ export const Footer = () => {
             </NavLink>
             <NavLink
               className="text-decoration-none text-white aqua-hover letter-spacing"
-              to="/about"
+              to="/auth/about"
             >
               ABOUT US
             </NavLink>
             <NavLink
               className="text-decoration-none text-white aqua-hover letter-spacing"
-              to="/cart"
+              to="/auth/cart"
             >
               SHOPPING CART
             </NavLink>

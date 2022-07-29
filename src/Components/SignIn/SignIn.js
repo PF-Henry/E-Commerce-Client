@@ -1,21 +1,48 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { SiHexo } from "react-icons/si";
 import Google from '../Login/images/google.png';
 import Facebook from "../Login/images/facebook.png";
 import Github from "../Login/images/github.png";
 import './SignIn.css';
-import { useDispatch } from 'react-redux';
-import { postUserAsync } from "../../Redux/productSlice";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { registerGoogleAsync, registerUserAsync, resetError, loginGoogleAsync, resetMsg } from "../../Redux/productSlice";
 import apiUrl from '../../Constants/apiUrl';
 
 export const SignIn = () => {
-
+    const navigate = useNavigate();
+    const error = useSelector(state => state.products.error);
+    const message = useSelector(state => state.products.msg);
     const dispatch = useDispatch();
+    // console.log('Error in Register', error);
+
+
+    
+
+    useEffect(() => {
+        console.log('Dispatch registerUserAsync - SignIn Form');
+        dispatch(loginGoogleAsync);
+        return () => { 
+            dispatch(resetError());
+            dispatch(resetMsg())
+        }
+    }
+    , [dispatch])
+
+    useEffect(() => {
+        if (message) {
+            setTimeout(() => {
+                navigate('/login');
+            }, 3000);
+            
+        }
+    }
+    , [message, navigate])
 
     const [user, setUser] = useState({
-        name: '',
-        lastName: '',
+        first_name: '',
+        last_name: '',
         email: '',
         password: ''
     });
@@ -44,14 +71,14 @@ export const SignIn = () => {
       const handleSubmit = (e) => {
         e.preventDefault();
         // console.log(user)
-        dispatch(postUserAsync(user))
+        dispatch(registerUserAsync(user))
         setUser({
-            name: '',
-            lastName: '',
+            first_name: '',
+            last_name: '',
             email: '',
             password: ''
         })
-        alert('The user has been created successfully');
+       
       }
 
 
@@ -59,12 +86,26 @@ export const SignIn = () => {
   return (
       
     <div className='padding-container'>
+        {error ?
+            <div className='message-container--login error '>
+                <p>{error}</p>
+            </div>
+        :
+            null
+        }
+        {message ?
+            <div className='message-container--login success '>
+                <p>{message}</p>
+            </div>
+        :
+           null
+        }
         <div className="login-container">
             <div className='section-title'>
                 <h5 className="section-title--title" >Register</h5>
                 <div className='section-title-text'> 
                     <p className='m-0'>Already have account?</p>
-                    <NavLink to='/login' > Login </NavLink>
+                    <NavLink to='/auth/login' > Login </NavLink>
                 </div>
             </div>
 
@@ -91,7 +132,7 @@ export const SignIn = () => {
                             type="text" 
                             placeholder="Name" 
                             className='right-input' 
-                            name='name' 
+                            name='first_name' 
                             value={user.name} 
                             onChange={e => handleChange(e)} 
                             />
@@ -99,7 +140,7 @@ export const SignIn = () => {
                             type="text" 
                             placeholder="Lastname" 
                             className='right-input'
-                            name='lastName'
+                            name='last_name'
                             value={user.lastName}
                             onChange={e => handleChange(e)}
                         />
@@ -119,7 +160,7 @@ export const SignIn = () => {
                             value={user.password}
                             onChange={e => handleChange(e)}
                         />
-                        <button type='submit' className="btnLogin">Login</button>
+                        <button type='submit' className="btnLogin">Register</button>
                       </form>
                 </div>
             </div>

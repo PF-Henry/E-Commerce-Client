@@ -6,6 +6,9 @@ import {
   searchCategoryAsync,
   searchProductAsync,
   setSearch,
+  changeFilter,
+  changeBrandsFilter,
+  clearCheckedStatus,
 } from "../../Redux/productSlice";
 import { Link } from "react-router-dom";
 import { FiSearch } from "react-icons/fi";
@@ -18,6 +21,9 @@ const Searchbar = ({ content }) => {
 
   const handleInputChange = (e) => {
     e.preventDefault();
+    dispatch(changeFilter([]));
+    dispatch(changeBrandsFilter([]));
+    dispatch(clearCheckedStatus());
     dispatch(setSearch(e.target.value));
     if (content === 'Category') dispatch(searchCategoryAsync);
     else if (content === 'Brand') dispatch(searchBrandAsync);

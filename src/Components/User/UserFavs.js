@@ -11,7 +11,7 @@ const UserFavs = () => {
 
   useEffect( () => {
     dispatch(getFavoriteAsync(1));
-  }, [favoriteState.length, dispatch])
+  }, [favoriteState.length, dispatch, favoriteState])
 
   return (
     <div className="userContainer">

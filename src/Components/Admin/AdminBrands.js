@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import ProductsCategoriesTable from "../Tables/ProductsTable";
+=======
+// import { NavLink } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import ProductsCategoriesTable from "../Tables/ProductsTable";
+import Searchbar from "../Searchbar/Searchbar";
+>>>>>>> 20c38b6d2c044e3d6eb22188db2b58dca5ef5894
 import { getBrandsAsync, createBrandAsync } from "../../Redux/productSlice";
 import './AdminDashboard.css'
 import AdminSearchbar from "./AdminSearchBar";
@@ -29,7 +36,7 @@ const AdminBrands = () => {
         }
     }, [allBrands, dispatch]);
 
-    return ( 
+    return (
         <div className="adminContainer">
             <div className="adminDashboard adminProducts">
                 <div className="d-flex justify-content-center gap-3 mb-3">
@@ -71,7 +78,7 @@ const AdminBrands = () => {
                         </form>
                     </div>
                 </div>
-                
+
                 <div className="d-flex justify-content-evenly flex-wrap">
                     <ProductsCategoriesTable
                         products={allBrands}
@@ -81,7 +88,7 @@ const AdminBrands = () => {
                 </div>
             </div>
         </div>
-        
+
     )
 }
 

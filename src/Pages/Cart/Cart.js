@@ -18,6 +18,7 @@ import {
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.products.cartItems);
+  const role = useSelector((state) => state.products.role);
   const dispatch = useDispatch();
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   let subtotal = cartItems.reduce(
@@ -100,7 +101,7 @@ const Cart = () => {
                 </div>
                 <div className="col-7 col-lg-5 col-md-4 d-flex flex-column align-items-start pe-3 mb-2 mb-md-0">
                   <NavLink
-                    to={`/product_detail/${product.id}`}
+                    to={`/auth/product_detail/${product.id}`}
                     className="text-decoration-none text-reset"
                   >
                     <div className="fw-bold aqua-hover text-decoration-underline-hover text-start">
@@ -278,10 +279,19 @@ const Cart = () => {
                   Taxes and shipping calculated at checkout
                 </div>
                 <div className="d-flex justify-content-end pe-3">
-                  <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
-                    <MdOutlinePayment size={"1.3rem"} />
-                    Proceed to checkout
-                  </div>
+                  {role !== "Guest" ? (
+                    <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
+                      <MdOutlinePayment size={"1.3rem"} />
+                      Proceed to checkout
+                    </div>
+                  ) : (
+                    <Link to="/auth/login" className="text-decoration-none">
+                      <div className="btn btn-aqua px-5 py-1 mt-1 letter-spacing d-flex align-items-center gap-1">
+                        <MdOutlinePayment size={"1.3rem"} />
+                        Proceed to checkout
+                      </div>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

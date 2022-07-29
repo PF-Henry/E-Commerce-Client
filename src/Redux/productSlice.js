@@ -21,7 +21,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Guest",
+    role: "User",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -162,7 +162,6 @@ export const productSlice = createSlice({
         });
       }
     },
-
     cleanCart: (state) => {
       state.cartItems = [];
       localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -180,21 +179,29 @@ export const productSlice = createSlice({
       };
     },
     //***** Authentication *****//
-    loginGoogle: (state, action) => {
+    login: (state, action) => {
       const token = action.payload.token;
       const user = getUserFromToken(token);
       const role = user.role.name;
       console.log("Role in reducer - Login", role);
       state.role = role;
     },
+    setRegisterMsg: (state, action) => {
+      state.msg = action.payload;
+    },
     registerGoogle: (state, action) => {
       const token = action.payload.token;
       console.log("Token in reducer - Register", token);
       state.msg = action.payload;
     },
-
     logout: (state, action) => {
       state.role = "Guest";
+    },
+    setLoginError: (state, action) => {
+      state.error = action.payload;
+    },
+    setRegisterError: (state, action) => {
+      state.error = action.payload;
     },
     //******************************/
     setShowSlider: (state, action) => {
@@ -221,6 +228,23 @@ export const productSlice = createSlice({
     },
     removeFavorite: (state, action) => {
       state.favorites = state.favorites.filter((p) => p.id === action.payload);
+    },
+    changeCategoryCheckedStatus: (state, action) => {
+      state.categoriesLoaded[action.payload.index].checked =
+        action.payload.status;
+    },
+    changeBrandCheckedStatus: (state, action) => {
+      state.brandsLoaded[action.payload.index].checked = action.payload.status;
+    },
+    clearCheckedStatus: (state) => {
+      state.categoriesLoaded = state.categoriesLoaded.map((category) => ({
+        ...category,
+        checked: false,
+      }));
+      state.brandsLoaded = state.brandsLoaded.map((brand) => ({
+        ...brand,
+        checked: false,
+      }));
     },
   },
 });
@@ -259,9 +283,15 @@ export const {
   searchCategory,
   searchBrand,
   removeFavorite,
-  loginGoogle,
+  login,
   registerGoogle,
   logout,
+  setLoginError,
+  setRegisterMsg,
+  setRegisterError,
+  changeCategoryCheckedStatus,
+  changeBrandCheckedStatus,
+  clearCheckedStatus,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -286,7 +316,7 @@ export const getBrandsAsync = () => (dispatch) => {
   fetch(`${apiUrl}brands`)
     .then((response) => response.json())
     .then((json) => {
-      dispatch(getBrands(json));
+      dispatch(getBrands(json.map((brand) => ({ ...brand, checked: false }))));
     })
     .catch((error) => console.log(error));
 };
@@ -295,7 +325,9 @@ export const getCategoriesAsync = () => (dispatch) => {
   fetch(`${apiUrl}categories`)
     .then((response) => response.json())
     .then((json) => {
-      dispatch(getCategories(json));
+      dispatch(
+        getCategories(json.map((category) => ({ ...category, checked: false })))
+      );
     })
     .catch((error) => console.log(error));
 };
@@ -316,26 +348,26 @@ export const switchItemsPerPageAsync = (e) => () => {
 };
 
 // ------------------------ CREATE PRODUCT ------------------------------
-export const createProductAsync = (newProduct) => (dispatch) => {
+export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
 
   const formData = new FormData();
-  console.log(newProduct);
+  console.log(updateProduct);
 
-  formData.append("name", newProduct.name);
-  formData.append("stock", newProduct.stock);
-  formData.append("price", newProduct.price);
-  formData.append("description", newProduct.description);
+  formData.append("name", updateProduct.name);
+  formData.append("stock", updateProduct.stock);
+  formData.append("price", updateProduct.price);
+  formData.append("description", updateProduct.description);
   formData.append(
     "technical_especification",
-    newProduct.technical_especification
+    updateProduct.technical_especification
   );
 
-  formData.append("categories", JSON.stringify(newProduct.categories));
-  formData.append("brand", newProduct.brand);
-  formData.append("state", newProduct.state);
+  formData.append("categories", JSON.stringify(updateProduct.categories));
+  formData.append("brand", updateProduct.brand);
+  formData.append("state", updateProduct.state);
 
-  newProduct.images.forEach((image) => {
+  updateProduct.images.forEach((image) => {
     formData.append("fileName", image.src);
   });
 
@@ -352,6 +384,40 @@ export const createProductAsync = (newProduct) => (dispatch) => {
     });
 };
 // ------------------------ CREATE PRODUCT ------------------------------
+
+export const updateProductAsync = (id, updateProduct) => (dispatch) => {
+  const formData = new FormData();
+  console.log(updateProduct);
+
+  formData.append("name", updateProduct.name);
+  formData.append("stock", updateProduct.stock);
+  formData.append("price", updateProduct.price);
+  formData.append("description", updateProduct.description);
+  formData.append(
+    "technical_especification",
+    updateProduct.technical_especification
+  );
+
+  formData.append("categories", JSON.stringify(updateProduct.categories));
+  formData.append("brand", updateProduct.brand);
+  formData.append("state", updateProduct.state);
+
+  updateProduct.images.forEach((image) => {
+    formData.append("fileName", image.src);
+  });
+
+  axios
+    .put(`${apiUrl}products/${id}`, formData)
+    .then((response) => {
+      if (response.data.error) {
+        dispatch(createProductError(response.data.error));
+      }
+      dispatch(createProductMsg(response.data.msg));
+    }) // cacth generar un dispatch un error
+    .catch((error) => {
+      dispatch(createProductError(error));
+    });
+};
 
 export const searchProductAsync = (product) => (dispatch) => {
   fetch(`${apiUrl}products?name=${product}`)
@@ -375,20 +441,6 @@ export const getDetailProductAsync = (payload) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const updateProductAsync = (id, updateProduct) => (dispatch) => {
-  axios
-    .put(`${apiUrl}products/${id}`, updateProduct)
-    .then((response) => {
-      if (response.data.error) {
-        dispatch(createProductError(response.data.error));
-      }
-      dispatch(createProductMsg(response.data.msg));
-    }) // cacth generar un dispatch un error
-    .catch((error) => {
-      dispatch(createProductError(error));
-    });
-};
-
 export const getUsersAsync = () => (dispatch) => {
   fetch(`${apiUrl}users`)
     .then((response) => response.json())
@@ -398,39 +450,68 @@ export const getUsersAsync = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const postUserAsync = (payload) => (dispatch) => {
-  console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload)
-  // .then( (response) => {
-  //     dispatch(postUser(response.data));
-  // })
+//************************************ AUTHENTICATION *************************************** */
 
-  /*FALTA PROBAR Y LOS ERRORES*/
+export const registerUserAsync = (payload) => (dispatch) => {
+  console.log(payload);
+  axios
+    .post(`${apiUrl}users/register`, payload)
+    .then((response) => {
+      console.log("response", response.data);
+      if (response.data.msg) {
+        console.log("Message in register local: ", response.data.msg);
+        dispatch(setRegisterMsg(response.data.msg));
+      }
+      if (response.data.error) {
+        console.log("Error in register local: ", response.data.error);
+        dispatch(setRegisterError(response.data.error));
+      }
+    })
+    .catch((error) => {
+      dispatch(setRegisterError(error));
+    });
 };
 
 export const loginUserAsync = (payload) => (dispatch) => {
   console.log(payload);
-  // axios.post(`${apiUrl}/users/register`, payload) ********************** FALTA RUTA **********************
-  // .then( (response) => {
-  //     dispatch(loginUser(response.data));
-  // })
+  axios
+    .post(`${apiUrl}users/login`, payload)
+    .then((response) => {
+      console.log("response in login user", response.data);
+      if (response.data.token) {
+        dispatch(login(response.data));
+      }
+      if (response.data.msg) {
+        dispatch(setLoginError(response.data.msg));
+      }
+      if (response.data.error) {
+        dispatch(setLoginError(response.data.error));
+      }
+    })
+    .catch((error) => {
+      dispatch(setLoginError(error));
+    });
 
   /*FALTA PROBAR Y LOS ERRORES*/
 };
 
-export const loginGoogleAsync = () => (dispatch) => {
+export const loginGoogleAsync = () => async (dispatch) => {
   axios
     .get(`${apiUrl}auth/login`)
     .then((response) => {
+      console.log("Response en Login", response.data);
       if (Object.keys(response.data).length === 0) {
         return;
       }
-      console.log("Response en Login", response.data);
-      return dispatch(loginGoogle(response.data));
+      if (response.data.error) {
+        console.log("Error en Login", response.data.error);
+        dispatch(setLoginError(response.data.error));
+      }
+      if (response.data.token) {
+        dispatch(login(response.data));
+      }
     })
     .catch((error) => console.log(error));
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const registerGoogleAsync = () => (dispatch) => {
@@ -438,8 +519,11 @@ export const registerGoogleAsync = () => (dispatch) => {
     .get(`${apiUrl}auth/register`)
     .then((response) => {
       console.log("Response in Register", response.data);
-      if (response.data.token) {
-        return dispatch(registerGoogle(response.data));
+      if (response.data.error) {
+        dispatch(setRegisterError(response.data.error));
+      }
+      if (response.data.msg) {
+        dispatch(setRegisterMsg(response.data.msg));
       }
     })
     .catch((error) => console.log(error));
@@ -459,12 +543,14 @@ export const logoutAsync = () => (dispatch) => {
   /*FALTA PROBAR Y LOS ERRORES*/
 };
 
+//******************************************************************************** */
+
 export const addFavoriteAsync = (payload) => (dispatch) => {
   axios
     .put(`${apiUrl}favorites/add`, payload)
-    // .then( (response) => {
-    //     console.log(response.data);
-    // })
+    .then((response) => {
+      console.log(response.data);
+    })
     .catch((error) => console.log(error));
 };
 
