@@ -24,7 +24,7 @@ const AdminProducts = () => {
           <Searchbar content="Product" />
           <NavLink
             className="btn btn-success bg-purple-dark addToCartBtn border-0 py-1 mt-3 mt-lg-0 letter-spacing"
-            to="/admin/products/create"
+            to="/admin/admin/products/create"
           >
             New Product
           </NavLink>
@@ -33,7 +33,7 @@ const AdminProducts = () => {
         <div className="d-flex justify-content-evenly flex-wrap">
           <ProductsTable
             products={allDBProducts}
-            ruta={"/admin/products/update/"}
+            ruta={"/admin/admin/products/update/"}
           />
         </div>
       </div>
