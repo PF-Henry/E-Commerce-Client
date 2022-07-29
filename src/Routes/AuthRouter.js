@@ -1,19 +1,15 @@
-import React from 'react';
+import React from "react";
 import { Routes, Route } from "react-router-dom";
-import { ErrorPage } from '../Components/ErrorPage/ErrorPage';
-import { Login } from '../Components/Login/Login';
-import { ProductDetail } from '../Components/ProductDetail/ProductDetail';
-import { SignIn } from '../Components/SignIn/SignIn';
-import AboutUs from '../Pages/AboutUs/AboutUs';
-import Cart from '../Pages/Cart/Cart';
-
-
-
+import Checkout from "../Components/Checkout/Checkout";
+import MsjTransaction from "../Components/Checkout/MsjTransaction";
+import { ErrorPage } from "../Components/ErrorPage/ErrorPage";
+import { Login } from "../Components/Login/Login";
+import { ProductDetail } from "../Components/ProductDetail/ProductDetail";
+import { SignIn } from "../Components/SignIn/SignIn";
+import AboutUs from "../Pages/AboutUs/AboutUs";
+import Cart from "../Pages/Cart/Cart";
 
 export const AuthRouter = () => {
-
-
-
   return (
     <div>   
         <Routes>
@@ -24,7 +20,9 @@ export const AuthRouter = () => {
             <Route exact path="/cart" element={<Cart />} />
             <Route  path="/auth/*" element={<ErrorPage />} />
             <Route  path="*" element={<ErrorPage />} /> 
+            <Route exact path="/pay" element={<Checkout />} />
+            <Route exact path="/feedback" element={<MsjTransaction />} />
         </Routes>
     </div>
-  )
-}
+  );
+};

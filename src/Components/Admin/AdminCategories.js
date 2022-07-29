@@ -11,18 +11,17 @@ const AdminCategories = () => {
   const dispatch = useDispatch();
   const allCategories = useSelector((state) => state.products.categoriesLoaded);
 
-  const [category, setCategory] = useState({name : ''})
+  const [category, setCategory] = useState({ name: "" });
 
   function handleInputChange(e) {
     setCategory({
-        name: e.target.value
+      name: e.target.value,
     });
-}
-
-  function onClickCreate(e) {
-      dispatch(createCategoryAsync(category));
   }
 
+  function onClickCreate(e) {
+    dispatch(createCategoryAsync(category));
+  }
 
   useEffect(() => {
     if (!allCategories.length) {
@@ -31,12 +30,13 @@ const AdminCategories = () => {
   }, [allCategories, dispatch]);
 
   return (
-    <div className="adminContainer">
-      <div className="adminDashboard adminProducts">
-        <div className="d-flex justify-content-center gap-3 mb-3">
+    <div>
+      <div className="text-purple fs-1 fw-bold mt-3">Categories</div>
+      <div className="mt-4">
+        <div className="d-flex justify-content-center gap-3 mb-3 flex-wrap align-items-center">
           <Searchbar content="Category" />
           <button
-            className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
+            className="btn btn-success bg-purple-dark addToCartBtn border-0 py-1 mt-3 mt-lg-0 letter-spacing"
             // to="/CreateCategory"
             data-toggle="collapse"
             href="#collapseExample"
@@ -45,30 +45,28 @@ const AdminCategories = () => {
             New Category
           </button>
         </div>
-
         <div className="collapse" id="collapseExample">
           <div className="letter-spacing">
             <form>
-              <div className="form-group">
-                  <label htmlFor="name" className="formItem">
-                  Name
-                  </label>
+              <div className="form-group d-inline-block">
+                <div className="d-flex justify-content-center gap-3 mb-3 flex-wrap align-items-center border border-secondary p-4 rounded-3 bg-light mt-3">
                   <input
-                  type="text"
-                  onChange={handleInputChange}
-                  className="form-control"
-                  name="name"
-                  value={category.name}
-                  placeholder="Name"
+                    type="text"
+                    onChange={handleInputChange}
+                    className="form-control create-category-input py-1"
+                    name="name"
+                    value={category.name}
+                    placeholder="Name"
                   />
-              </div>
-              <div className="mb-5 d-flex justify-content-center mt-4">
-                  <input
-                  className="btn btn-success bg-purple-dark addToCartBtn border-0 letter-spacing"
-                  type="button"
-                  value="Create Category"
-                  onClick={onClickCreate}
-                  />
+                  <div className="d-flex justify-content-center">
+                    <input
+                      className="btn btn-success bg-purple-dark addToCartBtn border-0 py-1 mt-3 mt-lg-0 letter-spacing"
+                      type="button"
+                      value="Create Category"
+                      onClick={onClickCreate}
+                    />
+                  </div>
+                </div>
               </div>
             </form>
           </div>
