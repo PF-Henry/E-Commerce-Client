@@ -47,6 +47,7 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
+    roleId: 0,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -184,10 +185,15 @@ export const productSlice = createSlice({
     //***** Authentication *****//
     login: (state, action) => {
       const token = action.payload.token;
+      if (token === "") {
+        return;
+      }
       const user = getUserFromToken(token);
       const role = user.role.name;
-      console.log("Role in reducer - Login", role);
+      const roleId = user.id;
       state.role = role;
+      state.roleId = roleId;
+      state.token = token;
     },
     setRegisterMsg: (state, action) => {
       state.msg = action.payload;
