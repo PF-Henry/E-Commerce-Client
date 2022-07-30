@@ -31,7 +31,7 @@ const MsjTransaction = () => {
                 Thank you for your purchase!
               </div>
               <div className="text-purple fs-4 fw-light">
-                You can check the state of your order in
+                You can check the status of your order in
               </div>
               <Link
                 to="/app/user/orders"
