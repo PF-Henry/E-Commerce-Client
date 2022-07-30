@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsersAsync } from "../../Redux/productSlice";
 
 const AdminSettings = () => {
+  const allUsers = useSelector((state) => state.products.usersLoaded)
+  const userId = useSelector((state) => state.products.roleId)
+  const userInfo = allUsers.filter(user => user.id === userId)
+  const [userName] = userInfo.map(e => e.first_name)
+  const [userMail] = userInfo.map(e => e.email)
+  const [userLastName] = userInfo.map(e => e.last_name)
+  const [userAdress] = userInfo.map(e => e.address)
+  const [userPhone] = userInfo.map(e => e.cellphone)
+  const [userZipCode] = userInfo.map(e => e.zip_code)
+  const [userDeparment] = userInfo.map(e => e.department)
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    if (!allUsers.length) {
+      dispatch(getUsersAsync());
+    }
+  });
+
   return (
     <div className="userContainer">
       <div className="container rounded bg-white mt-5 mb-5 userSettingsContainer">
@@ -13,8 +34,8 @@ const AdminSettings = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX8f7VOnz8lNzJYkzplysK2YOloLjzJoT8LA&usqp=CAU"
                 alt=""
               />
-              <span className="font-weight-bold">Yoha</span>
-              <span className="text-black-50">mymail@mail.com</span>
+              <span className="font-weight-bold">{userName}</span>
+              <span className="text-black-50">{userMail}</span>
               <span> </span>
             </div>
           </div>
@@ -30,8 +51,8 @@ const AdminSettings = () => {
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="first name"
-                    value=""
+                    placeholder="First name"
+                    value={userName}
                   />
                 </div>
 
@@ -40,10 +61,30 @@ const AdminSettings = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value=""
+                    value={userLastName}
                     placeholder="Last Name"
                   />
                 </div>
+              </div>
+
+              <div className="col-md-12">
+                <label className="labels">Mobile Number</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Phone number"
+                  value={userPhone? userPhone : ''}
+                />
+              </div>
+
+              <div className="col-md-12">
+                <label className="labels">email address</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="email@xample.com"
+                  value={userMail? userMail : ''}
+                />
               </div>
 
               <div className="row mt-3">
@@ -52,74 +93,45 @@ const AdminSettings = () => {
                   <input
                     type="password"
                     className="form-control"
-                    placeholder="enter your new password"
+                    placeholder="New password"
                     value=""
                   />
                 </div>
                 <hr />
+
                 <div className="d-flex justify-content-between align-items-center mb-3 deliveryInfo">
                   <h4 className="text-right">Update Delivery Information</h4>
                 </div>
+                
                 <div className="col-md-12">
-                  <label className="labels">Mobile Number</label>
+                  <label className="labels">Address</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="enter phone number"
-                    value=""
+                    placeholder="Address"
+                    value={userAdress? userAdress : ''}
                   />
                 </div>
                 <br />
                 <div className="col-md-12">
-                  <label className="labels">Address Line 1</label>
+                  <label className="labels">Zip code</label>
                   <input
                     type="text"
                     className="form-control"
-                    placeholder="enter address line 1"
-                    value=""
-                  />
-                </div>
-                <br />
-                <div className="col-md-12">
-                  <label className="labels">Address Line 2</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter address line 2"
-                    value=""
-                  />
-                </div>
-                <br />
-                <div className="col-md-12">
-                  <label className="labels">Postcode</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter address line 2"
-                    value=""
+                    placeholder="Zip Code"
+                    value={userZipCode? userZipCode : ''}
                   />
                 </div>
               </div>
 
-              <div className="row mt-3">
-                <div className="col-md-6">
-                  <label className="labels">Country</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    placeholder="country"
-                    value=""
-                  />
-                </div>
-                <div className="col-md-6">
-                  <label className="labels">State/Region</label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    value=""
-                    placeholder="state"
-                  />
-                </div>
+              <div className="col-md-12">
+                <label className="labels">Department</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Department"
+                  value={userDeparment? userDeparment : ''}
+                />
               </div>
 
               <div className="mt-5 text-center">
