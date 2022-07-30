@@ -2,8 +2,6 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetError,
-  searchBrandAsync,
-  searchCategoryAsync,
   searchProductAsync,
   setSearch,
   changeFilter,
@@ -25,8 +23,6 @@ const Searchbar = ({ content }) => {
     dispatch(changeBrandsFilter([]));
     dispatch(clearCheckedStatus());
     dispatch(setSearch(e.target.value));
-    if (content === 'Category') dispatch(searchCategoryAsync);
-    else if (content === 'Brand') dispatch(searchBrandAsync);
     dispatch(searchProductAsync(e.target.value));
   };
 
