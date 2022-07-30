@@ -17,20 +17,24 @@ const UsersTable = ({ users }) => {
   };
 
   return (
-    <div className="letter-spacing mx-1 mt-3">
+    <div className="letter-spacing mx-1 mt-3 table-responsive">
       <table className="table table-hover caption-top">
         <caption>Users</caption>
         <thead className="bg-purple-dark text-white">
           <tr>
-            <th scope="col" className="px-3">
-              email
+            <th scope="col" className="px-3 align-middle">
+              Email
             </th>
-            <th scope="col">First Name</th>
-            <th scope="col">Last Name</th>
-            <th scope="col" className="px-3">
+            <th scope="col" className="px-3 align-middle">
+              First Name
+            </th>
+            <th scope="col" className="px-3 align-middle">
+              Last Name
+            </th>
+            <th scope="col" className="px-3 align-middle">
               Role
             </th>
-            <th scope="col" className="px-3">
+            <th scope="col" className="px-3 align-middle">
               Status
             </th>
           </tr>

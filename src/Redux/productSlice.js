@@ -22,7 +22,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Guest",
+    role: "Admin",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
