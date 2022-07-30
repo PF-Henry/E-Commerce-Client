@@ -22,7 +22,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Guest",
+    role: "Admin",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -47,7 +47,7 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
-    roleId: 0,
+    roleId: 1,
   },
   reducers: {
     getProducts: (state, action) => {

@@ -1,7 +1,5 @@
 .footer-container {
   background-color: #1c004a;
   color: white;
-  position: absolute;
-  bottom: 0;
-  width: 100vw;
+  margin-top: 40px;
 }
