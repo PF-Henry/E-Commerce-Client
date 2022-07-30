@@ -4,6 +4,7 @@ import { NEWEST } from "../Constants/sorting";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { getUserFromToken } from "../Functions/session";
+import { RiLayoutMasonryFill } from "react-icons/ri";
 
 export const productSlice = createSlice({
   name: "products",
@@ -21,7 +22,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "User",
+    role: "Guest",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -44,6 +45,9 @@ export const productSlice = createSlice({
     categoryID: {},
     brandID: {},
     favorites: [],
+    initPoint: "",
+    transactionState: "",
+    roleId: 0,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -181,10 +185,15 @@ export const productSlice = createSlice({
     //***** Authentication *****//
     login: (state, action) => {
       const token = action.payload.token;
+      if (token === "") {
+        return;
+      }
       const user = getUserFromToken(token);
       const role = user.role.name;
-      console.log("Role in reducer - Login", role);
+      const roleId = user.id;
       state.role = role;
+      state.roleId = roleId;
+      state.token = token;
     },
     setRegisterMsg: (state, action) => {
       state.msg = action.payload;
@@ -246,6 +255,17 @@ export const productSlice = createSlice({
         checked: false,
       }));
     },
+    setInitPoint: (state, action) => {
+      state.initPoint = action.payload;
+    },
+    setTransactionState: (state, action) => {
+      state.transactionState = action.payload;
+      if (action.payload === "pending" || "approved") {
+        //Esto limpia el carrito
+        state.cartItems = [];
+        localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
+      }
+    },
   },
 });
 
@@ -292,6 +312,8 @@ export const {
   changeCategoryCheckedStatus,
   changeBrandCheckedStatus,
   clearCheckedStatus,
+  setInitPoint,
+  setTransactionState,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -646,30 +668,31 @@ export const getFavoriteAsync = (payload) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-export const searchCategoryAsync = (brand) => (dispatch) => {
-  fetch(`${apiUrl}categories?name=${brand}`)
-    .then((data) => data.json())
-    .then((json) => {
-      if (json.error) {
-        return dispatch(searchProductError(json.error));
-      }
-      dispatch(searchCategory(json));
-      dispatch(searchProductError(""));
+export const checkoutAsync = (payload) => (dispatch) => {
+  fetch(`${apiUrl}mercadoPago/create_preference`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  })
+    .then(function (response) {
+      return response.json();
     })
-    .catch((error) => console.log(error));
+    .then((preference) => dispatch(setInitPoint(preference.init_point)))
+    .catch((e) => console.log(e));
 };
 
-export const searchBrandAsync = (brand) => (dispatch) => {
-  fetch(`${apiUrl}brands?name=${brand}`)
-    .then((data) => data.json())
-    .then((json) => {
-      if (json.error) {
-        return dispatch(searchProductError(json.error));
-      }
-      dispatch(searchBrand(json));
-      dispatch(searchProductError(""));
-    })
-    .catch((error) => console.log(error));
-};
+// export const getTransactionStateAsync = () => (dispatch) => {
+//   fetch()
+//     .then((res) => res.json())
+//     .then((data) => {
+//       dispatch(setTransactionState(data.ALGO));
+//       if (data.ALGO === "APROBADA" || "PENDING") {
+//         dispatch(cleanCart());
+//       }
+//     })
+//     .catch((e) => console.log(e));
+// };
 
 export default productSlice.reducer;

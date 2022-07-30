@@ -18,12 +18,12 @@ export const SignIn = () => {
     // console.log('Error in Register', error);
 
 
-    
+
 
     useEffect(() => {
         console.log('Dispatch registerUserAsync - SignIn Form');
         dispatch(loginGoogleAsync);
-        return () => { 
+        return () => {
             dispatch(resetError());
             dispatch(resetMsg())
         }
@@ -33,9 +33,9 @@ export const SignIn = () => {
     useEffect(() => {
         if (message) {
             setTimeout(() => {
-                navigate('/login');
+                navigate('/auth/login');
             }, 3000);
-            
+
         }
     }
     , [message, navigate])
@@ -55,7 +55,7 @@ export const SignIn = () => {
       const github = () => {
         window.open("http://localhost:3001/auth/github", "_self");
       };
-    
+
       const facebook = () => {
         window.open("http://localhost:5000/auth/facebook", "_self");
       };
@@ -78,13 +78,13 @@ export const SignIn = () => {
             email: '',
             password: ''
         })
-       
+
       }
 
 
 
   return (
-      
+
     <div className='padding-container'>
         {error ?
             <div className='message-container--login error '>
@@ -103,7 +103,7 @@ export const SignIn = () => {
         <div className="login-container">
             <div className='section-title'>
                 <h5 className="section-title--title" >Register</h5>
-                <div className='section-title-text'> 
+                <div className='section-title-text'>
                     <p className='m-0'>Already have account?</p>
                     <NavLink to='/auth/login' > Login </NavLink>
                 </div>
@@ -125,36 +125,36 @@ export const SignIn = () => {
                     </div>
                 </div>
 
-               
+
                 <div className="right">
                       <form className='register-inputs' onSubmit={ e => handleSubmit(e)}>
-                        <input 
-                            type="text" 
-                            placeholder="Name" 
-                            className='right-input' 
-                            name='first_name' 
-                            value={user.name} 
-                            onChange={e => handleChange(e)} 
+                        <input
+                            type="text"
+                            placeholder="Name"
+                            className='right-input'
+                            name='first_name'
+                            value={user.name}
+                            onChange={e => handleChange(e)}
                             />
-                        <input 
-                            type="text" 
-                            placeholder="Lastname" 
+                        <input
+                            type="text"
+                            placeholder="Lastname"
                             className='right-input'
                             name='last_name'
                             value={user.lastName}
                             onChange={e => handleChange(e)}
                         />
-                        <input 
-                            type="text" 
-                            placeholder="Email" 
+                        <input
+                            type="text"
+                            placeholder="Email"
                             className='right-input'
                             name='email'
                             value={user.email}
                             onChange={e => handleChange(e)}
                         />
-                        <input 
-                            type="password" 
-                            placeholder="Password" 
+                        <input
+                            type="password"
+                            placeholder="Password"
                             className='right-input'
                             name='password'
                             value={user.password}
@@ -176,11 +176,11 @@ export const SignIn = () => {
                     <div className="fs-4 pb-1">exa</div>
                     <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
                 </NavLink>
-        
+
 
             </div>
-            
-        </div>  
+
+        </div>
     </div>
 
 

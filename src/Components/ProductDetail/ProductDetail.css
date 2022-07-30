@@ -216,3 +216,61 @@
 .leftImage {
   cursor: pointer;
 }
+
+
+@media (min-width: 280px) and (max-width:767px) { 
+  .div-container {
+    width: 100%;
+    height: 1600px;
+    padding-top: 200px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .div-container-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .div-container-header--btn {
+    width: 200px;
+  }
+
+  .titleDetail {
+    margin: 5px 0 20px 0;
+  }
+
+  .div-container-sectionOne {
+    width: 100%;
+    height: 1000px;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+  }
+
+  .div-container-sectionOne-One {
+    width: 100%;
+    height: 150px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .div-container-sectionOne-Two {
+    width: 100%;
+    height: 350px;
+  }
+
+  .div-container-sectionOne-Three {
+    width: 80%;
+  }
+}
