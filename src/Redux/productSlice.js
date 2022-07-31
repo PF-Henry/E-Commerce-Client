@@ -189,7 +189,7 @@ export const productSlice = createSlice({
       if (token === "" || token === undefined) {
         return;
       }
-      const {getUser, getUserId, getRole} = initSession(token);
+      const { getUser, getUserId, getRole } = initSession(token);
       const user = getUser();
       const userId = getUserId();
       const role = getRole();
@@ -261,7 +261,7 @@ export const productSlice = createSlice({
     },
     setTransactionState: (state, action) => {
       state.transactionState = action.payload;
-      if (action.payload === "pending" || "approved") {
+      if (action.payload === "pending" || action.payload === "approved") {
         //Esto limpia el carrito
         state.cartItems = [];
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
@@ -515,8 +515,8 @@ export const loginGoogleAsync = () => async (dispatch) => {
     .get(`${apiUrl}auth/login`)
     .then((response) => {
       if (Object.keys(response.data).length === 0) {
-        const token = window.localStorage.getItem('token');
-        if(token){
+        const token = window.localStorage.getItem("token");
+        if (token) {
           dispatch(login(token));
         }
         return;

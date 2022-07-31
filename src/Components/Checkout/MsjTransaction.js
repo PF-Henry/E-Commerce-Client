@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import "./Checkout.css";
 
 const MsjTransaction = () => {
-  console.log(getQueryString());
   const transactionState = useSelector(
     (state) => state.products.transactionState
   );
@@ -22,7 +21,7 @@ const MsjTransaction = () => {
       <Navbar />
       <div className="feedback-container d-flex justify-content-center align-items-center bg-light">
         <div className="d-flex align-items-center justify-content-center">
-          {transactionState === "approved" || "pending" ? (
+          {transactionState === "approved" || transactionState === "pending" ? (
             <div>
               <div className="text-aqua">
                 <MdOutlineInfo size={"6rem"} />
@@ -49,7 +48,7 @@ const MsjTransaction = () => {
                 Uh oh! Something went wrong with your payment.
               </div>
               <div className="text-purple fs-4 fw-light">Please try again.</div>
-              <Link to="/app/cart" className="fs-4 text-aqua fw-semibold">
+              <Link to="/auth/cart" className="fs-4 text-aqua fw-semibold">
                 Back to Cart
               </Link>
             </div>
