@@ -52,3 +52,15 @@
 .create-category-input {
   width: 300px;
 }
+
+.labels {
+  margin-top: 2vh;
+  margin-bottom: 1vh;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  background-color:white;
+  margin-top: 1rem;
+}

@@ -22,7 +22,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Admin",
+    role: "User",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -47,7 +47,7 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
-    roleId: 1,
+    roleId: 35,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -683,16 +683,8 @@ export const checkoutAsync = (payload) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-// export const getTransactionStateAsync = () => (dispatch) => {
-//   fetch()
-//     .then((res) => res.json())
-//     .then((data) => {
-//       dispatch(setTransactionState(data.ALGO));
-//       if (data.ALGO === "APROBADA" || "PENDING") {
-//         dispatch(cleanCart());
-//       }
-//     })
-//     .catch((e) => console.log(e));
-// };
+export const updateUserAdminAsync = (id, payload) => {
+  axios.put(`${apiUrl}users/${id}`, payload)
+}
 
 export default productSlice.reducer;
