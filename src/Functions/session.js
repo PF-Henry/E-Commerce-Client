@@ -1,24 +1,35 @@
 import jwt from "jsonwebtoken";
 
+const storage = window.localStorage;
 
-
-export const getUserFromToken = (token) => {
+function initSession(token)  {
     const JWT_SECRET = process.env.JWT_SECRET || "secretKey";
-    const algorithm = 'HS256';
+    const algorithm = "HS256";
+    storage.setItem('token', token);
 
-    if (token === '') {
-        return {
-            role: 'Guest'
-        };
+    const session = {
+        getUser: () => {
+            const token = window.localStorage.getItem('token');
+            const user = jwt.verify(token, JWT_SECRET, { algorithm });
+            return user.payload;
+        },
+        getUserId: () => {
+            let user = session.getUser();
+            return user.id;
+        },
+        getRole: () => {
+            let user = session.getUser();
+            return user.role.name;
+        }       
     }
-    const user = jwt.verify(token, JWT_SECRET, { algorithm }).payload;
-    return user;
-};
-
-export const getRole = () => {
-    const user = getUserFromToken();
-    if (user === undefined) {
-        return 'Guest';
-    }
-    return user.role;
+    return session;
 }
+
+function  closeSession() {
+    return storage.removeItem('token');
+}
+
+export {
+    initSession,
+    closeSession
+};
