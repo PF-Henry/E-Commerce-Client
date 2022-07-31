@@ -30,11 +30,10 @@ const AdminCategories = () => {
   }, [allCategories, dispatch]);
 
   return (
-    <div>
-      <div className="text-purple fs-1 fw-bold mt-3">Categories</div>
-      <div className="mt-4">
-        <div className="d-flex justify-content-center gap-3 mb-3 flex-wrap align-items-center">
-          <Searchbar content="Category" />
+    <div className="adminContainer">
+      <div className="adminDashboard adminProducts">
+        <div className="d-flex justify-content-center gap-3 mb-3">
+          {/* <Searchbar content="Category" /> */}
           <button
             className="btn btn-success bg-purple-dark addToCartBtn border-0 py-1 mt-3 mt-lg-0 letter-spacing"
             // to="/CreateCategory"
@@ -76,7 +75,7 @@ const AdminCategories = () => {
           <ProductsCategoriesTable
             products={allCategories}
             name={"Categories"}
-            ruta={"/admin/UpdateCategory/"}
+            ruta={"/admin/categories/update/"}
           />
         </div>
       </div>

@@ -301,6 +301,8 @@ export const {
   getBrandID,
   cleanDetail,
   addFavorite,
+  searchCategory,
+  searchBrand,
   removeFavorite,
   login,
   registerGoogle,
@@ -672,16 +674,8 @@ export const checkoutAsync = (payload) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-// export const getTransactionStateAsync = () => (dispatch) => {
-//   fetch()
-//     .then((res) => res.json())
-//     .then((data) => {
-//       dispatch(setTransactionState(data.ALGO));
-//       if (data.ALGO === "APROBADA" || "PENDING") {
-//         dispatch(cleanCart());
-//       }
-//     })
-//     .catch((e) => console.log(e));
-// };
+export const updateUserAdminAsync = (id, payload) => {
+  axios.put(`${apiUrl}users/${id}`, payload)
+}
 
 export default productSlice.reducer;

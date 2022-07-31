@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   ProSidebar,
   Menu,
@@ -14,11 +14,12 @@ import { SiHexo } from "react-icons/si";
 import { IoPerson } from "react-icons/io5";
 import { RiSettings3Fill, RiShoppingBagFill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
+import { getUsersAsync } from "../../../Redux/productSlice";
 import "./SideBar.css";
 import { useDispatch } from "react-redux";
 import { logoutAsync } from "../../../Redux/productSlice";
 
-const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
+const SideBar = ({ collapsed, toggled, handleToggleSidebar, user }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -26,6 +27,7 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
     dispatch(logoutAsync());
     navigate("/");
   };
+
   return (
     <ProSidebar
       image={false}
@@ -58,7 +60,7 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
         <div className="d-flex justify-content-center mt-4">
           <div className="d-flex flex-column align-items-center gap-1">
             <BsPersonCircle size={"4rem"} />
-            Admin
+            { user }
           </div>
         </div>
         <Menu iconShape="circle">
