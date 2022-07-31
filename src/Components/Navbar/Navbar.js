@@ -98,7 +98,7 @@ const Navbar = () => {
 
             {role === "User" ? (
               <Link
-                to="app/user/favorites"
+                to="/app/user/favorites"
                 className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
               >
                 FAVS{" "}

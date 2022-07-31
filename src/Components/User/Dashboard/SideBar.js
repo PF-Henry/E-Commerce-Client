@@ -8,7 +8,11 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import { MdExitToApp, MdOutlineFavorite } from "react-icons/md";
+import {
+  MdExitToApp,
+  MdOutlineFavorite,
+  MdOutlineShoppingCart,
+} from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { BsStarFill } from "react-icons/bs";
 import { SiHexo } from "react-icons/si";
@@ -63,6 +67,10 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
           </div>
         </div>
         <Menu iconShape="circle">
+          <MenuItem icon={<MdOutlineShoppingCart size={"1.4rem"} />}>
+            Cart
+            <Link to="/auth/cart" />
+          </MenuItem>
           <MenuItem icon={<MdOutlineFavorite size={"1.2rem"} />}>
             Favorites
             <Link to="/app/user/favorites" />
