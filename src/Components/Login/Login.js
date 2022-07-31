@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
-import Google from "./images/google.png";
-import Facebook from "./images/facebook.png";
-import Github from "./images/github.png";
 import { NavLink } from "react-router-dom";
+import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
 import { SiHexo } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -75,7 +73,7 @@ export const Login = () => {
   };
 
   return (
-    <div className="padding-container--login">
+    <div className="padding-container--login padding-container">
       {error ? (
         <div className="message-container--login error ">
           <p>{error}</p>
@@ -97,7 +95,9 @@ export const Login = () => {
       )}
       <div className="login-container--login">
         <div className="section-title--login">
-          <h5 className="section-title--title--login">Choose a Login Method</h5>
+          <h5 className="section-title--title--login mt-3">
+            Choose a Login Method
+          </h5>
           <div className="section-title-text--login">
             <p className="m-0">Don't have account yet?</p>
             <NavLink to="/auth/register"> Sign In </NavLink>
@@ -106,16 +106,25 @@ export const Login = () => {
 
         <div className="section-options--login">
           <div className="div-social-buttons--login">
-            <div className="loginButton--login google" onClick={google}>
-              <img src={Google} alt="" className="icon" />
+            <div
+              className="loginButton--login google d-flex align-items-center gap-2"
+              onClick={google}
+            >
+              <FaGoogle size={"1.2rem"} />
               Google
             </div>
-            <div className="loginButton--login facebook" onClick={facebook}>
-              <img src={Facebook} alt="" className="icon" />
+            <div
+              className="loginButton--login facebook d-flex align-items-center gap-2"
+              onClick={facebook}
+            >
+              <FaFacebookF size={"1.2rem"} />
               Facebook
             </div>
-            <div className="loginButton--login github" onClick={github}>
-              <img src={Github} alt="" className="icon" />
+            <div
+              className="loginButton--login github d-flex align-items-center gap-2"
+              onClick={github}
+            >
+              <FaGithub size={"1.4rem"} />
               Github
             </div>
           </div>

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { SiHexo } from "react-icons/si";
-import Google from "../Login/images/google.png";
-import Facebook from "../Login/images/facebook.png";
-import Github from "../Login/images/github.png";
+import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
 import "./SignIn.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -92,7 +90,7 @@ export const SignIn = () => {
       ) : null}
       <div className="login-container">
         <div className="section-title">
-          <h5 className="section-title--title">Register</h5>
+          <h5 className="section-title--title mt-3">Register</h5>
           <div className="section-title-text">
             <p className="m-0">Already have account?</p>
             <NavLink to="/auth/login"> Login </NavLink>
@@ -101,16 +99,25 @@ export const SignIn = () => {
 
         <div className="section-options">
           <div className="div-social-buttons">
-            <div className="loginButton google" onClick={google}>
-              <img src={Google} alt="" className="icon" />
+            <div
+              className="loginButton google d-flex align-items-center gap-2"
+              onClick={google}
+            >
+              <FaGoogle size={"1.2rem"} />
               Google
             </div>
-            <div className="loginButton facebook" onClick={facebook}>
-              <img src={Facebook} alt="" className="icon" />
+            <div
+              className="loginButton facebook d-flex align-items-center gap-2"
+              onClick={facebook}
+            >
+              <FaFacebookF size={"1.2rem"} />
               Facebook
             </div>
-            <div className="loginButton github" onClick={github}>
-              <img src={Github} alt="" className="icon" />
+            <div
+              className="loginButton github d-flex align-items-center gap-2"
+              onClick={github}
+            >
+              <FaGithub size={"1.4rem"} />
               Github
             </div>
           </div>

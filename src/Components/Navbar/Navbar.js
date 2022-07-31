@@ -105,20 +105,22 @@ const Navbar = () => {
               </Link>
             ) : null}
 
-            <Link
-              to="/auth/cart"
-              className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
-            >
-              CART{" "}
-              <div className="position-relative">
-                <MdOutlineShoppingCart size={"1.6rem"} />
-                {quantities !== 0 && (
-                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    {quantities}
-                  </span>
-                )}
-              </div>
-            </Link>
+            {role !== "Admin" && (
+              <Link
+                to="/auth/cart"
+                className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
+              >
+                CART{" "}
+                <div className="position-relative">
+                  <MdOutlineShoppingCart size={"1.6rem"} />
+                  {quantities !== 0 && (
+                    <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                      {quantities}
+                    </span>
+                  )}
+                </div>
+              </Link>
+            )}
 
             {/* <div>
               <button className="" data-toggle="modal" data-target="#exampleModalCenter">Login</button>

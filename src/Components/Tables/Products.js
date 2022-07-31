@@ -28,7 +28,7 @@ const ProductsTable = ({ products, ruta }) => {
         <td>{product.name}</td>
         <td>
           {product.images.length ? (
-            <div className="d-flex align-items-center justify-content-center">
+            <div className="d-flex align-items-center justify-content-center gap-2">
               {product.images.map((image, index) => (
                 <img
                   src={image.url_image}
