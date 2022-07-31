@@ -16,6 +16,7 @@ import {
   cleanCart,
   checkoutAsync,
 } from "../../Redux/productSlice";
+import pesos from "../../Functions/currency";
 
 const Cart = () => {
   const cartItems = useSelector((state) => state.products.cartItems);
@@ -126,7 +127,7 @@ const Cart = () => {
                   <div className="fw-normal text-secondary d-md-none">
                     Price
                   </div>
-                  ${product.price}
+                  $ {pesos.format(product.price)}
                 </div>
                 <div className="col-4 col-md-3 d-flex align-items-center justify-content-center flex-column">
                   <div className="fw-normal text-secondary d-md-none pb-1">
@@ -162,7 +163,7 @@ const Cart = () => {
                   <div className="fw-normal text-secondary d-md-none">
                     Subtotal
                   </div>
-                  ${product.quantity * product.price}
+                  $ {pesos.format(product.quantity * product.price)}
                 </div>
                 {/* <!-- Modal --> */}
                 <div
@@ -277,7 +278,7 @@ const Cart = () => {
               <div className="d-flex flex-column">
                 <div className="p-3 text-end pb-0">
                   Subtotal ({quantities} {quantities > 1 ? "items" : "item"}):{" "}
-                  <b className="ms-2">${subtotal}</b>
+                  <b className="ms-2">$ {pesos.format(subtotal)}</b>
                 </div>
                 <div className="text-end pe-3 text-secondary">
                   Taxes and shipping calculated at checkout

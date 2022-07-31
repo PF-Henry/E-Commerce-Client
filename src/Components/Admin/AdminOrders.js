@@ -14,8 +14,9 @@ const AdminOrders = () => {
   ];
 
   return (
-    <div className="adminContainer">
-      <div className="adminDashboard adminOrders">
+    <div>
+      <div className="text-purple fs-1 fw-bold mt-3">Orders</div>
+      <div className="mt-4">
         <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
           <Searchbar content={"ID"} />
         </div>

@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { MdOutlinePayment } from "react-icons/md";
 import { SiHexo } from "react-icons/si";
 import mpLogo from "./images/mercado-pago-logo.png";
+import pesos from "../../Functions/currency";
 import "./Checkout.css";
 
 const Checkout = () => {
@@ -40,7 +41,7 @@ const Checkout = () => {
                   {product.name}
                 </div>
                 <div>x{product.quantity}</div>
-                <div>{product.quantity * product.price}</div>
+                <div>$ {pesos.format(product.quantity * product.price)}</div>
               </div>
             </div>
           ))}
@@ -48,7 +49,7 @@ const Checkout = () => {
         <div className="py-2 mt-2 border-bottom border-top border-secondary">
           <div className="d-flex justify-content-between">
             <div>Subtotal:</div>
-            <div>{subtotal}</div>
+            <div>$ {pesos.format(subtotal)}</div>
           </div>
           <div className="d-flex justify-content-between">
             <div>Shipping:</div>
@@ -56,13 +57,13 @@ const Checkout = () => {
           </div>
           <div className="d-flex justify-content-between">
             <div>Tax:</div>
-            <div>0</div>
+            <div>$ 0</div>
           </div>
         </div>
         <div>
           <div className="d-flex justify-content-between fw-bold fs-3 text-purple my-2">
             <div>Total:</div>
-            <div>{subtotal}</div>
+            <div>$ {pesos.format(subtotal)}</div>
           </div>
         </div>
         {initPoint === "" ? (
