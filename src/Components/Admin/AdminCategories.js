@@ -75,7 +75,7 @@ const AdminCategories = () => {
           <ProductsCategoriesTable
             products={allCategories}
             name={"Categories"}
-            ruta={"/admin/categories/update/"}
+            ruta={"/admin/admin/categories/update/"}
           />
         </div>
       </div>

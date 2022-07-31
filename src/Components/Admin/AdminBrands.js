@@ -33,7 +33,6 @@ const AdminBrands = () => {
       <div className="text-purple fs-1 fw-bold mt-3">Brands</div>
       <div className="mt-4">
         <div className="d-flex justify-content-center gap-3 mb-3 flex-wrap-reverse align-items-center">
-          <Searchbar content="Brand" />
           <button
             className="btn btn-success bg-purple-dark addToCartBtn border-0 py-1 mt-3 mt-lg-0 letter-spacing"
             data-toggle="collapse"
@@ -76,7 +75,7 @@ const AdminBrands = () => {
           <ProductsCategoriesTable
             products={allBrands}
             name={"Brands"}
-            ruta={"/admin/UpdateBrand/"}
+            ruta={"/admin/admin/brands/update/"}
           />
         </div>
       </div>
