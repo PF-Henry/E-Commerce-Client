@@ -9,13 +9,10 @@ import {
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
+import pesos from "../../Functions/currency";
 import optionsArray from "../../Functions/optionsArray";
 
-
-
-
 export const ProductDetail = () => {
-  
   const navigate = useNavigate();
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
@@ -87,25 +84,25 @@ export const ProductDetail = () => {
   }, [dispatch, id]);
 
   // useEffect(() => {
-    
+
   // }, [mainImage])
-  
 
   const onChangeImage = (url) => {
-    setMainImage(mainImage = url );
+    setMainImage((mainImage = url));
   };
-
 
   return (
     <div>
       <Navbar />
       <div className="div-container">
         <div className="div-container-header">
-          <button onClick={() => navigate(-1)} className="div-container-header--btn animate__animated animate__fadeInLeft">
+          <button
+            onClick={() => navigate(-1)}
+            className="div-container-header--btn animate__animated animate__fadeInLeft"
+          >
             Back
           </button>
-      
-         
+
           <h1 className="titleDetail animate__animated animate__fadeInRight">
             {productDetails.name}
           </h1>
@@ -160,9 +157,9 @@ export const ProductDetail = () => {
           <div className="div-container-sectionOne-Three animate__animated animate__fadeInRight">
             <div className="div-info-product">
               <h2 className="div-info-product-title">Price:</h2>
-              <h3 className="div-info-product-description--price">
+              <h3 className="div-info-product-description--price letter-spacing">
                 {" "}
-                $ {productDetails.price}
+                ${pesos.format(productDetails.price)}
               </h3>
             </div>
 

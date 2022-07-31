@@ -7,6 +7,7 @@ import {
   removeFavoriteAsync,
 } from "../../Redux/productSlice";
 import { MdOutlineFavoriteBorder, MdOutlineFavorite } from "react-icons/md";
+import pesos from "../../Functions/currency";
 import "./Card.css";
 
 const Card = ({ object }) => {
@@ -38,12 +39,7 @@ const Card = ({ object }) => {
 
   return (
     <div className="card productCard border-0 animate__animated animate__fadeIn">
-      {
-        role === 'Guest' ? null 
-        :
-        role === 'User' 
-        &&
-        heartSelected ? (
+      {role === "Guest" ? null : role === "User" && heartSelected ? (
         <button
           className="card-btn-favorite favorite"
           onClick={() => onFavoriteClick(1, object.id)}
@@ -51,9 +47,7 @@ const Card = ({ object }) => {
           {" "}
           <MdOutlineFavorite />{" "}
         </button>
-        ) 
-        : 
-        (
+      ) : (
         <button
           className="card-btn-favorite nonFavorite"
           onClick={() => onFavoriteClick(1, object.id)}
@@ -72,29 +66,24 @@ const Card = ({ object }) => {
         alt="item"
       />
       <div className="card-body d-flex flex-column">
-        {
-          role === 'User' 
-          ?
-          <NavLink
-            to={`/app/product_detail/${object.id}`}
-            className="text-decoration-none text-reset"
-          >
-            <div className="mb-3">
-              <h5 className="card-title text-blue mb-3 letter-spacing">
-                {object.name}
-              </h5>
-              <p className="card-text letter-spacing fw-light">
-                {object.description.slice(0, 100)}
-                {object.description.length > 100 && "..."}
-              </p>
-            </div>
-          </NavLink>
-
-          ||
-
-          role === 'Guest' 
-
-        :
+        {role === "User" ? (
+          (
+            <NavLink
+              to={`/app/product_detail/${object.id}`}
+              className="text-decoration-none text-reset"
+            >
+              <div className="mb-3">
+                <h5 className="card-title text-blue mb-3 letter-spacing">
+                  {object.name}
+                </h5>
+                <p className="card-text letter-spacing fw-light">
+                  {object.description.slice(0, 100)}
+                  {object.description.length > 100 && "..."}
+                </p>
+              </div>
+            </NavLink>
+          ) || role === "Guest"
+        ) : (
           <NavLink
             to={`/auth/product_detail/${object.id}`}
             className="text-decoration-none text-reset"
@@ -109,10 +98,12 @@ const Card = ({ object }) => {
               </p>
             </div>
           </NavLink>
-        }
+        )}
 
         <div className="mt-auto">
-          <h1 className="text-blue mb-3 letter-spacing">${object.price}</h1>
+          <h1 className="text-blue mb-3 letter-spacing">
+            ${pesos.format(object.price)}
+          </h1>
           {productCartIndex !== -1 &&
           object.stock === cartItems[productCartIndex].quantity ? (
             <div className="btn disabled btn-danger py-1 addToCartBtn border-0 letter-spacing">
