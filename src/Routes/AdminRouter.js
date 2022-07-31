@@ -9,6 +9,8 @@ import AdminUsers from "../Components/Admin/AdminUsers";
 import Layout from "../Components/Admin/Dashboard/Layout";
 import { CreateProduct } from "../Components/Product/CreateProduct";
 import { UpdateProduct } from "../Components/Product/UpdateProduct";
+import UpdateCategory from "../Components/Updates/UpdateCategory/UpdateCategory";
+import UpdateBrand from "../Components/Updates/UpdateBrand/UpdateBrand";
 
 export const AdminRouter = () => {
   return (
@@ -19,7 +21,9 @@ export const AdminRouter = () => {
           <Route path="products/create" element={<CreateProduct />} />
           <Route path="products/update/:id" element={<UpdateProduct />} />
           <Route path="categories" element={<AdminCategories />} />
+          <Route path="categories/update/:id" element={<UpdateCategory />} />
           <Route path="brands" element={<AdminBrands />} />
+          <Route path="brands/update/:id" element={<UpdateBrand />} />
           <Route path="orders" element={<AdminOrders />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
