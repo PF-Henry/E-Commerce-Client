@@ -17,13 +17,11 @@ const Navbar = () => {
   useEffect(
     () => {
       dispatch(loginGoogleAsync());
-      console.log(role);
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
 
-  console.log("Role in Navbar", typeof role, role);
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   return (

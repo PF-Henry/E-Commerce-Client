@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from "react-redux";
 
 import {
   getProductsAsync,
-  loginGoogleAsync,
   getFavoriteAsync,
 } from "../../Redux/productSlice";
 

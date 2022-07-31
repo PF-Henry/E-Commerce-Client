@@ -7,7 +7,7 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import { MdExitToApp, MdCategory } from "react-icons/md";
 import { FaClipboardList, FaTags } from "react-icons/fa";
 import { SiHexo } from "react-icons/si";
@@ -15,8 +15,17 @@ import { IoPerson } from "react-icons/io5";
 import { RiSettings3Fill, RiShoppingBagFill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
 import "./SideBar.css";
+import { useDispatch } from "react-redux";
+import { logoutAsync } from "../../../Redux/productSlice";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logout = () => {
+    dispatch(logoutAsync());
+    navigate("/");
+  };
   return (
     <ProSidebar
       image={false}
@@ -82,14 +91,17 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
 
       <SidebarFooter className="bg-purple-dark">
         <div className="sidebar-btn-wrapper py-3">
-          <NavLink
+          {/* <NavLink
             to="/"
             className="adminNavLink d-flex align-items-center aqua-hover sidebar-btn text-white"
-          >
-            <div className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1">
+          > */}
+            <div 
+              className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1"
+              onClick={() => logout()}
+            >
               SIGN OUT <MdExitToApp size={"1.6rem"} />
             </div>
-          </NavLink>
+          {/* </NavLink> */}
         </div>
       </SidebarFooter>
     </ProSidebar>

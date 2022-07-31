@@ -3,7 +3,8 @@ import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { getUserFromToken } from "../Functions/session";
+// import { getUserFromToken } from "../Functions/session";
+import { initSession, closeSession } from "../Functions/session.js";
 import { RiLayoutMasonryFill } from "react-icons/ri";
 
 export const productSlice = createSlice({
@@ -47,7 +48,7 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
-    roleId: 0,
+    userId: 0,
   },
   reducers: {
     getProducts: (state, action) => {
@@ -184,26 +185,26 @@ export const productSlice = createSlice({
     },
     //***** Authentication *****//
     login: (state, action) => {
-      const token = action.payload.token;
-      if (token === "") {
+      const token = action.payload;
+      if (token === "" || token === undefined) {
         return;
       }
-      const user = getUserFromToken(token);
-      const role = user.role.name;
-      const roleId = user.id;
+      const {getUser, getUserId, getRole} = initSession(token);
+      const user = getUser();
+      const userId = getUserId();
+      const role = getRole();
       state.role = role;
-      state.roleId = roleId;
+      state.roleId = userId;
       state.token = token;
     },
     setRegisterMsg: (state, action) => {
       state.msg = action.payload;
     },
     registerGoogle: (state, action) => {
-      const token = action.payload.token;
-      console.log("Token in reducer - Register", token);
       state.msg = action.payload;
     },
     logout: (state, action) => {
+      closeSession();
       state.role = "Guest";
     },
     setLoginError: (state, action) => {
@@ -477,13 +478,10 @@ export const registerUserAsync = (payload) => (dispatch) => {
   axios
     .post(`${apiUrl}users/register`, payload)
     .then((response) => {
-      console.log("response", response.data);
       if (response.data.msg) {
-        console.log("Message in register local: ", response.data.msg);
         dispatch(setRegisterMsg(response.data.msg));
       }
       if (response.data.error) {
-        console.log("Error in register local: ", response.data.error);
         dispatch(setRegisterError(response.data.error));
       }
     })
@@ -497,9 +495,8 @@ export const loginUserAsync = (payload) => (dispatch) => {
   axios
     .post(`${apiUrl}users/login`, payload)
     .then((response) => {
-      console.log("response in login user", response.data);
       if (response.data.token) {
-        dispatch(login(response.data));
+        dispatch(login(response.data.token));
       }
       if (response.data.msg) {
         dispatch(setLoginError(response.data.msg));
@@ -511,24 +508,24 @@ export const loginUserAsync = (payload) => (dispatch) => {
     .catch((error) => {
       dispatch(setLoginError(error));
     });
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const loginGoogleAsync = () => async (dispatch) => {
   axios
     .get(`${apiUrl}auth/login`)
     .then((response) => {
-      console.log("Response en Login", response.data);
       if (Object.keys(response.data).length === 0) {
+        const token = window.localStorage.getItem('token');
+        if(token){
+          dispatch(login(token));
+        }
         return;
       }
       if (response.data.error) {
-        console.log("Error en Login", response.data.error);
         dispatch(setLoginError(response.data.error));
       }
       if (response.data.token) {
-        dispatch(login(response.data));
+        dispatch(login(response.data.token));
       }
     })
     .catch((error) => console.log(error));
@@ -538,7 +535,6 @@ export const registerGoogleAsync = () => (dispatch) => {
   axios
     .get(`${apiUrl}auth/register`)
     .then((response) => {
-      console.log("Response in Register", response.data);
       if (response.data.error) {
         dispatch(setRegisterError(response.data.error));
       }
@@ -547,20 +543,15 @@ export const registerGoogleAsync = () => (dispatch) => {
       }
     })
     .catch((error) => console.log(error));
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const logoutAsync = () => (dispatch) => {
   axios
     .get(`${apiUrl}auth/logout`)
     .then((response) => {
-      console.log(response.data);
       dispatch(logout(response.data));
     })
     .catch((error) => console.log(error));
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 //******************************************************************************** */

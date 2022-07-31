@@ -6,7 +6,6 @@ import { SiHexo } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
-  loginGoogleAsync,
   loginUserAsync,
   registerGoogleAsync,
   resetError,
@@ -21,12 +20,9 @@ export const Login = () => {
   const role = useSelector((state) => state.products.role);
   const error = useSelector((state) => state.products.error);
   const message = useSelector((state) => state.products.msg);
-  console.log("Role in login", role);
-
+  
   useEffect(() => {
-    console.log("Dispatch registerUserAsync - Login Form");
     dispatch(registerGoogleAsync());
-    // dispatch(loginGoogleAsync());
     return () => {
       dispatch(resetError());
       dispatch(resetMsg());
@@ -36,7 +32,6 @@ export const Login = () => {
   useEffect(
     () => {
       if (role === "User") {
-        console.log("Redirecting to Home");
         navigate("/");
       }
     },
