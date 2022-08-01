@@ -5,7 +5,7 @@ import './AdminDashboard.css'
 
 const AdminSettings = () => {
   const allUsers = useSelector((state) => state.products.usersLoaded)
-  const userId = useSelector((state) => state.products.roleId)
+  const userId = useSelector((state) => state.products.userId)
   const userInfo = allUsers.filter(user => user.id === userId)
   const [userName] = userInfo.map(e => e.first_name)
   const [userMail] = userInfo.map(e => e.email)

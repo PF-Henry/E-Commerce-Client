@@ -49,6 +49,7 @@ export const productSlice = createSlice({
     initPoint: "",
     transactionState: "",
     userId: 0,
+    userSession: {},
   },
   reducers: {
     getProducts: (state, action) => {
@@ -191,11 +192,12 @@ export const productSlice = createSlice({
       }
       const { getUser, getUserId, getRole } = initSession(token);
       const user = getUser();
-      const userId = getUserId();
+      const userID = getUserId();
       const role = getRole();
       state.role = role;
-      state.roleId = userId;
+      state.userId = userID;
       state.token = token;
+      state.userSession = user;
     },
     setRegisterMsg: (state, action) => {
       state.msg = action.payload;
@@ -674,8 +676,30 @@ export const checkoutAsync = (payload) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-export const updateUserAdminAsync = (id, payload) => {
-  axios.put(`${apiUrl}users/${id}`, payload)
+export const updateUserAdminAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}users/admin/${id}`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
+}
+
+export const updateUserAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}users/user/${id}`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
 }
 
 export default productSlice.reducer;
