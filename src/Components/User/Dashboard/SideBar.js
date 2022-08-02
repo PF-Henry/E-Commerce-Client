@@ -20,9 +20,11 @@ import { RiSettings3Fill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
 import "./Dashboard.css";
 import { logoutAsync } from "../../../Redux/productSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -67,7 +69,16 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
           </div>
         </div>
         <Menu iconShape="circle">
-          <MenuItem icon={<MdOutlineShoppingCart size={"1.4rem"} />}>
+          <MenuItem
+            icon={<MdOutlineShoppingCart size={"1.4rem"} />}
+            suffix={
+              quantities !== 0 && (
+                <span className="badge bg-danger rounded-pill">
+                  {quantities}
+                </span>
+              )
+            }
+          >
             Cart
             <Link to="/auth/cart" />
           </MenuItem>
