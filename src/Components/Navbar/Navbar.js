@@ -3,12 +3,14 @@ import Searchbar from "../Searchbar/Searchbar";
 import { SiHexo } from "react-icons/si";
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
-import { MdOutlineShoppingCart, MdOutlineFavoriteBorder } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { loginGoogleAsync } from "../../Redux/productSlice";
+import {
+  MdOutlineShoppingCart,
+  MdOutlineFavoriteBorder,
+  MdExitToApp,
+} from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { loginGoogleAsync, logoutAsync } from "../../Redux/productSlice";
 // import { Login } from "../Login/Login";
-
-import { useSelector } from "react-redux/es/exports";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -21,6 +23,10 @@ const Navbar = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
+  const logout = () => {
+    dispatch(logoutAsync());
+    window.scrollTo(0, 0);
+  };
 
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
@@ -75,10 +81,11 @@ const Navbar = () => {
             {role === "User" ? (
               <Link
                 to="/app/user"
-                className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+                className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
               >
-                <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
-                  USER <CgProfile size={"1.6rem"} />
+                USER
+                <div>
+                  <CgProfile size={"1.6rem"} />
                 </div>
               </Link>
             ) : null}
@@ -86,10 +93,11 @@ const Navbar = () => {
             {role === "Admin" ? (
               <Link
                 to="/admin/admin"
-                className="nav-link adminNavLink d-flex align-items-center aqua-hover justify-content-center"
+                className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
               >
-                <div className="letter-spacing nav-li-font d-flex align-items-center gap-1">
-                  ADMIN <CgProfile size={"1.6rem"} />
+                ADMIN
+                <div>
+                  <CgProfile size={"1.6rem"} />
                 </div>
               </Link>
             ) : null}
@@ -100,7 +108,7 @@ const Navbar = () => {
                 className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
               >
                 FAVS{" "}
-                <div className="letter-spacing d-flex align-items-center gap-1">
+                <div>
                   <MdOutlineFavoriteBorder size={"1.6rem"} />
                 </div>
               </Link>
@@ -123,9 +131,17 @@ const Navbar = () => {
               </Link>
             )}
 
-            {/* <div>
-              <button className="" data-toggle="modal" data-target="#exampleModalCenter">Login</button>
-            </div> */}
+            {role !== "Guest" && (
+              <div
+                className="nav-link adminNavLink nav-item letter-spacing nav-li-font aqua-hover d-flex align-items-center justify-content-center gap-1"
+                onClick={() => logout()}
+              >
+                SIGN OUT
+                <div>
+                  <MdExitToApp size={"1.6rem"} />
+                </div>
+              </div>
+            )}
           </ul>
         </div>
       </div>
