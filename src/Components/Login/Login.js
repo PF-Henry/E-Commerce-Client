@@ -31,7 +31,7 @@ export const Login = () => {
 
   useEffect(
     () => {
-      if (role === "User") {
+      if (role === "User" || role === "Admin") {
         navigate("/");
       }
     },
