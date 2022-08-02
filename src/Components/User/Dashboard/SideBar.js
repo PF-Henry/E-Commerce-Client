@@ -20,9 +20,10 @@ import { RiSettings3Fill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
 import "./Dashboard.css";
 import { logoutAsync } from "../../../Redux/productSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
+  const user = useSelector((state) => state.products.userSession)
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -63,7 +64,7 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
         <div className="d-flex justify-content-center mt-4">
           <div className="d-flex flex-column align-items-center gap-1">
             <BsPersonCircle size={"4rem"} />
-            User
+            {user.first_name}
           </div>
         </div>
         <Menu iconShape="circle">

@@ -1,23 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getUsersAsync, updateUserAdminAsync } from "../../Redux/productSlice";
+import { updateUserAdminAsync } from "../../Redux/productSlice";
 import './AdminDashboard.css'
 
 const AdminSettings = () => {
-  const allUsers = useSelector((state) => state.products.usersLoaded)
-  const userId = useSelector((state) => state.products.userId)
-  const userInfo = allUsers.filter(user => user.id === userId)
-  const [userName] = userInfo.map(e => e.first_name)
-  const [userMail] = userInfo.map(e => e.email)
-  const [userLastName] = userInfo.map(e => e.last_name)
-  const [userPhone] = userInfo.map(e => e.cellphone)
+  const user = useSelector((state) => state.products.userSession)
 
   const inputStateInitial = {
-    name: userName,
-    lastName: userLastName,
-    phoneNum: userPhone? userPhone : '',
-    email: userMail? userMail : '',
-    //password: ''
+    first_name: user.first_name,
+    last_name: user.last_name,
+    cellphone: user.cellphone? user.cellphone : 0,
+    email: user.email,
+    password: '',
   };
 
   const [input, setInput] = useState(inputStateInitial);
@@ -25,19 +19,13 @@ const AdminSettings = () => {
 
   const dispatch = useDispatch()
 
-  useEffect(() => {
-    if (!allUsers.length) {
-      dispatch(getUsersAsync());
-    }
-  });
-
   let regexString = /^[A-Za-z]+$/;
 
   const validate = (input) => {
     let errors = {};
-    if (!input.name || !input.name.match(regexString)) errors.name = 'Enter a valid name';
-    if (!input.lastName || !input.lastName.match(regexString)) errors.lastName = 'Enter a valid last name';
-    if (!input.email) errors.email = 'Enter an email';
+    if (!input.first_name || !input.first_name.match(regexString)) errors.first_name = 'Enter a valid name';
+    if (!input.last_name || !input.last_name.match(regexString)) errors.last_name = 'Enter a valid last name';
+    if (input.password && input.password.length < 6) errors.password = 'Password must have at least 6 digits'
     return errors;
   }
 
@@ -47,7 +35,6 @@ const AdminSettings = () => {
         ...input,
         [e.target.name] : e.target.value
     })
-    console.log(input.lastName)
     setErrors(validate({
         ...input,
         [e.target.name] : e.target.value
@@ -56,7 +43,7 @@ const AdminSettings = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateUserAdminAsync(userId, input))
+    dispatch(updateUserAdminAsync(user.id, input))
     console.log('User updated successfully')
   }
 
@@ -72,8 +59,8 @@ const AdminSettings = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX8f7VOnz8lNzJYkzplysK2YOloLjzJoT8LA&usqp=CAU"
                 alt=""
               />
-              <span className="font-weight-bold">{userName + ' ' + userLastName}</span>
-              <span className="text-black-50">{userMail}</span>
+              <span className="font-weight-bold">{user.first_name + ' ' + user.last_name}</span>
+              <span className="text-black-50">{user.email}</span>
               <span> </span>
             </div>
           </div>
@@ -92,8 +79,8 @@ const AdminSettings = () => {
                     type="text"
                     className="form-control"
                     placeholder="First name"
-                    value={input.name}
-                    name='name'
+                    value={input.first_name}
+                    name='first_name'
                     onChange={(e) => handleInputChange(e)}
                   />
                 </div>
@@ -103,33 +90,32 @@ const AdminSettings = () => {
                   <input
                     type="text"
                     className="form-control"
-                    value={input.lastName}
+                    value={input.last_name}
                     placeholder="Last Name"
-                    name='lastName'
+                    name='last_name'
                     onChange={(e) => handleInputChange(e)}
                   />
                 </div>
               </div>
               <div className="error">
-                {errors.name? (
-                    <p>{errors.name}</p>
+                {errors.first_name? (
+                    <p>{errors.first_name}</p>
                 ) : null}
                 </div>
               <div className="error">
-                {errors.lastName? (
-                    <p>{errors.lastName}</p>
+                {errors.last_name? (
+                    <p>{errors.last_name}</p>
                 ) : null}
               </div>
 
               <div className="col-md-12">
                 <label className="labels col-lg-offset-2">Cellphone Number</label>
                 <input
-                  type="tel"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  type="number"
                   className="form-control"
                   placeholder="123-456-7890"
-                  value={input.phoneNum}
-                  name='phoneNum'
+                  value={input.cellphone}
+                  name='cellphone'
                   onChange={(e) => handleInputChange(e)}
                 />
               </div>
@@ -142,13 +128,8 @@ const AdminSettings = () => {
                   placeholder="email@xample.com"
                   value={input.email}
                   name='email'
-                  onChange={(e) => handleInputChange(e)}
+                  disabled
                 />
-              </div>
-              <div className="error">
-                {errors.email && (
-                    <p>{errors.email}</p>
-                )}
               </div>
 
               <div className="row mt-3">
@@ -158,10 +139,15 @@ const AdminSettings = () => {
                     type="password"
                     className="form-control"
                     placeholder="New password"
-                    value=""
+                    value={input.password}
                     name='password'
                     onChange={(e) => handleInputChange(e)}
                   />
+                </div>
+                <div className="error">
+                  {errors.password? (
+                      <p>{errors.password}</p>
+                  ) : null}
                 </div>
                 <hr />
               </div>

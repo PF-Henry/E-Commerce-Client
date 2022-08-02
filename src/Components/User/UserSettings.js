@@ -45,7 +45,6 @@ const UserSettings = () => {
   }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     dispatch(updateUserAsync(user.id, input))
     console.log('User updated successfully')
     console.log(input)
