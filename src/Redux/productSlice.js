@@ -49,6 +49,7 @@ export const productSlice = createSlice({
     initPoint: "",
     transactionState: "",
     userId: 0,
+    userSession: {}
   },
   reducers: {
     getProducts: (state, action) => {
@@ -190,12 +191,13 @@ export const productSlice = createSlice({
         return;
       }
       const { getUser, getUserId, getRole } = initSession(token);
-      const user = getUser();
+      const user = getUser();   
       const userId = getUserId();
       const role = getRole();
       state.role = role;
-      state.roleId = userId;
+      state.userId = userId;
       state.token = token;
+      state.userSession = user;
     },
     setRegisterMsg: (state, action) => {
       state.msg = action.payload;
@@ -500,15 +502,12 @@ export const loginUserAsync = (payload) => (dispatch) => {
       if (response.data.token) {
         dispatch(login(response.data.token));
       }
-      if (response.data.msg) {
-        dispatch(setLoginError(response.data.msg));
-      }
       if (response.data.error) {
         dispatch(setLoginError(response.data.error));
       }
     })
     .catch((error) => {
-      dispatch(setLoginError(error));
+      dispatch(setLoginError(error.response.data.error));
     });
 };
 
