@@ -674,7 +674,7 @@ export const checkoutAsync = (payload) => (dispatch) => {
 };
 
 export const updateUserAdminAsync = (id, payload) => {
-  axios.put(`${apiUrl}users/${id}`, payload)
-}
+  axios.put(`${apiUrl}users/${id}`, payload);
+};
 
 export default productSlice.reducer;
