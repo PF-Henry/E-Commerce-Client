@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MdModeEdit } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ItemsPaging from "./ItemsPaging";
+import pesos from "../../Functions/currency";
 
 const ProductsTable = ({ products, ruta }) => {
   const [currentPg, setCurrentPg] = useState(1);
@@ -42,7 +43,7 @@ const ProductsTable = ({ products, ruta }) => {
             "No images"
           )}
         </td>
-        <td>{product.price}</td>
+        <td>${pesos.format(product.price)}</td>
         <td>{product.stock}</td>
         <td>{product.state ? "Active" : "Inactive"}</td>
         <td>
