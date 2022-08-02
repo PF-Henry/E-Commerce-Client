@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import ItemsPaging from "./ItemsPaging";
-import { MdModeEdit } from "react-icons/md";
+import { MdPublishedWithChanges } from "react-icons/md";
+import {GrView} from 'react-icons/gr';
 import { Link } from "react-router-dom";
 
 const OrdersTableAdmin = ({ orders }) => {
@@ -23,7 +24,7 @@ const OrdersTableAdmin = ({ orders }) => {
   return (
     <div className="letter-spacing mx-1 mt-3">
       <table className="table table-hover caption-top table-borderless">
-        <caption>Pending Orders</caption>
+        <caption>Orders</caption>
         <thead className="bg-purple-dark text-white">
           <tr>
             <th scope="col" className="px-3">Order ID</th>
@@ -55,8 +56,11 @@ const OrdersTableAdmin = ({ orders }) => {
                 <Link
                   to={`/product${order.id}`}
                   className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
+                  data-bs-toggle="modal" data-bs-target="#modalChangeState"
+                  data-id={order.id}
+                  data-state={order.state}
                   title="Change Status">
-                  <MdModeEdit size={"1.5rem"} />
+                  <MdPublishedWithChanges size={"1.5rem"} />
                 </Link>
               </td>
               <td className="justify-content-center gap-3">
@@ -65,7 +69,7 @@ const OrdersTableAdmin = ({ orders }) => {
                   onClick={()=>seeOrder(order.id)}
                   className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
                   title="See">
-                  <MdModeEdit size={"1.5rem"} />
+                  <GrView size={"1.5rem"} />
                 </button>
               </td>
             </tr>
@@ -77,6 +81,30 @@ const OrdersTableAdmin = ({ orders }) => {
         allItems={orders.length}
         paging={paging}
       />
+
+
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+        Launch static backdrop modal
+      </button>
+
+     {/* Modal----------------------------------------- */}
+    <div class="modal fade" id="modalChangeState" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            ...
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Understood</button>
+          </div>
+        </div>
+      </div>
+</div>
     </div>
   );
 };

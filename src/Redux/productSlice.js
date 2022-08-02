@@ -50,6 +50,7 @@ export const productSlice = createSlice({
     transactionState: "",
     roleId: 0,
     ordersAdminLoaded: [],
+    ordersAdminLoadedFiltered: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -270,6 +271,20 @@ export const productSlice = createSlice({
     },
     getOrdersAdmin: (state, action) => {
       state.ordersAdminLoaded = action.payload;
+      state.ordersAdminLoadedFiltered = action.payload;
+    },
+    filterOrdersAdmin: (state, action) => {
+      let ordersFilter = state.ordersAdminLoaded;
+      if (action.payload){
+        if (action.payload.search.length > 0){
+          ordersFilter = state.ordersAdminLoaded.filter(order => order.id.toString().includes(action.payload.search));
+        }
+        if (action.payload.stateFilter !== "All"){
+          ordersFilter = ordersFilter.filter(order => order.state.toLowerCase() === action.payload.stateFilter.toLowerCase());
+        }
+      }
+      state.ordersAdminLoadedFiltered = ordersFilter;
+
     }
   },
 });
@@ -318,6 +333,7 @@ export const {
   setInitPoint,
   setTransactionState,
   getOrdersAdmin,
+  filterOrdersAdmin,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
