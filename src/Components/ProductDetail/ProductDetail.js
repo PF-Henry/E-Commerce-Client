@@ -16,6 +16,7 @@ export const ProductDetail = () => {
   const navigate = useNavigate();
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
+  const role = useSelector((state) => state.products.role);
   const productCartIndex = cartItems.findIndex(
     (item) => item.id === product.id
   );
@@ -191,38 +192,40 @@ export const ProductDetail = () => {
               </h3>
             </div>
 
-            <div className="div-info-btn">
-              {productCartIndex !== -1 &&
-              product.stock === cartItems[productCartIndex].quantity ? (
-                <button className="btnDetail-Add-Product btn btn-danger disabled px-5">
-                  {" "}
-                  Out of Stock
-                </button>
-              ) : (
-                <div className="input-group px-3">
-                  <select
-                    className="form-select"
-                    onChange={(e) => handleChangeQuantity(e)}
-                    value={quantity}
-                  >
-                    {options.map((n) => (
-                      <option key={n} value={n}>
-                        {n}
-                      </option>
-                    ))}
-                  </select>
-                  <button
-                    className="btnDetail-Add-Product px-4"
-                    onClick={() => {
-                      handleAddToCart(product, quantity);
-                    }}
-                  >
+            {role !== "Admin" && (
+              <div className="div-info-btn">
+                {productCartIndex !== -1 &&
+                product.stock === cartItems[productCartIndex].quantity ? (
+                  <button className="btnDetail-Add-Product btn btn-danger disabled px-5">
                     {" "}
-                    Add to Cart
+                    Out of Stock
                   </button>
-                </div>
-              )}
-            </div>
+                ) : (
+                  <div className="input-group px-3">
+                    <select
+                      className="form-select"
+                      onChange={(e) => handleChangeQuantity(e)}
+                      value={quantity}
+                    >
+                      {options.map((n) => (
+                        <option key={n} value={n}>
+                          {n}
+                        </option>
+                      ))}
+                    </select>
+                    <button
+                      className="btnDetail-Add-Product px-4"
+                      onClick={() => {
+                        handleAddToCart(product, quantity);
+                      }}
+                    >
+                      {" "}
+                      Add to Cart
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
           </div>
         </div>
 

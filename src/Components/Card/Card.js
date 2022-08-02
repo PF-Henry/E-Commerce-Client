@@ -104,20 +104,24 @@ const Card = ({ object }) => {
           <h1 className="text-blue mb-3 letter-spacing">
             ${pesos.format(object.price)}
           </h1>
-          {productCartIndex !== -1 &&
-          object.stock === cartItems[productCartIndex].quantity ? (
-            <div className="btn disabled btn-danger py-1 addToCartBtn border-0 letter-spacing">
-              Out of Stock
-            </div>
-          ) : (
-            <div
-              className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
-              onClick={() => {
-                handleAddToCart(object, 1);
-              }}
-            >
-              Add to Cart
-            </div>
+          {role !== "Admin" && (
+            <>
+              {productCartIndex !== -1 &&
+              object.stock === cartItems[productCartIndex].quantity ? (
+                <div className="btn disabled btn-danger py-1 addToCartBtn border-0 letter-spacing">
+                  Out of Stock
+                </div>
+              ) : (
+                <div
+                  className="btn text-white bg-purple-dark py-1 addToCartBtn border-0 letter-spacing"
+                  onClick={() => {
+                    handleAddToCart(object, 1);
+                  }}
+                >
+                  Add to Cart
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
