@@ -9,6 +9,7 @@ import {
   registerUserAsync,
   resetError,
   loginGoogleAsync,
+  registerGoogleAsync,
   resetMsg,
 } from "../../Redux/productSlice";
 import apiUrl from "../../Constants/apiUrl";
@@ -18,11 +19,10 @@ export const SignIn = () => {
   const error = useSelector((state) => state.products.error);
   const message = useSelector((state) => state.products.msg);
   const dispatch = useDispatch();
-  // console.log('Error in Register', error);
 
   useEffect(() => {
-    console.log("Dispatch registerUserAsync - SignIn Form");
-    dispatch(loginGoogleAsync);
+      dispatch(registerGoogleAsync());//*
+      dispatch(loginGoogleAsync);
     return () => {
       dispatch(resetError());
       dispatch(resetMsg());
