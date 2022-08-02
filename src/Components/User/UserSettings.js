@@ -6,14 +6,12 @@ import { updateUserAsync } from "../../Redux/productSlice";
 const UserSettings = () => {
   const user = useSelector((state) => state.products.userSession)
 
-  console.log(user)
-
   const dispatch = useDispatch()
 
   const inputStateInitial = {
     first_name: user.first_name,
     last_name: user.last_name,
-    cellphone: user.cellphone? user.cellphone : '',
+    cellphone: user.cellphone? user.cellphone : 0,
     email: user.email? user.email : '',
     address: user.address? user.address : '',
     zip_code: user.zip_code? user.zip_code : '',
@@ -117,8 +115,7 @@ const UserSettings = () => {
               <div className="col-md-12">
                 <label className="labels col-lg-offset-2">Cellphone Number</label>
                 <input
-                  type="tel"
-                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                  type="number"
                   className="form-control"
                   placeholder="123-456-7890"
                   value={input.cellphone}
