@@ -1,17 +1,26 @@
-import React from "react";
-import OrdersTable from "../Tables/OrdersTable";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import OrdersTableAdmin from "../Tables/OrdersTableAdmin";
 import "./AdminDashboard.css";
 import Searchbar from "../Searchbar/Searchbar";
+import { getOrdersAdminAsync } from "../../Redux/productSlice";
 
 const AdminOrders = () => {
-  const allPendingOrders = [
-    { name: "123Yoha", products: ["TV", "PC"], total: 152 },
-    { name: "123Richy", products: ["TV", "PC"], total: 152 },
-    { name: "132Victor", products: ["TV", "PC"], total: 152 },
-    { name: "123Gerardo", products: ["TV", "PC"], total: 152 },
-    { name: "123Sneider", products: ["TV", "PC"], total: 152 },
-    { name: "132Gustavo", products: ["TV", "PC"], total: 152 },
-  ];
+
+  const dispatch = useDispatch();
+  const allOrdersAdmin = useSelector((state) => state.products.ordersAdminLoaded);
+  
+
+  const [user, setOrder] = useState({ name: "" });  // searchbar
+  const [state, setState] = useState('');  // filtro de estado
+
+  useEffect(() => {
+    if (!allOrdersAdmin.length) {
+            dispatch(getOrdersAdminAsync());
+    }
+  }, [allOrdersAdmin, dispatch]);
+
+  
 
   return (
     <div>
@@ -21,7 +30,7 @@ const AdminOrders = () => {
           <Searchbar content={"ID"} />
         </div>
         <div className="d-flex justify-content-evenly flex-wrap">
-          <OrdersTable orders={allPendingOrders} />
+          <OrdersTableAdmin orders={allOrdersAdmin} />
         </div>
       </div>
     </div>

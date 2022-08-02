@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { getUserFromToken } from "../Functions/session";
 import { RiLayoutMasonryFill } from "react-icons/ri";
+import imageToBase64 from 'image-to-base64/browser';
 
 export const productSlice = createSlice({
   name: "products",
@@ -48,6 +49,7 @@ export const productSlice = createSlice({
     initPoint: "",
     transactionState: "",
     roleId: 0,
+    ordersAdminLoaded: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -266,6 +268,9 @@ export const productSlice = createSlice({
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },
+    getOrdersAdmin: (state, action) => {
+      state.ordersAdminLoaded = action.payload;
+    }
   },
 });
 
@@ -312,6 +317,7 @@ export const {
   clearCheckedStatus,
   setInitPoint,
   setTransactionState,
+  getOrdersAdmin,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -370,11 +376,10 @@ export const switchItemsPerPageAsync = (e) => () => {
 // ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
-
+  
   const formData = new FormData();
-  console.log(updateProduct);
-
   formData.append("name", updateProduct.name);
+  
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
   formData.append("description", updateProduct.description);
@@ -382,7 +387,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     "technical_especification",
     updateProduct.technical_especification
   );
-
+    
   formData.append("categories", JSON.stringify(updateProduct.categories));
   formData.append("brand", updateProduct.brand);
   formData.append("state", updateProduct.state);
@@ -396,8 +401,9 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
+      } else {
+        dispatch(createProductMsg(response.data.msg));
       }
-      dispatch(createProductMsg(response.data.msg));
     }) // cacth generar un dispatch un error
     .catch((error) => {
       dispatch(createProductError(error));
@@ -407,8 +413,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
 
 export const updateProductAsync = (id, updateProduct) => (dispatch) => {
   const formData = new FormData();
-  console.log(updateProduct);
-
+  
   formData.append("name", updateProduct.name);
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
@@ -431,8 +436,9 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
+      } else {
+        dispatch(createProductMsg(response.data.msg));
       }
-      dispatch(createProductMsg(response.data.msg));
     }) // cacth generar un dispatch un error
     .catch((error) => {
       dispatch(createProductError(error));
@@ -455,7 +461,25 @@ export const searchProductAsync = (product) => (dispatch) => {
 export const getDetailProductAsync = (payload) => (dispatch) => {
   fetch(`${apiUrl}products/${payload}`)
     .then((data) => data.json())
-    .then((json) => {
+    .then(async (json) => {
+      // ------------------------------------------
+      let idImage = 0;
+      const parseB64 = await json.images.map( async (image) => {
+                          let b64 = await imageToBase64(image.url_image)
+                                      .then(base64 => {
+                                        const completab64 = "data:image/jpeg;base64," + base64;
+                                        return {
+                                          id: idImage++,
+                                          src: completab64};
+                                      });
+                      return b64;})
+      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});  
+      json.images = arrayB64Images;
+      // ------------------------------------------
+
+      const auxCategories = json.categories.map((category) => {
+                      return {name : category.name};});
+      json.categories = auxCategories;
       dispatch(getProductDetails(json));
     })
     .catch((error) => console.log(error));
@@ -692,5 +716,18 @@ export const checkoutAsync = (payload) => (dispatch) => {
 //     })
 //     .catch((e) => console.log(e));
 // };
+
+
+// ----------------------------------------------------  ORDERS dashboard Admin ------------------------------------------------
+export const getOrdersAdminAsync = () => (dispatch) => {
+  axios
+    .get(`${apiUrl}orders/`)
+    .then((response) => {
+      dispatch(getOrdersAdmin(response.data));
+    })
+    .catch((error) => console.log(error));
+};
+
+
 
 export default productSlice.reducer;
