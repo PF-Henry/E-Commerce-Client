@@ -86,12 +86,15 @@ export const Login = () => {
   };
   
   const handleRecoverPassword = (e) => {
-    e.preventDefault(e);
+    e.preventDefault();
     dispatch(recoverPasswordAsync(userEmail))
     setUserEmail({
       email: '',
     });
   }
+
+
+  
 
   return (
 
@@ -205,7 +208,9 @@ export const Login = () => {
                   name="email"
                   value={user.email}
                   onChange={(e) => handleChange(e)}
+                  autoComplete='off'
                 />
+               
                 <input
                   type="password"
                   placeholder="Password"

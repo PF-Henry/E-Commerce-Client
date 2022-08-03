@@ -70,6 +70,7 @@
     width: 200px;
     border-radius: 5px;
     border: 1px solid #507cc0;
+    padding-left: 6px;
 }
 
 .center--login {
