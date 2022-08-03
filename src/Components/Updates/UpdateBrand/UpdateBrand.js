@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 import { getBrandByIDAsync } from '../../../Redux/productSlice'
 import UpdateCategoryForm from "../UpdateCategory/UpdateCategory_BrandForm";
 

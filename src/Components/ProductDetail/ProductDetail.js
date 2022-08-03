@@ -9,17 +9,15 @@ import {
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
+import pesos from "../../Functions/currency";
 import optionsArray from "../../Functions/optionsArray";
 import { Spinner } from "../Spinner/Spinner";
 
-
-
-
 export const ProductDetail = () => {
-  
   const navigate = useNavigate();
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
+  const role = useSelector((state) => state.products.role);
   const productCartIndex = cartItems.findIndex(
     (item) => item.id === product.id
   );
@@ -98,14 +96,12 @@ export const ProductDetail = () => {
   }, [dispatch, id]);
 
   // useEffect(() => {
-    
+
   // }, [mainImage])
-  
 
   const onChangeImage = (url) => {
-    setMainImage(mainImage = url );
+    setMainImage((mainImage = url));
   };
-
 
   return (
     <div>
@@ -185,7 +181,7 @@ export const ProductDetail = () => {
                     <h2 className="div-info-product-title">Price:</h2>
                     <h3 className="div-info-product-description--price">
                       {" "}
-                      $ {productDetails.price}
+                      ${pesos.format(productDetails.price)}
                     </h3>
                   </div>
 
@@ -217,6 +213,7 @@ export const ProductDetail = () => {
                     </h3>
                   </div>
 
+{role !== "Admin" && (
                   <div className="div-info-btn">
                     {productCartIndex !== -1 &&
                     product.stock === cartItems[productCartIndex].quantity ? (
@@ -249,6 +246,7 @@ export const ProductDetail = () => {
                       </div>
                     )}
                   </div>
+                  )}
                 </div>
               </div>
 

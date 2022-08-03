@@ -8,7 +8,11 @@ import {
   SidebarContent,
 } from "react-pro-sidebar";
 import { Link, useNavigate } from "react-router-dom";
-import { MdExitToApp, MdOutlineFavorite } from "react-icons/md";
+import {
+  MdExitToApp,
+  MdOutlineFavorite,
+  MdOutlineShoppingCart,
+} from "react-icons/md";
 import { FaClipboardList } from "react-icons/fa";
 import { BsStarFill } from "react-icons/bs";
 import { SiHexo } from "react-icons/si";
@@ -16,9 +20,12 @@ import { RiSettings3Fill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
 import "./Dashboard.css";
 import { logoutAsync } from "../../../Redux/productSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
+  const user = useSelector((state) => state.products.userSession);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -59,10 +66,23 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
         <div className="d-flex justify-content-center mt-4">
           <div className="d-flex flex-column align-items-center gap-1">
             <BsPersonCircle size={"4rem"} />
-            User
+            {user.first_name}
           </div>
         </div>
         <Menu iconShape="circle">
+          <MenuItem
+            icon={<MdOutlineShoppingCart size={"1.4rem"} />}
+            suffix={
+              quantities !== 0 && (
+                <span className="badge bg-danger rounded-pill">
+                  {quantities}
+                </span>
+              )
+            }
+          >
+            Cart
+            <Link to="/auth/cart" />
+          </MenuItem>
           <MenuItem icon={<MdOutlineFavorite size={"1.2rem"} />}>
             Favorites
             <Link to="/app/user/favorites" />

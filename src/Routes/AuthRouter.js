@@ -8,6 +8,7 @@ import { SignIn } from "../Components/SignIn/SignIn";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import Cart from "../Pages/Cart/Cart";
 
+
 export const AuthRouter = () => {
   return (
     <div>

@@ -3,8 +3,10 @@ import apiUrl from "../Constants/apiUrl";
 import { NEWEST } from "../Constants/sorting";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { getUserFromToken } from "../Functions/session";
+// import { getUserFromToken } from "../Functions/session";
+import { initSession, closeSession } from "../Functions/session.js";
 import { RiLayoutMasonryFill } from "react-icons/ri";
+import imageToBase64 from 'image-to-base64/browser';
 
 export const productSlice = createSlice({
   name: "products",
@@ -47,7 +49,11 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
+    userId: 0,
     roleId: 0,
+    userSession: {},
+    ordersAdminLoaded: [],
+    ordersAdminLoadedFiltered: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -184,26 +190,27 @@ export const productSlice = createSlice({
     },
     //***** Authentication *****//
     login: (state, action) => {
-      const token = action.payload.token;
-      if (token === "") {
+      const token = action.payload;
+      if (token === "" || token === undefined) {
         return;
       }
-      const user = getUserFromToken(token);
-      const role = user.role.name;
-      const roleId = user.id;
+      const { getUser, getUserId, getRole } = initSession(token);
+      const user = getUser();
+      const userID = getUserId();
+      const role = getRole();
       state.role = role;
-      state.roleId = roleId;
+      state.userId = userID;
       state.token = token;
+      state.userSession = user;
     },
     setRegisterMsg: (state, action) => {
       state.msg = action.payload;
     },
     registerGoogle: (state, action) => {
-      const token = action.payload.token;
-      console.log("Token in reducer - Register", token);
       state.msg = action.payload;
     },
     logout: (state, action) => {
+      closeSession();
       state.role = "Guest";
     },
     setLoginError: (state, action) => {
@@ -260,12 +267,29 @@ export const productSlice = createSlice({
     },
     setTransactionState: (state, action) => {
       state.transactionState = action.payload;
-      if (action.payload === "pending" || "approved") {
+      if (action.payload === "pending" || action.payload === "approved") {
         //Esto limpia el carrito
         state.cartItems = [];
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },
+    getOrdersAdmin: (state, action) => {
+      state.ordersAdminLoaded = action.payload;
+      state.ordersAdminLoadedFiltered = action.payload;
+    },
+    filterOrdersAdmin: (state, action) => {
+      let ordersFilter = state.ordersAdminLoaded;
+      if (action.payload){
+        if (action.payload.search.length > 0){
+          ordersFilter = state.ordersAdminLoaded.filter(order => order.id.toString().includes(action.payload.search));
+        }
+        if (action.payload.stateFilter !== "All"){
+          ordersFilter = ordersFilter.filter(order => order.state.toLowerCase() === action.payload.stateFilter.toLowerCase());
+        }
+      }
+      state.ordersAdminLoadedFiltered = ordersFilter;
+
+    }
   },
 });
 
@@ -300,6 +324,8 @@ export const {
   getBrandID,
   cleanDetail,
   addFavorite,
+  searchCategory,
+  searchBrand,
   removeFavorite,
   login,
   registerGoogle,
@@ -312,6 +338,8 @@ export const {
   clearCheckedStatus,
   setInitPoint,
   setTransactionState,
+  getOrdersAdmin,
+  filterOrdersAdmin,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -370,11 +398,10 @@ export const switchItemsPerPageAsync = (e) => () => {
 // ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
-
+  
   const formData = new FormData();
-  console.log(updateProduct);
-
   formData.append("name", updateProduct.name);
+  
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
   formData.append("description", updateProduct.description);
@@ -382,7 +409,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     "technical_especification",
     updateProduct.technical_especification
   );
-
+    
   formData.append("categories", JSON.stringify(updateProduct.categories));
   formData.append("brand", updateProduct.brand);
   formData.append("state", updateProduct.state);
@@ -396,8 +423,9 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
+      } else {
+        dispatch(createProductMsg(response.data.msg));
       }
-      dispatch(createProductMsg(response.data.msg));
     }) // cacth generar un dispatch un error
     .catch((error) => {
       dispatch(createProductError(error));
@@ -407,8 +435,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
 
 export const updateProductAsync = (id, updateProduct) => (dispatch) => {
   const formData = new FormData();
-  console.log(updateProduct);
-
+  
   formData.append("name", updateProduct.name);
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
@@ -431,8 +458,9 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
+      } else {
+        dispatch(createProductMsg(response.data.msg));
       }
-      dispatch(createProductMsg(response.data.msg));
     }) // cacth generar un dispatch un error
     .catch((error) => {
       dispatch(createProductError(error));
@@ -455,7 +483,25 @@ export const searchProductAsync = (product) => (dispatch) => {
 export const getDetailProductAsync = (payload) => (dispatch) => {
   fetch(`${apiUrl}products/${payload}`)
     .then((data) => data.json())
-    .then((json) => {
+    .then(async (json) => {
+      // ------------------------------------------
+      let idImage = 0;
+      const parseB64 = await json.images.map( async (image) => {
+                          let b64 = await imageToBase64(image.url_image)
+                                      .then(base64 => {
+                                        const completab64 = "data:image/jpeg;base64," + base64;
+                                        return {
+                                          id: idImage++,
+                                          src: completab64};
+                                      });
+                      return b64;})
+      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});  
+      json.images = arrayB64Images;
+      // ------------------------------------------
+
+      const auxCategories = json.categories.map((category) => {
+                      return {name : category.name};});
+      json.categories = auxCategories;
       dispatch(getProductDetails(json));
     })
     .catch((error) => console.log(error));
@@ -477,13 +523,10 @@ export const registerUserAsync = (payload) => (dispatch) => {
   axios
     .post(`${apiUrl}users/register`, payload)
     .then((response) => {
-      console.log("response", response.data);
       if (response.data.msg) {
-        console.log("Message in register local: ", response.data.msg);
         dispatch(setRegisterMsg(response.data.msg));
       }
       if (response.data.error) {
-        console.log("Error in register local: ", response.data.error);
         dispatch(setRegisterError(response.data.error));
       }
     })
@@ -497,38 +540,34 @@ export const loginUserAsync = (payload) => (dispatch) => {
   axios
     .post(`${apiUrl}users/login`, payload)
     .then((response) => {
-      console.log("response in login user", response.data);
       if (response.data.token) {
-        dispatch(login(response.data));
-      }
-      if (response.data.msg) {
-        dispatch(setLoginError(response.data.msg));
+        dispatch(login(response.data.token));
       }
       if (response.data.error) {
         dispatch(setLoginError(response.data.error));
       }
     })
     .catch((error) => {
-      dispatch(setLoginError(error));
+      dispatch(setLoginError(error.response.data.error));
     });
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const loginGoogleAsync = () => async (dispatch) => {
   axios
     .get(`${apiUrl}auth/login`)
     .then((response) => {
-      console.log("Response en Login", response.data);
       if (Object.keys(response.data).length === 0) {
+        const token = window.localStorage.getItem("token");
+        if (token) {
+          dispatch(login(token));
+        }
         return;
       }
       if (response.data.error) {
-        console.log("Error en Login", response.data.error);
         dispatch(setLoginError(response.data.error));
       }
       if (response.data.token) {
-        dispatch(login(response.data));
+        dispatch(login(response.data.token));
       }
     })
     .catch((error) => console.log(error));
@@ -538,7 +577,6 @@ export const registerGoogleAsync = () => (dispatch) => {
   axios
     .get(`${apiUrl}auth/register`)
     .then((response) => {
-      console.log("Response in Register", response.data);
       if (response.data.error) {
         dispatch(setRegisterError(response.data.error));
       }
@@ -547,20 +585,15 @@ export const registerGoogleAsync = () => (dispatch) => {
       }
     })
     .catch((error) => console.log(error));
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 export const logoutAsync = () => (dispatch) => {
   axios
     .get(`${apiUrl}auth/logout`)
     .then((response) => {
-      console.log(response.data);
       dispatch(logout(response.data));
     })
     .catch((error) => console.log(error));
-
-  /*FALTA PROBAR Y LOS ERRORES*/
 };
 
 //******************************************************************************** */
@@ -681,16 +714,42 @@ export const checkoutAsync = (payload) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-// export const getTransactionStateAsync = () => (dispatch) => {
-//   fetch()
-//     .then((res) => res.json())
-//     .then((data) => {
-//       dispatch(setTransactionState(data.ALGO));
-//       if (data.ALGO === "APROBADA" || "PENDING") {
-//         dispatch(cleanCart());
-//       }
-//     })
-//     .catch((e) => console.log(e));
-// };
+export const updateUserAdminAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}users/admin/${id}`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
+};
+
+export const updateUserAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}users/user/${id}`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
+};
+
+
+// ----------------------------------------------------  ORDERS dashboard Admin ------------------------------------------------
+export const getOrdersAdminAsync = () => (dispatch) => {
+  axios
+    .get(`${apiUrl}orders/`)
+    .then((response) => {
+      dispatch(getOrdersAdmin(response.data));
+    })
+    .catch((error) => console.log(error));
+};
+
 
 export default productSlice.reducer;
