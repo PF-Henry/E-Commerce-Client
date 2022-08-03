@@ -196,11 +196,11 @@ export const productSlice = createSlice({
         return;
       }
       const { getUser, getUserId, getRole } = initSession(token);
-      const user = getUser();   
-      const userId = getUserId();
+      const user = getUser();
+      const userID = getUserId();
       const role = getRole();
       state.role = role;
-      state.userId = userId;
+      state.userId = userID;
       state.token = token;
       state.userSession = user;
     },
@@ -420,10 +420,10 @@ export const switchItemsPerPageAsync = (e) => () => {
 // ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
-  
+
   const formData = new FormData();
   formData.append("name", updateProduct.name);
-  
+
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
   formData.append("description", updateProduct.description);
@@ -431,7 +431,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     "technical_especification",
     updateProduct.technical_especification
   );
-    
+
   formData.append("categories", JSON.stringify(updateProduct.categories));
   formData.append("brand", updateProduct.brand);
   formData.append("state", updateProduct.state);
@@ -457,7 +457,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
 
 export const updateProductAsync = (id, updateProduct) => (dispatch) => {
   const formData = new FormData();
-  
+
   formData.append("name", updateProduct.name);
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
@@ -517,7 +517,7 @@ export const getDetailProductAsync = (payload) => (dispatch) => {
                                           src: completab64};
                                       });
                       return b64;})
-      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});  
+      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});
       json.images = arrayB64Images;
       // ------------------------------------------
 
@@ -736,8 +736,30 @@ export const checkoutAsync = (payload) => (dispatch) => {
     .catch((e) => console.log(e));
 };
 
-export const updateUserAdminAsync = (id, payload) => {
-  axios.put(`${apiUrl}users/${id}`, payload);
+export const updateUserAdminAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}users/admin/${id}`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
+};
+
+export const updateUserAsync = (id, payload) => (dispatch) => {
+  axios.put(`${apiUrl}users/user/${id}`, payload)
+  .then((response) => {
+    if (response.data.error) {
+      dispatch(createProductError(response.data.error));
+    }
+    dispatch(createProductMsg(response.data.msg));
+  }) // cacth generar un dispatch un error
+  .catch((error) => {
+    dispatch(createProductError(error));
+  });
 };
 
 
@@ -750,7 +772,6 @@ export const getOrdersAdminAsync = () => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
-
 
 
 export const updateOrdersAdminAsync = (orderId, state) => (dispatch) => {
@@ -773,9 +794,6 @@ export const getOrderDetailsAsync  = (orderId) => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
-
-
-
 
 
 export default productSlice.reducer;

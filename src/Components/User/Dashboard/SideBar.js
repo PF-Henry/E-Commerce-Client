@@ -25,6 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
   const cartItems = useSelector((state) => state.products.cartItems);
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
+  const user = useSelector((state) => state.products.userSession);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -65,7 +66,7 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
         <div className="d-flex justify-content-center mt-4">
           <div className="d-flex flex-column align-items-center gap-1">
             <BsPersonCircle size={"4rem"} />
-            User
+            {user.first_name}
           </div>
         </div>
         <Menu iconShape="circle">
