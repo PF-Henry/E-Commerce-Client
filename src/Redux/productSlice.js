@@ -196,10 +196,10 @@ export const productSlice = createSlice({
       }
       const { getUser, getUserId, getRole } = initSession(token);
       const user = getUser();   
-      const userId = getUserId();
+      const userID = getUserId();
       const role = getRole();
       state.role = role;
-      state.userId = userId;
+      state.userId = userID;
       state.token = token;
       state.userSession = user;
     },
@@ -289,6 +289,9 @@ export const productSlice = createSlice({
       }
       state.ordersAdminLoadedFiltered = ordersFilter;
 
+    },
+    setResetPasswordMsg: (state, action) => {
+      state.msg = action.payload;
     }
   },
 });
@@ -340,6 +343,7 @@ export const {
   setTransactionState,
   getOrdersAdmin,
   filterOrdersAdmin,
+  setResetPasswordMsg
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -729,6 +733,14 @@ export const getOrdersAdminAsync = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
-
+//********************************************* RESET PASSWORD ******************************/
+export const resetPasswordAsync = (email) => (dispatch) => {
+  axios
+    .post(`${apiUrl}orders/`, email)
+    .then((response) => {
+      dispatch(setResetPasswordMsg(response.data));
+    })
+    .catch((error) => console.log(error));
+};
 
 export default productSlice.reducer;
