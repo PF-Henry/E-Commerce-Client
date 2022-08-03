@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import OrdersTableAdmin from "../Tables/OrdersTableAdmin";
 import "./AdminDashboard.css";
@@ -9,18 +9,15 @@ const AdminOrders = () => {
 
   const dispatch = useDispatch();
   const allOrdersAdmin = useSelector((state) => state.products.ordersAdminLoadedFiltered);
-  
+    
   
   useEffect(() => {
-    //if (!allOrdersAdmin.length) 
-    {
             dispatch(getOrdersAdminAsync());
-    }
-  // }, [allOrdersAdmin, dispatch]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  
+
+    
 
   return (
     <div>

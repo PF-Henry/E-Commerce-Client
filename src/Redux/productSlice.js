@@ -54,6 +54,7 @@ export const productSlice = createSlice({
     userSession: {},
     ordersAdminLoaded: [],
     ordersAdminLoadedFiltered: [],
+    orderDetails: {},
   },
   reducers: {
     getProducts: (state, action) => {
@@ -288,7 +289,24 @@ export const productSlice = createSlice({
         }
       }
       state.ordersAdminLoadedFiltered = ordersFilter;
-
+    },
+    updateOrdersAdmin: (state, action) => {
+      const ordersAux = state.ordersAdminLoaded.map(order => {
+                  if (order.id !== action.payload.orderId) return order;
+                  return { ...order,
+                          state: action.payload.state};});
+      const ordersBux = state.ordersAdminLoadedFiltered.map(order => {
+                  if (order.id !== action.payload.orderId) return order;
+                  return { ...order,
+                          state: action.payload.state};});
+      state.ordersAdminLoaded = ordersAux;
+      state.ordersAdminLoadedFiltered = ordersBux;
+    },
+    cleanOrderDetails : (state) => {
+      state.orderDetails = {};
+    },
+    getOrderDetails: (state, action) => {
+      state.orderDetails = action.payload;
     }
   },
 });
@@ -340,6 +358,10 @@ export const {
   setTransactionState,
   getOrdersAdmin,
   filterOrdersAdmin,
+  updateOrdersAdmin,
+  cleanOrderDetails,
+  getOrderDetails,
+
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -728,6 +750,31 @@ export const getOrdersAdminAsync = () => (dispatch) => {
     })
     .catch((error) => console.log(error));
 };
+
+
+
+export const updateOrdersAdminAsync = (orderId, state) => (dispatch) => {
+  const stateJson = ({ state: state });
+  axios
+    .put(`${apiUrl}orders/updateState/${orderId}`, stateJson)
+    .then((response) => {
+            dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));    
+    })
+    .catch((error) => console.log(error));
+};
+
+
+
+export const getOrderDetailsAsync  = (orderId) => (dispatch) => {
+  axios
+    .get(`${apiUrl}orders/${orderId}`)
+    .then((response) => {
+      dispatch(getOrderDetails(response.data));
+    })
+    .catch((error) => console.log(error));
+};
+
+
 
 
 
