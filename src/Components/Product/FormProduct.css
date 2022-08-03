@@ -2,6 +2,10 @@
   margin: 4rem 0 2rem 0;
 }
 
+.formH1-2 {
+  margin: 6rem 0 2rem 0;
+}
+
 .formContainer {
   display: flex;
   flex-direction: column;
@@ -9,7 +13,6 @@
   width: 70vw;
   margin: auto;
   text-align: left;
-
 }
 
 .div-container-header--btn {
@@ -24,16 +27,13 @@
   transition: 0.6s ease all;
 }
 
-
-
-.form_error{
+.form_error {
   font-size: x-small;
 }
 
 .formItem {
   padding: 3vh 0 1vh 0;
 }
-
 
 .form-check-input:checked {
   background-color: #3ad8c1;
@@ -44,7 +44,6 @@
   background-color: #fbf0f0;
   border-color: #1c004a;
 }
-
 
 .btnAddCreate {
   background-color: #3ad8c1;
@@ -69,6 +68,6 @@
   opacity: 0.7;
 }
 
-.form_indications{
-  font-size: .6rem;
+.form_indications {
+  font-size: 0.6rem;
 }

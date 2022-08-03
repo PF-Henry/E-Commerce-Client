@@ -55,7 +55,7 @@ const AboutUs = () => {
     <div>
       <Navbar />
       <div className="container-md min-vh">
-        <div className="fs-1 text-start formH1 mb-3 pb-xxl-5">Our Team</div>
+        <div className="fs-1 text-start formH1-2 mb-3 pb-xxl-5">Our Team</div>
         <div className="d-flex flex-wrap gap-5 pb-5 justify-content-center align-items-center">
           {TEAM.map((member, index) => (
             <div key={index} className="member-card">
