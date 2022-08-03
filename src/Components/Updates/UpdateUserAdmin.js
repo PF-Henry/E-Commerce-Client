@@ -1,55 +1,8 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { updateUserAdminAsync } from "../../Redux/productSlice";
-import './AdminDashboard.css'
+import React from "react";
 
-const AdminSettings = () => {
-  const user = useSelector((state) => state.products.userSession)
-
-  const inputStateInitial = {
-    first_name: user.first_name,
-    last_name: user.last_name,
-    cellphone: user.cellphone? user.cellphone : 0,
-    email: user.email,
-    password: '',
-  };
-
-  const [input, setInput] = useState(inputStateInitial);
-  const [errors, setErrors] = useState({})
-
-  const dispatch = useDispatch()
-
-  let regexString = /^[A-Za-z]+$/;
-
-  const validate = (input) => {
-    let errors = {};
-    if (!input.first_name || !input.first_name.match(regexString)) errors.first_name = 'Enter a valid name';
-    if (!input.last_name || !input.last_name.match(regexString)) errors.last_name = 'Enter a valid last name';
-    if (input.password && input.password.length < 6) errors.password = 'Password must have at least 6 digits'
-    return errors;
-  }
-
-  const handleInputChange = (e) => {
-    e.preventDefault();
-    setInput({
-        ...input,
-        [e.target.name] : e.target.value
-    })
-    setErrors(validate({
-        ...input,
-        [e.target.name] : e.target.value
-    }))
-}
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(updateUserAdminAsync(user.id, input))
-    console.log('User updated successfully')
-  }
-
-  return (
-    <div className="userContainer">
-      <div className="container rounded bg-white mt-5 mb-5 userSettingsContainer">
+const UpdateUserAdmin = () => {
+    return (
+        <div className="container rounded bg-white mt-5 mb-5 userSettingsContainer">
         <div className="row">
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center p-3 py-5">
@@ -59,8 +12,8 @@ const AdminSettings = () => {
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSX8f7VOnz8lNzJYkzplysK2YOloLjzJoT8LA&usqp=CAU"
                 alt=""
               />
-              <span className="font-weight-bold">{user.first_name + ' ' + user.last_name}</span>
-              <span className="text-black-50">{user.email}</span>
+              <span className="font-weight-bold">{first_name + ' ' + last_name}</span>
+              <span className="text-black-50">{email}</span>
               <span> </span>
             </div>
           </div>
@@ -111,7 +64,8 @@ const AdminSettings = () => {
               <div className="col-md-12">
                 <label className="labels col-lg-offset-2">Cellphone Number</label>
                 <input
-                  type="number"
+                  type="tel"
+                  pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                   className="form-control"
                   placeholder="123-456-7890"
                   value={input.cellphone}
@@ -128,8 +82,13 @@ const AdminSettings = () => {
                   placeholder="email@xample.com"
                   value={input.email}
                   name='email'
-                  disabled
+                  onChange={(e) => handleInputChange(e)}
                 />
+              </div>
+              <div className="error">
+                {errors.email && (
+                    <p>{errors.email}</p>
+                )}
               </div>
 
               <div className="row mt-3">
@@ -139,15 +98,10 @@ const AdminSettings = () => {
                     type="password"
                     className="form-control"
                     placeholder="New password"
-                    value={input.password}
+                    value=""
                     name='password'
                     onChange={(e) => handleInputChange(e)}
                   />
-                </div>
-                <div className="error">
-                  {errors.password? (
-                      <p>{errors.password}</p>
-                  ) : null}
                 </div>
                 <hr />
               </div>
@@ -167,8 +121,7 @@ const AdminSettings = () => {
         </div>
       </div>
     </div>
-  </div>
-  );
-};
+    )
+}
 
-export default AdminSettings;
+export default UpdateUserAdmin;
