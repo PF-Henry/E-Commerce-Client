@@ -1,0 +1,107 @@
+.formH1 {
+  margin: 4rem 0 2rem 0;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 70vw;
+  margin: auto;
+  text-align: left;
+
+}
+
+.div-container-header--btn {
+  width: 80px;
+  height: 25px;
+  border: none;
+  border-radius: 6px;
+  background-color: #3ad8c1;
+  color: #1c004a;
+  text-decoration: none;
+
+  transition: 0.6s ease all;
+}
+
+
+.bg-app-header1{
+  height: 60px;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: #1c004a 1px solid;
+  border-radius: 6px;
+}
+
+.bg-app-header2{
+  height: 60px;
+  background-color: #c3eae4;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.bg-app-header3{
+  height: 60px;
+  background-color: #b5f9ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.centrar_order{
+  width: 90%;
+  margin: auto;
+  padding: 1rem;
+}
+
+
+.form_error{
+  font-size: x-small;
+}
+
+.formItem {
+  padding: 3vh 0 1vh 0;
+}
+
+
+.form-check-input:checked {
+  background-color: #3ad8c1;
+  border-color: #1c004a;
+}
+
+.form-check-input {
+  background-color: #fbf0f0;
+  border-color: #1c004a;
+}
+
+
+.btnAddCreate {
+  background-color: #3ad8c1;
+  border: none;
+  border-radius: 5px;
+  color: #1c004a;
+}
+
+.btnAddCreate:hover {
+  color: #3ad8c1;
+  background-color: #1c004a;
+}
+
+.formBtnDelete {
+  background-color: #eb3324;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.formBtnDelete:hover {
+  opacity: 0.7;
+}
+
+.form_indications{
+  font-size: .6rem;
+}
