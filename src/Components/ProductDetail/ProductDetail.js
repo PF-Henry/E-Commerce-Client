@@ -11,18 +11,15 @@ import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
 import optionsArray from "../../Functions/optionsArray";
 import { Spinner } from "../Spinner/Spinner";
-
-
-
+import pesos from "../../Functions/currency";
 
 export const ProductDetail = () => {
-  
   const navigate = useNavigate();
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
   const role = useSelector((state) => state.products.role);
   console.log(product);
-  const productCartIndex = cartItems.findIndex( 
+  const productCartIndex = cartItems.findIndex(
     (item) => item.id === product.id
   );
 
@@ -100,14 +97,12 @@ export const ProductDetail = () => {
   }, [dispatch, id]);
 
   // useEffect(() => {
-    
+
   // }, [mainImage])
-  
 
   const onChangeImage = (url) => {
-    setMainImage(mainImage = url );
+    setMainImage((mainImage = url));
   };
-
 
   return (
     <div>
