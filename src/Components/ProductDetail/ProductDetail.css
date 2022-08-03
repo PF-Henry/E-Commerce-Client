@@ -1,3 +1,16 @@
+.div-spinner {
+  width: 1000px;
+  height: 1100px;
+  padding-top: 50px;
+  margin-bottom: 100px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .div-container {
   width: 1000px;
   height: 1100px;
