@@ -24,7 +24,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Guest",
+    role: "Admin",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -398,10 +398,10 @@ export const switchItemsPerPageAsync = (e) => () => {
 // ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
-  
+
   const formData = new FormData();
   formData.append("name", updateProduct.name);
-  
+
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
   formData.append("description", updateProduct.description);
@@ -409,7 +409,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     "technical_especification",
     updateProduct.technical_especification
   );
-    
+
   formData.append("categories", JSON.stringify(updateProduct.categories));
   formData.append("brand", updateProduct.brand);
   formData.append("state", updateProduct.state);
@@ -435,7 +435,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
 
 export const updateProductAsync = (id, updateProduct) => (dispatch) => {
   const formData = new FormData();
-  
+
   formData.append("name", updateProduct.name);
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
@@ -495,7 +495,7 @@ export const getDetailProductAsync = (payload) => (dispatch) => {
                                           src: completab64};
                                       });
                       return b64;})
-      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});  
+      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});
       json.images = arrayB64Images;
       // ------------------------------------------
 
