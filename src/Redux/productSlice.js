@@ -6,6 +6,7 @@ import axios from "axios";
 // import { getUserFromToken } from "../Functions/session";
 import { initSession, closeSession } from "../Functions/session.js";
 import { RiLayoutMasonryFill } from "react-icons/ri";
+import imageToBase64 from 'image-to-base64/browser';
 
 export const productSlice = createSlice({
   name: "products",
@@ -49,7 +50,10 @@ export const productSlice = createSlice({
     initPoint: "",
     transactionState: "",
     userId: 0,
+    roleId: 0,
     userSession: {},
+    ordersAdminLoaded: [],
+    ordersAdminLoadedFiltered: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -269,6 +273,23 @@ export const productSlice = createSlice({
         localStorage.setItem("cartItems", JSON.stringify(state.cartItems));
       }
     },
+    getOrdersAdmin: (state, action) => {
+      state.ordersAdminLoaded = action.payload;
+      state.ordersAdminLoadedFiltered = action.payload;
+    },
+    filterOrdersAdmin: (state, action) => {
+      let ordersFilter = state.ordersAdminLoaded;
+      if (action.payload){
+        if (action.payload.search.length > 0){
+          ordersFilter = state.ordersAdminLoaded.filter(order => order.id.toString().includes(action.payload.search));
+        }
+        if (action.payload.stateFilter !== "All"){
+          ordersFilter = ordersFilter.filter(order => order.state.toLowerCase() === action.payload.stateFilter.toLowerCase());
+        }
+      }
+      state.ordersAdminLoadedFiltered = ordersFilter;
+
+    }
   },
 });
 
@@ -317,6 +338,8 @@ export const {
   clearCheckedStatus,
   setInitPoint,
   setTransactionState,
+  getOrdersAdmin,
+  filterOrdersAdmin,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -375,11 +398,10 @@ export const switchItemsPerPageAsync = (e) => () => {
 // ------------------------ CREATE PRODUCT ------------------------------
 export const createProductAsync = (updateProduct) => (dispatch) => {
   // --- POST request to create a new product ---
-
+  
   const formData = new FormData();
-  console.log(updateProduct);
-
   formData.append("name", updateProduct.name);
+  
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
   formData.append("description", updateProduct.description);
@@ -387,7 +409,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     "technical_especification",
     updateProduct.technical_especification
   );
-
+    
   formData.append("categories", JSON.stringify(updateProduct.categories));
   formData.append("brand", updateProduct.brand);
   formData.append("state", updateProduct.state);
@@ -401,8 +423,9 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
+      } else {
+        dispatch(createProductMsg(response.data.msg));
       }
-      dispatch(createProductMsg(response.data.msg));
     }) // cacth generar un dispatch un error
     .catch((error) => {
       dispatch(createProductError(error));
@@ -412,8 +435,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
 
 export const updateProductAsync = (id, updateProduct) => (dispatch) => {
   const formData = new FormData();
-  console.log(updateProduct);
-
+  
   formData.append("name", updateProduct.name);
   formData.append("stock", updateProduct.stock);
   formData.append("price", updateProduct.price);
@@ -436,8 +458,9 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
     .then((response) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
+      } else {
+        dispatch(createProductMsg(response.data.msg));
       }
-      dispatch(createProductMsg(response.data.msg));
     }) // cacth generar un dispatch un error
     .catch((error) => {
       dispatch(createProductError(error));
@@ -460,7 +483,25 @@ export const searchProductAsync = (product) => (dispatch) => {
 export const getDetailProductAsync = (payload) => (dispatch) => {
   fetch(`${apiUrl}products/${payload}`)
     .then((data) => data.json())
-    .then((json) => {
+    .then(async (json) => {
+      // ------------------------------------------
+      let idImage = 0;
+      const parseB64 = await json.images.map( async (image) => {
+                          let b64 = await imageToBase64(image.url_image)
+                                      .then(base64 => {
+                                        const completab64 = "data:image/jpeg;base64," + base64;
+                                        return {
+                                          id: idImage++,
+                                          src: completab64};
+                                      });
+                      return b64;})
+      const arrayB64Images = await Promise.all(parseB64).then((imag) => {return imag});  
+      json.images = arrayB64Images;
+      // ------------------------------------------
+
+      const auxCategories = json.categories.map((category) => {
+                      return {name : category.name};});
+      json.categories = auxCategories;
       dispatch(getProductDetails(json));
     })
     .catch((error) => console.log(error));
@@ -502,15 +543,12 @@ export const loginUserAsync = (payload) => (dispatch) => {
       if (response.data.token) {
         dispatch(login(response.data.token));
       }
-      if (response.data.msg) {
-        dispatch(setLoginError(response.data.msg));
-      }
       if (response.data.error) {
         dispatch(setLoginError(response.data.error));
       }
     })
     .catch((error) => {
-      dispatch(setLoginError(error));
+      dispatch(setLoginError(error.response.data.error));
     });
 };
 
@@ -687,7 +725,7 @@ export const updateUserAdminAsync = (id, payload) => (dispatch) => {
   .catch((error) => {
     dispatch(createProductError(error));
   });
-}
+};
 
 export const updateUserAsync = (id, payload) => (dispatch) => {
   axios.put(`${apiUrl}users/user/${id}`, payload)
@@ -700,6 +738,18 @@ export const updateUserAsync = (id, payload) => (dispatch) => {
   .catch((error) => {
     dispatch(createProductError(error));
   });
-}
+};
+
+
+// ----------------------------------------------------  ORDERS dashboard Admin ------------------------------------------------
+export const getOrdersAdminAsync = () => (dispatch) => {
+  axios
+    .get(`${apiUrl}orders/`)
+    .then((response) => {
+      dispatch(getOrdersAdmin(response.data));
+    })
+    .catch((error) => console.log(error));
+};
+
 
 export default productSlice.reducer;

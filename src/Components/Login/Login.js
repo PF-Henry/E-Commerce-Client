@@ -31,7 +31,7 @@ export const Login = () => {
 
   useEffect(
     () => {
-      if (role === "User") {
+      if (role === "User" || role === "Admin") {
         navigate("/");
       }
     },
@@ -100,7 +100,7 @@ export const Login = () => {
           </h5>
           <div className="section-title-text--login">
             <p className="m-0">Don't have account yet?</p>
-            <NavLink to="/auth/register"> Sign In </NavLink>
+            <NavLink to="/auth/register"> Register </NavLink>
           </div>
         </div>
 

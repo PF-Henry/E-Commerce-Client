@@ -23,7 +23,9 @@ import { logoutAsync } from "../../../Redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
-  const user = useSelector((state) => state.products.userSession)
+  const cartItems = useSelector((state) => state.products.cartItems);
+  let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
+  const user = useSelector((state) => state.products.userSession);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -68,7 +70,16 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar }) => {
           </div>
         </div>
         <Menu iconShape="circle">
-          <MenuItem icon={<MdOutlineShoppingCart size={"1.4rem"} />}>
+          <MenuItem
+            icon={<MdOutlineShoppingCart size={"1.4rem"} />}
+            suffix={
+              quantities !== 0 && (
+                <span className="badge bg-danger rounded-pill">
+                  {quantities}
+                </span>
+              )
+            }
+          >
             Cart
             <Link to="/auth/cart" />
           </MenuItem>

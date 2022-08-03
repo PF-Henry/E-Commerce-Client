@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { useNavigate, NavLink, } from "react-router-dom";
+import { NavLink, } from "react-router-dom";
 import DropBox from "../DropBox/DropBox";
 import ImageDropBox from "../DropBox/ImageDropBox";
 import {
@@ -48,7 +48,7 @@ export function validate(input) {
 
 export default function FormProduct(props) {
   
-  let idImage = 0; // indice para el dropbox de imagenes
+  let idImage = MAX_IMAGES_PRODUCT + 1; // indice para el dropbox de imagenes
   const titleTypeOperation = (props.id === 0) ? "Create Product" : "Update Product";
 
   const brands = useSelector((state) => state.products.brandsLoaded);
@@ -58,7 +58,7 @@ export default function FormProduct(props) {
   let error = useSelector((state) => state.products.error);
   let msg = useSelector((state) => state.products.msg);
 
-  let navigate = useNavigate();
+  //let navigate = useNavigate();
 
 
   let dispatch = useDispatch();
@@ -78,19 +78,14 @@ export default function FormProduct(props) {
     dispatch(getBrandsAsync());
 
     if (parseInt(props.id) === 0) setInput(inputStateInitial);
-    else {
-                                 
+    else {     
             setInput({...productDetails,
                         brand: productDetails.brand.name,         
-                        images : props.images,                       
                       });
 
             const selectBrands = document.getElementById("selectBrands");
             selectBrands.value = productDetails.brand.name;
-
     };
-
-
     
     return () => {
       dispatch(getProductsAsync());
@@ -263,10 +258,9 @@ export default function FormProduct(props) {
     setErrors(validate({ ...input }));
 
     if (Object.keys(errors).length === 0) {
-      console.log(input);
+      //console.log(input);
         if (props.id === 0) dispatch(createProductAsync(input)); // alta de producto
         if (props.id > 0){    //  ----------------- // update de producto
-          console.log("listo para update:", input);
           dispatch(updateProductAsync(props.id, input));
         } 
     } else {
@@ -285,15 +279,14 @@ export default function FormProduct(props) {
   }, [error]);
 
   useEffect(() => {
-
     setTimeout(() => {
-      
       if (msg && (props.id === 0)){
         dispatch(resetMsg());
         setInput(inputStateInitial);
       }
       
     }, 4000);
+
     // eslint-disable-next-line
   }, [msg]);
   //}, [props.id===0]);
@@ -303,10 +296,10 @@ export default function FormProduct(props) {
   return (
     <div className="letter-spacing">
        <NavLink
-            to="/admin/products"
+            to="/admin/admin/products"
             className="div-container-header--btn animate__animated animate__fadeInLeft"
           >
-            Back
+            <div  className="div-container-header--btn animate__animated animate__fadeInLeft">Back</div>
           </NavLink>
       <h1 className="formH1">{titleTypeOperation}</h1>
 
@@ -551,51 +544,3 @@ export default function FormProduct(props) {
     </div>
   );
 }
-
-
-
-
-
-
-                        
-                                        //  src: imageToBase64(productDetails.images[1].url_image)
-                                        //  .then(base64 => {console.log(base64); return base64;})}],
-                        
-
-                        // productDetails.images.map( async (image) => {
-                      
-                        //   let b64 = await imageToBase64(image.url_image)
-                        //               .then(base64 => {
-                        //                 const completab64 = "data:image/jpeg;base64," + base64;
-                        //                 console.log(completab64);
-                        //                 return completab64;
-                        //               });
-                        //     return {
-                        //       id: idImage++,
-                        //       src: b64,
-                        //     }
-                        // }),
-
-
- // convertir utl imagenes a base64
-           
-
-
-          //  const b64_array = [];
-          //  if (productDetails.image && productDetails.images.length !== 0) {
-          //    console.log("estoy en b64");
-          //      b64_array = productDetails.images.map( async (image) => {
-                      
-          //      const b64 = imageToBase64(image.url_image)
-          //                  .then(base64 => {
-                             
-          //                    const completab64 = "data:image/jpeg;base64," + base64;
-          //                    console.log(completab64);
-          //                    return completab64;
-          //                  });
-          //        return {
-          //          id: idImage++,
-          //          src: b64,
-          //        }
-          //    });
-          //  }
