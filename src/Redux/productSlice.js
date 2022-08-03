@@ -751,5 +751,11 @@ export const getOrdersAdminAsync = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const recoverPasswordAsync = (payload) => (dispatch) => {
+  console.log(payload);
+};
+
+
+
 
 export default productSlice.reducer;

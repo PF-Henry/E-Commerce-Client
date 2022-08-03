@@ -166,6 +166,66 @@
     display: none;
 }
 
+.div_modal {
+    user-select: none;
+}
+
+.modal-title {
+    font-size: 35px;
+    color: #1c004a;
+}
+
+.close {
+    border: none;
+    background-color: #1c004a;
+    color: white;
+    padding: 0 12px;
+    font-size: 28px;
+    cursor: pointer;
+    border-radius: 6px;
+    border: 2px solid #1c004a;
+
+    transition: 1s ease all;
+}
+
+.close:hover {
+    background-color: #fff;
+    border: 2px solid #1c004a;
+    color: red;
+}
+
+.modal-body {
+    padding: 50px 0;
+}
+
+.modal-body p {
+    font-size: 24px;
+}
+
+.modal-body input {
+    width: 200px;
+    border-radius: 5px;
+    border: 1px solid #507cc0;
+    padding-left: 10px;
+}
+
+.p_Modal {
+    margin: 0;
+    cursor: pointer;
+    color: red;
+    text-decoration: underline;
+    font-style: italic;
+    user-select: none;
+    font-size: 14px;
+}
+
+.modal-footer {
+    background-color: #1c004a;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
 @media (min-width: 280px) and (max-width:767px) {
     .login-container--login {
         width: 80%;
