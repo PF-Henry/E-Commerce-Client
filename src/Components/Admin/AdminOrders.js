@@ -1,26 +1,36 @@
-import React from "react";
-import OrdersTable from "../Tables/OrdersTable";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import OrdersTableAdmin from "../Tables/OrdersTableAdmin";
 import "./AdminDashboard.css";
-import Searchbar from "../Searchbar/Searchbar";
+import SearchbarOrders from "../Searchbar/SearchbarOrders";
+import { getOrdersAdminAsync } from "../../Redux/productSlice";
 
 const AdminOrders = () => {
-  const allPendingOrders = [
-    { name: "123Yoha", products: ["TV", "PC"], total: 152 },
-    { name: "123Richy", products: ["TV", "PC"], total: 152 },
-    { name: "132Victor", products: ["TV", "PC"], total: 152 },
-    { name: "123Gerardo", products: ["TV", "PC"], total: 152 },
-    { name: "123Sneider", products: ["TV", "PC"], total: 152 },
-    { name: "132Gustavo", products: ["TV", "PC"], total: 152 },
-  ];
+
+  const dispatch = useDispatch();
+  const allOrdersAdmin = useSelector((state) => state.products.ordersAdminLoadedFiltered);
+  
+  
+  useEffect(() => {
+    //if (!allOrdersAdmin.length) 
+    {
+            dispatch(getOrdersAdminAsync());
+    }
+  // }, [allOrdersAdmin, dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  
 
   return (
-    <div className="adminContainer">
-      <div className="adminDashboard adminOrders">
+    <div>
+      <div className="text-purple fs-1 fw-bold mt-3">Orders</div>
+      <div className="mt-4">
         <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
-          <Searchbar content={"ID"} />
+          <SearchbarOrders content="id" />
         </div>
         <div className="d-flex justify-content-evenly flex-wrap">
-          <OrdersTable orders={allPendingOrders} />
+          <OrdersTableAdmin orders={allOrdersAdmin} />
         </div>
       </div>
     </div>
