@@ -83,9 +83,9 @@ const OrdersTableAdmin = ({ orders }) => {
       />
 
 
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+      {/* <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
         Launch static backdrop modal
-      </button>
+      </button> */}
 
      {/* Modal----------------------------------------- */}
     <div class="modal fade" id="modalChangeState" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
