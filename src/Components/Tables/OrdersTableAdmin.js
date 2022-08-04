@@ -228,10 +228,6 @@ const OrdersTableAdmin = ({ orders }) => {
               </div>
             </div>
 
-
-
-
-
     </div>
   );
 };

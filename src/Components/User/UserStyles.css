@@ -112,3 +112,7 @@
 .deliveryInfo {
     margin-top: 1.5rem;
 }
+
+.orderDetailHidden {
+    display: none;
+}

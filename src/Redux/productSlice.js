@@ -24,7 +24,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Guest",
+    role: "User",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -49,12 +49,13 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
-    userId: 0,
+    userId: 1,
     roleId: 0,
     userSession: {},
     ordersAdminLoaded: [],
     ordersAdminLoadedFiltered: [],
     orderDetails: {},
+    ordersUser: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -307,7 +308,10 @@ export const productSlice = createSlice({
     },
     getOrderDetails: (state, action) => {
       state.orderDetails = action.payload;
-    }
+      },
+    getOrdersUser: (state, action) => {
+      state.ordersUser = action.payload;
+    },
   },
 });
 
@@ -361,7 +365,7 @@ export const {
   updateOrdersAdmin,
   cleanOrderDetails,
   getOrderDetails,
-
+getOrdersUser,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -801,5 +805,13 @@ export const getOrderDetailsAsync  = (orderId) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const getOrdersUserAsync = (id) => (dispatch) => {
+  axios
+  .get(`${apiUrl}orders/user/${id}`)
+  .then((response) => {
+    dispatch(getOrdersUser(response.data));
+  })
+  .catch((error) => console.log(error));
+};
 
 export default productSlice.reducer;
