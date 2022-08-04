@@ -22,6 +22,7 @@ import { Country, State, City } from "country-state-city";
 const Cart = () => {
   const cartItems = useSelector((state) => state.products.cartItems);
   const role = useSelector((state) => state.products.role);
+  const userId = useSelector((state) => state.products.userId);
   const dispatch = useDispatch();
   let quantities = cartItems.reduce((total, obj) => obj.quantity + total, 0);
   let subtotal = cartItems.reduce(
@@ -40,7 +41,7 @@ const Cart = () => {
   const handleCheckout = () => {
     dispatch(
       checkoutAsync({
-        userId: 1,
+        userId: userId,
         orderItems: cartItems,
         shippingInfo: shippingInfo,
       })
