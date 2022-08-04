@@ -58,6 +58,8 @@ export const Login = () => {
   };
 
   const handleChange = (e) => {
+    dispatch(resetError());
+    dispatch(resetMsg());
     setUser({
       ...user,
       [e.target.name]: e.target.value,
@@ -82,9 +84,6 @@ export const Login = () => {
       });
       errors.firstTry = false;
     }
-    if (errors.firstTry) {
-      alert("Complete the required fields");
-    }
   };
 
   const handleChangeRecoveredPassword = (e) => {
@@ -96,6 +95,8 @@ export const Login = () => {
 
   const handleRecoverPassword = (e) => {
     e.preventDefault(e);
+ dispatch(resetError());
+    dispatch(resetMsg());
     dispatch(recoverPasswordAsync(userEmail));
     setUserEmail({
       email: "",

@@ -307,6 +307,12 @@ export const productSlice = createSlice({
     },
     getOrderDetails: (state, action) => {
       state.orderDetails = action.payload;
+},
+setRecoverPasswordMsg: (state, action) => {
+      state.msg = action.payload;
+    },
+    setRecoverPasswordError: (state, action) => {
+      state.error = action.payload;
       },
     getOrdersUser: (state, action) => {
       state.ordersUser = action.payload;
@@ -364,6 +370,8 @@ export const {
   updateOrdersAdmin,
   cleanOrderDetails,
   getOrderDetails,
+setRecoverPasswordMsg,
+  setRecoverPasswordError,
 getOrdersUser,
 } = productSlice.actions;
 
@@ -777,7 +785,17 @@ export const getOrdersAdminAsync = () => (dispatch) => {
 };
 
 export const recoverPasswordAsync = (payload) => (dispatch) => {
-  console.log(payload);
+  axios
+    .post(`${apiUrl}resetPassword/`, payload)
+    .then((response) => {
+      if(response.data.msg){
+        dispatch(setRecoverPasswordMsg(response.data.msg));
+      }
+      if(response.data.error){
+        dispatch(setRecoverPasswordError(response.data.error));
+      }
+    })
+    .catch((error) => console.log(error));
 };
 
 
