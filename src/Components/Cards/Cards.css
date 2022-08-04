@@ -1,5 +1,5 @@
 .cards-container {
   margin: 0 auto;
   padding: 20px 0;
-  min-height: calc(100vh - 10.375rem - 4.1625rem - 5rem - 9rem);
+  min-height: calc(100vh - 10.375rem - 4.1625rem - 8rem);
 }
