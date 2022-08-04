@@ -9,18 +9,15 @@ const AdminOrders = () => {
 
   const dispatch = useDispatch();
   const allOrdersAdmin = useSelector((state) => state.products.ordersAdminLoadedFiltered);
-  
+    
   
   useEffect(() => {
-    //if (!allOrdersAdmin.length) 
-    {
             dispatch(getOrdersAdminAsync());
-    }
-  // }, [allOrdersAdmin, dispatch]);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dispatch]);
 
-  
+
+    
 
   return (
     <div>

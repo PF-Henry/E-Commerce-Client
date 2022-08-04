@@ -11,6 +11,7 @@ import { CreateProduct } from "../Components/Product/CreateProduct";
 import { UpdateProduct } from "../Components/Product/UpdateProduct";
 import UpdateCategory from "../Components/Updates/UpdateCategory/UpdateCategory";
 import UpdateBrand from "../Components/Updates/UpdateBrand/UpdateBrand";
+import { OrderView } from "../Components/Admin/OrderView/OrderView";
 
 export const AdminRouter = () => {
   return (
@@ -25,6 +26,7 @@ export const AdminRouter = () => {
           <Route path="brands" element={<AdminBrands />} />
           <Route path="brands/update/:id" element={<UpdateBrand />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="orders/:orderId" element={<OrderView />} />
           <Route path="users" element={<AdminUsers />} />
           <Route path="settings" element={<AdminSettings />} />
         </Route>

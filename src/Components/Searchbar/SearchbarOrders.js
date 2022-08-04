@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
-  resetError,
   filterOrdersAdmin,
 } from "../../Redux/productSlice";
 import { FiSearch } from "react-icons/fi";
@@ -24,9 +23,7 @@ const SearchbarOrders = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    //dispatch(resetError());
     dispatch(filterOrdersAdmin({search, stateFilter}));  // busqueda sobre ordersAdminLoaded en el store
-    //return false;
   };
 
   const handleInputChangeState = (e) => {
@@ -68,23 +65,23 @@ const SearchbarOrders = () => {
 
       {/* Sorting */}
       <div className="form-floating" style={{ width: "150px" }}>
-            <select
-              className="form-select bg-purple-dark text-white"
-              id="filterBy"
-              aria-label="Floating label select example"
-              onChange={handleInputChangeState}
-              value={stateFilter}
-            >
-              {ARRAY_FILTER_ORDERS_STATE.map((element, index) => (
-                <option value={element} key={index}>
-                  {element}
-                </option>
-              ))}
-            </select>
-            <label htmlFor="filterBy" className="text-white">
-              Filter by
-            </label>
-          </div>
+        <select
+          className="form-select bg-purple-dark text-white"
+          id="filterBy"
+          aria-label="Floating label select example"
+          onChange={handleInputChangeState}
+          defaultValue={stateFilter}
+        >
+          {ARRAY_FILTER_ORDERS_STATE.map((element, index) => (
+            <option value={element} key={index}>
+              {element}
+            </option>
+          ))}
+        </select>
+        <label htmlFor="filterBy" className="text-white">
+          Filter by
+        </label>
+      </div>
     </form>
   );
 };

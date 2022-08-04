@@ -9,9 +9,9 @@ import {
 import { Footer } from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import "./ProductDetail.css";
-import pesos from "../../Functions/currency";
 import optionsArray from "../../Functions/optionsArray";
 import { Spinner } from "../Spinner/Spinner";
+import pesos from "../../Functions/currency";
 
 export const ProductDetail = () => {
   const navigate = useNavigate();

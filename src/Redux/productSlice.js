@@ -54,6 +54,7 @@ export const productSlice = createSlice({
     userSession: {},
     ordersAdminLoaded: [],
     ordersAdminLoadedFiltered: [],
+    orderDetails: {},
     ordersUser: [],
   },
   reducers: {
@@ -289,11 +290,28 @@ export const productSlice = createSlice({
         }
       }
       state.ordersAdminLoadedFiltered = ordersFilter;
-
     },
+    updateOrdersAdmin: (state, action) => {
+      const ordersAux = state.ordersAdminLoaded.map(order => {
+                  if (order.id !== action.payload.orderId) return order;
+                  return { ...order,
+                          state: action.payload.state};});
+      const ordersBux = state.ordersAdminLoadedFiltered.map(order => {
+                  if (order.id !== action.payload.orderId) return order;
+                  return { ...order,
+                          state: action.payload.state};});
+      state.ordersAdminLoaded = ordersAux;
+      state.ordersAdminLoadedFiltered = ordersBux;
+    },
+    cleanOrderDetails : (state) => {
+      state.orderDetails = {};
+    },
+    getOrderDetails: (state, action) => {
+      state.orderDetails = action.payload;
+      },
     getOrdersUser: (state, action) => {
       state.ordersUser = action.payload;
-    }
+    },
   },
 });
 
@@ -344,7 +362,10 @@ export const {
   setTransactionState,
   getOrdersAdmin,
   filterOrdersAdmin,
-  getOrdersUser,
+  updateOrdersAdmin,
+  cleanOrderDetails,
+  getOrderDetails,
+getOrdersUser,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -756,6 +777,34 @@ export const getOrdersAdminAsync = () => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const recoverPasswordAsync = (payload) => (dispatch) => {
+  console.log(payload);
+};
+
+
+
+
+export const updateOrdersAdminAsync = (orderId, state) => (dispatch) => {
+  const stateJson = ({ state: state });
+  axios
+    .put(`${apiUrl}orders/updateState/${orderId}`, stateJson)
+    .then((response) => {
+            dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));    
+    })
+    .catch((error) => console.log(error));
+};
+
+
+
+export const getOrderDetailsAsync  = (orderId) => (dispatch) => {
+  axios
+    .get(`${apiUrl}orders/${orderId}`)
+    .then((response) => {
+      dispatch(getOrderDetails(response.data));
+    })
+    .catch((error) => console.log(error));
+};
+
 export const getOrdersUserAsync = (id) => (dispatch) => {
   axios
   .get(`${apiUrl}orders/user/${id}`)
@@ -763,6 +812,6 @@ export const getOrdersUserAsync = (id) => (dispatch) => {
     dispatch(getOrdersUser(response.data));
   })
   .catch((error) => console.log(error));
-}
+};
 
 export default productSlice.reducer;

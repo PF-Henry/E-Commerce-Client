@@ -1,0 +1,11 @@
+.item_state{
+    width: 140px !important;
+    display: block;
+    padding: 0.4rem;
+}
+
+.item_state_completed{
+    background-color: #3ad8c1;
+    color: #1c004a;
+    font-weight: bold;
+}
