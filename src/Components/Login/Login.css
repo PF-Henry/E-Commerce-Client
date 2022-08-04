@@ -176,9 +176,9 @@
 }
 
 .errorMessage {
-    color: red;
-    font-size: 8px;
-    margin: 0;
+  color: red;
+  font-size: 8px;
+  margin: 0;
 }
 
 .close2 {
@@ -271,4 +271,8 @@
   .message-container--login p {
     font-size: 13px;
   }
+}
+
+.addToCartBtn2:focus {
+  background-color: #1c004a;
 }

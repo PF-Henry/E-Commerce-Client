@@ -18,16 +18,14 @@ import {
 import apiUrl from "../../Constants/apiUrl";
 import validate from "./Validators";
 
-
 export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const role = useSelector((state) => state.products.role);
   const error = useSelector((state) => state.products.error);
   const message = useSelector((state) => state.products.msg);
-  const [errors, setErrors] = useState({firstTry: true});
+  const [errors, setErrors] = useState({ firstTry: true });
 
-  
   useEffect(() => {
     dispatch(registerGoogleAsync());
     return () => {
@@ -64,17 +62,19 @@ export const Login = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
-    if(!errors.firstTry){
-      setErrors(validate({
+    if (!errors.firstTry) {
+      setErrors(
+        validate({
           ...user,
-          email: e.target.value
-      }))
+          email: e.target.value,
+        })
+      );
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(e);
-    if(user.email && user.password.length >= 1) {
+    if (user.email && user.password.length >= 1) {
       dispatch(loginUserAsync(user));
       setUser({
         email: "",
@@ -82,8 +82,8 @@ export const Login = () => {
       });
       errors.firstTry = false;
     }
-    if(errors.firstTry){
-      alert('Complete the required fields');
+    if (errors.firstTry) {
+      alert("Complete the required fields");
     }
   };
 
@@ -104,13 +104,14 @@ export const Login = () => {
 
   const handleCheckErrors = (e) => {
     e.preventDefault();
-    setErrors(validate({
+    setErrors(
+      validate({
         ...user,
         [e.target.name]: e.target.value,
-    }))
-    handleSubmit(e)
-}
-  
+      })
+    );
+    handleSubmit(e);
+  };
 
   return (
     <div className="padding-container--login padding-container">
@@ -179,13 +180,9 @@ export const Login = () => {
         </div>
       </div>
 
-      {error ? (
+      {error && (
         <div className="message-container--login error ">
           <p>{error}</p>
-        </div>
-      ) : (
-        <div className="message-container--login disable ">
-          <p></p>
         </div>
       )}
 
@@ -228,7 +225,7 @@ export const Login = () => {
               className="right-inputs--login"
               onSubmit={(e) => handleSubmit(e)}
             >
-              <div className="d-flex flex-column gap-3 mb-1">
+              <div className="d-flex flex-column gap-1 mb-1">
                 <div className="input-group">
                   <span
                     className="input-group-text bg-purple-dark text-white"
@@ -237,17 +234,17 @@ export const Login = () => {
                     <FiMail size={"1.2rem"} />
                   </span>
                   <input
-                  id="inputEmail"
+                    id="inputEmail"
                     type="text"
                     placeholder="name@example.com"
                     className="form-control"
                     name="email"
                     value={user.email}
                     onChange={(e) => handleChange(e)}
-                    autoComplete='off'
+                    autoComplete="off"
                   />
-                  {errors.email && (<p className='errorMessage'>{errors.email}</p>)}
                 </div>
+                {errors.email && <p className="errorMessage">{errors.email}</p>}
                 <div className="input-group">
                   <span
                     className="input-group-text bg-purple-dark text-white"
@@ -263,8 +260,10 @@ export const Login = () => {
                     value={user.password}
                     onChange={(e) => handleChange(e)}
                   />
-                  {errors.password && (<p className='errorMessage'>{errors.password}</p>)}
                 </div>
+                {errors.password && (
+                  <p className="errorMessage">{errors.password}</p>
+                )}
               </div>
 
               {/* <!-- Button trigger modal --> */}
@@ -281,7 +280,7 @@ export const Login = () => {
               <button
                 className="btn bg-purple-dark text-white border-0 addToCartBtn mt-2"
                 type="submit"
-                onClick={e => handleCheckErrors(e)}>
+                onClick={(e) => handleCheckErrors(e)}
               >
                 Login
               </button>
