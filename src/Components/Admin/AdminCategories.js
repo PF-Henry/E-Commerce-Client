@@ -30,8 +30,9 @@ const AdminCategories = () => {
   }, [allCategories, dispatch]);
 
   return (
-    <div className="adminContainer">
-      <div className="adminDashboard adminProducts">
+    <div>
+      <div className="text-purple fs-1 fw-bold mt-3">Categories</div>
+      <div className="mt-4">
         <div className="d-flex justify-content-center gap-3 mb-3">
           {/* <Searchbar content="Category" /> */}
           <button
