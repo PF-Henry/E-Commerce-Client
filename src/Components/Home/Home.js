@@ -83,7 +83,7 @@ const Home = () => {
   // };
 
   return (
-    <div className="bg-light">
+    <div className="bg-light minH">
       <Header />
       <Filteredbar
         itemsPerPage={itemsPerPageChanged}
