@@ -16,6 +16,8 @@ import {
 } from "../../Redux/productSlice";
 
 import apiUrl from "../../Constants/apiUrl";
+import validate from "./Validators";
+
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -23,7 +25,9 @@ export const Login = () => {
   const role = useSelector((state) => state.products.role);
   const error = useSelector((state) => state.products.error);
   const message = useSelector((state) => state.products.msg);
+  const [errors, setErrors] = useState({firstTry: true});
 
+  
   useEffect(() => {
     dispatch(registerGoogleAsync());
     return () => {
@@ -60,15 +64,27 @@ export const Login = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
+    if(!errors.firstTry){
+      setErrors(validate({
+          ...user,
+          email: e.target.value
+      }))
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(e);
-    dispatch(loginUserAsync(user));
-    setUser({
-      email: "",
-      password: "",
-    });
+    if(user.email && user.password.length >= 1) {
+      dispatch(loginUserAsync(user));
+      setUser({
+        email: "",
+        password: "",
+      });
+      errors.firstTry = false;
+    }
+    if(errors.firstTry){
+      alert('Complete the required fields');
+    }
   };
 
   const handleChangeRecoveredPassword = (e) => {
@@ -85,6 +101,16 @@ export const Login = () => {
       email: "",
     });
   };
+
+  const handleCheckErrors = (e) => {
+    e.preventDefault();
+    setErrors(validate({
+        ...user,
+        [e.target.name]: e.target.value,
+    }))
+    handleSubmit(e)
+}
+  
 
   return (
     <div className="padding-container--login padding-container">
@@ -211,13 +237,16 @@ export const Login = () => {
                     <FiMail size={"1.2rem"} />
                   </span>
                   <input
+                  id="inputEmail"
                     type="text"
                     placeholder="name@example.com"
                     className="form-control"
                     name="email"
                     value={user.email}
                     onChange={(e) => handleChange(e)}
+                    autoComplete='off'
                   />
+                  {errors.email && (<p className='errorMessage'>{errors.email}</p>)}
                 </div>
                 <div className="input-group">
                   <span
@@ -234,8 +263,10 @@ export const Login = () => {
                     value={user.password}
                     onChange={(e) => handleChange(e)}
                   />
+                  {errors.password && (<p className='errorMessage'>{errors.password}</p>)}
                 </div>
               </div>
+
               {/* <!-- Button trigger modal --> */}
               <div className="div_modal">
                 <p
@@ -250,6 +281,7 @@ export const Login = () => {
               <button
                 className="btn bg-purple-dark text-white border-0 addToCartBtn mt-2"
                 type="submit"
+                onClick={e => handleCheckErrors(e)}>
               >
                 Login
               </button>
