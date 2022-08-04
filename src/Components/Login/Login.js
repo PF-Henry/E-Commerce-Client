@@ -62,6 +62,8 @@ export const Login = () => {
   };
 
   const handleChange = (e) => {
+    dispatch(resetError());
+    dispatch(resetMsg());
     setUser({
       ...user,
       [e.target.name]: e.target.value,
@@ -70,6 +72,8 @@ export const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault(e);
+    // dispatch(resetMsg());
+    // dispatch(resetError());
     dispatch(loginUserAsync(user));
     setUser({
       email: "",
@@ -87,6 +91,8 @@ export const Login = () => {
   
   const handleRecoverPassword = (e) => {
     e.preventDefault(e);
+    dispatch(resetError());
+    dispatch(resetMsg());
     dispatch(recoverPasswordAsync(userEmail))
     setUserEmail({
       email: '',
