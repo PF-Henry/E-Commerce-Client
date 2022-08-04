@@ -92,7 +92,7 @@ const OrdersTableAdmin = ({ orders }) => {
 
   return (
     <div className="letter-spacing mx-1 mt-3">
-      <table className="table table-hover caption-top table-borderless">
+      <table className="table mw-100 table-hover caption-top table-borderless">
         <caption>Orders</caption>
         <thead className="bg-purple-dark text-white">
           <tr>

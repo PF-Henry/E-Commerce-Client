@@ -21,9 +21,7 @@ export const OrderView = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
       
-
-  console.log(orderDetails);
-  
+ 
 
   const zerofilled = (numero) =>{
     return ('000000'+numero).slice(-5);
@@ -101,19 +99,32 @@ if (orderDetails.id) {
                     
                     {/* ------------------------ 3 linea     */}
                     <div className="d-md-flex p-3 border-bottom border-secondary text-secondary letter-spacing d-none">
-                        <div className="col-md-7 text-start">Product</div>
-                        <div className="col-md-1 text-start">Price</div>
-                        <div className="col-md-3">Qty</div>
-                        <div className="col-md-1 text-end">Subtotal</div>
+                        <div className="col-md-3 text-start">Product</div>  
+                        <div className="col-md-4 text-start">Product</div>
+                        <div className="col-md-2 text-start">Price</div>
+                        <div className="col-md-1">Qty</div>
+                        <div className="col-md-2 text-end">Subtotal</div>
                     </div>
 
                     {/* ------------------------ ITEM COMPRA     */}
                     {orderDetails.ordersItems.map((item) => (
                          <div className="d-md-flex p-3 border-bottom border-secondary text-secondary letter-spacing d-none">
-                            <div className="col-md-7 text-start">{item.product.name}</div>
-                            <div className="col-md-1 text-start">${pesos.format(item.unit_price)}</div>
-                           <div className="col-md-3">{item.quantity}</div>
-                           <div className="col-md-1 text-end">${pesos.format(item.unit_price * item.quantity)}</div>
+                            <div className="col-3 d-flex justify-content-center pe-3 mb-2 mb-md-0">
+                                <img
+                                  src={
+                                    item.product.images.length
+                                      ? item.product.images[0].url_image
+                                      : "https://www.sunrisemovement.org/es/wp-content/plugins/ninja-forms/assets/img/no-image-available-icon-6.jpg"
+                                  }
+                                  alt="product img"
+                                  className="img-fluid maxH"
+                                />
+                            </div>
+                            
+                            <div className="col-md-4 text-start">{item.product.name}</div>
+                            <div className="col-md-2 text-start">${pesos.format(item.unit_price)}</div>
+                           <div className="col-md-1">{item.quantity}</div>
+                           <div className="col-md-2 text-end">${pesos.format(item.unit_price * item.quantity)}</div>
                          </div>
                       ))}
 

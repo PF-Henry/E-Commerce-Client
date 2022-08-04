@@ -446,6 +446,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
       } else {
+        dispatch(getAllDBProductsAsync());
         dispatch(createProductMsg(response.data.msg));
       }
     }) // cacth generar un dispatch un error
@@ -481,6 +482,7 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
       } else {
+        dispatch(getAllDBProductsAsync());
         dispatch(createProductMsg(response.data.msg));
       }
     }) // cacth generar un dispatch un error
@@ -785,6 +787,8 @@ export const updateOrdersAdminAsync = (orderId, state) => (dispatch) => {
   axios
     .put(`${apiUrl}orders/updateState/${orderId}`, stateJson)
     .then((response) => {
+            console.log(response.data.error);
+            console.log(response.data.msg);
             dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));    
     })
     .catch((error) => console.log(error));

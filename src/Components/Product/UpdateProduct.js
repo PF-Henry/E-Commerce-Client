@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetError, resetMsg, cleanDetail, getDetailProductAsync } from "../../Redux/productSlice";
+import { resetError, resetMsg, cleanDetail, getDetailProductAsync, getAllDBProductsAsync } from "../../Redux/productSlice";
 import FormProduct from "./FormProduct";
 import { useEffect } from "react";
 
@@ -16,6 +16,7 @@ export const UpdateProduct = () => {
     dispatch(resetError());
     dispatch(getDetailProductAsync(id));
     return () => {
+      //dispatch(getAllDBProductsAsync());  // trendria que actualizar la lista de productos
       dispatch(cleanDetail());
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
