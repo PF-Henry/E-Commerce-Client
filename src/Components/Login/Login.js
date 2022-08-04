@@ -197,9 +197,7 @@ export const Login = () => {
       )}
       <div className="login-container--login">
         <div className="section-title--login">
-          <h5 className="section-title--title--login mt-3">
-            Choose a Login Method
-          </h5>
+          <h5 className="section-title--title--login mt-3">Login</h5>
           <div className="section-title-text--login">
             <p className="m-0">Don't have account yet?</p>
             <NavLink to="/auth/register"> Register </NavLink>
