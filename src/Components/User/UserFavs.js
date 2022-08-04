@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { FaHeart } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { getFavoriteAsync } from "../../Redux/productSlice";
 import Cards from "../Cards/Cards";

@@ -83,7 +83,7 @@ const Home = () => {
   // };
 
   return (
-    <div className="bg-light">
+    <div className="bg-light minH">
       <Header />
       <Filteredbar
         itemsPerPage={itemsPerPageChanged}
@@ -92,7 +92,7 @@ const Home = () => {
         productsArray={filteredProductsByBrands}
       />
       {error && error.length > 0 ? (
-        <div className="pb-5">
+        <div className="cards-container my-5">
           <div className="alert alert-warning product_not_found mb-5">
             {error}
           </div>

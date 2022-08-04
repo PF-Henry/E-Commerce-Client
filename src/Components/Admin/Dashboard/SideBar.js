@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   ProSidebar,
   Menu,
@@ -7,14 +7,14 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdExitToApp, MdCategory } from "react-icons/md";
 import { FaClipboardList, FaTags } from "react-icons/fa";
 import { SiHexo } from "react-icons/si";
 import { IoPerson } from "react-icons/io5";
 import { RiSettings3Fill, RiShoppingBagFill } from "react-icons/ri";
 import { BsPersonCircle } from "react-icons/bs";
-import { getUsersAsync } from "../../../Redux/productSlice";
+// import { getUsersAsync } from "../../../Redux/productSlice";
 import "./SideBar.css";
 import { useDispatch } from "react-redux";
 import { logoutAsync } from "../../../Redux/productSlice";
@@ -60,7 +60,7 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar, user }) => {
         <div className="d-flex justify-content-center mt-4">
           <div className="d-flex flex-column align-items-center gap-1">
             <BsPersonCircle size={"4rem"} />
-            { user }
+            {user}
           </div>
         </div>
         <Menu iconShape="circle">
@@ -97,12 +97,12 @@ const SideBar = ({ collapsed, toggled, handleToggleSidebar, user }) => {
             to="/"
             className="adminNavLink d-flex align-items-center aqua-hover sidebar-btn text-white"
           > */}
-            <div 
-              className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1"
-              onClick={() => logout()}
-            >
-              SIGN OUT <MdExitToApp size={"1.6rem"} />
-            </div>
+          <div
+            className="nav-item letter-spacing nav-li-font d-flex align-items-center gap-1"
+            onClick={() => logout()}
+          >
+            SIGN OUT <MdExitToApp size={"1.6rem"} />
+          </div>
           {/* </NavLink> */}
         </div>
       </SidebarFooter>

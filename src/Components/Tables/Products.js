@@ -33,7 +33,7 @@ const ProductsTable = ({ products, ruta }) => {
               {product.images.map((image, index) => (
                 <img
                   src={image.url_image}
-                  alt={`Image${index}`}
+                  alt={`Item${index}`}
                   height={"50px"}
                   key={index}
                 />
