@@ -1,179 +1,178 @@
 .padding-container--login {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 .login-container--login {
-    border-radius: 10px;
-    margin: 0 auto;
-    width: 600px;
-    height: 400px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 2px 3px 14px 1px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+  margin: 0 auto;
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 2px 3px 14px 1px rgba(0, 0, 0, 0.75);
 }
 
 .section-title--login {
-    width: 100%;
-    height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
+  width: 100%;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 
 .section-title--title--login {
-    font-size: 45px;
-    color: #1c004a;
+  font-size: 45px;
+  color: #1c004a;
 }
 
 .section-title-text--login {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .section-options--login {
-    width: 100%;
-    height: 170px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+  width: 100%;
+  height: 170px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
 
 .div-social-buttons--login {
-    width: 48%;
-    height: 160px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    border-right: 2px dotted #cacaca;
+  width: 48%;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-right: 2px dotted #cacaca;
 }
 
 .right--login {
-    width: 50%;
-    height: 160px;
+  width: 50%;
+  height: 160px;
 }
 
 .right-inputs--login {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .right-input--login {
-    width: 200px;
-    border-radius: 5px;
-    border: 1px solid #507cc0;
-    padding-left: 6px;
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #507cc0;
 }
 
 .center--login {
-    width: 15%;
-    height: 160px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 15%;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .btnLogin--login {
-    width: 200px;
-    padding: 5px 0;
-    border-radius: 5px;
-    background-color: #1c004a;
-    color: #FFF;
-    border: none;
+  width: 200px;
+  padding: 5px 0;
+  border-radius: 5px;
+  background-color: #1c004a;
+  color: #fff;
+  border: none;
 }
 
 .btnLogin--login:hover {
-    color: #1c004a !important;
-    background-color: #3ad8c1;
+  color: #1c004a !important;
+  background-color: #3ad8c1;
 }
 
 .loginButton--login {
-    width: 160px;
-    height: 35px;
-    padding: 5px 10px;
-    border-radius: 5px;
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    cursor: pointer;
+  width: 160px;
+  height: 35px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 .google {
-    background-color: #df4930;
+  background-color: #df4930;
 }
 
 .facebook {
-    background-color: #507cc0;
+  background-color: #507cc0;
 }
 
 .github {
-    background-color: black;
+  background-color: black;
 }
 
 .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 
 .logo-footer-container--login {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #1c004a;
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c004a;
 }
 
 .message-container--login {
-    margin: 10px auto;
-    width: 600px;
-    height: 80px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    border-radius: 10px;
+  margin: 10px auto;
+  width: 600px;
+  height: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
 }
 
 .message-container--login p {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .success {
-    background-color: #9effd2;
-    color: #416655;
+  background-color: #9effd2;
+  color: #416655;
 }
 
 .error {
-    background-color: #ff8e8e;
-    color: #942d2d;
+  background-color: #ff8e8e;
+  color: #942d2d;
 }
 
 .disable {
-    background-color: transparent;
-    color: white;
-    display: none;
+  background-color: transparent;
+  color: white;
+  display: none;
 }
 
 .div_modal {
-    user-select: none;
+  user-select: none;
 }
 
-.modal-title {
-    font-size: 35px;
-    color: #1c004a;
+.modal-title2 {
+  font-size: 35px;
+  color: #1c004a;
 }
 
 .errorMessage {
@@ -182,94 +181,94 @@
     margin: 0;
 }
 
-.close {
-    border: none;
-    background-color: #1c004a;
-    color: white;
-    padding: 0 12px;
-    font-size: 28px;
-    cursor: pointer;
-    border-radius: 6px;
-    border: 2px solid #1c004a;
+.close2 {
+  border: none;
+  background-color: #1c004a;
+  color: white;
+  padding: 0 12px;
+  font-size: 28px;
+  cursor: pointer;
+  border-radius: 6px;
+  border: 2px solid #1c004a;
 
-    transition: 1s ease all;
+  transition: 1s ease all;
 }
 
-.close:hover {
-    background-color: #fff;
-    border: 2px solid #1c004a;
-    color: red;
+.close2:hover {
+  background-color: #fff;
+  border: 2px solid #1c004a;
+  color: red;
 }
 
-.modal-body {
-    padding: 50px 0;
+.modal-body2 {
+  padding: 50px 0;
 }
 
-.modal-body p {
-    font-size: 24px;
+.modal-body2 p {
+  font-size: 24px;
 }
 
-.modal-body input {
-    width: 200px;
-    border-radius: 5px;
-    border: 1px solid #507cc0;
-    padding-left: 10px;
+.modal-body2 input {
+  width: 200px;
+  border-radius: 5px;
+  border: 1px solid #507cc0;
+  padding-left: 10px;
 }
 
 .p_Modal {
-    margin: 0;
-    cursor: pointer;
-    color: red;
-    text-decoration: underline;
-    font-style: italic;
-    user-select: none;
-    font-size: 14px;
+  margin: 0;
+  cursor: pointer;
+  color: red;
+  text-decoration: underline;
+  font-style: italic;
+  user-select: none;
+  font-size: 14px;
 }
 
-.modal-footer {
-    background-color: #1c004a;
+.modal-footer2 {
+  background-color: #1c004a;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+@media (min-width: 280px) and (max-width: 767px) {
+  .login-container--login {
+    width: 80%;
+    height: 500px;
+  }
+  .section-title--login {
+    padding: 20px 0;
+  }
+  .section-title--title--login {
+    font-size: 25px;
+  }
+  .section-options--login {
+    height: 400px;
     display: flex;
+    flex-direction: column-reverse;
     justify-content: space-around;
     align-items: center;
-}
-
-@media (min-width: 280px) and (max-width:767px) {
-    .login-container--login {
-        width: 80%;
-        height: 500px;
-    }
-    .section-title--login {
-        padding: 20px 0;
-    }
-    .section-title--title--login {
-        font-size: 25px;
-    }
-    .section-options--login {
-        height: 400px;
-        display: flex;
-        flex-direction: column-reverse;
-        justify-content: space-around;
-        align-items: center;
-    }
-    .right--login {
-        width: 70%;
-        height: 135px;
-        padding-bottom: 30px;
-        border-bottom: 1px dotted #929292;
-    }
-    .div-social-buttons--login {
-        width: 100%;
-        height: 115px;
-        border-right: none;
-    }
-    .loginButton--login {
-        width: 200px;
-    }
-    .message-container--login {
-        width: 80%;
-        height: 80px;
-    }
-    .message-container--login p {
-        font-size: 13px;
-    }
+  }
+  .right--login {
+    width: 70%;
+    height: 135px;
+    padding-bottom: 30px;
+    border-bottom: 1px dotted #929292;
+  }
+  .div-social-buttons--login {
+    width: 100%;
+    height: 115px;
+    border-right: none;
+  }
+  .loginButton--login {
+    width: 200px;
+  }
+  .message-container--login {
+    width: 80%;
+    height: 80px;
+  }
+  .message-container--login p {
+    font-size: 13px;
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import UsersTable from "../Tables/UsersTable";
-import Searchbar from "../Searchbar/Searchbar";
+// import Searchbar from "../Searchbar/Searchbar";
 import "./AdminDashboard.css";
 import { useSelector } from "react-redux";
 import { getUsersAsync } from "../../Redux/productSlice";

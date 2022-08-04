@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./Login.css";
 import { NavLink } from "react-router-dom";
-import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import { SiHexo } from "react-icons/si";
+import { FiMail, FiLock } from "react-icons/fi";
+import { FcGoogle } from "react-icons/fc";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import {
@@ -57,14 +59,6 @@ export const Login = () => {
     window.open(`${apiUrl}auth/google/signin`, "_self");
   };
 
-  const github = () => {
-    window.open("http://localhost:3001/auth/github", "_self");
-  };
-
-  const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
-  };
-
   const handleChange = (e) => {
     setUser({
       ...user,
@@ -98,16 +92,15 @@ export const Login = () => {
       ...userEmail,
       [e.target.name]: e.target.value,
     });
-
   };
-  
+
   const handleRecoverPassword = (e) => {
-    e.preventDefault();
-    dispatch(recoverPasswordAsync(userEmail))
+    e.preventDefault(e);
+    dispatch(recoverPasswordAsync(userEmail));
     setUserEmail({
-      email: '',
+      email: "",
     });
-  }
+  };
 
   const handleCheckErrors = (e) => {
     e.preventDefault();
@@ -120,48 +113,71 @@ export const Login = () => {
   
 
   return (
-
     <div className="padding-container--login padding-container">
-
-    {/* <!-- Modal --> */}
-    <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-      <div className="modal-dialog modal-dialog-centered" role="document">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLongTitle">Recover Password</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            <p>Enter your email:</p>
-            <form id="formRecoverPassword">
-              <input 
-                placeholder="email"
-                type='email' 
-                name="email"
-                value={userEmail.email}
-                onChange={(e) => handleChangeRecoveredPassword(e)}
-              />
-            </form>
-          </div>
-          <div className="modal-footer">
-            <NavLink
-              to="/"
-              className="navbar-brand text-white d-flex align-items-center letter-spacing"
-            >
-              <SiHexo fontSize={"2.3rem"} />
-              <div className="fs-4 pb-1">exa</div>
-              <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
-            </NavLink>
-            <button onClick={(e) => handleRecoverPassword(e)}  type="submit" className="btn btn-primary" data-dismiss="modal">Submit</button>
+      {/* <!-- Modal --> */}
+      <div
+        className="modal fade"
+        id="exampleModalCenter"
+        tabIndex="-1"
+        role="dialog"
+        aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-centered" role="document">
+          <div className="modal-content">
+            <div className="modal-header bg-light">
+              <h5
+                className="modal-title modal-title2"
+                id="exampleModalLongTitle"
+              >
+                Recover Password
+              </h5>
+              <button
+                type="button"
+                className="close close2"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div className="modal-body modal-body2">
+              <p className="mb-1">Enter your email:</p>
+              <form
+                id="formRecoverPassword"
+                className="d-flex justify-content-center"
+              >
+                <input
+                  placeholder="name@example.com"
+                  type="email"
+                  name="email"
+                  value={userEmail.email}
+                  onChange={(e) => handleChangeRecoveredPassword(e)}
+                  className="form-control"
+                />
+              </form>
+            </div>
+            <div className="modal-footer modal-footer2">
+              <NavLink
+                to="/"
+                className="navbar-brand text-white d-flex align-items-center letter-spacing"
+              >
+                <SiHexo fontSize={"2.3rem"} />
+                <div className="fs-4 pb-1">exa</div>
+                <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
+              </NavLink>
+              <button
+                onClick={(e) => handleRecoverPassword(e)}
+                type="submit"
+                className="btn btn-aqua"
+                data-dismiss="modal"
+              >
+                Submit
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-
-
-
 
       {error ? (
         <div className="message-container--login error ">
@@ -188,33 +204,22 @@ export const Login = () => {
             Choose a Login Method
           </h5>
           <div className="section-title-text--login">
-              <p className="m-0">Don't have account yet?</p>
-              <NavLink to="/auth/register"> Register </NavLink>
+            <p className="m-0">Don't have account yet?</p>
+            <NavLink to="/auth/register"> Register </NavLink>
           </div>
         </div>
 
         <div className="section-options--login">
           <div className="div-social-buttons--login">
+            <div>
+              <FcGoogle size={"5rem"} />
+            </div>
             <div
               className="loginButton--login google d-flex align-items-center gap-2"
               onClick={google}
             >
               <FaGoogle size={"1.2rem"} />
               Google
-            </div>
-            <div
-              className="loginButton--login facebook d-flex align-items-center gap-2"
-              onClick={facebook}
-            >
-              <FaFacebookF size={"1.2rem"} />
-              Facebook
-            </div>
-            <div
-              className="loginButton--login github d-flex align-items-center gap-2"
-              onClick={github}
-            >
-              <FaGithub size={"1.4rem"} />
-              Github
             </div>
           </div>
 
@@ -223,41 +228,63 @@ export const Login = () => {
               className="right-inputs--login"
               onSubmit={(e) => handleSubmit(e)}
             >
-              <div>
-                <input
+              <div className="d-flex flex-column gap-3 mb-1">
+                <div className="input-group">
+                  <span
+                    className="input-group-text bg-purple-dark text-white"
+                    id="basic-addon1"
+                  >
+                    <FiMail size={"1.2rem"} />
+                  </span>
+                  <input
                   id="inputEmail"
-                  type="text"
-                  placeholder="Email"
-                  className="right-input--login"
-                  name="email"
-                  value={user.email}
-                  onChange={(e) => handleChange(e)}
-                  autoComplete='off'
-                />
-                {errors.email && (<p className='errorMessage'>{errors.email}</p>)}
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="right-input--login mt-2"
-                  name="password"
-                  value={user.password}
-                  onChange={(e) => handleChange(e)}
-                />
-                {errors.password && (<p className='errorMessage'>{errors.password}</p>)}
+                    type="text"
+                    placeholder="name@example.com"
+                    className="form-control"
+                    name="email"
+                    value={user.email}
+                    onChange={(e) => handleChange(e)}
+                    autoComplete='off'
+                  />
+                  {errors.email && (<p className='errorMessage'>{errors.email}</p>)}
+                </div>
+                <div className="input-group">
+                  <span
+                    className="input-group-text bg-purple-dark text-white"
+                    id="basic-addon1"
+                  >
+                    <FiLock size={"1.2rem"} />
+                  </span>
+                  <input
+                    type="password"
+                    placeholder="**********"
+                    className="form-control"
+                    name="password"
+                    value={user.password}
+                    onChange={(e) => handleChange(e)}
+                  />
+                  {errors.password && (<p className='errorMessage'>{errors.password}</p>)}
+                </div>
               </div>
-              <button className="btnLogin--login" type="submit" onClick={e => handleCheckErrors(e)}>
-                Login
-              </button>
 
               {/* <!-- Button trigger modal --> */}
               <div className="div_modal">
-                <p className="m-0">Forgot your password?</p>
-                <p className="p_Modal" data-toggle="modal" data-target="#exampleModalCenter"> Recover Password </p>
+                <p
+                  className="p_Modal"
+                  data-toggle="modal"
+                  data-target="#exampleModalCenter"
+                >
+                  {" "}
+                  Forgot Password?{" "}
+                </p>
               </div>
-
-              
-
-
+              <button
+                className="btn bg-purple-dark text-white border-0 addToCartBtn mt-2"
+                type="submit"
+                onClick={e => handleCheckErrors(e)}>
+              >
+                Login
+              </button>
             </form>
           </div>
         </div>
