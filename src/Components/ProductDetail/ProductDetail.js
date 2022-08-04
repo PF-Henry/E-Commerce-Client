@@ -12,13 +12,13 @@ import "./ProductDetail.css";
 import optionsArray from "../../Functions/optionsArray";
 import { Spinner } from "../Spinner/Spinner";
 import pesos from "../../Functions/currency";
+import { FcRating } from "react-icons/fc";
 
 export const ProductDetail = () => {
   const navigate = useNavigate();
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
   const role = useSelector((state) => state.products.role);
-  console.log(product);
   const productCartIndex = cartItems.findIndex(
     (item) => item.id === product.id
   );
@@ -75,6 +75,7 @@ export const ProductDetail = () => {
     productDetails.categories = !product.categories.length
       ? "Without categories"
       : product.categories[0].name;
+    productDetails.reviews = product.reviews;
   }
 
   let [mainImage, setMainImage] = useState(productDetails.img1);
@@ -113,7 +114,10 @@ export const ProductDetail = () => {
           <Spinner />
         </div>
       ) : (
+        
+        
         <div className="div-container">
+          <div className="div-space"></div>
           <div className="div-container-header">
             <button
               onClick={() => navigate(-1)}
@@ -274,6 +278,59 @@ export const ProductDetail = () => {
 
             <div className="div-info-technical-decription">
               <h3 className="div-info-technical-decription--title">Reviews</h3>
+              {" "}
+              {productDetails.reviews.length === 0 ? (
+                <p className="div-info-technical-decription--p">
+                  {" "}
+                  There are no reviews for this product
+                </p>
+              ) : (
+                productDetails.reviews.map((review) => (
+                  <div className="div-info-technical-decription--review border-bottom mb-4" key={review.id}>
+                    
+                    <p className="div-info-technical-decription--review-description d-flex">
+                      {" "}
+                      {/* // mostrar rating con estrellas  */}
+
+                      {review.rating === 1 ? (
+                        <div className="pt-5 pb-5">
+                            <FcRating size={"1.5rem"} />
+                        </div>
+                      ) : review.rating === 2 ? (
+                          <div>
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                          </div>
+                      ) : review.rating === 3 ? (
+                        <div>
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                        </div>
+                      ): review.rating === 4 ? (
+                        <div>
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                        </div>
+                      ): review.rating === 5 ? (
+                        <div>
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                            <FcRating size={"1.5rem"} />
+                        </div>) : (<div></div>)
+                      }
+                    </p>
+                    <p className="div-info-technical-decription--review-title">
+                      {" "}
+                      {review.content}
+                    </p>
+                  </div>
+                      )))}
+
             </div>
           </div>
         </div>

@@ -15,3 +15,7 @@
     color: #1C004A;
     border: 2px solid #3AD8C1;
 }
+
+.minH {
+    min-height: 100vh;
+}

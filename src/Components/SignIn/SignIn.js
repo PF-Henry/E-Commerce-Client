@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { SiHexo } from "react-icons/si";
-import { FaGoogle, FaFacebookF, FaGithub } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import "./SignIn.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +22,8 @@ export const SignIn = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-      dispatch(registerGoogleAsync());//*
-      dispatch(loginGoogleAsync);
+    dispatch(registerGoogleAsync()); //*
+    dispatch(loginGoogleAsync);
     return () => {
       dispatch(resetError());
       dispatch(resetMsg());
@@ -46,14 +47,6 @@ export const SignIn = () => {
 
   const google = () => {
     window.open(`${apiUrl}auth/google/callback`, "_self");
-  };
-
-  const github = () => {
-    window.open("http://localhost:3001/auth/github", "_self");
-  };
-
-  const facebook = () => {
-    window.open("http://localhost:5000/auth/facebook", "_self");
   };
 
   const handleChange = (e) => {
@@ -99,26 +92,15 @@ export const SignIn = () => {
 
         <div className="section-options">
           <div className="div-social-buttons">
+            <div>
+              <FcGoogle size={"5rem"} />
+            </div>
             <div
               className="loginButton google d-flex align-items-center gap-2"
               onClick={google}
             >
               <FaGoogle size={"1.2rem"} />
               Google
-            </div>
-            <div
-              className="loginButton facebook d-flex align-items-center gap-2"
-              onClick={facebook}
-            >
-              <FaFacebookF size={"1.2rem"} />
-              Facebook
-            </div>
-            <div
-              className="loginButton github d-flex align-items-center gap-2"
-              onClick={github}
-            >
-              <FaGithub size={"1.4rem"} />
-              Github
             </div>
           </div>
 
@@ -127,23 +109,23 @@ export const SignIn = () => {
               <input
                 type="text"
                 placeholder="Name"
-                className="right-input"
+                className="form-control py-0"
                 name="first_name"
                 value={user.name}
                 onChange={(e) => handleChange(e)}
               />
               <input
                 type="text"
-                placeholder="Lastname"
-                className="right-input"
+                placeholder="Last name"
+                className="form-control py-0"
                 name="last_name"
-                value={user.lastName}
+                value={user.last_name}
                 onChange={(e) => handleChange(e)}
               />
               <input
                 type="text"
                 placeholder="Email"
-                className="right-input"
+                className="form-control py-0"
                 name="email"
                 value={user.email}
                 onChange={(e) => handleChange(e)}
@@ -151,7 +133,7 @@ export const SignIn = () => {
               <input
                 type="password"
                 placeholder="Password"
-                className="right-input"
+                className="form-control py-0"
                 name="password"
                 value={user.password}
                 onChange={(e) => handleChange(e)}
