@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 // import { getUserFromToken } from "../Functions/session";
 import { initSession, closeSession } from "../Functions/session.js";
-import { RiLayoutMasonryFill } from "react-icons/ri";
 import imageToBase64 from 'image-to-base64/browser';
 
 export const productSlice = createSlice({
@@ -789,7 +788,7 @@ export const updateOrdersAdminAsync = (orderId, state) => (dispatch) => {
   axios
     .put(`${apiUrl}orders/updateState/${orderId}`, stateJson)
     .then((response) => {
-            dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));    
+            dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));
     })
     .catch((error) => console.log(error));
 };
