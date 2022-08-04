@@ -24,7 +24,7 @@ export const productSlice = createSlice({
       image: [],
     },
     token: "",
-    role: "Guest",
+    role: "User",
     detailsOfProduct: {},
     brandsLoaded: [],
     itemsPerPageState: 8,
@@ -49,7 +49,7 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
-    userId: 0,
+    userId: 1,
     roleId: 0,
     userSession: {},
     ordersAdminLoaded: [],
@@ -758,9 +758,9 @@ export const getOrdersAdminAsync = () => (dispatch) => {
 
 export const getOrdersUserAsync = (id) => (dispatch) => {
   axios
-  .get(`${apiUrl}orders/${id}`)
+  .get(`${apiUrl}orders/user/${id}`)
   .then((response) => {
-    dispatch(getOrdersAdmin(response.data));
+    dispatch(getOrdersUser(response.data));
   })
   .catch((error) => console.log(error));
 }

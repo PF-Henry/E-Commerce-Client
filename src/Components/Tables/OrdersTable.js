@@ -1,5 +1,9 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import ItemsPaging from "./ItemsPaging";
+import {GrView} from 'react-icons/gr';
+import pesos from "../../Functions/currency";
+import './OrdersTable.css'
 
 const OrdersTable = ({ orders, products }) => {
 
@@ -20,24 +24,36 @@ const OrdersTable = ({ orders, products }) => {
         <thead className="bg-purple-dark text-white">
           <tr>
             <th scope="col" className="px-3">Order ID</th>
-            <th scope="col">Products</th>
+            <th scope="col">Total items</th>
             <th scope="col" className="px-3">Totals</th>
             <th scope="col">Status</th>
             <th scope="col">Payment Status</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody className="table-group-divider bg-light">
           { currentOrders?.map((order) => (
-            <tr key={order.id} className="align-middle">
+            
+            <tr key={order.id} className="align-middle orderPointer">
               <td>{order.id}</td>
-              <td>{products}</td>
-              <td>{order.total_sell}</td>
+              <td className="d-flex justify-content-center gap-3">
+                {products.length}
+              </td>
+              <td>$ {pesos.format(order.total_sell)}</td>
               <td>{order.state}</td>
               <td>{order.mp_order_status.replaceAll('_', ' ',)}</td>
-              <td className="d-flex justify-content-center gap-3">
-                {order.products.map( e => <td>{e}</td>)}
-              </td>
               <td>{order.total}</td>
+              <td className="justify-content-center gap-3">
+                <Link to='/app/user/orders/detail'>
+                  <button
+                    href="#" 
+                    className="btn btn-aqua p-2 d-flex align-items-center rounded-circle"
+                    title="See more">
+                    <GrView size={"1.5rem"} />
+                  </button>
+                </Link>
+              </td>
             </tr>
           ))}
         </tbody>
