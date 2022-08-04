@@ -18,7 +18,6 @@ export const ProductDetail = () => {
   const product = useSelector((state) => state.products.detailsOfProduct);
   const cartItems = useSelector((state) => state.products.cartItems);
   const role = useSelector((state) => state.products.role);
-  console.log(product);
   const productCartIndex = cartItems.findIndex(
     (item) => item.id === product.id
   );

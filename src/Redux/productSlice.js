@@ -5,7 +5,6 @@ import { toast } from "react-toastify";
 import axios from "axios";
 // import { getUserFromToken } from "../Functions/session";
 import { initSession, closeSession } from "../Functions/session.js";
-import { RiLayoutMasonryFill } from "react-icons/ri";
 import imageToBase64 from 'image-to-base64/browser';
 
 export const productSlice = createSlice({
@@ -49,12 +48,13 @@ export const productSlice = createSlice({
     favorites: [],
     initPoint: "",
     transactionState: "",
-    userId: 0,
+    userId: 1,
     roleId: 0,
     userSession: {},
     ordersAdminLoaded: [],
     ordersAdminLoadedFiltered: [],
     orderDetails: {},
+    ordersUser: [],
   },
   reducers: {
     getProducts: (state, action) => {
@@ -307,13 +307,16 @@ export const productSlice = createSlice({
     },
     getOrderDetails: (state, action) => {
       state.orderDetails = action.payload;
-    },
-    setRecoverPasswordMsg: (state, action) => {
+},
+setRecoverPasswordMsg: (state, action) => {
       state.msg = action.payload;
     },
     setRecoverPasswordError: (state, action) => {
       state.error = action.payload;
-    }
+      },
+    getOrdersUser: (state, action) => {
+      state.ordersUser = action.payload;
+    },
   },
 });
 
@@ -367,8 +370,9 @@ export const {
   updateOrdersAdmin,
   cleanOrderDetails,
   getOrderDetails,
-  setRecoverPasswordMsg,
-  setRecoverPasswordError
+setRecoverPasswordMsg,
+  setRecoverPasswordError,
+getOrdersUser,
 } = productSlice.actions;
 
 export const getProductsAsync = () => (dispatch) => {
@@ -802,7 +806,7 @@ export const updateOrdersAdminAsync = (orderId, state) => (dispatch) => {
   axios
     .put(`${apiUrl}orders/updateState/${orderId}`, stateJson)
     .then((response) => {
-            dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));    
+            dispatch(updateOrdersAdmin({orderId, state: state.toLowerCase()}));
     })
     .catch((error) => console.log(error));
 };
@@ -818,5 +822,13 @@ export const getOrderDetailsAsync  = (orderId) => (dispatch) => {
     .catch((error) => console.log(error));
 };
 
+export const getOrdersUserAsync = (id) => (dispatch) => {
+  axios
+  .get(`${apiUrl}orders/user/${id}`)
+  .then((response) => {
+    dispatch(getOrdersUser(response.data));
+  })
+  .catch((error) => console.log(error));
+};
 
 export default productSlice.reducer;

@@ -8,7 +8,7 @@ import richyImg from "../../assets/Richy.jpg";
 import sneiderImg from "../../assets/Sneider.jpg";
 import victorImg from "../../assets/Victor.jpg";
 import gerardoImg from "../../assets/Gerardo.jpg";
-import yohanalyImg from "../../assets/Yoha.jpg";
+import yohanalyImg from "../../assets/Yoha.jpeg";
 import "./AboutUs.css";
 
 const AboutUs = () => {
