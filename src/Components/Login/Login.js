@@ -14,6 +14,8 @@ import {
 } from "../../Redux/productSlice";
 
 import apiUrl from "../../Constants/apiUrl";
+import validate from "./Validators";
+
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -21,6 +23,8 @@ export const Login = () => {
   const role = useSelector((state) => state.products.role);
   const error = useSelector((state) => state.products.error);
   const message = useSelector((state) => state.products.msg);
+  const [errors, setErrors] = useState({firstTry: true});
+
   
   useEffect(() => {
     dispatch(registerGoogleAsync());
@@ -66,15 +70,27 @@ export const Login = () => {
       ...user,
       [e.target.name]: e.target.value,
     });
+    if(!errors.firstTry){
+      setErrors(validate({
+          ...user,
+          email: e.target.value
+      }))
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault(e);
-    dispatch(loginUserAsync(user));
-    setUser({
-      email: "",
-      password: "",
-    });
+    if(user.email && user.password.length >= 1) {
+      dispatch(loginUserAsync(user));
+      setUser({
+        email: "",
+        password: "",
+      });
+      errors.firstTry = false;
+    }
+    if(errors.firstTry){
+      alert('Complete the required fields');
+    }
   };
 
   const handleChangeRecoveredPassword = (e) => {
@@ -93,7 +109,14 @@ export const Login = () => {
     });
   }
 
-
+  const handleCheckErrors = (e) => {
+    e.preventDefault();
+    setErrors(validate({
+        ...user,
+        [e.target.name]: e.target.value,
+    }))
+    handleSubmit(e)
+}
   
 
   return (
@@ -202,6 +225,7 @@ export const Login = () => {
             >
               <div>
                 <input
+                  id="inputEmail"
                   type="text"
                   placeholder="Email"
                   className="right-input--login"
@@ -210,7 +234,7 @@ export const Login = () => {
                   onChange={(e) => handleChange(e)}
                   autoComplete='off'
                 />
-               
+                {errors.email && (<p className='errorMessage'>{errors.email}</p>)}
                 <input
                   type="password"
                   placeholder="Password"
@@ -219,8 +243,9 @@ export const Login = () => {
                   value={user.password}
                   onChange={(e) => handleChange(e)}
                 />
+                {errors.password && (<p className='errorMessage'>{errors.password}</p>)}
               </div>
-              <button className="btnLogin--login" type="submit">
+              <button className="btnLogin--login" type="submit" onClick={e => handleCheckErrors(e)}>
                 Login
               </button>
 

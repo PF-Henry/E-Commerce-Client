@@ -176,6 +176,12 @@
     color: #1c004a;
 }
 
+.errorMessage {
+    color: red;
+    font-size: 8px;
+    margin: 0;
+}
+
 .close {
     border: none;
     background-color: #1c004a;
