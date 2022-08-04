@@ -71,16 +71,16 @@ export const SignIn = () => {
 
   return (
     <div className="padding-container">
-      {error ? (
-        <div className="message-container--login error ">
+      {error && (
+        <div className="message-container--login alert alert-danger">
           <p>{error}</p>
         </div>
-      ) : null}
-      {message ? (
-        <div className="message-container--login success ">
+      )}
+      {message && (
+        <div className="message-container--login alert alert-success ">
           <p>{message}</p>
         </div>
-      ) : null}
+      )}
       <div className="login-container">
         <div className="section-title">
           <h5 className="section-title--title mt-3">Register</h5>

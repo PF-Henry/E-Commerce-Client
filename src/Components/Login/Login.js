@@ -95,7 +95,7 @@ export const Login = () => {
 
   const handleRecoverPassword = (e) => {
     e.preventDefault(e);
- dispatch(resetError());
+    dispatch(resetError());
     dispatch(resetMsg());
     dispatch(recoverPasswordAsync(userEmail));
     setUserEmail({
@@ -182,18 +182,14 @@ export const Login = () => {
       </div>
 
       {error && (
-        <div className="message-container--login error ">
+        <div className="message-container--login alert alert-danger">
           <p>{error}</p>
         </div>
       )}
 
-      {message ? (
-        <div className="message-container--login success ">
+      {message && (
+        <div className="message-container--login alert alert-success">
           <p>{message}</p>
-        </div>
-      ) : (
-        <div className="message-container--login disable ">
-          <p></p>
         </div>
       )}
       <div className="login-container--login">
