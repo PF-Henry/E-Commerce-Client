@@ -170,12 +170,12 @@
     user-select: none;
 }
 
-.modal-title {
+.modal-title2 {
     font-size: 35px;
     color: #1c004a;
 }
 
-.close {
+.close2 {
     border: none;
     background-color: #1c004a;
     color: white;
@@ -188,21 +188,21 @@
     transition: 1s ease all;
 }
 
-.close:hover {
+.close2:hover {
     background-color: #fff;
     border: 2px solid #1c004a;
     color: red;
 }
 
-.modal-body {
+.modal-body2 {
     padding: 50px 0;
 }
 
-.modal-body p {
+.modal-body2 p {
     font-size: 24px;
 }
 
-.modal-body input {
+.modal-body2 input {
     width: 200px;
     border-radius: 5px;
     border: 1px solid #507cc0;
@@ -219,7 +219,7 @@
     font-size: 14px;
 }
 
-.modal-footer {
+.modal-footer2 {
     background-color: #1c004a;
     display: flex;
     justify-content: space-around;

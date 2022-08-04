@@ -21,7 +21,7 @@ export const Login = () => {
   const role = useSelector((state) => state.products.role);
   const error = useSelector((state) => state.products.error);
   const message = useSelector((state) => state.products.msg);
-  
+
   useEffect(() => {
     dispatch(registerGoogleAsync());
     return () => {
@@ -84,7 +84,7 @@ export const Login = () => {
     });
 
   };
-  
+
   const handleRecoverPassword = (e) => {
     e.preventDefault(e);
     dispatch(recoverPasswordAsync(userEmail))
@@ -101,25 +101,26 @@ export const Login = () => {
     <div className="modal fade" id="exampleModalCenter" tabIndex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div className="modal-dialog modal-dialog-centered" role="document">
         <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalLongTitle">Recover Password</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+          <div className="modal-header bg-light">
+            <h5 className="modal-title modal-title2" id="exampleModalLongTitle">Recover Password</h5>
+            <button type="button" className="close close2" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">
-            <p>Enter your email:</p>
-            <form id="formRecoverPassword">
-              <input 
-                placeholder="email"
-                type='email' 
+          <div className="modal-body modal-body2">
+            <p className="mb-1">Enter your email:</p>
+            <form id="formRecoverPassword" className="d-flex justify-content-center">
+              <input
+                placeholder="name@example.com"
+                type='email'
                 name="email"
                 value={userEmail.email}
                 onChange={(e) => handleChangeRecoveredPassword(e)}
+                className="form-control"
               />
             </form>
           </div>
-          <div className="modal-footer">
+          <div className="modal-footer modal-footer2">
             <NavLink
               to="/"
               className="navbar-brand text-white d-flex align-items-center letter-spacing"
@@ -128,7 +129,7 @@ export const Login = () => {
               <div className="fs-4 pb-1">exa</div>
               <div className="fw-bold text-aqua fs-4 pb-1">tech</div>
             </NavLink>
-            <button onClick={(e) => handleRecoverPassword(e)}  type="submit" className="btn btn-primary" data-dismiss="modal">Submit</button>
+            <button onClick={(e) => handleRecoverPassword(e)}  type="submit" className="btn btn-aqua" data-dismiss="modal">Submit</button>
           </div>
         </div>
       </div>
@@ -225,7 +226,7 @@ export const Login = () => {
                 <p className="p_Modal" data-toggle="modal" data-target="#exampleModalCenter"> Recover Password </p>
               </div>
 
-              
+
 
 
             </form>
