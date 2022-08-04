@@ -16,6 +16,7 @@ import {
   createProductError,
   resetError,
   resetMsg,
+  getAllDBProductsAsync,
 } from "../../Redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
 import "./FormProduct.css";
@@ -259,10 +260,13 @@ export default function FormProduct(props) {
 
     if (Object.keys(errors).length === 0) {
       //console.log(input);
-        if (props.id === 0) dispatch(createProductAsync(input)); // alta de producto
+        if (props.id === 0){
+          dispatch(createProductAsync(input)); // alta de producto
+        } ;
         if (props.id > 0){    //  ----------------- // update de producto
           dispatch(updateProductAsync(props.id, input));
         } 
+        
     } else {
       const newError = "Form incomplete. Please check the errors.";
       dispatch(createProductError(newError));

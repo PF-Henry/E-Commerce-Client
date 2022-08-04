@@ -26,7 +26,7 @@ const AdminOrders = () => {
         <div className="mb-2 mx-auto mb-lg-0 d-flex justify-content-center searchAdmin">
           <SearchbarOrders content="id" />
         </div>
-        <div className="d-flex justify-content-evenly flex-wrap">
+        <div className="justify-content-evenly flex-wrap">
           <OrdersTableAdmin orders={allOrdersAdmin} />
         </div>
       </div>

@@ -457,6 +457,7 @@ export const createProductAsync = (updateProduct) => (dispatch) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
       } else {
+        dispatch(getAllDBProductsAsync());
         dispatch(createProductMsg(response.data.msg));
       }
     }) // cacth generar un dispatch un error
@@ -492,6 +493,7 @@ export const updateProductAsync = (id, updateProduct) => (dispatch) => {
       if (response.data.error) {
         dispatch(createProductError(response.data.error));
       } else {
+        dispatch(getAllDBProductsAsync());
         dispatch(createProductMsg(response.data.msg));
       }
     }) // cacth generar un dispatch un error
