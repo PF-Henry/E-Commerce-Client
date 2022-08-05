@@ -12,7 +12,7 @@ import "./ProductDetail.css";
 import optionsArray from "../../Functions/optionsArray";
 import { Spinner } from "../Spinner/Spinner";
 import pesos from "../../Functions/currency";
-import { FcRating } from "react-icons/fc";
+import { HiStar } from "react-icons/hi";
 
 export const ProductDetail = () => {
   const navigate = useNavigate();
@@ -114,8 +114,6 @@ export const ProductDetail = () => {
           <Spinner />
         </div>
       ) : (
-        
-        
         <div className="div-container">
           <div className="div-space"></div>
           <div className="div-container-header">
@@ -277,8 +275,7 @@ export const ProductDetail = () => {
             <div className="divSepareted"></div>
 
             <div className="div-info-technical-decription">
-              <h3 className="div-info-technical-decription--title">Reviews</h3>
-              {" "}
+              <h3 className="div-info-technical-decription--title">Reviews</h3>{" "}
               {productDetails.reviews.length === 0 ? (
                 <p className="div-info-technical-decription--p">
                   {" "}
@@ -286,51 +283,64 @@ export const ProductDetail = () => {
                 </p>
               ) : (
                 productDetails.reviews.map((review) => (
-                  <div className="div-info-technical-decription--review border-bottom mb-4" key={review.id}>
-                    
-                    <p className="div-info-technical-decription--review-description d-flex">
+                  <div
+                    className="div-info-technical-decription--review border-bottom mb-4"
+                    key={review.id}
+                  >
+                    <div className="div-info-technical-decription--review-description d-flex">
                       {" "}
                       {/* // mostrar rating con estrellas  */}
-
                       {review.rating === 1 ? (
                         <div className="pt-5 pb-5">
-                            <FcRating size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
                         </div>
                       ) : review.rating === 2 ? (
-                          <div>
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                          </div>
+                        <div>
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                        </div>
                       ) : review.rating === 3 ? (
                         <div>
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
                         </div>
-                      ): review.rating === 4 ? (
+                      ) : review.rating === 4 ? (
                         <div>
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gray" size={"1.5rem"} />
                         </div>
-                      ): review.rating === 5 ? (
+                      ) : review.rating === 5 ? (
                         <div>
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                            <FcRating size={"1.5rem"} />
-                        </div>) : (<div></div>)
-                      }
-                    </p>
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                          <HiStar color="gold" size={"1.5rem"} />
+                        </div>
+                      ) : (
+                        <div></div>
+                      )}
+                    </div>
                     <p className="div-info-technical-decription--review-title">
                       {" "}
                       {review.content}
                     </p>
                   </div>
-                      )))}
-
+                ))
+              )}
             </div>
           </div>
         </div>
